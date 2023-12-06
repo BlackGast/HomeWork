@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "CommonJS",
+      "outDir": "out",
+      "sourceMap": true, 
+      "resolveJsonModule": true,
+      "lib": ["DOM"]
+    }
+  }
