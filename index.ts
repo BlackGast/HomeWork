@@ -1,10 +1,14 @@
 import { IQestion } from './model/IQuestion';
 import { ISurveyModel } from './model/ISurveyModel';
 import { QuestionType } from './model/QeustionType';
+import { ParserJSON } from './src/ParserJSON';
+import { Survey } from './src/Survey';
 import * as test from './src/question.json';
 
-console.log(test);
+console.log(typeof test);
 
+const tmp = ParserJSON.parseToString(test);
+console.log(tmp);
 
 // const tmp: string = JSON.stringify(test);
 // console.log(tmp);
