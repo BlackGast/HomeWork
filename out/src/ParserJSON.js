@@ -3,17 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParserJSON = void 0;
 // Парсер и распарсер JSON
 class ParserJSON {
-    static parseToString(test) {
-        throw new Error('Method not implemented.');
-    }
-    //Распарсер в объект
+    //Парсер в объект
     static parseToJSON(json) {
-        const parsedData = JSON.parse(json);
-        //console.log(parsedData);
+        return JSON.parse(json);
     }
-    //Парсер в JSON
-    parseToString(data) {
-        return JSON.stringify(data.model);
+    //Парсер в строку
+    static parseToString(data) {
+        return JSON.stringify(data);
     }
 }
 exports.ParserJSON = ParserJSON;

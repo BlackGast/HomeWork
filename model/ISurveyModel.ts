@@ -1,9 +1,9 @@
-import { IQestion } from "./IQuestion";
+import { IQuestion } from "./IQuestion";
 
 // Интерфейс модели опроса
 
 export interface ISurveyModel {
-    tests: string;
+    title: string;
     description: string;
-    questions: IQestion[];
+    questions: IQuestion[];
 }

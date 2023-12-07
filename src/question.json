@@ -1,5 +1,5 @@
 {
-    "tests": {
+    "model": {
       "title": "Мой опрос",
       "description": "Описание опроса",
       "questions": [

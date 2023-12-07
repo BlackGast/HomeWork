@@ -2,9 +2,9 @@ import { QuestionType } from "./QeustionType";
 
 // Интерфейс модели вопроса, где есть необязательные части
 
-export interface IQestion {
+export interface IQuestion {
     id: number;
-    type: QuestionType;
+    type: string;
     question: string;
     options?: string[];
     min?: number;
