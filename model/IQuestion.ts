@@ -5,7 +5,7 @@ import { QuestionType } from "./QeustionType";
 export interface IQuestion {
     id: number;
     type: string;
-    question: string;
+    question: QuestionType | string;
     options?: string[];
     min?: number;
     max?: number;
