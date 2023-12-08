@@ -1,10 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Question = void 0;
 class Question {
-    static questionData;
-    static updateQuestion = (newTitle, newDescription, newId, newType, newQuestion, newOptions, newMin, newMax, newPlaceholder) => {
-        this.questionData.model.title = newTitle;
-        this.questionData.model.description = newDescription;
-    };
+    id;
+    type;
+    question;
+    options;
+    min;
+    max;
+    placeholder;
+    updateQuestion(data) {
+        this.id = data.id;
+        this.type = data.type;
+        this.question = data.question;
+        this.options = data.options;
+        this.min = data.min;
+        this.max = data.max;
+        this.placeholder = data.placeholder;
+    }
+    updateQuestionProperty(value, propertyName) {
+        this[propertyName] = value;
+    }
 }
+exports.Question = Question;
+//const tmp = new Question ()
 //# sourceMappingURL=Question.js.map

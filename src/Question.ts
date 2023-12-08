@@ -1,21 +1,27 @@
 import { IQuestion } from "../model/IQuestion";
 import { QuestionType } from "../model/QeustionType";
-import { Survey } from "./Survey";
 
-class Question {
-    static questionData: Survey;
+export class Question {
+    private id: number;
+    private type: QuestionType | string;
+    private question: string;
+    private options: string[];
+    private min: number;
+    private max: number;
+    private placeholder: string;
 
-    public static updateQuestion = (newTitle?: string,
-                                    newDescription?: string,
-                                    newId?: number,
-                                    newType?: QuestionType | string,
-                                    newQuestion?: string,
-                                    newOptions?: string[],
-                                    newMin?: number,
-                                    newMax?: number,
-                                    newPlaceholder?: string) => {
-        this.questionData.model.title = newTitle;
-        this.questionData.model.description = newDescription;
-        
+    updateQuestion(data: IQuestion): void {
+        this.id = data.id;
+        this.type = data.type;
+        this.question = data.question;
+        this.options = data.options;
+        this.min = data.min;
+        this.max = data.max;
+        this.placeholder = data.placeholder;
+    }
+
+    updateQuestionProperty(value: any, propertyName: string): void {
+        this[propertyName] = value;
     }
 }
+//const tmp = new Question ()
