@@ -4,6 +4,7 @@ import { QuestionType } from "../../model/QuestionType";
 
 export class QuestionBase implements IQuestionData {
     // Свойства вопроса
+    // id можно заменить на GUID
     public id: number;
     public title: string;
     public description: string;
