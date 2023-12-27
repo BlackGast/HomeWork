@@ -1,28 +1,26 @@
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "./QuestionBase";
 
-export class QuestionText extends QuestionBase {
-    public asDescription: boolean;
-    public isMultiline: boolean;
+export class QuestionNumber extends QuestionBase {
     public placeholder: string;
+    public isMultiline: boolean;
 
     constructor(data: IQuestionData) {
         super(data);
-        this.type = 'Text';
+        this.type = 'Number';
         this.title = '';
         this.description = '';
-        this.asDescription = false;
         this.readOnly = false;
         this.answer = '';
-        this.isMultiline = false;
         this.placeholder = '';
+        this.isMultiline = false;
     }
 
     public override getValue() {
         return this.answer;
     }
 
-    public override setValue(newValue: string) {
+    public setValue(newValue: any) {
         this.answer = newValue;
     }
 }

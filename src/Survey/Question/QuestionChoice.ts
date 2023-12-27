@@ -11,6 +11,11 @@ export class QuestionChoice extends QuestionBase {
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Choice';
+        this.title = '';
+        this.readOnly = false;
+        this.isMultiple = true;
+        this._choices = [];
+
         //...
     }
 
