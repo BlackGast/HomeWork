@@ -28,6 +28,7 @@ export class Panel {
         // TODO: Добавить в панель вопросы в соотвествии с data
         if (data.type === 'Choice') {
             const question = new QuestionChoice(data);
+            
         }
     }
 

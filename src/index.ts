@@ -28,4 +28,14 @@ model.pages.forEach(page => {
         ]
     });
     console.log(page);
+    page.addPanel({
+        id: 2,
+        title: 'Вопрос',
+        description: 'Описание',
+        questions: [
+            { id: 1, title: 'Question 1', type: 'Text' }
+        ]
+    });
+    console.log(page);
+
 })

@@ -19,12 +19,17 @@ export class Page {
     }
 
     public addPanel = (data: IPanelData) => {
+        this.id = data.id;
+        this.title = data.title;
+        this.description = data.description;
+        //this.panels = data.;
         // TODO: Добавить новую пустую панель или панель по входным данным, если имеется data
     }
 
     public getPanels(): Panel[] {
         // TODO: Вернуть все панели на странице
-        return [];
+        return this.panels;
+        //было return [];
     }
 
     public getPanelById(id: number): Panel | undefined {
