@@ -2,6 +2,8 @@ import { IPanelData } from "../../model/IPanelData";
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "../Question/QuestionBase";
 import { QuestionChoice } from "../Question/QuestionChoice";
+import { QuestionSelect } from "../Question/QuestionSelect";
+import { QuestionText } from "../Question/QuestionText";
 
 /**
  * Используется для группировки вопросов в UI
@@ -28,13 +30,19 @@ export class Panel {
         // TODO: Добавить в панель вопросы в соотвествии с data
         if (data.type === 'Choice') {
             const question = new QuestionChoice(data);
-            
+            this.questions.push(question);
+        } else if (data.type === 'Select') {
+            const question = new QuestionSelect(data);
+            this.questions.push(question);
+        } else if (data.type === 'Text') {
+            const question = new QuestionText(data);
+            this.questions.push(question);
         }
     }
 
     public getQuestions(): QuestionBase[] {
         // TODO: вернуть вопросы
-        return [];
+        return this.questions;
     }
 
     public getQuestionById(id: number): QuestionBase | undefined {

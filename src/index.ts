@@ -21,21 +21,14 @@ console.log(model);
 model.pages.forEach(page => {
     page.addPanel({
         id: 1,
-        title: '',
-        description: '',
-        questions: [
-            { id: 1, title: 'Question 1', type: 'Text' }
-        ]
-    });
-    console.log(page);
-    page.addPanel({
-        id: 2,
         title: 'Вопрос',
         description: 'Описание',
         questions: [
-            { id: 1, title: 'Question 1', type: 'Text' }
+            { id: 1, title: 'Question 1', type: 'Text' },
+            { id: 2, title: 'Question 2', type: 'Choice' }
         ]
     });
-    console.log(page);
-
+    page.getPanels();
+    console.log(page.getPanels());
+    console.log(model);
 })
