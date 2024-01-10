@@ -1,4 +1,3 @@
-
 import { IChoice } from "../../model/formElements/IChoice";
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "./QuestionBase";

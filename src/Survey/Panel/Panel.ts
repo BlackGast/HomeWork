@@ -2,6 +2,8 @@ import { IPanelData } from "../../model/IPanelData";
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "../Question/QuestionBase";
 import { QuestionChoice } from "../Question/QuestionChoice";
+import { QuestionDate } from "../Question/QuestionDate";
+import { QuestionNumber } from "../Question/QuestionNumber";
 import { QuestionSelect } from "../Question/QuestionSelect";
 import { QuestionText } from "../Question/QuestionText";
 
@@ -24,6 +26,15 @@ export class Panel {
         this.description = data.description;
         this.questions = [];
         this.columns = 1;
+        
+        if (typeof data.questions === 'string' ) {
+            const questionData = JSON.parse(data.questions);
+            this.addQuestion(questionData);
+        } else if (data.questions.length) {
+            for (const element of data.questions) {
+                this.addQuestion(element)
+            }
+        }
     }
 
     public addQuestion = (data: IQuestionData) => {
@@ -36,6 +47,12 @@ export class Panel {
             this.questions.push(question);
         } else if (data.type === 'Text') {
             const question = new QuestionText(data);
+            this.questions.push(question);
+        } else if (data.type === 'Number') {
+            const question = new QuestionNumber(data);
+            this.questions.push(question);
+        } else if (data.type === 'Date') {
+            const question = new QuestionDate(data);
             this.questions.push(question);
         }
     }

@@ -27,7 +27,7 @@ export class QuestionBase implements IQuestionData {
     }
 
     public getValue() {
-        // Базовый метод для получения значения ответа
+        // Базовый метод для получения значения ответа   
     }
 
     public setValue(newValue: any) {
