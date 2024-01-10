@@ -56,7 +56,7 @@
               "id": 2,
               "title": "QuestionChoice",
               "type": "Choice",
-              "_choices": [
+              "choices": [
                 {
                   "id": 1,
                   "label": "Ch_1",

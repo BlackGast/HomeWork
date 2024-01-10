@@ -2,6 +2,8 @@ import { DataManager } from "../DataManager/DataManager";
 import { IPageData } from "../model/IPageData";
 import { ISurveyModel } from "../model/ISurveyModel";
 import { Page } from "./Page/Page";
+import { Panel } from "./Panel/Panel";
+import { QuestionBase } from "./Question/QuestionBase";
 
 class Survey {
     private _dataManager: DataManager;
@@ -27,10 +29,18 @@ class Survey {
             this._model.title = modelJSON.title ?? '';
             this._model.description = modelJSON.description ?? '';
             const pages: Page[] = [];
+            let i = 0;
             modelJSON.pages?.forEach((page: IPageData) => {
                 const pageModel = new Page(page);
                 const panels = page.panels;
                 if (panels.length) {
+                    for (const question of panels) {
+                        console.log(question);
+                        console.log('');
+                        pageModel.addPanel(question);
+                        i++;
+                    }
+                    
                     // Добавить новые панели с вопросами
                 }
                 pages.push(pageModel);

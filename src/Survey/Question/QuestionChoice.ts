@@ -13,10 +13,23 @@ export class QuestionChoice extends QuestionBase {
         this.title = '';
         this.readOnly = false;
         this.isMultiple = true;
-        this._choices = [];
-
-        //...
+        this._choices = this.createChoice() ;
     }
+
+
+    private createChoice() {
+        const choices: IChoice[] = [];
+        if (choices.length) {
+            for (let i = 0; i < choices.length; i++) {
+                // this.choices[i].id = choices[i].id;
+                // this.choices[i].label = choices[i].label;
+                // this.choices[i].checked = choices[i].checked;
+                // this.choices[i].disabled = choices[i].disabled;
+                }
+            }
+            return choices;
+        }
+    
 
     public override getValue() {
         // Вернуть текущие чойсы.
