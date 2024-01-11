@@ -1,6 +1,6 @@
 export class DataManager {
     constructor() {
-
+        
     }
 
     public stringToJSON(str: string) {

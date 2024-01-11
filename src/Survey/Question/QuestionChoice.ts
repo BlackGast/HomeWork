@@ -1,6 +1,7 @@
 import { IChoice } from "../../model/formElements/IChoice";
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "./QuestionBase";
+import { v4 as uuidv4 } from 'uuid';
 
 export class QuestionChoice extends QuestionBase {
     // Специфическое поле для этого типа вопроса. Остальные будут унаследованы из базового класса.
@@ -13,24 +14,25 @@ export class QuestionChoice extends QuestionBase {
         this.title = '';
         this.readOnly = false;
         this.isMultiple = true;
-        this._choices = this.createChoice() ;
+        this._choices = this.createChoice(data.choices);
     }
 
-
-    private createChoice() {
-        const choices: IChoice[] = [];
-        if (choices.length) {
-            for (let i = 0; i < choices.length; i++) {
-                // this.choices[i].id = choices[i].id;
-                // this.choices[i].label = choices[i].label;
-                // this.choices[i].checked = choices[i].checked;
-                // this.choices[i].disabled = choices[i].disabled;
+    private createChoice(data: IChoice[]) {
+        const choice: IChoice[] = [];
+            if (data?.length) {
+                for (let i = 0; i < data.length; i++) {
+                    const choiceObj: IChoice = {
+                        id: data[i].id,
+                        title: data[i].title,
+                        checked: data[i].checked,
+                        disabled: data[i].disabled,
+                    }
+                    choice.push(choiceObj);
                 }
             }
-            return choices;
-        }
+        return choice;
+    }
     
-
     public override getValue() {
         // Вернуть текущие чойсы.
         /* 
@@ -41,7 +43,7 @@ export class QuestionChoice extends QuestionBase {
         В случае записи значения в модель будет применяться локальный метод setValue, который распарсит входную строку
         в необходимый формат.
         */
-        return this._choices;
+       return this._choices
     }
 
     public override setValue(newValue: any) {

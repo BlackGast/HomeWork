@@ -29,16 +29,14 @@ class Survey {
             this._model.title = modelJSON.title ?? '';
             this._model.description = modelJSON.description ?? '';
             const pages: Page[] = [];
-            let i = 0;
             modelJSON.pages?.forEach((page: IPageData) => {
                 const pageModel = new Page(page);
                 const panels = page.panels;
                 if (panels.length) {
                     for (const question of panels) {
-                        console.log(question);
+                        console.log(question); //Отладочные
                         console.log('');
                         pageModel.addPanel(question);
-                        i++;
                     }
                     
                     // Добавить новые панели с вопросами

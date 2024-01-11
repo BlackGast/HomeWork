@@ -30,7 +30,7 @@
       }
     ]
   }
-}
+} 
 
 {
   "title": "Title",
@@ -50,6 +50,46 @@
             {
               "id": 1,
               "title": "QuestionText",
+              "type": "Text",
+              "placeholder": "enter"
+            },
+            {
+              "id": 2,
+              "title": "QuestionChoice",
+              "type": "Choice",
+              "choices": [
+                {
+                  "id": 1,
+                  "title": "Ch_1",
+                  "checked": false,
+                  "disabled": false
+                },
+                {
+                  "id": 2,
+                  "title": "Ch_2",
+                  "checked": false,
+                  "disabled": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "title": "Title",
+  "description": "Description",
+  "pages": [
+    {
+      "panels": [
+        {
+          "questions": [
+            {
+              "id": 1,
+              "title": "QuestionText",
               "type": "Text"
             },
             {
@@ -59,13 +99,13 @@
               "choices": [
                 {
                   "id": 1,
-                  "label": "Ch_1",
+                  "title": "Ch_1",
                   "checked": false,
                   "disabled": false
                 },
                 {
                   "id": 2,
-                  "label": "Ch_2",
+                  "title": "Ch_2",
                   "checked": false,
                   "disabled": false
                 }
