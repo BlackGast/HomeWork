@@ -18,6 +18,8 @@ export class QuestionText extends QuestionBase {
         this.placeholder = '';
     }
 
+    
+
     public override getValue() {
         return this.answer;
     }

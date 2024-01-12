@@ -14,7 +14,13 @@ export class QuestionChoice extends QuestionBase {
         this.title = '';
         this.readOnly = false;
         this.isMultiple = true;
+        this.answer = '';
         this._choices = this.createChoice(data.choices);
+    }
+
+    private fillCells () {
+        //сделать заполнение ячеек
+    
     }
 
     private createChoice(data: IChoice[]) {

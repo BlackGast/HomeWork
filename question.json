@@ -71,6 +71,35 @@
                   "disabled": false
                 }
               ]
+            },
+            {
+              "id": 3,
+              "title": "QuestionDate",
+              "type": "Date"
+            },
+            {
+              "id": 4,
+              "title": "QuestionSelect",
+              "type": "Select",
+              "selects": [
+                {
+                  "id": 1,
+                  "title": "S_1",
+                  "checked": false,
+                  "selected": false
+                },
+                {
+                  "id": 2,
+                  "title": "S_2",
+                  "checked": false,
+                  "selected": false
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "title": "QuestionNumber",
+              "type": "Number"
             }
           ]
         }
