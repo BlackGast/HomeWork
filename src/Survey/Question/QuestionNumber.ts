@@ -8,9 +8,9 @@ export class QuestionNumber extends QuestionBase {
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Number';
-        this.title = '';
-        this.description = '';
-        this.readOnly = false;
+        this.title = data.title || '';
+        this.description = data.description || '';
+        this.readOnly = data.readOnly || false;
         this.answer = '';
         this.placeholder = '';
         this.isMultiline = false;

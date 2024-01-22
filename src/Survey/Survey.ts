@@ -34,8 +34,8 @@ class Survey {
                 const panels = page.panels;
                 if (panels.length) {
                     for (const question of panels) {
-                        console.log(question); //Отладочные
-                        console.log('');
+                        // console.log(question); //Отладочные
+                        // console.log('');
                         pageModel.addPanel(question);
                     }
                     

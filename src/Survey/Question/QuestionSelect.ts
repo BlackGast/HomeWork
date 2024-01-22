@@ -8,10 +8,10 @@ export class QuestionSelect extends QuestionBase {
     constructor (data: IQuestionData) {
         super(data);
         this.type = 'Select';
-        this.title = '';
-        this.description = '';
+        this.title = data.title || '';
+        this.description = data.description || '';
         this.answer = '';
-        this.readOnly = false;
+        this.readOnly = data.readOnly || false;
         this._selects = this.createSelect(data.selects)
     }
 

@@ -1,5 +1,6 @@
 import { IChoice } from "../../model/formElements/IChoice";
 import { IQuestionData } from "../../model/IQuestionData";
+import { Utils } from "../Utils";
 import { QuestionBase } from "./QuestionBase";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,16 +12,11 @@ export class QuestionChoice extends QuestionBase {
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Choice';
-        this.title = '';
-        this.readOnly = false;
+        this.title = data.title || '';
+        this.readOnly = data.readOnly || false;
         this.isMultiple = true;
         this.answer = '';
         this._choices = this.createChoice(data.choices);
-    }
-
-    private fillCells () {
-        //сделать заполнение ячеек
-    
     }
 
     private createChoice(data: IChoice[]) {
@@ -28,7 +24,7 @@ export class QuestionChoice extends QuestionBase {
             if (data?.length) {
                 for (let i = 0; i < data.length; i++) {
                     const choiceObj: IChoice = {
-                        id: data[i].id,
+                        id: Utils.generateGUID(),
                         title: data[i].title,
                         checked: data[i].checked,
                         disabled: data[i].disabled,
@@ -49,7 +45,11 @@ export class QuestionChoice extends QuestionBase {
         В случае записи значения в модель будет применяться локальный метод setValue, который распарсит входную строку
         в необходимый формат.
         */
-       return this._choices
+        let choices: IChoice[] = [];
+        if (this._choices?.length) {
+            choices = this._choices;
+        }
+        console.log(choices);
     }
 
     public override setValue(newValue: any) {

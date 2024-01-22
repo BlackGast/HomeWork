@@ -6,6 +6,7 @@ import { QuestionDate } from "../Question/QuestionDate";
 import { QuestionNumber } from "../Question/QuestionNumber";
 import { QuestionSelect } from "../Question/QuestionSelect";
 import { QuestionText } from "../Question/QuestionText";
+import { Utils } from "../Utils";
 
 /**
  * Используется для группировки вопросов в UI
@@ -21,7 +22,7 @@ export class Panel {
         // data может быть или JSON или string
         // TODO: Заполнить поля класса из data(если есть), сделать новые экземпляры класса Question, если таковые есть в data
         // Записать массив с Question в this.questions
-        this.id = data.id;
+        this.id = Utils.generateGUID();
         this.title = data.title;
         this.description = data.description;
         this.questions = [];

@@ -1,5 +1,6 @@
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionType } from "../../model/QuestionType";
+import { Utils } from "../Utils";
 
 
 export class QuestionBase implements IQuestionData {
@@ -16,7 +17,7 @@ export class QuestionBase implements IQuestionData {
 
     constructor(data: IQuestionData) {
         // Записать поля из data, если есть
-        this.id = 1;
+        this.id = Utils.generateGUID();
         this.type = 'Text';
         this.title = '';
         this.description = '';

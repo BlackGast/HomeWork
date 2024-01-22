@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export class Utils {
-    public generateGUID () {
+    public static generateGUID () {
         return uuidv4()
     }
 }
