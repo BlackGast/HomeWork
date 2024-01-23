@@ -11,9 +11,9 @@ survey.createModel('{"title":"Title","description":"Description","pages":[{"id":
 console.log(survey);
 //console.log(survey.getModel().pages[0].panels[0].questions[1].getValue());
 //survey.getModel().pages[0].panels[0].questions[1].setValue('answer');
-console.log(survey.getModel().pages[0].panels[0].questions[1].setFieldByName('title', 'texttt', 0));
+//console.log(survey.getModel().pages[0].panels[0].questions[1].setFieldByName('title', 'texttt', 0));
 
-survey.getModel().pages[0].panels[0].questions[1].setFieldByName('title', 'texttt', 0);
+survey.getModel().pages[0].panels[0].questions[1].setFieldByName('title', 'texttt', 1);
 console.log(survey.getModel().pages[0].panels[0].questions[1]);
 
 

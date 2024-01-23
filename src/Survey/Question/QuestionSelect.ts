@@ -39,6 +39,16 @@ export class QuestionSelect extends QuestionBase {
         return selects;
     }
 
+    public override setFieldByName (fieldName: string, newValue: any, index: number) {
+        if (index >= 0 && index < this._selects.length) {
+            const choice = this._selects[index];
+            if (fieldName in choice) {
+                choice[fieldName] = newValue;
+            }
+        }
+        //this._choices[index][fieldName as keyof IChoice] = newValue;
+    }
+
     public setValue(newValue: any) {
         this.answer = newValue;
     }
