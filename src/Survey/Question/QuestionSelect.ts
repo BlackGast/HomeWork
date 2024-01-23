@@ -32,10 +32,14 @@ export class QuestionSelect extends QuestionBase {
     }
 
     public override getValue() {
-        return this._selects;
+        let selects: ISelectAnswer[] = [];
+        if (this._selects?.length) {
+            selects = [...this._selects]
+        }
+        return selects;
     }
 
     public setValue(newValue: any) {
-        this._selects = newValue;
+        this.answer = newValue;
     }
 }

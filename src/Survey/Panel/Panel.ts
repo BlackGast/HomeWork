@@ -12,7 +12,7 @@ import { Utils } from "../Utils";
  * Используется для группировки вопросов в UI
  */
 export class Panel {
-    public id: number;
+    public id: string;
     public title: string;
     public description: string;
     public columns: number;
@@ -63,7 +63,7 @@ export class Panel {
         return this.questions;
     }
 
-    public getQuestionById(id: number): QuestionBase | undefined {
+    public getQuestionById(id: string): QuestionBase | undefined {
         // TODO: Вернуть вопрос по ID
         return this.questions.find(question => question.id === id);
     }

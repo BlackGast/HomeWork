@@ -2,7 +2,6 @@ import { IChoice } from "../../model/formElements/IChoice";
 import { IQuestionData } from "../../model/IQuestionData";
 import { Utils } from "../Utils";
 import { QuestionBase } from "./QuestionBase";
-import { v4 as uuidv4 } from 'uuid';
 
 export class QuestionChoice extends QuestionBase {
     // Специфическое поле для этого типа вопроса. Остальные будут унаследованы из базового класса.
@@ -47,13 +46,17 @@ export class QuestionChoice extends QuestionBase {
         */
         let choices: IChoice[] = [];
         if (this._choices?.length) {
-            choices = this._choices;
+            choices = [...this._choices];
         }
-        console.log(choices);
+        return choices;
+    }
+
+    public override setFieldByName (fieldName: string, newValue: any, index: number) {
+        //this._choices[index][fieldName as keyof IChoice] = newValue;
     }
 
     public override setValue(newValue: any) {
         // Записать новые чойсы
-        this._choices = newValue;
+        this.answer = newValue;
     }
 }

@@ -2,8 +2,6 @@ import { DataManager } from "../DataManager/DataManager";
 import { IPageData } from "../model/IPageData";
 import { ISurveyModel } from "../model/ISurveyModel";
 import { Page } from "./Page/Page";
-import { Panel } from "./Panel/Panel";
-import { QuestionBase } from "./Question/QuestionBase";
 
 class Survey {
     private _dataManager: DataManager;

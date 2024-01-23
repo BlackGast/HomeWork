@@ -6,7 +6,7 @@ import { Utils } from "../Utils";
 export class QuestionBase implements IQuestionData {
     // Свойства вопроса
     // id можно заменить на GUID
-    public id: number;
+    public id: string;
     public title: string;
     public description: string;
     public type: QuestionType;
@@ -43,6 +43,10 @@ export class QuestionBase implements IQuestionData {
     public getPropertyByName(name: string): any {
         // Базовый метод получения значения поля
         return this[name as keyof this];
+    }
+
+    public setFieldByName(fieldName: string, newValue: any, index: number) { 
+        /* TODO document why this method 'setFieldByName' is empty */ 
     }
 
     // Колбэк, который будет вызывать метод из контекста, в котором выполняется Survey.

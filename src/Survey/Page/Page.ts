@@ -6,7 +6,7 @@ import { Panel } from "../Panel/Panel";
  * Используется для группировки вопросов в UI
  */
 export class Page {
-    public id: number;
+    public id: string;
     public title: string;
     public description: string;
     public panels: Panel[];
@@ -30,7 +30,7 @@ export class Page {
         //было return [];
     }
 
-    public getPanelById(id: number): Panel | undefined {
+    public getPanelById(id: string): Panel | undefined {
         //TODO: Вернуть панель по ID
         return this.panels.find(panel => panel.id === id);
     }
