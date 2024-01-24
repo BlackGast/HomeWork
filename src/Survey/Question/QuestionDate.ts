@@ -1,12 +1,13 @@
 import { IQuestionData } from "../../model/IQuestionData";
 import { QuestionBase } from "./QuestionBase";
+import { Validator } from "../Validator/Validator";
 
 export class QuestionDate extends QuestionBase {
 
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Date';
-        this.title =  data.title || '';
+        this.title = data.title || '';
         this.description = data.description || '';
         this.readOnly = data.readOnly || false;
         this.answer = '';
@@ -17,6 +18,10 @@ export class QuestionDate extends QuestionBase {
     }
 
     public setValue(newValue: string) {
-        this.answer = newValue
+        if (Validator.validDate(newValue)) {
+            this.answer = newValue
+        } else {
+            console.log("Ошибка"); //здесь нужно реализовать вывод на экран ошибки с валидацией  
+        }
     }
 }

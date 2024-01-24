@@ -1,4 +1,5 @@
 import { IQuestionData } from "../../model/IQuestionData";
+import { Validator } from "../Validator/Validator";
 import { QuestionBase } from "./QuestionBase";
 
 export class QuestionNumber extends QuestionBase {
@@ -21,6 +22,10 @@ export class QuestionNumber extends QuestionBase {
     }
 
     public setValue(newValue: any) {
-        this.answer = newValue;
+        if (Validator.validNum(newValue)) {
+            this.answer = newValue
+        } else {
+            console.log("Ошибка"); //здесь нужно реализовать вывод на экран ошибки с валидацией  
+        }
     }
 }

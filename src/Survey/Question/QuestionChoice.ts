@@ -20,20 +20,20 @@ export class QuestionChoice extends QuestionBase {
 
     private createChoice(data: IChoice[]) {
         const choice: IChoice[] = [];
-            if (data?.length) {
-                for (let i = 0; i < data.length; i++) {
-                    const choiceObj: IChoice = {
-                        id: Utils.generateGUID(),
-                        title: data[i].title,
-                        checked: data[i].checked,
-                        disabled: data[i].disabled,
-                    }
-                    choice.push(choiceObj);
+        if (data?.length) {
+            for (let i = 0; i < data.length; i++) {
+                const choiceObj: IChoice = {
+                    id: Utils.generateGUID(),
+                    title: data[i].title,
+                    checked: data[i].checked,
+                    disabled: data[i].disabled,
                 }
+                choice.push(choiceObj);
             }
+        }
         return choice;
     }
-    
+
     public override getValue() {
         // Вернуть текущие чойсы.
         /* 
@@ -51,14 +51,13 @@ export class QuestionChoice extends QuestionBase {
         return choices;
     }
 
-    public override setFieldByName (fieldName: string, newValue: any, index: number) {
+    public override setFieldByName(fieldName: string, newValue: any, index: number) {
         if (index >= 0 && index < this._choices.length) {
             const choice = this._choices[index];
             if (fieldName in choice) {
                 choice[fieldName] = newValue;
             }
         }
-        //this._choices[index][fieldName as keyof IChoice] = newValue;
     }
 
     public override setValue(newValue: any) {

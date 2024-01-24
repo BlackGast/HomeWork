@@ -32,11 +32,9 @@ class Survey {
                 const panels = page.panels;
                 if (panels.length) {
                     for (const question of panels) {
-                        // console.log(question); //Отладочные
-                        // console.log('');
                         pageModel.addPanel(question);
                     }
-                    
+
                     // Добавить новые панели с вопросами
                 }
                 pages.push(pageModel);

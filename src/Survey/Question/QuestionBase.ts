@@ -17,7 +17,7 @@ export class QuestionBase implements IQuestionData {
 
     constructor(data: IQuestionData) {
         // Записать поля из data, если есть
-        this.id = Utils.generateGUID();
+        this.id = data.id || Utils.generateGUID();
         this.type = 'Text';
         this.title = '';
         this.description = '';
@@ -45,8 +45,8 @@ export class QuestionBase implements IQuestionData {
         return this[name as keyof this];
     }
 
-    public setFieldByName(fieldName: string, newValue: any, index: number) { 
-        /* TODO document why this method 'setFieldByName' is empty */ 
+    public setFieldByName(fieldName: string, newValue: any, index: number) {
+        /* TODO document why this method 'setFieldByName' is empty */
     }
 
     // Колбэк, который будет вызывать метод из контекста, в котором выполняется Survey.

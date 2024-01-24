@@ -22,13 +22,13 @@ export class Panel {
         // data может быть или JSON или string
         // TODO: Заполнить поля класса из data(если есть), сделать новые экземпляры класса Question, если таковые есть в data
         // Записать массив с Question в this.questions
-        this.id = Utils.generateGUID();
+        this.id = data.id || Utils.generateGUID();
         this.title = data.title;
         this.description = data.description;
         this.questions = [];
         this.columns = 1;
-        
-        if (typeof data.questions === 'string' ) {
+
+        if (typeof data.questions === 'string') {
             const questionData = JSON.parse(data.questions);
             this.addQuestion(questionData);
         } else if (data.questions.length) {

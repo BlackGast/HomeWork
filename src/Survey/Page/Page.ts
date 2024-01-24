@@ -1,6 +1,7 @@
 import { IPageData } from "../../model/IPageData";
 import { IPanelData } from "../../model/IPanelData";
 import { Panel } from "../Panel/Panel";
+import { Utils } from "../Utils";
 
 /**
  * Используется для группировки вопросов в UI
@@ -13,6 +14,7 @@ export class Page {
 
     constructor(data: IPageData) {
         //TODO: Заполнить поля класса значениями по умолчанию или входными данными из data, если JSON определен
+        this.id = data.id || Utils.generateGUID();
         this.title = data.title;
         this.description = data.description;
         this.panels = [];
