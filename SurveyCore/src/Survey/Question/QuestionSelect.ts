@@ -18,12 +18,12 @@ export class QuestionSelect extends QuestionBase {
     private createSelect(data: ISelectAnswer[]) {
         const select: ISelectAnswer[] = [];
         if (data?.length) {
-            for (let i = 0; i < data.length; i++) {
+            for (const element of data) {
                 const selectObj: ISelectAnswer = {
-                    id: data[i].id,
-                    title: data[i].title,
-                    checked: data[i].checked,
-                    selected: data[i].selected,
+                    id: element.id,
+                    title: element.title,
+                    checked: element.checked,
+                    selected: element.selected,
                 }
                 select.push(selectObj);
             }
