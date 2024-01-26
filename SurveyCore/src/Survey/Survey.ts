@@ -20,8 +20,6 @@ class Survey {
     }
 
     public createModel(data?: string) {
-        // Если есть JSON, распарсить его
-        // Часть действий можно вообще вынести в парсер
         if (data) {
             const modelJSON = this._dataManager.stringToJSON(data);
             this._model.title = modelJSON.title ?? '';
@@ -34,15 +32,20 @@ class Survey {
                     for (const question of panels) {
                         pageModel.addPanel(question);
                     }
-
-                    // Добавить новые панели с вопросами
                 }
                 pages.push(pageModel);
             });
             this._model.pages = pages;
         }
-        // Если нет, создать заготовку модели с базовыми значениями
-        // Вернуть новую модель
+        if (!data) {
+            const emptyPage: IPageData = {
+                title: '', 
+                panels: [],
+                id: "",
+                description: ""
+            };
+            this._model.pages = [new Page(emptyPage)];
+        }
         return this._model;
     }
 

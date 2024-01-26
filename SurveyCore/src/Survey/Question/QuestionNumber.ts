@@ -1,25 +1,29 @@
 import { IQuestionData } from "../../model/IQuestionData";
-import { QuestionBase } from "./QuestionBase";
 import { Validator } from "../Validator/Validator";
+import { QuestionBase } from "./QuestionBase";
 
-export class QuestionDate extends QuestionBase {
+export class QuestionNumber extends QuestionBase {
+    public placeholder: string;
+    public isMultiline: boolean;
 
     constructor(data: IQuestionData) {
         super(data);
-        this.type = 'Date';
+        this.type = 'Number';
         this.title = data.title || '';
         this.description = data.description || '';
         this.readOnly = data.readOnly || false;
         this.answer = '';
+        this.placeholder = '';
+        this.isMultiline = false;
     }
 
     public override getValue() {
         return this.answer;
     }
 
-    public setValue(newValue: string) {
-        if (Validator.validDate(newValue)) {
-            this.answer = newValue
+    public setValue(newValue: any) {
+        if (Validator.validNum(newValue)) {
+            this.answer = newValue;
         } else {
             console.log("Ошибка"); //здесь нужно реализовать вывод на экран ошибки с валидацией  
         }
