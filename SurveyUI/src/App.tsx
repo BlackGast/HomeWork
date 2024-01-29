@@ -37,27 +37,6 @@ export class App extends React.Component<{}, { count: number }> {
       <ThemeProvider theme={appTheme}>
         <Layout>
           {
-            /* <div>
-            <a href="https://vitejs.dev" target="_blank">
-              <img src={viteLogo} className="logo" alt="Vite logo" />
-            </a>
-            <a href="https://react.dev" target="_blank">
-              <img src={reactLogo} className="logo react" alt="React logo" />
-            </a>
-          </div>
-          <h1>Vite + React</h1>
-          <div className="card">
-            <PrimaryButton onClick={() => this.setState({ count: count + 1 })}>
-              count is {count}
-            </PrimaryButton>
-            <p>
-              Edit <code>src/App.tsx</code> and save to test HMR
-            </p>
-          </div>
-          <p className="read-the-docs">
-            Click on the Vite and React logos to learn more
-          </p> */
-
             <>
               <header className="header">
                 <div className="logo">
@@ -67,7 +46,7 @@ export class App extends React.Component<{}, { count: number }> {
               <div>
                 <hr />
                 <div>
-                  <PivotSeparateExample />
+                  <PivotSeparate />
                   {/* <button className="btn">Создание опроса</button> */}
                 </div>
               </div>
@@ -79,12 +58,8 @@ export class App extends React.Component<{}, { count: number }> {
   }
 }
 
-const getTabId = (itemKey: string) => {
-  return `ShapeColorPivot_${itemKey}`;
-};
-
-export const PivotSeparateExample = () => {
-  const [selectedKey, setSelectedKey] = React.useState("rectangleRed");
+export const PivotSeparate = () => {
+  const [selectedKey, setSelectedKey] = React.useState('rectangleRed');
 
   const handleLinkClick = (item?: PivotItem) => {
     if (item) {
@@ -92,8 +67,22 @@ export const PivotSeparateExample = () => {
     }
   };
 
+  // Функция для отображения контента в зависимости от выбранного ключа
+  const renderContent = (selectedKey: string) => {
+    switch (selectedKey) {
+      case 'designerPage':
+        return <PageDesignerSurvey />;
+      case 'previewPage':
+        return <PagePreviewSurvey />;
+      case 'editirJson':
+        return <PageEditorJson />;
+      default:
+        return <PageDesignerSurvey />;
+    }
+  };
+
   return (
-    <div>
+    <>
       <div className="buttonMenu">
         <Pivot
           aria-label="Separately Rendered Content Pivot Example"
@@ -101,58 +90,19 @@ export const PivotSeparateExample = () => {
           // eslint-disable-next-line react/jsx-no-bind
           onLinkClick={handleLinkClick}
           headersOnly={true}
-          getTabId={getTabId}
-          >
-          <PivotItem headerText="Редактор опроса" itemKey="rectangleRed" />
-          <PivotItem headerText="Предварительный просмотр" itemKey="squareRed" />
-          <PivotItem headerText="Редактор JSON" itemKey="rectangleGreen" />
+        >
+          <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
+          <PivotItem headerText="Предварительный просмотр" itemKey="previewPage" />
+          <PivotItem headerText="Редактор JSON" itemKey="editirJson" />
         </Pivot>
-        <ButtonDef title="Создание опроса" />
+        <ButtonDef title="Создание опроса"/>
       </div>
-      
-          <div
-            aria-labelledby={getTabId(selectedKey)}
-            role="tabpanel"
-            style={{
-              //position: "relative",
-              float: "none",
-              width: 100,
-              height: selectedKey === "squareRed" ? 100 : 200,
-              background: selectedKey === "rectangleGreen" ? "green" : "red",
-            }}
-          />
-    </div>
+      <div>
+        {renderContent(selectedKey)} {/* Отображаем контент в зависимости от selectedKey */}
+      </div>
+    </>
   );
 };
-
-// const labelStyles: Partial<IStyleSet<ILabelStyles>> = {
-//   root: { marginTop: 10 },
-// };
-
-// export const PivotBasicExample: React.FunctionComponent = () => {
-//   return (
-//     <div className="buttonMenu">
-//     <Pivot aria-label="Basic Pivot Example">
-//       <PivotItem
-//         headerText="My Files"
-//         headerButtonProps={{
-//           'data-order': 1,
-//           'data-title': 'My Files Title',
-//         }}
-//       >
-//         <Label styles={labelStyles}>Pivot #1</Label>
-//       </PivotItem>
-//       <PivotItem headerText="Recent">
-//         <Label styles={labelStyles}>Pivot #2</Label>
-//       </PivotItem>
-//       <PivotItem headerText="Shared with me">
-//         <Label styles={labelStyles}>Pivot #3</Label>
-//       </PivotItem>
-//     </Pivot>
-//     <ButtonDef title="Создание опроса" />
-//     </div>
-//   );
-// };
 
 export interface IButtonExampleProps {
   // These are set based on the toggles shown above the examples (not needed in real code)
@@ -177,6 +127,20 @@ export const ButtonDef: React.FunctionComponent<IButtonExampleProps> = (
 
 export class PageDesignerSurvey extends React.Component {
   public render(): React.ReactNode {
-    return <div>text</div>;
+    return (
+      <div>Designer Page</div>
+    );
+  }
+}
+
+export class PagePreviewSurvey extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Preview Page</div>;
+  }
+}
+
+export class PageEditorJson extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Editir JSON</div>;
   }
 }
