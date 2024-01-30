@@ -1,27 +1,22 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Logo from "./img/Logo.png";
-import starIcon from "./img/Star Icon.svg";
-import calendarIcon from "./img/Calendar icon.svg";
-import radioButtonIcon from "./img/RadioButton Icon.svg";
-import textIcon from "./img/Text Icon.svg";
-import checkBoxIcon from "./img/CheckBox Icon.svg";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
 import React from "react";
 import {
   PartialTheme,
-  PrimaryButton,
   ThemeProvider,
-  IStyleSet,
-  Label,
-  ILabelStyles,
   Pivot,
   PivotItem,
-  IStackTokens,
   Stack,
   DefaultButton,
+  IIconProps,
+  IStackStyles,
+  CommandBarButton,
+  TextField,
+  IStackProps,
 } from "@fluentui/react";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
+initializeIcons();
 
 const appTheme: PartialTheme = {
   palette: {},
@@ -29,25 +24,24 @@ const appTheme: PartialTheme = {
 
 // https://github.com/microsoft/fluentui/wiki/Getting-Started-with-Fluent-UI-React
 export class App extends React.Component<{}, { count: number }> {
-  constructor(props: {}) {
-    super(props);
-  }
+  // constructor(props: {}) {
+  //   super(props);
+  // }
   public render(): React.ReactNode {
     return (
-      <ThemeProvider theme={appTheme}>
+      <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
         <Layout>
           {
             <>
               <header className="header">
                 <div className="logo">
-                  <img src={Logo} alt="Логотип" width={127} height={60} />
+                  <img src={Logo} alt="Логотип" width={150} height={60} />
                 </div>
               </header>
-              <div>
+              <div className="bodyPage">
                 <hr />
-                <div>
+                <div className="bodyPage">
                   <PivotSeparate />
-                  {/* <button className="btn">Создание опроса</button> */}
                 </div>
               </div>
             </>
@@ -59,7 +53,7 @@ export class App extends React.Component<{}, { count: number }> {
 }
 
 export const PivotSeparate = () => {
-  const [selectedKey, setSelectedKey] = React.useState('rectangleRed');
+  const [selectedKey, setSelectedKey] = React.useState("designerPage");
 
   const handleLinkClick = (item?: PivotItem) => {
     if (item) {
@@ -70,14 +64,14 @@ export const PivotSeparate = () => {
   // Функция для отображения контента в зависимости от выбранного ключа
   const renderContent = (selectedKey: string) => {
     switch (selectedKey) {
-      case 'designerPage':
+      case "designerPage":
         return <PageDesignerSurvey />;
-      case 'previewPage':
+      case "previewPage":
         return <PagePreviewSurvey />;
-      case 'editirJson':
+      case "editorJson":
         return <PageEditorJson />;
       default:
-        return <PageDesignerSurvey />;
+        return null;
     }
   };
 
@@ -87,32 +81,36 @@ export const PivotSeparate = () => {
         <Pivot
           aria-label="Separately Rendered Content Pivot Example"
           selectedKey={selectedKey}
-          // eslint-disable-next-line react/jsx-no-bind
           onLinkClick={handleLinkClick}
           headersOnly={true}
         >
           <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-          <PivotItem headerText="Предварительный просмотр" itemKey="previewPage" />
-          <PivotItem headerText="Редактор JSON" itemKey="editirJson" />
+          <PivotItem
+            headerText="Предварительный просмотр"
+            itemKey="previewPage"
+          />
+          <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
         </Pivot>
-        <ButtonDef title="Создание опроса"/>
+        <ButtonDef title="Создание опроса" />
       </div>
-      <div>
-        {renderContent(selectedKey)} {/* Отображаем контент в зависимости от selectedKey */}
-      </div>
+      <hr />
+      <div className="bodyPage">{renderContent(selectedKey)} </div>
     </>
   );
 };
 
-export interface IButtonExampleProps {
-  // These are set based on the toggles shown above the examples (not needed in real code)
+export interface IButtonProps {
   disabled?: boolean;
   checked?: boolean;
   title?: string;
 }
-export const ButtonDef: React.FunctionComponent<IButtonExampleProps> = (
-  props
-) => {
+
+const columnProps: Partial<IStackProps> = {
+  tokens: { childrenGap: 15 },
+  styles: { root: "settings-inp" },
+};
+
+export const ButtonDef: React.FunctionComponent<IButtonProps> = (props) => {
   const { disabled, checked, title } = props;
 
   return (
@@ -125,10 +123,52 @@ export const ButtonDef: React.FunctionComponent<IButtonExampleProps> = (
   );
 };
 
+const Styles: Partial<IStackStyles> = {
+  root: "container_title-survey_description",
+};
+
 export class PageDesignerSurvey extends React.Component {
   public render(): React.ReactNode {
     return (
-      <div>Designer Page</div>
+      <div className="page">
+        <div className="page_part page_part-part1">
+          <div className="menu">
+            <ButtonCommandBar />
+          </div>
+        </div>
+        <div className="vertical-line" />
+        <div className="page_part page_part-part2">
+          <div className="container">
+            <div className="container_title-survey">
+              <TextField borderless placeholder="Название опроса" />
+              <TextField
+                underlined
+                placeholder="Описание опроса"
+                multiline
+                rows={2}
+                styles={Styles}
+              />
+            </div>
+            <div className="container_page">
+              <TextField borderless placeholder="Страница 1" />
+              <TextField
+                borderless
+                placeholder="Описание страницы"
+                styles={Styles}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="vertical-line" />
+        <div className="page_part page_part-part3">
+          <p className="settings-lbl">Настройки</p>
+          <hr />
+          <Stack {...columnProps}>
+            <TextField label="Название" />
+            <TextField label="Описание" multiline rows={3} />
+          </Stack>
+        </div>
+      </div>
     );
   }
 }
@@ -141,6 +181,83 @@ export class PagePreviewSurvey extends React.Component {
 
 export class PageEditorJson extends React.Component {
   public render(): React.ReactNode {
-    return <div>Editir JSON</div>;
+    return <div>Editor JSON</div>;
+  }
+}
+
+const textDocument: IIconProps = { iconName: "TextDocument" };
+const checkBox: IIconProps = { iconName: "CheckboxComposite" };
+const radioBtn: IIconProps = { iconName: "RadioBtnOn" };
+const calendar: IIconProps = { iconName: "Calendar" };
+const ratingStar: IIconProps = { iconName: "FavoriteStar" };
+
+const stackStyles: Partial<IStackStyles> = {
+  root: "menu",
+};
+
+export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
+  props
+) => {
+  const { disabled, checked } = props;
+
+  return (
+    <Stack horizontal styles={stackStyles}>
+      <CommandBarButton
+        iconProps={textDocument}
+        text="Text"
+        disabled={disabled}
+        checked={checked}
+      />
+      <CommandBarButton
+        iconProps={checkBox}
+        text="Checkboxes"
+        disabled={disabled}
+        checked={checked}
+      />
+      <CommandBarButton
+        iconProps={radioBtn}
+        text="Radio Button Text"
+        disabled={disabled}
+        checked={checked}
+      />
+      <CommandBarButton
+        iconProps={calendar}
+        text="Data"
+        disabled={disabled}
+        checked={checked}
+      />
+      <CommandBarButton
+        iconProps={ratingStar}
+        text="Rating Scale"
+        disabled={disabled}
+        checked={checked}
+      />
+    </Stack>
+  );
+};
+
+export class TextQuestion extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Text Question</div>;
+  }
+}
+export class CheckboxQuestion extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Checkbox Question</div>;
+  }
+}
+export class RadioButtonQuestion extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Radio Button Question</div>;
+  }
+}
+export class RatingScaleQuestion extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Rating Scale Question</div>;
+  }
+}
+export class DataQuestion extends React.Component {
+  public render(): React.ReactNode {
+    return <div>Data Question</div>;
   }
 }
