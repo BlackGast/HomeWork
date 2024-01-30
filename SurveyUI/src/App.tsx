@@ -14,6 +14,7 @@ import {
   CommandBarButton,
   TextField,
   IStackProps,
+  Label,
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 initializeIcons();
@@ -93,7 +94,7 @@ export const PivotSeparate = () => {
         </Pivot>
         <ButtonDef title="Создание опроса" />
       </div>
-      <hr />
+      <hr className="no-margin" />
       <div className="bodyPage">{renderContent(selectedKey)} </div>
     </>
   );
@@ -130,7 +131,7 @@ const Styles: Partial<IStackStyles> = {
 export class PageDesignerSurvey extends React.Component {
   public render(): React.ReactNode {
     return (
-      <div className="page">
+      <div className="page bodyPage_colored">
         <div className="page_part page_part-part1">
           <div className="menu">
             <ButtonCommandBar />
@@ -150,12 +151,17 @@ export class PageDesignerSurvey extends React.Component {
               />
             </div>
             <div className="container_page">
-              <TextField borderless placeholder="Страница 1" />
-              <TextField
-                borderless
-                placeholder="Описание страницы"
-                styles={Styles}
-              />
+              <div>
+                <TextField borderless placeholder="Страница 1" />
+                <TextField
+                  borderless
+                  placeholder="Описание страницы"
+                  styles={Styles}
+                />
+              </div>
+              <div>
+                <TextQuestion />
+              </div>
             </div>
           </div>
         </div>
@@ -238,7 +244,15 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
 
 export class TextQuestion extends React.Component {
   public render(): React.ReactNode {
-    return <div>Text Question</div>;
+    return (
+      <>
+        <div className="container_page_text">
+          Text Question
+          <Label>I'm a Label</Label>
+          <TextField />
+        </div>
+      </>
+    );
   }
 }
 export class CheckboxQuestion extends React.Component {
