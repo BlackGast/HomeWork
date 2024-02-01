@@ -143,32 +143,7 @@ export class PageDesignerSurvey extends React.Component {
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part2">
-          <div className="container">
-            <div className="container_title-survey">
-              <TextField borderless placeholder="Название опроса" />
-              <TextField
-                underlined
-                placeholder="Описание опроса"
-                multiline
-                rows={2}
-                resizable={false}
-                styles={Styles}
-              />
-            </div>
-            <div className="container_page">
-              <div>
-                <TextField borderless placeholder="Страница 1" />
-                <TextField
-                  borderless
-                  placeholder="Описание страницы"
-                  styles={Styles}
-                />
-              </div>
-              <div>
-                <TextQuestion />
-              </div>
-            </div>
-          </div>
+          <Page/>
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part3">
@@ -195,6 +170,39 @@ export class PageEditorJson extends React.Component {
     return <div>Editor JSON</div>;
   }
 }
+
+export class Page extends React.Component {
+  public render(): React.ReactNode {
+    return (
+      <div className="container">
+            <div className="container_title-survey">
+              <TextField borderless placeholder="Название опроса" />
+              <TextField
+                underlined
+                placeholder="Описание опроса"
+                multiline
+                rows={2}
+                resizable={false}
+                styles={Styles}
+              />
+            </div>
+            <div className="container_page">
+              <div>
+                <TextField borderless placeholder="Страница 1" />
+                <TextField
+                  borderless
+                  placeholder="Описание страницы"
+                  styles={Styles}
+                />
+              </div>
+              <div>
+                <TextQuestion />
+              </div>
+            </div>
+          </div>
+    );
+  };
+};
 
 const trashCan: IIconProps = {
   iconName: "Delete",
