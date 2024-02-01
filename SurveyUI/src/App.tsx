@@ -1,7 +1,7 @@
 import Logo from "./img/Logo.png";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
-import React from "react";
+import React, { useState } from "react";
 import {
   PartialTheme,
   ThemeProvider,
@@ -30,6 +30,8 @@ export class App extends React.Component<{}, { count: number }> {
   // constructor(props: {}) {
   //   super(props);
   // }
+  
+
   public render(): React.ReactNode {
     return (
       <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
@@ -195,9 +197,11 @@ export class Page extends React.Component {
                   styles={Styles}
                 />
               </div>
-              <div>
-                <TextQuestion />
-              </div>
+              {/* <div>
+                {elements?.map((element, index) => (
+                  <div key={index}>{element}</div>
+                ))}
+              </div> */}
             </div>
           </div>
     );
@@ -235,13 +239,16 @@ const stackStyles: Partial<IStackStyles> = {
   root: "menu",
 };
 
+const [elements, setElements] = useState<React.Component[]>();
+
 export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   props
-) => {
-  const { disabled, checked } = props;
-
+  ) => {
+    const { disabled, checked } = props;
+  
   function addTextQuestion(): void {
-    console.log('Click');
+    const newElement = <TextQuestion/>;
+    //setElements([...elements, newElement]);
   }
   function addCheckboxQuestion(): void {
     console.log('Click');
