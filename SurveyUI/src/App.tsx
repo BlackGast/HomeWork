@@ -239,7 +239,7 @@ const stackStyles: Partial<IStackStyles> = {
   root: "menu",
 };
 
-const [elements, setElements] = useState<React.Component[]>();
+//const [elements, setElements] = useState<React.Component[]>();
 
 export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   props
@@ -247,7 +247,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
     const { disabled, checked } = props;
   
   function addTextQuestion(): void {
-    const newElement = <TextQuestion/>;
+    //const newElement = <TextQuestion/>;
     //setElements([...elements, newElement]);
   }
   function addCheckboxQuestion(): void {
