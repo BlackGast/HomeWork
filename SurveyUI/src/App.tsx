@@ -173,6 +173,13 @@ export class PageEditorJson extends React.Component {
 }
 
 export class Page extends React.Component {
+  constructor(props: {} | Readonly<{}>) {
+    super(props);
+    this.state = {
+      elements: [],
+    };
+  }
+
   public render(): React.ReactNode {
     return (
       <div className="container">
@@ -196,11 +203,11 @@ export class Page extends React.Component {
               styles={Styles}
             />
           </div>
-          {/* <div>
-                {elements?.map((element, index) => (
-                  <div key={index}>{element}</div>
-                ))}
-              </div> */}
+          <div>
+            {/* {?.map((element, index) => (
+              <div key={index}>{element}</div>
+            ))} */}
+          </div>
         </div>
       </div>
     );
@@ -228,53 +235,63 @@ const checkBox: IIconProps = {
     color: "black",
     marginTop: 10,
     marginBottom: 10,
-  },};
+  },
+};
 const radioBtn: IIconProps = {
   iconName: "RadioBtnOn",
   style: {
     color: "black",
     marginTop: 10,
     marginBottom: 10,
-  },};
+  },
+};
 const calendar: IIconProps = {
   iconName: "Calendar",
   style: {
     color: "black",
     marginTop: 10,
     marginBottom: 10,
-  },};
+  },
+};
 const ratingStar: IIconProps = {
   iconName: "FavoriteStar",
   style: {
     color: "black",
     marginTop: 10,
     marginBottom: 10,
-  },};
+  },
+};
 
 const stackStyles: Partial<IStackStyles> = {
   root: "menu",
 };
 
-//const [elements, setElements] = useState<React.Component[]>();
+// const [elements, setElements] = useState<React.Component[]>([]);
 
 export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   props
 ) => {
   const { disabled, checked } = props;
+  const [elements, setElements] = useState<React.ReactNode[]>([]);
 
   function addTextQuestion(): void {
-    //const newElement = <TextQuestion/>;
-    //setElements([...elements, newElement]);
+    const newElement = <TextQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    console.log(elements);
   }
+
   function addCheckboxQuestion(): void {
     console.log("Click");
   }
+
   function addRadioBtnQuestion(): void {
     console.log("Click");
   }
+
   function addDataQuestion(): void {
     console.log("Click");
   }
+
   function addRatingScaleQuestion(): void {
     console.log("Click");
   }
