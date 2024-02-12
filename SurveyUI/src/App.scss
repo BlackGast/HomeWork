@@ -69,16 +69,16 @@ body,
 }
 
 .menu {
-  height: 150px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 
-  &_item {
-    @media (max-width: 768px) {
-      opacity: 0;
-    }
-  }
+  // &_item {
+  //   @media (max-width: 768px) {
+  //     opacity: 0;
+  //   }
+  // }
 }
 
 .settings {

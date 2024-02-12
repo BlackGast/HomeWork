@@ -30,7 +30,6 @@ export class App extends React.Component<{}, { count: number }> {
   // constructor(props: {}) {
   //   super(props);
   // }
-  
 
   public render(): React.ReactNode {
     return (
@@ -145,7 +144,7 @@ export class PageDesignerSurvey extends React.Component {
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part2">
-          <Page/>
+          <Page />
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part3">
@@ -177,63 +176,80 @@ export class Page extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="container">
-            <div className="container_title-survey">
-              <TextField borderless placeholder="Название опроса" />
-              <TextField
-                underlined
-                placeholder="Описание опроса"
-                multiline
-                rows={2}
-                resizable={false}
-                styles={Styles}
-              />
-            </div>
-            <div className="container_page">
-              <div>
-                <TextField borderless placeholder="Страница 1" />
-                <TextField
-                  borderless
-                  placeholder="Описание страницы"
-                  styles={Styles}
-                />
-              </div>
-              {/* <div>
+        <div className="container_title-survey">
+          <TextField borderless placeholder="Название опроса" />
+          <TextField
+            underlined
+            placeholder="Описание опроса"
+            multiline
+            rows={2}
+            resizable={false}
+            styles={Styles}
+          />
+        </div>
+        <div className="container_page">
+          <div>
+            <TextField borderless placeholder="Страница 1" />
+            <TextField
+              borderless
+              placeholder="Описание страницы"
+              styles={Styles}
+            />
+          </div>
+          {/* <div>
                 {elements?.map((element, index) => (
                   <div key={index}>{element}</div>
                 ))}
               </div> */}
-            </div>
-          </div>
+        </div>
+      </div>
     );
-  };
-};
+  }
+}
 
 const trashCan: IIconProps = {
   iconName: "Delete",
-  style: { color: "black" },
+  style: {
+    color: "black",
+  },
 };
 
 const textDocument: IIconProps = {
   iconName: "TextDocument",
-  style: { color: "black" },
+  style: {
+    color: "black",
+    marginTop: 10,
+    marginBottom: 10,
+  },
 };
 const checkBox: IIconProps = {
   iconName: "CheckboxComposite",
-  style: { color: "black" },
-};
+  style: {
+    color: "black",
+    marginTop: 10,
+    marginBottom: 10,
+  },};
 const radioBtn: IIconProps = {
   iconName: "RadioBtnOn",
-  style: { color: "black" },
-};
+  style: {
+    color: "black",
+    marginTop: 10,
+    marginBottom: 10,
+  },};
 const calendar: IIconProps = {
   iconName: "Calendar",
-  style: { color: "black" },
-};
+  style: {
+    color: "black",
+    marginTop: 10,
+    marginBottom: 10,
+  },};
 const ratingStar: IIconProps = {
   iconName: "FavoriteStar",
-  style: { color: "black" },
-};
-
+  style: {
+    color: "black",
+    marginTop: 10,
+    marginBottom: 10,
+  },};
 
 const stackStyles: Partial<IStackStyles> = {
   root: "menu",
@@ -243,24 +259,24 @@ const stackStyles: Partial<IStackStyles> = {
 
 export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   props
-  ) => {
-    const { disabled, checked } = props;
-  
+) => {
+  const { disabled, checked } = props;
+
   function addTextQuestion(): void {
     //const newElement = <TextQuestion/>;
     //setElements([...elements, newElement]);
   }
   function addCheckboxQuestion(): void {
-    console.log('Click');
+    console.log("Click");
   }
   function addRadioBtnQuestion(): void {
-    console.log('Click');
+    console.log("Click");
   }
   function addDataQuestion(): void {
-    console.log('Click');
+    console.log("Click");
   }
   function addRatingScaleQuestion(): void {
-    console.log('Click');
+    console.log("Click");
   }
 
   return (
@@ -310,7 +326,7 @@ export class TextQuestion extends React.Component {
       root: {
         marginLeft: 10,
         marginRight: 10,
-        alignItems: 'center'
+        alignItems: "center",
       },
     };
     return (
