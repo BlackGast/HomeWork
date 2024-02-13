@@ -1,90 +1,103 @@
-// import { CommandBarButton, IIconProps, IStackStyles, Stack } from "@fluentui/react";
-// import { IButtonProps } from "../App";
+import React, { useState } from "react";
+import { Stack, CommandBarButton } from "@fluentui/react";
+import { TextQuestion } from "./Questions/TextQuestion";
+import {
+  IButtonProps,
+  Page,
+  stackStyles,
+  textDocument,
+  checkBox,
+  radioBtn,
+  calendar,
+  ratingStar,
+} from "../App";
+import { CheckboxQuestion } from "./Questions/CheckboxQuestion";
+import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
+import { DataQuestion } from "./Questions/DataQuestion";
+import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 
-// const textDocument: IIconProps = {
-//     iconName: "TextDocument",
-//     style: { color: "black" },
-//   };
-//   const checkBox: IIconProps = {
-//     iconName: "CheckboxComposite",
-//     style: { color: "black" },
-//   };
-//   const radioBtn: IIconProps = {
-//     iconName: "RadioBtnOn",
-//     style: { color: "black" },
-//   };
-//   const calendar: IIconProps = {
-//     iconName: "Calendar",
-//     style: { color: "black" },
-//   };
-//   const ratingStar: IIconProps = {
-//     iconName: "FavoriteStar",
-//     style: { color: "black" },
-//   };
-  
-  
-//   const stackStyles: Partial<IStackStyles> = {
-//     root: "menu",
-//   };
-  
-//   export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
-//     props
-//   ) => {
-//     const { disabled, checked } = props;
-  
-//     function addTextQuestion(): void {
-//       console.log('Click');
-//     }
-//     function addCheckboxQuestion(): void {
-//       console.log('Click');
-//     }
-//     function addRadioBtnQuestion(): void {
-//       console.log('Click');
-//     }
-//     function addDataQuestion(): void {
-//       console.log('Click');
-//     }
-//     function addRatingScaleQuestion(): void {
-//       console.log('Click');
-//     }
-  
-//     return (
-//       <Stack horizontal styles={stackStyles}>
-//         <CommandBarButton
-//           iconProps={textDocument}
-//           text="Text"
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={addTextQuestion}
-//         />
-//         <CommandBarButton
-//           iconProps={checkBox}
-//           text="Checkboxes"
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={addCheckboxQuestion}
-//         />
-//         <CommandBarButton
-//           iconProps={radioBtn}
-//           text="Radio Button Text"
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={addRadioBtnQuestion}
-//         />
-//         <CommandBarButton
-//           iconProps={calendar}
-//           text="Data"
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={addDataQuestion}
-//         />
-//         <CommandBarButton
-//           iconProps={ratingStar}
-//           text="Rating Scale"
-//           disabled={disabled}
-//           checked={checked}
-//           onClick={addRatingScaleQuestion}
-//         />
-//       </Stack>
-//     );
-//   };
+export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
+  props
+) => {
+  const { disabled, checked } = props;
+  const [elements, setElements] = useState<React.ReactNode[]>([]);
+
+  function addTextQuestion(): void {
+    const newElement = <TextQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    Page.setProps(newElement);
+  }
+
+  function addCheckboxQuestion(): void {
+    const newElement = <CheckboxQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    Page.setProps(newElement);
+    console.log("Click");
+  }
+
+  function addRadioBtnQuestion(): void {
+    const newElement = <RadioButtonQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    Page.setProps(newElement);
+    console.log("Click");
+  }
+
+  function addDataQuestion(): void {
+    const newElement = <DataQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    Page.setProps(newElement);
+    console.log("Click");
+  }
+
+  function addRatingScaleQuestion(): void {
+    const newElement = <RatingScaleQuestion key={elements.length} />;
+    setElements((prevElement) => [...prevElement, newElement]);
+    Page.setProps(newElement);
+    console.log("Click");
+  }
+
+  return (
+    <Stack horizontal styles={stackStyles}>
+      <CommandBarButton
+        iconProps={textDocument}
+        text="Text"
+        disabled={disabled}
+        checked={checked}
+        onClick={addTextQuestion}
+        styles={{textContainer: {textAlign: "left"}}}
+      />
+      <CommandBarButton
+        iconProps={checkBox}
+        text="Checkboxes"
+        disabled={disabled}
+        checked={checked}
+        onClick={addCheckboxQuestion}
+        styles={{textContainer: {textAlign: "left"}}}
+      />
+      <CommandBarButton
+        iconProps={radioBtn}
+        text="Radio Button Text"
+        disabled={disabled}
+        checked={checked}
+        onClick={addRadioBtnQuestion}
+        styles={{textContainer: {textAlign: "left"}}}
+      />
+      <CommandBarButton
+        iconProps={calendar}
+        text="Data"
+        disabled={disabled}
+        checked={checked}
+        onClick={addDataQuestion}
+        styles={{textContainer: {textAlign: "left"}}}
+      />
+      <CommandBarButton
+        iconProps={ratingStar}
+        text="Rating Scale"
+        disabled={disabled}
+        checked={checked}
+        onClick={addRatingScaleQuestion}
+        styles={{textContainer: {textAlign: "left"}}}
+      />
+    </Stack>
+  );
+};

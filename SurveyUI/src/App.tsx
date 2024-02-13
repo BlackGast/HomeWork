@@ -1,7 +1,7 @@
 import Logo from "./img/Logo.png";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
-import React, { useState } from "react";
+import React from "react";
 import {
   PartialTheme,
   ThemeProvider,
@@ -13,12 +13,10 @@ import {
   IStackStyles,
   TextField,
   IStackProps,
-  Label,
-  Checkbox,
-  CommandBarButton,
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
-//import { ButtonCommandBar } from "./components/ButtonCommandBar";
+import { ButtonCommandBar } from "./components/ButtonCommandBar";
+import { TextQuestion } from "./components/Questions/TextQuestion";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -173,11 +171,20 @@ export class PageEditorJson extends React.Component {
 }
 
 export class Page extends React.Component {
-  constructor(props: {} | Readonly<{}>) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       elements: [],
     };
+  }
+
+  static readonly newElement = (<TextQuestion key={0} />);
+  static readonly elements: React.ReactNode[] = [];
+  // static const [elements: any, setElements: any] = useState<React.ReactNode[]>([]);
+
+  public static setProps(prop: React.ReactNode): void {
+    this.elements.push(prop);
+    console.log(this.elements);
   }
 
   public render(): React.ReactNode {
@@ -204,9 +211,10 @@ export class Page extends React.Component {
             />
           </div>
           <div>
-            {/* {?.map((element, index) => (
+            {Page.elements.map((element, index) => (
+              // <div >{element}</div>
               <div key={index}>{element}</div>
-            ))} */}
+            ))}
           </div>
         </div>
       </div>
@@ -214,167 +222,52 @@ export class Page extends React.Component {
   }
 }
 
-const trashCan: IIconProps = {
+export const trashCan: IIconProps = {
   iconName: "Delete",
-  style: {
-    color: "black",
-  },
+  style: {},
 };
 
-const textDocument: IIconProps = {
+export const textDocument: IIconProps = {
   iconName: "TextDocument",
   style: {
-    color: "black",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10,
   },
 };
-const checkBox: IIconProps = {
+export const checkBox: IIconProps = {
   iconName: "CheckboxComposite",
   style: {
-    color: "black",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10,
   },
 };
-const radioBtn: IIconProps = {
+export const radioBtn: IIconProps = {
   iconName: "RadioBtnOn",
   style: {
-    color: "black",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10,
   },
 };
-const calendar: IIconProps = {
+export const calendar: IIconProps = {
   iconName: "Calendar",
   style: {
-    color: "black",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10,
   },
 };
-const ratingStar: IIconProps = {
+export const ratingStar: IIconProps = {
   iconName: "FavoriteStar",
   style: {
-    color: "black",
     marginTop: 10,
     marginBottom: 10,
+    marginLeft: 10,
   },
 };
 
-const stackStyles: Partial<IStackStyles> = {
+export const stackStyles: Partial<IStackStyles> = {
   root: "menu",
 };
-
-// const [elements, setElements] = useState<React.Component[]>([]);
-
-export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
-  props
-) => {
-  const { disabled, checked } = props;
-  const [elements, setElements] = useState<React.ReactNode[]>([]);
-
-  function addTextQuestion(): void {
-    const newElement = <TextQuestion key={elements.length} />;
-    setElements((prevElement) => [...prevElement, newElement]);
-    console.log(elements);
-  }
-
-  function addCheckboxQuestion(): void {
-    console.log("Click");
-  }
-
-  function addRadioBtnQuestion(): void {
-    console.log("Click");
-  }
-
-  function addDataQuestion(): void {
-    console.log("Click");
-  }
-
-  function addRatingScaleQuestion(): void {
-    console.log("Click");
-  }
-
-  return (
-    <Stack horizontal styles={stackStyles}>
-      <CommandBarButton
-        iconProps={textDocument}
-        text="Text"
-        disabled={disabled}
-        checked={checked}
-        onClick={addTextQuestion}
-      />
-      <CommandBarButton
-        iconProps={checkBox}
-        text="Checkboxes"
-        disabled={disabled}
-        checked={checked}
-        onClick={addCheckboxQuestion}
-      />
-      <CommandBarButton
-        iconProps={radioBtn}
-        text="Radio Button Text"
-        disabled={disabled}
-        checked={checked}
-        onClick={addRadioBtnQuestion}
-      />
-      <CommandBarButton
-        iconProps={calendar}
-        text="Data"
-        disabled={disabled}
-        checked={checked}
-        onClick={addDataQuestion}
-      />
-      <CommandBarButton
-        iconProps={ratingStar}
-        text="Rating Scale"
-        disabled={disabled}
-        checked={checked}
-        onClick={addRatingScaleQuestion}
-      />
-    </Stack>
-  );
-};
-
-export class TextQuestion extends React.Component {
-  public render(): React.ReactNode {
-    const styleCheckbox: Partial<IStackStyles> = {
-      root: {
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "center",
-      },
-    };
-    return (
-      <div className="container_page_text-question">
-        <Label>Вопрос</Label>
-        <TextField />
-        <div className="question_settings">
-          <Checkbox label="Обязательный" styles={styleCheckbox} />
-          <ButtonDef title="Удалить" iconName={trashCan} />
-        </div>
-      </div>
-    );
-  }
-}
-export class CheckboxQuestion extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Checkbox Question</div>;
-  }
-}
-export class RadioButtonQuestion extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Radio Button Question</div>;
-  }
-}
-export class RatingScaleQuestion extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Rating Scale Question</div>;
-  }
-}
-export class DataQuestion extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Data Question</div>;
-  }
-}
