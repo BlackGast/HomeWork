@@ -32,28 +32,24 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
     const newElement = <CheckboxQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     Page.setProps(newElement);
-    console.log("Click");
   }
 
   function addRadioBtnQuestion(): void {
     const newElement = <RadioButtonQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     Page.setProps(newElement);
-    console.log("Click");
   }
 
   function addDataQuestion(): void {
     const newElement = <DataQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     Page.setProps(newElement);
-    console.log("Click");
   }
 
   function addRatingScaleQuestion(): void {
     const newElement = <RatingScaleQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     Page.setProps(newElement);
-    console.log("Click");
   }
 
   return (

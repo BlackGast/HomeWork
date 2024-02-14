@@ -1,4 +1,4 @@
-import { Checkbox, IStackStyles, Label, TextField } from "@fluentui/react";
+import { Checkbox, DefaultButton, IStackStyles, Label, TextField } from "@fluentui/react";
 import React from "react";
 import { ButtonDef, trashCan } from "../../App";
 
@@ -12,12 +12,12 @@ export class CheckboxQuestion extends React.Component {
       },
     };
     return (
-      <div className="container_page_text-question">
+      <div className="container_page_question">
         <Label>Вопрос</Label>
         <Checkbox label="ответ" />
         <div className="question_settings">
           <Checkbox label="Обязательный" styles={styleCheckbox} />
-          <ButtonDef title="Удалить" iconName={trashCan} />
+          <DefaultButton text="Удалить" iconProps={trashCan} />
         </div>
       </div>
     );

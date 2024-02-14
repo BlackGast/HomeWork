@@ -106,6 +106,7 @@ export interface IButtonProps {
   checked?: boolean;
   title?: string;
   iconName?: IIconProps;
+  funcClick?: any
 }
 
 const columnProps: Partial<IStackProps> = {
@@ -114,7 +115,7 @@ const columnProps: Partial<IStackProps> = {
 };
 
 export const ButtonDef: React.FunctionComponent<IButtonProps> = (props) => {
-  const { disabled, checked, title, iconName } = props;
+  const { disabled, checked, title, iconName, funcClick } = props;
 
   return (
     <DefaultButton
@@ -123,6 +124,7 @@ export const ButtonDef: React.FunctionComponent<IButtonProps> = (props) => {
       disabled={disabled}
       checked={checked}
       iconProps={iconName}
+      onClick={funcClick}
     />
   );
 };
@@ -174,16 +176,25 @@ export class Page extends React.Component {
   constructor(props: {}) {
     super(props);
     this.state = {
-      elements: [],
+      element: [],
     };
   }
 
-  static readonly newElement = (<TextQuestion key={0} />);
+  componentDidMount(): void {
+    console.log('componentDidMount')
+  }
+
+  componentDidUpdate(): void {
+    this.render();
+    console.log('componentDidUpdate')
+  }
+
   static readonly elements: React.ReactNode[] = [];
   // static const [elements: any, setElements: any] = useState<React.ReactNode[]>([]);
 
   public static setProps(prop: React.ReactNode): void {
     this.elements.push(prop);
+    
     console.log(this.elements);
   }
 
@@ -213,7 +224,9 @@ export class Page extends React.Component {
           <div>
             {Page.elements.map((element, index) => (
               // <div >{element}</div>
-              <div key={index}>{element}</div>
+              <div className="container_page_question_item" key={index}>
+                {element}
+              </div>
             ))}
           </div>
         </div>
@@ -224,7 +237,7 @@ export class Page extends React.Component {
 
 export const trashCan: IIconProps = {
   iconName: "Delete",
-  style: {},
+  style: { color: 'rgb(0, 120, 212)' },
 };
 
 export const textDocument: IIconProps = {

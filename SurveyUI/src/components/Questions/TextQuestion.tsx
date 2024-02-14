@@ -1,8 +1,13 @@
 import React from "react";
-import { IStackStyles, TextField, Label, Checkbox } from "@fluentui/react";
+import { IStackStyles, TextField, Label, Checkbox, DefaultButton } from "@fluentui/react";
 import { ButtonDef, trashCan } from "../../App";
 
 export class TextQuestion extends React.Component {
+
+  private delete() {
+    
+  }
+
   public render(): React.ReactNode {
     const styleCheckbox: Partial<IStackStyles> = {
       root: {
@@ -12,12 +17,12 @@ export class TextQuestion extends React.Component {
       },
     };
     return (
-      <div className="container_page_text-question">
+      <div className="container_page_question">
         <Label>Вопрос</Label>
         <TextField />
         <div className="question_settings">
           <Checkbox label="Обязательный" styles={styleCheckbox} />
-          <ButtonDef title="Удалить" iconName={trashCan} />
+          <DefaultButton text="Удалить" iconProps={trashCan} onClick={this.delete} />
         </div>
       </div>
     );
