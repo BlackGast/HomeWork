@@ -60,7 +60,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
         disabled={disabled}
         checked={checked}
         onClick={addTextQuestion}
-        styles={{textContainer: {textAlign: "left"}}}
+        styles={{ textContainer: { textAlign: "left" } }}
       />
       <CommandBarButton
         iconProps={checkBox}
@@ -68,7 +68,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
         disabled={disabled}
         checked={checked}
         onClick={addCheckboxQuestion}
-        styles={{textContainer: {textAlign: "left"}}}
+        styles={{ textContainer: { textAlign: "left" } }}
       />
       <CommandBarButton
         iconProps={radioBtn}
@@ -76,7 +76,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
         disabled={disabled}
         checked={checked}
         onClick={addRadioBtnQuestion}
-        styles={{textContainer: {textAlign: "left"}}}
+        styles={{ textContainer: { textAlign: "left" } }}
       />
       <CommandBarButton
         iconProps={calendar}
@@ -84,7 +84,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
         disabled={disabled}
         checked={checked}
         onClick={addDataQuestion}
-        styles={{textContainer: {textAlign: "left"}}}
+        styles={{ textContainer: { textAlign: "left" } }}
       />
       <CommandBarButton
         iconProps={ratingStar}
@@ -92,7 +92,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
         disabled={disabled}
         checked={checked}
         onClick={addRatingScaleQuestion}
-        styles={{textContainer: {textAlign: "left"}}}
+        styles={{ textContainer: { textAlign: "left" } }}
       />
     </Stack>
   );

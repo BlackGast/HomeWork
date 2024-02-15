@@ -16,7 +16,6 @@ import {
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ButtonCommandBar } from "./components/ButtonCommandBar";
-import { TextQuestion } from "./components/Questions/TextQuestion";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -106,7 +105,7 @@ export interface IButtonProps {
   checked?: boolean;
   title?: string;
   iconName?: IIconProps;
-  funcClick?: any
+  funcClick?: any;
 }
 
 const columnProps: Partial<IStackProps> = {
@@ -173,29 +172,37 @@ export class PageEditorJson extends React.Component {
 }
 
 export class Page extends React.Component {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      element: [],
-    };
-  }
+  // constructor(props: {}) {
+  //   super(props);
+  //   this.state = {
+  //     element: [],
+  //   };
+  // }
 
   componentDidMount(): void {
-    console.log('componentDidMount')
+    console.log("componentDidMount");
   }
 
   componentDidUpdate(): void {
     this.render();
-    console.log('componentDidUpdate')
+    console.log("componentDidUpdate");
   }
 
-  static readonly elements: React.ReactNode[] = [];
-  // static const [elements: any, setElements: any] = useState<React.ReactNode[]>([]);
+  static elements: React.ReactNode[] = [];
+
+  public static readonly handleDeleteQuestion = (key: number): void => {
+    const newElements: React.ReactNode[] = [...this.elements];
+    newElements.splice(key, 1);
+    this.setElements(newElements);
+    console.log("delete click", key);
+  };
+
+  private static readonly setElements = (item: React.ReactNode[]) => {
+    this.elements = [...item]
+  }
 
   public static setProps(prop: React.ReactNode): void {
     this.elements.push(prop);
-    
-    console.log(this.elements);
   }
 
   public render(): React.ReactNode {
@@ -223,8 +230,11 @@ export class Page extends React.Component {
           </div>
           <div>
             {Page.elements.map((element, index) => (
-              // <div >{element}</div>
-              <div className="container_page_question_item" key={index}>
+              <div
+                className="container_page_question_item"
+                key={index}
+                id={index.toString()}
+              >
                 {element}
               </div>
             ))}
@@ -237,7 +247,7 @@ export class Page extends React.Component {
 
 export const trashCan: IIconProps = {
   iconName: "Delete",
-  style: { color: 'rgb(0, 120, 212)' },
+  style: { color: "rgb(0, 120, 212)" },
 };
 
 export const textDocument: IIconProps = {

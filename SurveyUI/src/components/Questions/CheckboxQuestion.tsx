@@ -1,6 +1,11 @@
-import { Checkbox, DefaultButton, IStackStyles, Label, TextField } from "@fluentui/react";
+import {
+  Checkbox,
+  DefaultButton,
+  IStackStyles,
+  Label,
+} from "@fluentui/react";
 import React from "react";
-import { ButtonDef, trashCan } from "../../App";
+import { trashCan } from "../../App";
 
 export class CheckboxQuestion extends React.Component {
   public render(): React.ReactNode {
