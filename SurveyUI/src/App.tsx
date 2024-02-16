@@ -1,7 +1,7 @@
 import Logo from "./img/Logo.png";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
-import React from "react";
+import React, { useState } from "react";
 import {
   PartialTheme,
   ThemeProvider,
@@ -172,12 +172,12 @@ export class PageEditorJson extends React.Component {
 }
 
 export class Page extends React.Component {
-  // constructor(props: {}) {
-  //   super(props);
-  //   this.state = {
-  //     element: [],
-  //   };
-  // }
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      element: [],
+    };
+  }
 
   componentDidMount(): void {
     console.log("componentDidMount");
@@ -198,8 +198,8 @@ export class Page extends React.Component {
   };
 
   private static readonly setElements = (item: React.ReactNode[]) => {
-    this.elements = [...item]
-  }
+    this.elements = [...item];
+  };
 
   public static setProps(prop: React.ReactNode): void {
     this.elements.push(prop);
@@ -209,7 +209,11 @@ export class Page extends React.Component {
     return (
       <div className="container">
         <div className="container_title-survey">
-          <TextField borderless placeholder="Название опроса" />
+          <TextField
+            borderless
+            placeholder="Название опроса"
+            id="surveyTitle"
+          />
           <TextField
             underlined
             placeholder="Описание опроса"
@@ -217,15 +221,21 @@ export class Page extends React.Component {
             rows={2}
             resizable={false}
             styles={Styles}
+            id="surveyDescription"
           />
         </div>
         <div className="container_page">
           <div>
-            <TextField borderless placeholder="Страница 1" />
+            <TextField 
+              borderless
+              placeholder="Страница 1"
+              id="pageTitle"
+            />
             <TextField
               borderless
               placeholder="Описание страницы"
               styles={Styles}
+              id="pageDescription"
             />
           </div>
           <div>

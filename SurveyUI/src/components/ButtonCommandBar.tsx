@@ -23,8 +23,10 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   const [elements, setElements] = useState<React.ReactNode[]>([]);
 
   function addTextQuestion(): void {
-    const newElement = <TextQuestion key={elements.length} />;
+    const newElement = <TextQuestion key={elements.length} id={elements.length} />;
+    // const newElement = <TextQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
+    console.log(newElement);
     Page.setProps(newElement);
   }
 
