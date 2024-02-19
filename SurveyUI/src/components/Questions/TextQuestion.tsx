@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {
   IStackStyles,
   TextField,
@@ -6,14 +6,15 @@ import {
   Checkbox,
   DefaultButton,
 } from "@fluentui/react";
-import { Page, trashCan } from "../../App";
+import { Page } from "../../App";
+import { trashCan } from "../IProps/IIconProps";
 
 export class TextQuestion extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      key: 0
-    }    
+      key: 0,
+    };
   }
 
   private delete(index: number) {
@@ -21,7 +22,7 @@ export class TextQuestion extends React.Component {
   }
 
   //private index = this.props
-  
+
   public render(): React.ReactNode {
     const styleCheckbox: Partial<IStackStyles> = {
       root: {
@@ -30,11 +31,11 @@ export class TextQuestion extends React.Component {
         alignItems: "center",
       },
     };
-    
+
     //console.log(this.props.id);
-    
+
     return (
-      <div 
+      <div
         className="container_page_question"
         onClick={(event) => {
           console.log(event.target);

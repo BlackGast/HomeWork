@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Stack, CommandBarButton } from "@fluentui/react";
 import { TextQuestion } from "./Questions/TextQuestion";
+import { IButtonProps, Page, stackStyles } from "../App";
 import {
-  IButtonProps,
-  Page,
-  stackStyles,
   textDocument,
   checkBox,
   radioBtn,
   calendar,
   ratingStar,
-} from "../App";
+} from "./IProps/IIconProps";
 import { CheckboxQuestion } from "./Questions/CheckboxQuestion";
 import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
 import { DataQuestion } from "./Questions/DataQuestion";
@@ -23,7 +21,9 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
   const [elements, setElements] = useState<React.ReactNode[]>([]);
 
   function addTextQuestion(): void {
-    const newElement = <TextQuestion key={elements.length} id={elements.length} />;
+    const newElement = (
+      <TextQuestion key={elements.length} id={elements.length} />
+    );
     // const newElement = <TextQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);

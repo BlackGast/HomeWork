@@ -1,7 +1,7 @@
 import Logo from "./img/Logo.png";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
-import React, { useState } from "react";
+import * as React from "react";
 import {
   PartialTheme,
   ThemeProvider,
@@ -16,6 +16,7 @@ import {
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ButtonCommandBar } from "./components/ButtonCommandBar";
+import { useState } from "react";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -47,6 +48,7 @@ export class App extends React.Component<{}, { count: number }> {
               </div>
             </>
           }
+          ;
         </Layout>
       </ThemeProvider>
     );
@@ -184,25 +186,36 @@ export class Page extends React.Component {
   }
 
   componentDidUpdate(): void {
-    this.render();
     console.log("componentDidUpdate");
+    this.render();
   }
 
-  static elements: React.ReactNode[] = [];
+  private static elements: React.ReactNode[] = [];
+  
+  private static setElement = (item: React.ReactNode[]) => {
+    Page.elements = [...item];
+    // Page.setState({ element: Page.elements });
+  };
 
-  public static readonly handleDeleteQuestion = (key: number): void => {
+  public static handleDeleteQuestion = (key: number): void => {
+    //const [elements, setElements] = useState<React.ReactNode[]>([]);
     const newElements: React.ReactNode[] = [...this.elements];
     newElements.splice(key, 1);
-    this.setElements(newElements);
+    this.setElement(newElements);
     console.log("delete click", key);
   };
+  
 
-  private static readonly setElements = (item: React.ReactNode[]) => {
-    this.elements = [...item];
-  };
+  // private setter(): void {
+  //   this.setState({ element: this.elements });
+  // }
 
   public static setProps(prop: React.ReactNode): void {
+    //const [, setElements] = React.useState<React.ReactNode[]>([]);
+    //(prevElements: React.ReactNode[]) => [...prevElements, prop];
+    
     this.elements.push(prop);
+    //   this.setter();
   }
 
   public render(): React.ReactNode {
@@ -226,11 +239,7 @@ export class Page extends React.Component {
         </div>
         <div className="container_page">
           <div>
-            <TextField 
-              borderless
-              placeholder="Страница 1"
-              id="pageTitle"
-            />
+            <TextField borderless placeholder="Страница 1" id="pageTitle" />
             <TextField
               borderless
               placeholder="Описание страницы"
@@ -239,13 +248,13 @@ export class Page extends React.Component {
             />
           </div>
           <div>
-            {Page.elements.map((element, index) => (
+            {Page.elements.map((elements, index) => (
               <div
                 className="container_page_question_item"
                 key={index}
                 id={index.toString()}
               >
-                {element}
+                {elements}
               </div>
             ))}
           </div>
@@ -254,52 +263,6 @@ export class Page extends React.Component {
     );
   }
 }
-
-export const trashCan: IIconProps = {
-  iconName: "Delete",
-  style: { color: "rgb(0, 120, 212)" },
-};
-
-export const textDocument: IIconProps = {
-  iconName: "TextDocument",
-  style: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-};
-export const checkBox: IIconProps = {
-  iconName: "CheckboxComposite",
-  style: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-};
-export const radioBtn: IIconProps = {
-  iconName: "RadioBtnOn",
-  style: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-};
-export const calendar: IIconProps = {
-  iconName: "Calendar",
-  style: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-};
-export const ratingStar: IIconProps = {
-  iconName: "FavoriteStar",
-  style: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-};
 
 export const stackStyles: Partial<IStackStyles> = {
   root: "menu",
