@@ -24,14 +24,15 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
     const newElement = (
       <TextQuestion key={elements.length} id={elements.length} />
     );
-    // const newElement = <TextQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);
     Page.setProps(newElement);
   }
 
   function addCheckboxQuestion(): void {
-    const newElement = <CheckboxQuestion key={elements.length} />;
+    const newElement = (
+      <CheckboxQuestion key={elements.length} id={elements.length} />
+    );
     setElements((prevElement) => [...prevElement, newElement]);
     Page.setProps(newElement);
   }

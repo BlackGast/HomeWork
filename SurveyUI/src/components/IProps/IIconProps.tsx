@@ -52,9 +52,4 @@ export const ratingStar: IIconProps = {
 
 export const circlePlus: IIconProps = {
   iconName: "CirclePlus",
-  style: {
-    // marginTop: 10,
-    // marginBottom: 10,
-    // marginLeft: 10,
-  },
 };
