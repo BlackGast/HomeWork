@@ -16,14 +16,17 @@ import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 
 interface IButtonCommandBarProps {
   onDeleteQuestion: (key: number) => void;
+  setProps: (prop: React.ReactNode) => void;
 }
 
 export const ButtonCommandBar: React.FunctionComponent<IButtonProps & IButtonCommandBarProps> = (
   props
+  // props: IButtonCommandBarProps
 ) => {
-  const { disabled, checked, onDeleteQuestion } = props;
+  // const { disabled, checked, onDeleteQuestion } = props;
+  const { disabled, checked, setProps, onDeleteQuestion } = props;
   const [elements, setElements] = useState<React.ReactNode[]>([]);
-  const pageInstance = useRef<Page>(null);
+  //const pageInstance = useRef<Page>(null);
 
   function addTextQuestion(): void {
     const newElement = (
@@ -31,7 +34,8 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps & IButtonCom
     );
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);
-    pageInstance.current?.setProps(newElement);
+    //pageInstance.current?.setProps(newElement);
+    setProps(newElement);
   }
 
   function addCheckboxQuestion(): void {

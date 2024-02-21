@@ -135,12 +135,13 @@ const Styles: Partial<IStackStyles> = {
 };
 
 export class PageDesignerSurvey extends React.Component {
+
   public render(): React.ReactNode {
     return (
       <div className="page bodyPage_colored">
         <div className="page_part page_part-part1">
           <div className="menu">
-            <ButtonCommandBar onDeleteQuestion={Page.handleDeleteQuestion} />
+            <ButtonCommandBar onDeleteQuestion={this.props.handleDeleteQuestion()} setProps={this.props.setProps()} />
           </div>
         </div>
         <div className="vertical-line" />
@@ -177,6 +178,10 @@ interface IPageState {
   elements: React.ReactNode[];
 }
 
+// interface IPageProps {
+
+// }
+
 export class Page extends React.Component<{}, IPageState> {
   constructor(props: {}) {
     super(props);
@@ -193,7 +198,7 @@ export class Page extends React.Component<{}, IPageState> {
     console.log("componentDidUpdate");
     this.render();
   }
-  
+
   public setElement = (item: React.ReactNode[]) => {
     // Page.elements = [...item];
     this.setState((prevState) => ({ elements: [...prevState.elements, item] }));
@@ -202,10 +207,10 @@ export class Page extends React.Component<{}, IPageState> {
   public handleDeleteQuestion = (key: number): void => {
     const newElements: React.ReactNode[] = [...this.state.elements];
     newElements.splice(key, 1);
-    this.setState({ elements: newElements });
+    // this.setState({ elements: newElements });
+    this.setElement(newElements);
     console.log("delete click", key);
   };
-  
 
   // private setter(): void {
   //   this.setState({ element: this.elements });
