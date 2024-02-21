@@ -9,7 +9,12 @@ import {
 import { Page } from "../../App";
 import { trashCan } from "../IProps/IIconProps";
 
-export class TextQuestion extends React.Component {
+interface ITextQuestionProps {
+  id: number;
+  onDelete: (id: number) => void;
+}
+
+export class TextQuestion extends React.Component<ITextQuestionProps> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -17,9 +22,9 @@ export class TextQuestion extends React.Component {
     };
   }
 
-  private delete(index: number) {
-    Page.handleDeleteQuestion(index);
-  }
+  private delete = () => {
+    this.props.onDelete(this.props.id);
+  };
 
   //private index = this.props
 
@@ -67,7 +72,7 @@ export class TextQuestion extends React.Component {
             iconProps={trashCan}
             // id={this.props.id}
             onClick={() => {
-              this.delete(this.props.id);
+              this.delete();
               //console.log(event.target);
             }}
           />

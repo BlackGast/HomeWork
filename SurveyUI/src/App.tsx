@@ -140,7 +140,7 @@ export class PageDesignerSurvey extends React.Component {
       <div className="page bodyPage_colored">
         <div className="page_part page_part-part1">
           <div className="menu">
-            <ButtonCommandBar />
+            <ButtonCommandBar onDeleteQuestion={Page.handleDeleteQuestion} />
           </div>
         </div>
         <div className="vertical-line" />
@@ -173,11 +173,15 @@ export class PageEditorJson extends React.Component {
   }
 }
 
-export class Page extends React.Component {
+interface IPageState {
+  elements: React.ReactNode[];
+}
+
+export class Page extends React.Component<{}, IPageState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      element: [],
+      elements: [],
     };
   }
 
@@ -189,19 +193,16 @@ export class Page extends React.Component {
     console.log("componentDidUpdate");
     this.render();
   }
-
-  private static elements: React.ReactNode[] = [];
   
-  private static setElement = (item: React.ReactNode[]) => {
-    Page.elements = [...item];
-    // Page.setState({ element: Page.elements });
+  public setElement = (item: React.ReactNode[]) => {
+    // Page.elements = [...item];
+    this.setState((prevState) => ({ elements: [...prevState.elements, item] }));
   };
 
-  public static handleDeleteQuestion = (key: number): void => {
-    //const [elements, setElements] = useState<React.ReactNode[]>([]);
-    const newElements: React.ReactNode[] = [...this.elements];
+  public handleDeleteQuestion = (key: number): void => {
+    const newElements: React.ReactNode[] = [...this.state.elements];
     newElements.splice(key, 1);
-    this.setElement(newElements);
+    this.setState({ elements: newElements });
     console.log("delete click", key);
   };
   
@@ -210,13 +211,9 @@ export class Page extends React.Component {
   //   this.setState({ element: this.elements });
   // }
 
-  public static setProps(prop: React.ReactNode): void {
-    //const [, setElements] = React.useState<React.ReactNode[]>([]);
-    //(prevElements: React.ReactNode[]) => [...prevElements, prop];
-    
-    this.elements.push(prop);
-    //   this.setter();
-  }
+  public setProps = (prop: React.ReactNode): void => {
+    this.setState((prevState) => ({ elements: [...prevState.elements, prop] }));
+  };
 
   public render(): React.ReactNode {
     return (
@@ -248,7 +245,7 @@ export class Page extends React.Component {
             />
           </div>
           <div>
-            {Page.elements.map((elements, index) => (
+            {this.state.elements.map((elements, index) => (
               <div
                 className="container_page_question_item"
                 key={index}

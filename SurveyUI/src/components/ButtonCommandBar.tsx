@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Stack, CommandBarButton } from "@fluentui/react";
 import { TextQuestion } from "./Questions/TextQuestion";
 import { IButtonProps, Page, stackStyles } from "../App";
@@ -14,19 +14,24 @@ import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
 import { DataQuestion } from "./Questions/DataQuestion";
 import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 
-export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
+interface IButtonCommandBarProps {
+  onDeleteQuestion: (key: number) => void;
+}
+
+export const ButtonCommandBar: React.FunctionComponent<IButtonProps & IButtonCommandBarProps> = (
   props
 ) => {
-  const { disabled, checked } = props;
+  const { disabled, checked, onDeleteQuestion } = props;
   const [elements, setElements] = useState<React.ReactNode[]>([]);
+  const pageInstance = useRef<Page>(null);
 
   function addTextQuestion(): void {
     const newElement = (
-      <TextQuestion key={elements.length} id={elements.length} />
+      <TextQuestion key={elements.length} id={elements.length} onDelete={onDeleteQuestion} />
     );
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);
-    Page.setProps(newElement);
+    pageInstance.current?.setProps(newElement);
   }
 
   function addCheckboxQuestion(): void {
@@ -34,25 +39,26 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps> = (
       <CheckboxQuestion key={elements.length} id={elements.length} />
     );
     setElements((prevElement) => [...prevElement, newElement]);
-    Page.setProps(newElement);
+    pageInstance.current?.setProps(newElement);
   }
 
   function addRadioBtnQuestion(): void {
     const newElement = <RadioButtonQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
-    Page.setProps(newElement);
+    pageInstance.current?.setProps(newElement);
   }
 
   function addDataQuestion(): void {
     const newElement = <DataQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
-    Page.setProps(newElement);
+    pageInstance.current?.setProps(newElement);
   }
 
   function addRatingScaleQuestion(): void {
     const newElement = <RatingScaleQuestion key={elements.length} />;
     setElements((prevElement) => [...prevElement, newElement]);
-    Page.setProps(newElement);
+    // Page.setProps(newElement);
+    pageInstance.current?.setProps(newElement);
   }
 
   return (
