@@ -20,10 +20,16 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
     this.state = {
       key: 0,
     };
+    this.pageComponentRef = React.createRef();
   }
 
+  // handleClick = () => {
+  //   this.pageComponentRef.current.myMethod(); // Вызываем метод myMethod из Page
+  // };
+
   private delete = () => {
-    this.props.onDelete(this.props.id);
+    this.pageComponentRef.current.handleDeleteQuestion(this.props.id);
+    // this.props.onDelete(this.props.id);
   };
 
   //private index = this.props

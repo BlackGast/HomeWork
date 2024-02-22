@@ -65,10 +65,10 @@ export const PivotSeparate = () => {
   };
 
   // Функция для отображения контента в зависимости от выбранного ключа
-  const renderContent = (selectedKey: string) => {
+  const renderContent = (selectedKey: string, setProps: (prop: React.ReactNode) => void) => {
     switch (selectedKey) {
       case "designerPage":
-        return <PageDesignerSurvey />;
+        return <PageDesignerSurvey setProps={setProps} />;
       case "previewPage":
         return <PagePreviewSurvey />;
       case "editorJson":
@@ -97,7 +97,7 @@ export const PivotSeparate = () => {
         <ButtonDef title="Создание опроса" />
       </div>
       <hr className="no-margin" />
-      <div className="bodyPage">{renderContent(selectedKey)} </div>
+      <div className="bodyPage">{renderContent(selectedKey), this.props.setProps()} </div>
     </>
   );
 };
@@ -134,14 +134,19 @@ const Styles: Partial<IStackStyles> = {
   root: "container_title-survey_description",
 };
 
-export class PageDesignerSurvey extends React.Component {
+interface IPageDesignerSurveyProps {
+  onDeleteQuestion: (key: number) => void;
+  setProps: (prop: React.ReactNode) => void;
+}
+
+export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps> {
 
   public render(): React.ReactNode {
     return (
       <div className="page bodyPage_colored">
         <div className="page_part page_part-part1">
           <div className="menu">
-            <ButtonCommandBar onDeleteQuestion={this.props.handleDeleteQuestion()} setProps={this.props.setProps()} />
+            <ButtonCommandBar onDeleteQuestion={onDeleteQuestion()} setProps={this.props.setProps()} />
           </div>
         </div>
         <div className="vertical-line" />
@@ -183,6 +188,7 @@ interface IPageState {
 // }
 
 export class Page extends React.Component<{}, IPageState> {
+  static state: any;
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -196,19 +202,28 @@ export class Page extends React.Component<{}, IPageState> {
 
   componentDidUpdate(): void {
     console.log("componentDidUpdate");
-    this.render();
+    //this.render();
   }
 
-  public setElement = (item: React.ReactNode[]) => {
-    // Page.elements = [...item];
-    this.setState((prevState) => ({ elements: [...prevState.elements, item] }));
+  // public setElement = (item: React.ReactNode[]) => {
+  //   // Page.elements = [...item];
+  //   this.setState((prevState) => ({ elements: [...prevState.elements, item] }));
+  // };
+  private setElement = (item: React.ReactNode[]) => {
+    this.setState((prevState) => ({ elements: [...prevState.elements, ...item] }));
   };
 
+  // public handleDeleteQuestion = (key: number): void => {
+  //   const newElements: React.ReactNode[] = [...this.state.elements];
+  //   newElements.splice(key, 1);
+  //   // this.setState({ elements: newElements });
+  //   this.setElement(newElements);
+  //   console.log("delete click", key);
+  // };
   public handleDeleteQuestion = (key: number): void => {
     const newElements: React.ReactNode[] = [...this.state.elements];
     newElements.splice(key, 1);
-    // this.setState({ elements: newElements });
-    this.setElement(newElements);
+    this.setState({ elements: newElements });
     console.log("delete click", key);
   };
 
@@ -216,8 +231,11 @@ export class Page extends React.Component<{}, IPageState> {
   //   this.setState({ element: this.elements });
   // }
 
+  // public setProps = (prop: React.ReactNode): void => {
+  //   this.setState((prevState) => ({ elements: [...prevState.elements, prop] }));
+  // };
   public setProps = (prop: React.ReactNode): void => {
-    this.setState((prevState) => ({ elements: [...prevState.elements, prop] }));
+    this.setElement([prop]);
   };
 
   public render(): React.ReactNode {
