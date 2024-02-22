@@ -11,28 +11,25 @@ import { trashCan } from "../IProps/IIconProps";
 
 interface ITextQuestionProps {
   id: number;
-  onDelete: (id: number) => void;
 }
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
   constructor(props: any) {
     super(props);
+    this.pageComponentRef = React.createRef();
     this.state = {
       key: 0,
     };
-    this.pageComponentRef = React.createRef();
   }
 
   // handleClick = () => {
-  //   this.pageComponentRef.current.myMethod(); // Вызываем метод myMethod из Page
+  //   this.pageComponentRef.current.myMethod();
   // };
 
   private delete = () => {
     this.pageComponentRef.current.handleDeleteQuestion(this.props.id);
     // this.props.onDelete(this.props.id);
   };
-
-  //private index = this.props
 
   public render(): React.ReactNode {
     const styleCheckbox: Partial<IStackStyles> = {

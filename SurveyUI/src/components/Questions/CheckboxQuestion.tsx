@@ -8,27 +8,27 @@ import {
 import React from "react";
 import { circlePlus, trashCan } from "../IProps/IIconProps";
 
+interface ICheckboxQuestionProps {
+  id: number;
+}
+
 interface CheckboxListProps {
-  items: {
-    key: number;
-    element: React.ReactNode;
-  }[];
+  id: number;
 }
 
 interface CheckboxListState {}
 
 interface CheckBoxQuestionState {
-  CheckboxList: {
-    key: number;
-    element: React.ReactNode;
+  checkboxList: {
+    id: number;
   }[];
 }
 
 export class CheckboxQuestion extends React.Component<
-  {},
+  ICheckboxQuestionProps,
   CheckBoxQuestionState
 > {
-  constructor(props: {}) {
+  constructor(props: ICheckboxQuestionProps) {
     super(props);
     this.state = {
       checkboxList: [],
@@ -42,7 +42,7 @@ export class CheckboxQuestion extends React.Component<
   }
 
   addCheckbox = () => {
-    const { checkboxList } = this.state;
+    const { checkboxList } = this.state.checkboxList;
     this.setState({
       checkboxList: [
         ...checkboxList,
@@ -63,7 +63,7 @@ export class CheckboxQuestion extends React.Component<
       <div className="container_page_question">
         <Label>Вопрос</Label>
         <Checkbox label="ответ" />
-        <CheckboxList />
+        <CheckboxList id={this.props.id} />
         <IconButton iconProps={circlePlus} onClick={this.addCheckbox} />
         <div className="question_settings">
           <Checkbox label="Обязательный" styles={styleCheckbox} />
@@ -79,7 +79,7 @@ export class CheckboxList extends React.Component<
   CheckboxListState
 > {
   public render(): React.ReactNode {
-    const { items } = this.props;
+    const { items } = this.props.id;
     const styleCheckboxes: Partial<IStackStyles> = {
       root: {
         marginLeft: 10,

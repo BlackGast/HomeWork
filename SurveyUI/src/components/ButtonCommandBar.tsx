@@ -14,28 +14,26 @@ import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
 import { DataQuestion } from "./Questions/DataQuestion";
 import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 
-interface IButtonCommandBarProps {
-  onDeleteQuestion: (key: number) => void;
-  setProps: (prop: React.ReactNode) => void;
-}
+interface IButtonCommandBarProps {}
 
-export const ButtonCommandBar: React.FunctionComponent<IButtonProps & IButtonCommandBarProps> = (
+export const ButtonCommandBar: React.FunctionComponent<
+  IButtonProps & IButtonCommandBarProps
+> = (
   props
   // props: IButtonCommandBarProps
 ) => {
   // const { disabled, checked, onDeleteQuestion } = props;
-  const { disabled, checked, setProps, onDeleteQuestion } = props;
+  const { disabled, checked } = props;
   const [elements, setElements] = useState<React.ReactNode[]>([]);
-  //const pageInstance = useRef<Page>(null);
 
   function addTextQuestion(): void {
     const newElement = (
-      <TextQuestion key={elements.length} id={elements.length} onDelete={onDeleteQuestion} />
+      <TextQuestion key={elements.length} id={elements.length} />
     );
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);
     //pageInstance.current?.setProps(newElement);
-    setProps(newElement);
+    //setProps(newElement);
   }
 
   function addCheckboxQuestion(): void {
@@ -44,6 +42,7 @@ export const ButtonCommandBar: React.FunctionComponent<IButtonProps & IButtonCom
     );
     setElements((prevElement) => [...prevElement, newElement]);
     //pageInstance.current?.setProps(newElement);
+    console.log(newElement);
   }
 
   function addRadioBtnQuestion(): void {
