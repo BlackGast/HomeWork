@@ -14,7 +14,8 @@ import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
 import { DataQuestion } from "./Questions/DataQuestion";
 import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 
-interface IButtonCommandBarProps {}
+interface IButtonCommandBarProps {
+}
 
 export const ButtonCommandBar: React.FunctionComponent<
   IButtonProps & IButtonCommandBarProps

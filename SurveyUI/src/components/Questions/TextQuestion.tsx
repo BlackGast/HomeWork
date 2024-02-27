@@ -16,7 +16,6 @@ interface ITextQuestionProps {
 export class TextQuestion extends React.Component<ITextQuestionProps> {
   constructor(props: any) {
     super(props);
-    this.pageComponentRef = React.createRef();
     this.state = {
       key: 0,
     };
@@ -27,7 +26,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
   // };
 
   private delete = () => {
-    this.pageComponentRef.current.handleDeleteQuestion(this.props.id);
+    // this.pageComponentRef.current.handleDeleteQuestion(this.props.id);
     // this.props.onDelete(this.props.id);
   };
 

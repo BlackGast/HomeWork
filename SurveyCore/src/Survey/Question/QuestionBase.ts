@@ -4,6 +4,7 @@ import { Utils } from "../Utils";
 
 
 export class QuestionBase implements IQuestionData {
+    public order: string;
     public id: string;
     public title: string;
     public description: string;
@@ -14,6 +15,7 @@ export class QuestionBase implements IQuestionData {
     public answer: string;
 
     constructor(data: IQuestionData) {
+        this.order = data.order || '0';
         this.id = data.id || Utils.generateGUID();
         this.type = 'Text';
         this.title = '';
@@ -27,12 +29,12 @@ export class QuestionBase implements IQuestionData {
     /**
      * Базовый метод для получения значения ответа
      */
-    public getValue() {}
+    public getValue() { /* TODO document why this method 'getValue' is empty */ }
 
     /**
      * Базовый метод для изменения значения ответа
      */
-    public setValue(newValue: any) {}
+    public setValue(newValue: any) { /* TODO document why this method 'setValue' is empty */ }
 
     /**
      * Базовый метод для изменения одного из полей класса по названию
@@ -48,7 +50,7 @@ export class QuestionBase implements IQuestionData {
         return this[name as keyof this];
     }
 
-    public setFieldByName(fieldName: string, newValue: any, index: number) {}
+    public setFieldByName(fieldName: string, newValue: any, index: number) { /* TODO document why this method 'setFieldByName' is empty */ }
  
     /**
      * Колбэк, который будет вызывать метод из контекста, в котором выполняется Survey.

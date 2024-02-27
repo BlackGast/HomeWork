@@ -17,17 +17,40 @@ import {
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ButtonCommandBar } from "./components/ButtonCommandBar";
 import { useState } from "react";
+import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 initializeIcons();
 
 const appTheme: PartialTheme = {
   palette: {},
 };
 
+export interface IAppState {
+  survey: ISurveyModel;
+}
+
 // https://github.com/microsoft/fluentui/wiki/Getting-Started-with-Fluent-UI-React
-export class App extends React.Component<{}, { count: number }> {
-  // constructor(props: {}) {
-  //   super(props);
-  // }
+export class App extends React.Component<{}, IAppState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      survey: {
+        description: "",
+        pages: [],
+        title: "",
+      },
+    };
+  }
+
+  public addPage(item: any): void {
+    this.state.survey.pages.push(item);
+  }
+
+  public handleDeleteQuestion = (panel: number, page: number, key: number): void => {
+    const newElements: React.ReactNode[] = [...this.state.survey.pages[page].panels[panel].questions];
+    newElements.splice(key, 1);
+    this.setState({ elements: newElements });
+    console.log("delete click", key);
+  };
 
   public render(): React.ReactNode {
     return (

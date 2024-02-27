@@ -39,6 +39,7 @@ class Survey {
         }
         if (!data) {
             const emptyPage: IPageData = {
+                order: '0',
                 title: '', 
                 panels: [],
                 id: "",

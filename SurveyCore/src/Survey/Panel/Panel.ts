@@ -12,6 +12,7 @@ import { Utils } from "../Utils";
  * Используется для группировки вопросов в UI
  */
 export class Panel {
+    public order: string;
     public id: string;
     public title: string;
     public description: string;
@@ -19,6 +20,7 @@ export class Panel {
     public questions: QuestionBase[];
 
     constructor(data: IPanelData) {
+        this.order = data.order || '0';
         this.id = data.id || Utils.generateGUID();
         this.title = data.title;
         this.description = data.description;

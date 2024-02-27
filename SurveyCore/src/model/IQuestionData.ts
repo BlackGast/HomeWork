@@ -3,6 +3,7 @@ import { IChoice } from "./formElements/IChoice";
 import { ISelectAnswer } from "./formElements/ISelectAnswer";
 
 export interface IQuestionData {
+    order: string;
     id: string;
     title: string;
     type: QuestionType;
