@@ -18,6 +18,7 @@ import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ButtonCommandBar } from "./components/ButtonCommandBar";
 import { useState } from "react";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
+import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -36,19 +37,30 @@ export class App extends React.Component<{}, IAppState> {
       survey: {
         description: "",
         pages: [],
-        title: "",
+        title: "Title",
       },
     };
   }
 
   public addPage(item: any): void {
     this.state.survey.pages.push(item);
+    //this.setState((prevState) => ({survey: {pages: [...prevState.survey.pages]}}))
   }
 
-  public handleDeleteQuestion = (panel: number, page: number, key: number): void => {
-    const newElements: React.ReactNode[] = [...this.state.survey.pages[page].panels[panel].questions];
+  public addPanel(item: any): void {
+    // this.s
+  }
+
+  public handleDeleteQuestion = (
+    panel: number,
+    page: number,
+    key: number
+  ): void => {
+    const newElements: QuestionBase[] = [
+      ...this.state.survey.pages[page].panels[panel].questions,
+    ];
     newElements.splice(key, 1);
-    this.setState({ elements: newElements });
+    //this.setState(prevState => ({pages[...newElements, prevState]}));
     console.log("delete click", key);
   };
 
@@ -66,7 +78,11 @@ export class App extends React.Component<{}, IAppState> {
               <div className="bodyPage">
                 <hr />
                 <div className="bodyPage">
-                  <PivotSeparate />
+                  <PivotSeparate
+                    title={this.state.survey.title}
+                    description={this.state.survey.description}
+                    pages={this.state.survey.pages}
+                  />
                 </div>
               </div>
             </>
@@ -78,7 +94,7 @@ export class App extends React.Component<{}, IAppState> {
   }
 }
 
-export const PivotSeparate = () => {
+export const PivotSeparate = (survey: ISurveyModel) => {
   const [selectedKey, setSelectedKey] = React.useState("designerPage");
 
   const handleLinkClick = (item?: PivotItem) => {
@@ -91,7 +107,7 @@ export const PivotSeparate = () => {
   const renderContent = (selectedKey: string) => {
     switch (selectedKey) {
       case "designerPage":
-        return <PageDesignerSurvey />;
+        return <PageDesignerSurvey survey={survey} />;
       case "previewPage":
         return <PagePreviewSurvey />;
       case "editorJson":
@@ -117,7 +133,7 @@ export const PivotSeparate = () => {
           />
           <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
         </Pivot>
-        <ButtonDef title="Создание опроса" />
+        <DefaultButton title="Создание опроса" text="Создание опроса"/>
       </div>
       <hr className="no-margin" />
       <div className="bodyPage">{renderContent(selectedKey)} </div>
@@ -130,7 +146,6 @@ export interface IButtonProps {
   checked?: boolean;
   title?: string;
   iconName?: IIconProps;
-  funcClick?: any;
 }
 
 const columnProps: Partial<IStackProps> = {
@@ -138,37 +153,26 @@ const columnProps: Partial<IStackProps> = {
   styles: { root: "settings-inp" },
 };
 
-export const ButtonDef: React.FunctionComponent<IButtonProps> = (props) => {
-  const { disabled, checked, title, iconName, funcClick } = props;
-
-  return (
-    <DefaultButton
-      text={title}
-      allowDisabledFocus
-      disabled={disabled}
-      checked={checked}
-      iconProps={iconName}
-      onClick={funcClick}
-    />
-  );
-};
-
 const Styles: Partial<IStackStyles> = {
   root: "container_title-survey_description",
 };
 
-export class PageDesignerSurvey extends React.Component {
+export interface IPageDesignerSurveyProps {
+  survey: ISurveyModel;
+}
+
+export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps> {
   public render(): React.ReactNode {
     return (
       <div className="page bodyPage_colored">
         <div className="page_part page_part-part1">
           <div className="menu">
-            <ButtonCommandBar />
+            <ButtonCommandBar survey={this.props.survey} />
           </div>
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part2">
-          <Page />
+          <Page survey={this.props.survey} />
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part3">
@@ -200,14 +204,12 @@ interface IPageState {
   elements: React.ReactNode[];
 }
 
-export class Page extends React.Component<{}, IPageState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      elements: [],
-    };
-  }
+interface IPageProps {
+  survey: ISurveyModel;
+}
 
+export class Page extends React.Component<IPageProps, IPageState> {
+  
   componentDidMount(): void {
     console.log("componentDidMount");
   }
@@ -282,7 +284,7 @@ export class Page extends React.Component<{}, IPageState> {
             />
           </div>
           <div>
-            {this.state.elements.map((elements, index) => (
+            {/* {this.state.elements.map((elements, index) => (
               <div
                 className="container_page_question_item"
                 key={index}
@@ -290,7 +292,8 @@ export class Page extends React.Component<{}, IPageState> {
               >
                 {elements}
               </div>
-            ))}
+            ))} */}
+            {this.props.survey.title}
           </div>
         </div>
       </div>

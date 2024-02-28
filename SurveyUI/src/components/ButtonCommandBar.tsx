@@ -13,8 +13,10 @@ import { CheckboxQuestion } from "./Questions/CheckboxQuestion";
 import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
 import { DataQuestion } from "./Questions/DataQuestion";
 import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
+import { ISurveyModel } from "../../../SurveyCore/src/model/ISurveyModel";
 
 interface IButtonCommandBarProps {
+  survey: ISurveyModel;
 }
 
 export const ButtonCommandBar: React.FunctionComponent<
@@ -33,6 +35,9 @@ export const ButtonCommandBar: React.FunctionComponent<
     );
     setElements((prevElement) => [...prevElement, newElement]);
     console.log(newElement);
+    if (this.props.survey) {
+
+    }
     //pageInstance.current?.setProps(newElement);
     //setProps(newElement);
   }

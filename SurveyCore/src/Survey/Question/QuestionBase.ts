@@ -15,7 +15,7 @@ export class QuestionBase implements IQuestionData {
     public answer: string;
 
     constructor(data: IQuestionData) {
-        this.order = data.order || '0';
+        this.order = data.order || '';
         this.id = data.id || Utils.generateGUID();
         this.type = 'Text';
         this.title = '';
