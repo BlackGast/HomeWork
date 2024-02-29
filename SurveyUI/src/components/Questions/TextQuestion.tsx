@@ -8,9 +8,12 @@ import {
 } from "@fluentui/react";
 import { Page } from "../../App";
 import { trashCan } from "../IProps/IIconProps";
+import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
+import { useState } from "react";
 
 interface ITextQuestionProps {
   id: number;
+  survey: ISurveyModel;
 }
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
@@ -41,12 +44,18 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
 
     //console.log(this.props.id);
 
+    const [key, setkey] = useState();
+    const keyUp = (event: any) => {
+        setkey(event.key)
+        console.log(event.key)
+    }
+
     return (
       <div
         className="container_page_question"
-        onClick={(event) => {
-          console.log(event.target);
-        }}
+        // onClick={(event) => {
+        //   console.log(event.target);
+        // }}
       >
         <TextField
           borderless
@@ -55,6 +64,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             backgroundColor: "#f5f5f5",
             fontSize: 15,
           }}
+          onKeyUp={keyUp}
         />
         {/* <Label>Вопрос</Label> */}
         {/* <div style={{

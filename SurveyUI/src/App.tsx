@@ -15,10 +15,11 @@ import {
   IStackProps,
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
-import { ButtonCommandBar } from "./components/ButtonCommandBar";
+import { QuestionButtonCommandBar } from "./components/QuestionButtonCommandBar";
 import { useState } from "react";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
+import { IPageData } from "../../SurveyCore/src/model/IPageData";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -42,13 +43,28 @@ export class App extends React.Component<{}, IAppState> {
     };
   }
 
-  public addPage(item: any): void {
-    this.state.survey.pages.push(item);
-    //this.setState((prevState) => ({survey: {pages: [...prevState.survey.pages]}}))
+  
+  public addQuestion = () => {
+    // const modelJSON = this.state.survey;
+    // const pages: Page[] = [];
+    // modelJSON.pages?.forEach((page: IPageData) => {
+    // });
+
+    const emptyPage: IPageData = {
+      order: '0',
+      title: '', 
+      panels: [],
+      id: "",
+      description: ""
+  };
+  // this.state.survey.pages = [new Page(emptyPage)];
   }
 
-  public addPanel(item: any): void {
-    // this.s
+  public addPage = () => {
+    
+  }
+
+  public addPanel(): void {
   }
 
   public handleDeleteQuestion = (
@@ -82,6 +98,7 @@ export class App extends React.Component<{}, IAppState> {
                     title={this.state.survey.title}
                     description={this.state.survey.description}
                     pages={this.state.survey.pages}
+
                   />
                 </div>
               </div>
@@ -165,12 +182,12 @@ export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps
   public render(): React.ReactNode {
     return (
       <div className="page bodyPage_colored">
-        <div className="page_part page_part-part1">
+        {/* <div className="page_part page_part-part1">
           <div className="menu">
-            <ButtonCommandBar survey={this.props.survey} />
+            <QuestionButtonCommandBar survey={this.props.survey} />
           </div>
         </div>
-        <div className="vertical-line" />
+        <div className="vertical-line" /> */}
         <div className="page_part page_part-part2">
           <Page survey={this.props.survey} />
         </div>
@@ -219,23 +236,12 @@ export class Page extends React.Component<IPageProps, IPageState> {
     //this.render();
   }
 
-  // public setElement = (item: React.ReactNode[]) => {
-  //   // Page.elements = [...item];
-  //   this.setState((prevState) => ({ elements: [...prevState.elements, item] }));
-  // };
   private setElement = (item: React.ReactNode[]) => {
     this.setState((prevState) => ({
       elements: [...prevState.elements, ...item],
     }));
   };
 
-  // public handleDeleteQuestion = (key: number): void => {
-  //   const newElements: React.ReactNode[] = [...this.state.elements];
-  //   newElements.splice(key, 1);
-  //   // this.setState({ elements: newElements });
-  //   this.setElement(newElements);
-  //   console.log("delete click", key);
-  // };
   public handleDeleteQuestion = (key: number): void => {
     const newElements: React.ReactNode[] = [...this.state.elements];
     newElements.splice(key, 1);
@@ -243,13 +249,6 @@ export class Page extends React.Component<IPageProps, IPageState> {
     console.log("delete click", key);
   };
 
-  // private setter(): void {
-  //   this.setState({ element: this.elements });
-  // }
-
-  // public setProps = (prop: React.ReactNode): void => {
-  //   this.setState((prevState) => ({ elements: [...prevState.elements, prop] }));
-  // };
   public setProps = (prop: React.ReactNode): void => {
     this.setElement([prop]);
   };

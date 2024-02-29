@@ -20,7 +20,7 @@ export class Panel {
     public questions: QuestionBase[];
 
     constructor(data: IPanelData) {
-        this.order = data.order || '0';
+        this.order = data.order || '';
         this.id = data.id || Utils.generateGUID();
         this.title = data.title;
         this.description = data.description;

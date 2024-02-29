@@ -9,63 +9,54 @@ import {
   calendar,
   ratingStar,
 } from "./IProps/IIconProps";
-import { CheckboxQuestion } from "./Questions/CheckboxQuestion";
-import { RadioButtonQuestion } from "./Questions/RadioButtonQuestion";
-import { DataQuestion } from "./Questions/DataQuestion";
-import { RatingScaleQuestion } from "./Questions/RatingScaleQuestion";
 import { ISurveyModel } from "../../../SurveyCore/src/model/ISurveyModel";
 
 interface IButtonCommandBarProps {
   survey: ISurveyModel;
+  
 }
 
-export const ButtonCommandBar: React.FunctionComponent<
+export const QuestionButtonCommandBar: React.FunctionComponent<
   IButtonProps & IButtonCommandBarProps
 > = (
   props
-  // props: IButtonCommandBarProps
 ) => {
   // const { disabled, checked, onDeleteQuestion } = props;
   const { disabled, checked } = props;
-  const [elements, setElements] = useState<React.ReactNode[]>([]);
-
+  //const [elements, setElements] = useState<React.ReactNode[]>([]);
   function addTextQuestion(): void {
-    const newElement = (
-      <TextQuestion key={elements.length} id={elements.length} />
-    );
-    setElements((prevElement) => [...prevElement, newElement]);
-    console.log(newElement);
-    if (this.props.survey) {
+    // const newElement = (
+    //   <TextQuestion key={elements.length} id={elements.length} survey={props.survey}/>
+    // );
+    //setElements((prevElement) => [...prevElement, newElement]);
+    // console.log(newElement);
 
-    }
-    //pageInstance.current?.setProps(newElement);
-    //setProps(newElement);
   }
 
   function addCheckboxQuestion(): void {
-    const newElement = (
-      <CheckboxQuestion key={elements.length} id={elements.length} />
-    );
-    setElements((prevElement) => [...prevElement, newElement]);
+    // const newElement = (
+    //   <CheckboxQuestion key={elements.length} id={elements.length} />
+    // );
+    //setElements((prevElement) => [...prevElement, newElement]);
     //pageInstance.current?.setProps(newElement);
-    console.log(newElement);
+    // console.log(newElement);
   }
 
   function addRadioBtnQuestion(): void {
-    const newElement = <RadioButtonQuestion key={elements.length} />;
-    setElements((prevElement) => [...prevElement, newElement]);
+    // const newElement = <RadioButtonQuestion key={elements.length} />;
+    // setElements((prevElement) => [...prevElement, newElement]);
     // pageInstance.current?.setProps(newElement);
   }
 
   function addDataQuestion(): void {
-    const newElement = <DataQuestion key={elements.length} />;
-    setElements((prevElement) => [...prevElement, newElement]);
+    // const newElement = <DataQuestion key={elements.length} />;
+    // setElements((prevElement) => [...prevElement, newElement]);
     // pageInstance.current?.setProps(newElement);
   }
 
   function addRatingScaleQuestion(): void {
-    const newElement = <RatingScaleQuestion key={elements.length} />;
-    setElements((prevElement) => [...prevElement, newElement]);
+    // const newElement = <RatingScaleQuestion key={elements.length} />;
+    // setElements((prevElement) => [...prevElement, newElement]);
     // Page.setProps(newElement);
     // pageInstance.current?.setProps(newElement);
   }
