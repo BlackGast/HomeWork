@@ -6,7 +6,7 @@ import {
   Checkbox,
   DefaultButton,
 } from "@fluentui/react";
-import { Page } from "../../App";
+import { SurveyPage } from "../../App";
 import { trashCan } from "../IProps/IIconProps";
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 import { useState } from "react";

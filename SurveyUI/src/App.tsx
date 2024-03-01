@@ -13,6 +13,7 @@ import {
   IStackStyles,
   TextField,
   IStackProps,
+  IContextualMenuProps,
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { QuestionButtonCommandBar } from "./components/QuestionButtonCommandBar";
@@ -20,6 +21,15 @@ import { useState } from "react";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
 import { IPageData } from "../../SurveyCore/src/model/IPageData";
+import {
+  calendar,
+  checkBox,
+  radioBtn,
+  ratingStar,
+  textDocument,
+} from "./components/IProps/IIconProps";
+import { Page } from "../../SurveyCore/src/Survey/Page/Page";
+import { IPanelData } from "../../SurveyCore/src/model/IPanelData";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -43,28 +53,43 @@ export class App extends React.Component<{}, IAppState> {
     };
   }
 
-  
-  public addQuestion = () => {
-    // const modelJSON = this.state.survey;
-    // const pages: Page[] = [];
-    // modelJSON.pages?.forEach((page: IPageData) => {
-    // });
-
-    const emptyPage: IPageData = {
-      order: '0',
-      title: '', 
-      panels: [],
-      id: "",
-      description: ""
+  public addQuestion = (key: string): void => {
+    this.addPage();
+    console.log(this.state.survey);
+    this.addPanel();
+    // if ()
   };
-  // this.state.survey.pages = [new Page(emptyPage)];
-  }
 
-  public addPage = () => {
-    
-  }
+  public addPage = (): void => {
+    if (this.state.survey.pages.length === 0) {
+      const emptyPage: IPageData = {
+        order: "0",
+        title: "",
+        panels: [],
+        id: "",
+        description: "",
+      };
+      this.setState({
+        survey: {
+          pages: [new Page(emptyPage)],
+          title: this.state.survey.title,
+          description: this.state.survey.description,
+        },
+      });
+    }
+  };
 
   public addPanel(): void {
+    const emptyPanel: IPanelData = {
+      order: "",
+      id: "",
+      title: "",
+      description: "",
+      questions: [],
+    };
+    if (this.state.survey.pages.length !==0 && this.state.survey.pages[0].panels.length === 0) {
+      this.state.survey.pages[0].addPanel(emptyPanel);
+    }
   }
 
   public handleDeleteQuestion = (
@@ -95,10 +120,8 @@ export class App extends React.Component<{}, IAppState> {
                 <hr />
                 <div className="bodyPage">
                   <PivotSeparate
-                    title={this.state.survey.title}
-                    description={this.state.survey.description}
-                    pages={this.state.survey.pages}
-
+                    survey={this.state.survey}
+                    addQuestion={this.addQuestion}
                   />
                 </div>
               </div>
@@ -111,7 +134,12 @@ export class App extends React.Component<{}, IAppState> {
   }
 }
 
-export const PivotSeparate = (survey: ISurveyModel) => {
+export interface IPivotProps {
+  survey: ISurveyModel;
+  addQuestion: (key: string) => void;
+}
+
+export const PivotSeparate: React.FunctionComponent<IPivotProps> = (props) => {
   const [selectedKey, setSelectedKey] = React.useState("designerPage");
 
   const handleLinkClick = (item?: PivotItem) => {
@@ -124,7 +152,12 @@ export const PivotSeparate = (survey: ISurveyModel) => {
   const renderContent = (selectedKey: string) => {
     switch (selectedKey) {
       case "designerPage":
-        return <PageDesignerSurvey survey={survey} />;
+        return (
+          <PageDesignerSurvey
+            survey={props.survey}
+            addQuestion={props.addQuestion}
+          />
+        );
       case "previewPage":
         return <PagePreviewSurvey />;
       case "editorJson":
@@ -150,7 +183,7 @@ export const PivotSeparate = (survey: ISurveyModel) => {
           />
           <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
         </Pivot>
-        <DefaultButton title="Создание опроса" text="Создание опроса"/>
+        <DefaultButton title="Создание опроса" text="Создание опроса" />
       </div>
       <hr className="no-margin" />
       <div className="bodyPage">{renderContent(selectedKey)} </div>
@@ -164,10 +197,79 @@ export interface IButtonProps {
   title?: string;
   iconName?: IIconProps;
 }
+export interface IButtonAddQuestionProps {
+  addQuestion: (key: string) => void;
+}
 
 const columnProps: Partial<IStackProps> = {
   tokens: { childrenGap: 15 },
   styles: { root: "settings-inp" },
+};
+
+export const ButtonAddQuestion: React.FunctionComponent<
+  IButtonProps & IButtonAddQuestionProps
+> = (props) => {
+  const addQuest = (): void => {
+    props.addQuestion("textDocument");
+  };
+
+  return (
+    <DefaultButton
+      text="Добавить вопрос"
+      split
+      splitButtonAriaLabel="See 2 options"
+      aria-roledescription="split button"
+      menuProps={menuProps}
+      disabled={props.disabled}
+      checked={props.checked}
+      onClick={addQuest}
+    />
+  );
+};
+
+const menuProps: IContextualMenuProps = {
+  items: [
+    {
+      key: "textQuestion",
+      text: "Text",
+      iconProps: textDocument,
+      // onClick: () => {
+      //   alert();
+      // },
+    },
+    {
+      key: "checkboxesQuestion",
+      text: "Checkboxes",
+      iconProps: checkBox,
+      // onClick: () => {
+      //   alert();
+      // },
+    },
+    {
+      key: "radioBtnQuestion",
+      text: "Radio Button Text",
+      iconProps: radioBtn,
+      // onClick: () => {
+      //   alert();
+      // },
+    },
+    {
+      key: "dataQuestion",
+      text: "Data",
+      iconProps: calendar,
+      // onClick: () => {
+      //   alert();
+      // },
+    },
+    {
+      key: "ratingScaleQuestion",
+      text: "Rating Scale",
+      iconProps: ratingStar,
+      // onClick: () => {
+      //   alert();
+      // },
+    },
+  ],
 };
 
 const Styles: Partial<IStackStyles> = {
@@ -176,6 +278,7 @@ const Styles: Partial<IStackStyles> = {
 
 export interface IPageDesignerSurveyProps {
   survey: ISurveyModel;
+  addQuestion: (key: string) => void;
 }
 
 export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps> {
@@ -189,7 +292,10 @@ export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps
         </div>
         <div className="vertical-line" /> */}
         <div className="page_part page_part-part2">
-          <Page survey={this.props.survey} />
+          <SurveyPage
+            survey={this.props.survey}
+            addQuestion={this.props.addQuestion}
+          />
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part3">
@@ -223,80 +329,92 @@ interface IPageState {
 
 interface IPageProps {
   survey: ISurveyModel;
+  addQuestion: (key: string) => void;
 }
 
-export class Page extends React.Component<IPageProps, IPageState> {
-  
+export class SurveyPage extends React.Component<IPageProps, IPageState> {
   componentDidMount(): void {
     console.log("componentDidMount");
   }
 
   componentDidUpdate(): void {
     console.log("componentDidUpdate");
-    //this.render();
   }
 
-  private setElement = (item: React.ReactNode[]) => {
-    this.setState((prevState) => ({
-      elements: [...prevState.elements, ...item],
-    }));
-  };
+  // private setElement = (item: React.ReactNode[]) => {
+  //   this.setState((prevState) => ({
+  //     elements: [...prevState.elements, ...item],
+  //   }));
+  // };
 
-  public handleDeleteQuestion = (key: number): void => {
-    const newElements: React.ReactNode[] = [...this.state.elements];
-    newElements.splice(key, 1);
-    this.setState({ elements: newElements });
-    console.log("delete click", key);
-  };
+  // public handleDeleteQuestion = (key: number): void => {
+  //   const newElements: React.ReactNode[] = [...this.state.elements];
+  //   newElements.splice(key, 1);
+  //   this.setState({ elements: newElements });
+  //   console.log("delete click", key);
+  // };
 
-  public setProps = (prop: React.ReactNode): void => {
-    this.setElement([prop]);
-  };
+  // public setProps = (prop: React.ReactNode): void => {
+  //   this.setElement([prop]);
+  // };
 
   public render(): React.ReactNode {
-    return (
-      <div className="container">
-        <div className="container_title-survey">
-          <TextField
-            borderless
-            placeholder="Название опроса"
-            id="surveyTitle"
-          />
-          <TextField
-            underlined
-            placeholder="Описание опроса"
-            multiline
-            rows={2}
-            resizable={false}
-            styles={Styles}
-            id="surveyDescription"
-          />
+    if (this.props.survey.pages.length === 0) {
+      return (
+        <div className="container">
+          <div className="container_title-survey">
+            <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
+            <ButtonAddQuestion addQuestion={this.props.addQuestion} />
+          </div>
         </div>
-        <div className="container_page">
-          <div>
-            <TextField borderless placeholder="Страница 1" id="pageTitle" />
+      );
+    }
+    if (this.props.survey.pages.length !== 0) {
+      return (
+        <div className="container">
+          <div className="container_title-survey">
             <TextField
               borderless
-              placeholder="Описание страницы"
+              placeholder="Название опроса"
+              id="surveyTitle"
+            />
+            <TextField
+              underlined
+              placeholder="Описание опроса"
+              multiline
+              rows={2}
+              resizable={false}
               styles={Styles}
-              id="pageDescription"
+              id="surveyDescription"
             />
           </div>
-          <div>
-            {/* {this.state.elements.map((elements, index) => (
-              <div
-                className="container_page_question_item"
-                key={index}
-                id={index.toString()}
-              >
-                {elements}
-              </div>
-            ))} */}
-            {this.props.survey.title}
+          <div className="container_page">
+            <div>
+              <TextField borderless placeholder="Страница 1" id="pageTitle" />
+              <TextField
+                borderless
+                placeholder="Описание страницы"
+                styles={Styles}
+                id="pageDescription"
+              />
+            </div>
+            <div>
+              {/* {this.state.elements.map((elements, index) => (
+                <div
+                  className="container_page_question_item"
+                  key={index}
+                  id={index.toString()}
+                >
+                  {elements}
+                </div>
+              ))} */}
+              {this.props.survey.title}
+            </div>
+            <ButtonAddQuestion addQuestion={this.props.addQuestion} />
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
