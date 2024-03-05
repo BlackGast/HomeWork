@@ -5,36 +5,19 @@ import * as React from "react";
 import {
   PartialTheme,
   ThemeProvider,
-  Pivot,
-  PivotItem,
-  Stack,
-  DefaultButton,
-  IIconProps,
   IStackStyles,
-  TextField,
-  IStackProps,
-  IContextualMenuProps,
 } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
-import { QuestionButtonCommandBar } from "./components/QuestionButtonCommandBar";
-import { useState } from "react";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
 import { IPageData } from "../../SurveyCore/src/model/IPageData";
-import {
-  calendar,
-  checkBox,
-  radioBtn,
-  ratingStar,
-  textDocument,
-} from "./components/IProps/IIconProps";
-import { Page } from "../../SurveyCore/src/Survey/Page/Page";
 import { IPanelData } from "../../SurveyCore/src/model/IPanelData";
 import { IQuestionData } from "../../SurveyCore/src/model/IQuestionData";
 import { QuestionType } from "../../SurveyCore/src/model/QuestionType";
 import Survey from "../../SurveyCore/src/Survey/Survey";
 import { DataManager } from "../../SurveyCore/src/DataManager/DataManager";
-import { TextQuestion } from "./components/Questions/TextQuestion";
+import { Page } from "../../SurveyCore/src/Survey/Page/Page";
+import { ListTabs } from "./components/ListTabs/ListTabs";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -67,6 +50,7 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "Title",
   };
+  private questionPull: React.ReactNode[] = [];
 
   componentDidUpdate(): void {
     console.log("componentDidUpdate", this.state);
@@ -102,6 +86,9 @@ export class App extends React.Component<{}, IAppState> {
         parseInt(panel ?? "0")
       ].addQuestion(newEmptyQuestion);
       this.orderList++;
+      this.surveyModel.pages[parseInt(page ?? "0")].panels[
+        parseInt(panel ?? "0")
+      ].order = this.orderList.toString();
     }
     if (
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
@@ -112,8 +99,35 @@ export class App extends React.Component<{}, IAppState> {
         parseInt(panel ?? "0")
       ].addQuestion(newEmptyQuestion);
       this.orderList++;
+      this.surveyModel.pages[parseInt(page ?? "0")].panels[
+        parseInt(panel ?? "0")
+      ].order = this.orderList.toString();
     }
+
+    // switch (key) {
+    //   case "Text":
+    //     this.pullQuestions(
+    //       <TextQuestion id={this.orderList} survey={this.surveyModel} />
+    //     );
+    //     break;
+    //   case "Select":
+    //     this.pullQuestions(<CheckboxQuestion id={this.orderList} />);
+    //     break;
+    //   case "Choice":
+    //     this.pullQuestions(<RadioButtonQuestion />);
+    //     break;
+    //   case "Date":
+    //     this.pullQuestions(<DataQuestion />);
+    //     break;
+    //   case "Number":
+    //     this.pullQuestions(<RatingScaleQuestion />);
+    //     break;
+    //   default:
+    //     break;
+    // }
+
     console.log(this.surveyModel);
+    console.log(this.questionPull);
   };
 
   public addPage = (): void => {
@@ -129,6 +143,8 @@ export class App extends React.Component<{}, IAppState> {
       // console.log(this.newModel);
 
       this.surveyModel = this.newModel.getModel();
+      // const newPage = new Page(emptyPage); //Тестирование на мультистраничность
+      // this.surveyModel.pages.push(newPage);
       this.setState({
         survey: this.surveyModel,
       });
@@ -152,9 +168,10 @@ export class App extends React.Component<{}, IAppState> {
   }
 
   public pullQuestions = (item: React.ReactNode) => {
-    this.setState((prevState) => ({
-      questions: [...prevState.questions, item],
-    }));
+    // this.setState((prevState) => ({
+    //   questions: [...prevState.questions, item],
+    // }));
+    this.questionPull.push(item);
   };
 
   public handleDeleteQuestion = (
@@ -184,8 +201,9 @@ export class App extends React.Component<{}, IAppState> {
               <div className="bodyPage">
                 <hr />
                 <div className="bodyPage">
-                  <PivotSeparate
+                  <ListTabs
                     survey={this.surveyModel}
+                    questions={this.questionPull}
                     addQuestion={this.addQuestion}
                   />
                 </div>
@@ -195,187 +213,6 @@ export class App extends React.Component<{}, IAppState> {
           ;
         </Layout>
       </ThemeProvider>
-    );
-  }
-}
-
-export interface IPivotProps {
-  survey: ISurveyModel;
-  addQuestion: (key: QuestionType) => void;
-}
-
-export const PivotSeparate: React.FunctionComponent<IPivotProps> = (props) => {
-  const [selectedKey, setSelectedKey] = React.useState("designerPage");
-
-  const handleLinkClick = (item?: PivotItem) => {
-    if (item) {
-      setSelectedKey(item.props.itemKey!);
-    }
-  };
-
-  // Функция для отображения контента в зависимости от выбранного ключа
-  const renderContent = (selectedKey: string) => {
-    switch (selectedKey) {
-      case "designerPage":
-        return (
-          <PageDesignerSurvey
-            survey={props.survey}
-            addQuestion={props.addQuestion}
-          />
-        );
-      case "previewPage":
-        return <PagePreviewSurvey />;
-      case "editorJson":
-        return <PageEditorJson />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <>
-      <div className="buttonMenu">
-        <Pivot
-          aria-label="Separately Rendered Content Pivot Example"
-          selectedKey={selectedKey}
-          onLinkClick={handleLinkClick}
-          headersOnly={true}
-        >
-          <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-          <PivotItem
-            headerText="Предварительный просмотр"
-            itemKey="previewPage"
-          />
-          <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
-        </Pivot>
-        <DefaultButton title="Создание опроса" text="Создание опроса" />
-      </div>
-      <hr className="no-margin" />
-      <div className="bodyPage">{renderContent(selectedKey)} </div>
-    </>
-  );
-};
-
-export interface IButtonProps {
-  disabled?: boolean;
-  checked?: boolean;
-  title?: string;
-  iconName?: IIconProps;
-}
-export interface IButtonAddQuestionProps {
-  addQuestion: (key: QuestionType) => void;
-}
-
-const columnProps: Partial<IStackProps> = {
-  tokens: { childrenGap: 15 },
-  styles: { root: "settings-inp" },
-};
-
-export const ButtonAddQuestion: React.FunctionComponent<
-  IButtonProps & IButtonAddQuestionProps
-> = (props) => {
-  const addQuest = (key: QuestionType): void => {
-    props.addQuestion(key);
-  };
-
-  const menuProps: IContextualMenuProps = {
-    items: [
-      {
-        id: "Text",
-        key: "textQuestion",
-        text: "Text",
-        iconProps: textDocument,
-        onClick: () => {
-          addQuest("Text");
-        },
-      },
-      {
-        id: "Select",
-        key: "checkboxesQuestion",
-        text: "Checkboxes",
-        iconProps: checkBox,
-        onClick: () => {
-          addQuest("Select");
-        },
-      },
-      {
-        id: "Choice",
-        key: "radioBtnQuestion",
-        text: "Radio Button Text",
-        iconProps: radioBtn,
-        onClick: () => {
-          addQuest("Choice");
-        },
-      },
-      {
-        id: "Date",
-        key: "dataQuestion",
-        text: "Data",
-        iconProps: calendar,
-        onClick: () => {
-          addQuest("Date");
-        },
-      },
-      {
-        id: "Number",
-        key: "ratingScaleQuestion",
-        text: "Rating Scale",
-        iconProps: ratingStar,
-        onClick: () => {
-          addQuest("Number");
-        },
-      },
-    ],
-  };
-  return (
-    <DefaultButton
-      text="Добавить вопрос"
-      split
-      splitButtonAriaLabel="See 2 options"
-      aria-roledescription="split button"
-      menuProps={menuProps}
-      disabled={props.disabled}
-      checked={props.checked}
-      onClick={() => addQuest("Text")}
-    />
-  );
-};
-
-const Styles: Partial<IStackStyles> = {
-  root: "container_title-survey_description",
-};
-
-export interface IPageDesignerSurveyProps {
-  survey: ISurveyModel;
-  addQuestion: (key: QuestionType) => void;
-}
-
-export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps> {
-  public render(): React.ReactNode {
-    return (
-      <div className="page bodyPage_colored">
-        {/* <div className="page_part page_part-part1">
-          <div className="menu">
-            <QuestionButtonCommandBar survey={this.props.survey} />
-          </div>
-        </div>
-        <div className="vertical-line" /> */}
-        <div className="page_part page_part-part2">
-          <SurveyPage
-            survey={this.props.survey}
-            addQuestion={this.props.addQuestion}
-          />
-        </div>
-        <div className="vertical-line" />
-        <div className="page_part page_part-part3">
-          <p className="settings-lbl">Настройки</p>
-          <hr />
-          <Stack {...columnProps}>
-            <TextField label="Название" />
-            <TextField label="Описание" multiline rows={2} />
-          </Stack>
-        </div>
-      </div>
     );
   }
 }
@@ -392,156 +229,6 @@ export class PageEditorJson extends React.Component {
   }
 }
 
-interface IPageState {
-  elements: React.ReactNode[];
-}
-
-interface IPageProps {
-  survey: ISurveyModel;
-  addQuestion: (key: QuestionType) => void;
-}
-
-export class SurveyPage extends React.Component<IPageProps, IPageState> {
-  // private setElement = (item: React.ReactNode[]) => {
-  //   this.setState((prevState) => ({
-  //     elements: [...prevState.elements, ...item],
-  //   }));
-  // };
-
-  // public handleDeleteQuestion = (key: number): void => {
-  //   const newElements: React.ReactNode[] = [...this.state.elements];
-  //   newElements.splice(key, 1);
-  //   this.setState({ elements: newElements });
-  //   console.log("delete click", key);
-  // };
-
-  // public setProps = (prop: React.ReactNode): void => {
-  //   this.setElement([prop]);
-  // };
-
-  public render(): React.ReactNode {
-    if (this.props.survey.pages.length === 0) {
-      return (
-        <div className="container">
-          <div className="container_title-survey">
-            <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
-            <ButtonAddQuestion addQuestion={this.props.addQuestion} />
-          </div>
-        </div>
-      );
-    }
-    if (this.props.survey.pages.length !== 0) {
-      return (
-        <div className="container">
-          <div className="container_title-survey">
-            <TextField
-              borderless
-              placeholder="Название опроса"
-              id="surveyTitle"
-            />
-            <TextField
-              underlined
-              placeholder="Описание опроса"
-              multiline
-              rows={2}
-              resizable={false}
-              styles={Styles}
-              id="surveyDescription"
-            />
-          </div>
-          <div className="container_page">
-            <div>
-              <TextField borderless placeholder="Страница 1" id="pageTitle" />
-              <TextField
-                borderless
-                placeholder="Описание страницы"
-                styles={Styles}
-                id="pageDescription"
-              />
-            </div>
-            <div>
-              {/* {this.state.elements.map((elements, index) => (
-                <div
-                  className="container_page_question_item"
-                  key={index}
-                  id={index.toString()}
-                >
-                  {elements}
-                </div>
-              ))} */}
-              {this.props.survey.title}
-            </div>
-            <ButtonAddQuestion addQuestion={this.props.addQuestion} />
-          </div>
-        </div>
-      );
-    }
-  }
-}
-
 export const stackStyles: Partial<IStackStyles> = {
   root: "menu",
 };
-
-export interface IQuestionListProps {
-  survey: ISurveyModel;
-}
-
-export interface IQuestionListState {
-  elements: React.ReactNode[];
-  pages: React.ReactNode[];
-  panels: React.ReactNode[];
-  questions: React.ReactNode[];
-}
-
-export class QuestionList extends React.Component<
-  IQuestionListProps,
-  IQuestionListState
-> {
-  constructor(props: IQuestionListProps) {
-    super(props);
-    this.state = {
-      elements: [],
-      pages: [],
-      panels: [],
-      questions: [],
-    };
-  }
-
-  // public pullPages = (): void => {
-  //   const pages: number = 0;
-  //   this.setState((prevSrate) => ({ elements: [] }));
-  // };
-
-  public pullQuestions = (item: React.ReactNode): void => {
-    this.setState((prevState) => ({
-      questions: [...prevState.questions, item],
-    }));
-  };
-
-  public pullPanels = (item: React.ReactNode[]) => {
-    this.setState((prevState) => ({
-      panels: [...prevState.panels, item],
-    }));
-  };
-
-  public pullPages = (item: React.ReactNode[]) => {
-    this.setState((prevState) => ({
-      pages: [...prevState.pages, item],
-    }));
-  };
-
-  render(): React.ReactNode {
-    const newElement = (
-      <TextQuestion
-        key={this.props.survey.pages[0].panels[0].questions.length}
-        id={this.props.survey.pages[0].panels[0].questions.length}
-        survey={this.props.survey}
-      />
-    );
-    // if (this.props.survey.pages.length !== 0) {
-
-    // }
-    return <div>text</div>;
-  }
-}

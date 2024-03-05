@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Stack, CommandBarButton } from "@fluentui/react";
 import { TextQuestion } from "./Questions/TextQuestion";
-import { IButtonProps, SurveyPage, stackStyles } from "../App";
+import { stackStyles } from "../App";
+import { IButtonProps } from "./BottonAddQuestion/IButtonProps";
+import { SurveyPage } from "./SurveyPage/SurveyPage";
 import {
   textDocument,
   checkBox,

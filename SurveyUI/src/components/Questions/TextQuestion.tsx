@@ -6,10 +6,8 @@ import {
   Checkbox,
   DefaultButton,
 } from "@fluentui/react";
-import { SurveyPage } from "../../App";
 import { trashCan } from "../IProps/IIconProps";
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
-import { useState } from "react";
 
 interface ITextQuestionProps {
   id: number;
@@ -24,14 +22,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
     };
   }
 
-  // handleClick = () => {
-  //   this.pageComponentRef.current.myMethod();
-  // };
-
-  private delete = () => {
-    // this.pageComponentRef.current.handleDeleteQuestion(this.props.id);
-    // this.props.onDelete(this.props.id);
-  };
+  private delete = () => {};
 
   public render(): React.ReactNode {
     const styleCheckbox: Partial<IStackStyles> = {
@@ -41,14 +32,6 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
         alignItems: "center",
       },
     };
-
-    //console.log(this.props.id);
-
-    const [key, setkey] = useState();
-    const keyUp = (event: any) => {
-        setkey(event.key)
-        console.log(event.key)
-    }
 
     return (
       <div
@@ -64,7 +47,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             backgroundColor: "#f5f5f5",
             fontSize: 15,
           }}
-          onKeyUp={keyUp}
+          
         />
         {/* <Label>Вопрос</Label> */}
         {/* <div style={{
