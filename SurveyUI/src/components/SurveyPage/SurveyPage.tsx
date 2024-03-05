@@ -4,7 +4,7 @@ import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion";
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion";
-import { DataQuestion } from "../Questions/DataQuestion";
+import { DateQuestion } from "../Questions/DateQuestion";
 import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion";
 import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { Styles } from "./Styles";
@@ -47,7 +47,7 @@ export class SurveyPage extends React.Component<ISurveyPageProps, ISurveyPageSta
       case "Choice":
         return <RadioButtonQuestion />;
       case "Date":
-        return <DataQuestion />;
+        return <DateQuestion />;
       case "Number":
         return <RatingScaleQuestion />;
       default:
