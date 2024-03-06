@@ -1,13 +1,8 @@
 import * as React from "react";
-import {
-  Pivot,
-  PivotItem,
-  DefaultButton
-} from "@fluentui/react";
+import { Pivot, PivotItem, DefaultButton } from "@fluentui/react";
 import { PageDesignerSurvey } from "../PageDesignerSurvey/PageDesignerSurvey";
 import { PagePreviewSurvey, PageEditorJson } from "../../App";
 import { IListTabsProps } from "./IListTabsProps";
-
 
 export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
   const [selectedKey, setSelectedKey] = React.useState("designerPage");
@@ -26,7 +21,10 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           <PageDesignerSurvey
             survey={props.survey}
             questions={props.questions}
-            addQuestion={props.addQuestion} />
+            addQuestion={props.addQuestion}
+            deleteQuestion={props.deleteQuestion}
+            deletePage={props.deletePage}
+          />
         );
       case "previewPage":
         return <PagePreviewSurvey />;
@@ -49,7 +47,8 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
           <PivotItem
             headerText="Предварительный просмотр"
-            itemKey="previewPage" />
+            itemKey="previewPage"
+          />
           <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
         </Pivot>
         <DefaultButton title="Создание опроса" text="Создание опроса" />

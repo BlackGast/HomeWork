@@ -1,0 +1,27 @@
+.question-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.container {
+  margin: 0 5%;
+  &_title-survey {
+    &_description {
+      font-weight: 800;
+    }
+  }
+  &_page {
+    &_question {
+      background-color: #f5f5f5;
+      &_item {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+    &_under-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+}

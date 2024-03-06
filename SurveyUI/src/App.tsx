@@ -2,11 +2,7 @@ import Logo from "./img/Logo.png";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
 import * as React from "react";
-import {
-  PartialTheme,
-  ThemeProvider,
-  IStackStyles,
-} from "@fluentui/react";
+import { PartialTheme, ThemeProvider, IStackStyles } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
@@ -104,28 +100,6 @@ export class App extends React.Component<{}, IAppState> {
       ].order = this.orderList.toString();
     }
 
-    // switch (key) {
-    //   case "Text":
-    //     this.pullQuestions(
-    //       <TextQuestion id={this.orderList} survey={this.surveyModel} />
-    //     );
-    //     break;
-    //   case "Select":
-    //     this.pullQuestions(<CheckboxQuestion id={this.orderList} />);
-    //     break;
-    //   case "Choice":
-    //     this.pullQuestions(<RadioButtonQuestion />);
-    //     break;
-    //   case "Date":
-    //     this.pullQuestions(<DataQuestion />);
-    //     break;
-    //   case "Number":
-    //     this.pullQuestions(<RatingScaleQuestion />);
-    //     break;
-    //   default:
-    //     break;
-    // }
-
     console.log(this.surveyModel);
     console.log(this.questionPull);
   };
@@ -167,25 +141,26 @@ export class App extends React.Component<{}, IAppState> {
     }
   }
 
-  public pullQuestions = (item: React.ReactNode) => {
-    // this.setState((prevState) => ({
-    //   questions: [...prevState.questions, item],
-    // }));
-    this.questionPull.push(item);
-  };
-
   public handleDeleteQuestion = (
-    panel: number,
-    page: number,
-    key: number
+    panel?: number,
+    page?: number,
+    key?: number
   ): void => {
-    const newElements: QuestionBase[] = [
-      ...this.state.survey.pages[page].panels[panel].questions,
-    ];
-    newElements.splice(key, 1);
-    //this.setState(prevState => ({pages[...newElements, prevState]}));
+    this.surveyModel.pages[0].panels[0].questions.splice(key ?? 0, 1);
+    this.setState({
+      survey: this.surveyModel,
+    });
     console.log("delete click", key);
   };
+
+  public handleDeletePage = (
+    panel?: number,
+    page?: number,
+    key?: number
+  ): void => {
+    console.log('click', key);
+    
+  }
 
   public render(): React.ReactNode {
     return (
@@ -205,6 +180,8 @@ export class App extends React.Component<{}, IAppState> {
                     survey={this.surveyModel}
                     questions={this.questionPull}
                     addQuestion={this.addQuestion}
+                    deleteQuestion={this.handleDeleteQuestion}
+                    deletePage={this.handleDeletePage}
                   />
                 </div>
               </div>

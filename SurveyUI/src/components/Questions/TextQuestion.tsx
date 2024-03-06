@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./TextQuestion.scss";
 import {
   IStackStyles,
   TextField,
@@ -7,12 +8,7 @@ import {
   DefaultButton,
 } from "@fluentui/react";
 import { trashCan } from "../IProps/IIconProps";
-import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
-
-interface ITextQuestionProps {
-  id: number;
-  survey: ISurveyModel;
-}
+import { ITextQuestionProps } from "./ITextQuestionProps";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
   constructor(props: any) {
@@ -22,7 +18,10 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
     };
   }
 
-  private delete = () => {};
+  private delete = () => {
+    this.props.deleteQuestion(this.props.id);
+    console.log();
+  };
 
   public render(): React.ReactNode {
     const styleCheckbox: Partial<IStackStyles> = {
@@ -32,43 +31,26 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
         alignItems: "center",
       },
     };
-
     return (
-      <div
-        className="container_page_question"
-        // onClick={(event) => {
-        //   console.log(event.target);
-        // }}
-      >
-        <TextField
-          borderless
-          placeholder="Название вопроса"
-          style={{
-            backgroundColor: "#f5f5f5",
-            fontSize: 15,
-          }}
-          
-        />
-        {/* <Label>Вопрос</Label> */}
-        {/* <div style={{
-          paddingLeft: "5%",
-          paddingRight: "5%",
-          paddingBottom: 10,
-          }}>
-          <TextField 
-            style={{width: "100%"}}
-            disabled
+      <div className="container_page_question">
+        <div className="question-label">
+          {this.props.id + 1}.
+          <TextField
+            borderless
+            placeholder="Название вопроса"
+            style={{
+              backgroundColor: "#f5f5f5",
+              fontSize: 15,
+            }}
           />
-        </div> */}
+        </div>
         <div className="question_settings">
-          <Checkbox label="Обязательный" styles={styleCheckbox} />
           <DefaultButton
             text="Удалить"
             iconProps={trashCan}
             // id={this.props.id}
             onClick={() => {
               this.delete();
-              //console.log(event.target);
             }}
           />
         </div>

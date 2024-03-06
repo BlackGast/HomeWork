@@ -4,7 +4,6 @@ import { SurveyPage } from "../SurveyPage/SurveyPage";
 import { columnProps } from "./columnProps";
 import { IPageDesignerSurveyProps } from "./IPageDesignerSurveyProps";
 
-
 export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps> {
   public render(): React.ReactNode {
     return (
@@ -19,7 +18,10 @@ export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps
           <SurveyPage
             survey={this.props.survey}
             questions={this.props.questions}
-            addQuestion={this.props.addQuestion} />
+            addQuestion={this.props.addQuestion}
+            deleteQuestion={this.props.deleteQuestion}
+            deletePage={this.props.deletePage}
+          />
         </div>
         <div className="vertical-line" />
         <div className="page_part page_part-part3">
