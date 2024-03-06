@@ -42,13 +42,13 @@ export class CheckboxQuestion extends React.Component<
   }
 
   addCheckbox = () => {
-    const { checkboxList } = this.state.checkboxList;
-    this.setState({
-      checkboxList: [
-        ...checkboxList,
-        <Checkbox key={checkboxList.length} label="Ответ" />,
-      ],
-    });
+    //const { checkboxList } = this.state.checkboxList;
+    // this.setState({
+    //   checkboxList: [
+    //     ...checkboxList,
+    //     <Checkbox key={checkboxList.length} label="Ответ" />,
+    //   ],
+    // });
   };
 
   public render(): React.ReactNode {
@@ -79,7 +79,7 @@ export class CheckboxList extends React.Component<
   CheckboxListState
 > {
   public render(): React.ReactNode {
-    const { items } = this.props.id;
+    // const { items } = this.props.id;
     const styleCheckboxes: Partial<IStackStyles> = {
       root: {
         marginLeft: 10,
@@ -88,10 +88,13 @@ export class CheckboxList extends React.Component<
       },
     };
     return (
+      // <div>
+      //   {items.map((item) => (
+      //     <div key={item.key}>{item.element}</div>
+      //   ))}
+      // </div>
       <div>
-        {items.map((item) => (
-          <div key={item.key}>{item.element}</div>
-        ))}
+        Checkbox
       </div>
     );
   }
