@@ -115,7 +115,6 @@ export class App extends React.Component<{}, IAppState> {
     if (this.surveyModel.pages.length === 0) {
       this.newModel.createModel();
       // console.log(this.newModel);
-
       this.surveyModel = this.newModel.getModel();
       // const newPage = new Page(emptyPage); //Тестирование на мультистраничность
       // this.surveyModel.pages.push(newPage);
@@ -142,11 +141,14 @@ export class App extends React.Component<{}, IAppState> {
   }
 
   public handleDeleteQuestion = (
-    panel?: number,
+    key?: number,
     page?: number,
-    key?: number
+    panel?: number
   ): void => {
-    this.surveyModel.pages[0].panels[0].questions.splice(key ?? 0, 1);
+    this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key ?? 0, 1);
+    if (this.surveyModel.pages.length === 0 && this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0) {
+      this.handleDeletePage(page);
+    }
     this.setState({
       survey: this.surveyModel,
     });
@@ -154,13 +156,16 @@ export class App extends React.Component<{}, IAppState> {
   };
 
   public handleDeletePage = (
-    panel?: number,
     page?: number,
+    panel?: number,
     key?: number
   ): void => {
-    console.log('click', key);
-    
-  }
+    console.log("click", page);
+    this.surveyModel.pages.splice(page ?? 0, 1);
+    this.setState({
+      survey: this.surveyModel,
+    });
+  };
 
   public render(): React.ReactNode {
     return (

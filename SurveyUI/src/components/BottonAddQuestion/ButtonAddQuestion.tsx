@@ -16,7 +16,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
   IButtonProps & IButtonAddQuestionProps
 > = (props) => {
   const addQuest = (key: QuestionType): void => {
-    props.addQuestion(key);
+    props.addQuestion(key, props.pageIndex ?? 0);
     if (props.refresh) {
       props.refresh();
     }

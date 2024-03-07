@@ -116,11 +116,15 @@ export class SurveyPage extends React.Component<
                     <ButtonAddQuestion
                       addQuestion={this.props.addQuestion}
                       refresh={this.refreshPage}
+                      pageIndex={indexPage}
+                      
                     />
                     <DefaultButton
                       text="Удалить страницу"
                       onClick={() => {
-                        this.props.deletePage(indexPage);
+                        console.log(indexPage);
+                        const index: number = indexPage;
+                        this.props.deletePage(index);
                       }}
                       iconProps={trashCan}
                     />
