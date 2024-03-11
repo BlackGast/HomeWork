@@ -24,6 +24,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
             addQuestion={props.addQuestion}
             deleteQuestion={props.deleteQuestion}
             deletePage={props.deletePage}
+            addPage={props.addPage}
           />
         );
       case "previewPage":

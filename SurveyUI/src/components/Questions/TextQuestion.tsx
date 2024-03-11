@@ -6,8 +6,9 @@ import {
   Label,
   Checkbox,
   DefaultButton,
+  IconButton,
 } from "@fluentui/react";
-import { trashCan } from "../IProps/IIconProps";
+import { editPen, trashCan } from "../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
@@ -35,16 +36,23 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
       <div className="container_page_question">
         <div className="question-label">
           {this.props.id + 1}.
-          <TextField
-            borderless
-            placeholder="Название вопроса"
+          <label
+            id="questionName"
             style={{
               backgroundColor: "#f5f5f5",
-              fontSize: 15,
+              fontSize: 14,
             }}
-          />
+          >
+            Название вопроса
+          </label>
         </div>
         <div className="question_settings">
+          <IconButton
+            iconProps={editPen}
+            onClick={() => {
+              console.log("click");
+            }}
+          />
           <DefaultButton
             text="Удалить"
             iconProps={trashCan}

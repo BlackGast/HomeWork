@@ -21,6 +21,7 @@ export class PageDesignerSurvey extends React.Component<IPageDesignerSurveyProps
             addQuestion={this.props.addQuestion}
             deleteQuestion={this.props.deleteQuestion}
             deletePage={this.props.deletePage}
+            addPage={this.props.addPage}
           />
         </div>
         <div className="vertical-line" />

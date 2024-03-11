@@ -33,7 +33,7 @@ export class App extends React.Component<{}, IAppState> {
       survey: {
         description: "",
         pages: [],
-        title: "Title",
+        title: "",
       },
       questions: [],
     };
@@ -44,7 +44,7 @@ export class App extends React.Component<{}, IAppState> {
   private surveyModel: ISurveyModel = {
     description: "",
     pages: [],
-    title: "Title",
+    title: "",
   };
   private questionPull: React.ReactNode[] = [];
 
@@ -59,14 +59,12 @@ export class App extends React.Component<{}, IAppState> {
   public addQuestion = (
     key?: QuestionType,
     page?: string,
-    panel?: string,
-    questionNum?: string
+    panel?: string
   ): void => {
     if (this.surveyModel.pages.length === 0) {
       this.addPage();
       this.addPanel();
     }
-    // console.log(this.state.survey);
     const newEmptyQuestion: IQuestionData = {
       order: this.orderList.toString(),
       id: "",
@@ -104,7 +102,7 @@ export class App extends React.Component<{}, IAppState> {
     console.log(this.questionPull);
   };
 
-  public addPage = (): void => {
+  public addPage = (index?: number): void => {
     const emptyPage: IPageData = {
       order: "0",
       title: "",
@@ -114,17 +112,22 @@ export class App extends React.Component<{}, IAppState> {
     };
     if (this.surveyModel.pages.length === 0) {
       this.newModel.createModel();
-      // console.log(this.newModel);
       this.surveyModel = this.newModel.getModel();
-      // const newPage = new Page(emptyPage); //Тестирование на мультистраничность
-      // this.surveyModel.pages.push(newPage);
+      this.setState({
+        survey: this.surveyModel,
+      });
+    } else {
+      const newPage = new Page(emptyPage);
+      this.surveyModel.pages.push(newPage);
+      this.addPanel(this.surveyModel.pages.length - 1);
+      this.addQuestion("Text", (this.surveyModel.pages.length - 1).toString());
       this.setState({
         survey: this.surveyModel,
       });
     }
   };
 
-  public addPanel(): void {
+  public addPanel(page?: number): void {
     const emptyPanel: IPanelData = {
       order: "",
       id: "",
@@ -132,8 +135,8 @@ export class App extends React.Component<{}, IAppState> {
       description: "",
       questions: [],
     };
-    if (this.surveyModel?.pages[0].panels.length === 0) {
-      this.surveyModel?.pages[0].addPanel(emptyPanel);
+    if (this.surveyModel?.pages[page ?? 0].panels.length === 0) {
+      this.surveyModel?.pages[page ?? 0].addPanel(emptyPanel);
       this.setState({
         survey: this.surveyModel,
       });
@@ -141,12 +144,15 @@ export class App extends React.Component<{}, IAppState> {
   }
 
   public handleDeleteQuestion = (
-    key?: number,
+    key: number,
     page?: number,
     panel?: number
   ): void => {
-    this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key ?? 0, 1);
-    if (this.surveyModel.pages.length === 0 && this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0) {
+    this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key, 1);
+    if (
+      this.surveyModel.pages.length === 0 &&
+      this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0
+    ) {
       this.handleDeletePage(page);
     }
     this.setState({
@@ -187,6 +193,7 @@ export class App extends React.Component<{}, IAppState> {
                     addQuestion={this.addQuestion}
                     deleteQuestion={this.handleDeleteQuestion}
                     deletePage={this.handleDeletePage}
+                    addPage={this.addPage}
                   />
                 </div>
               </div>

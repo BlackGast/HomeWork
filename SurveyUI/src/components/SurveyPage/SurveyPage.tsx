@@ -73,35 +73,19 @@ export class SurveyPage extends React.Component<
       return (
         <div className="container">
           <div className="container_title-survey">
-            <TextField
-              borderless
-              placeholder="Название опроса"
-              id="surveyTitle"
-            />
-            <TextField
-              underlined
-              placeholder="Описание опроса"
-              multiline
-              rows={2}
-              resizable={false}
-              styles={Styles}
-              id="surveyDescription"
-            />
+            <div className="container_title-survey_header">
+              <label id="surveyTitle">Название опроса</label>
+              <label id="surveyDescription">Описание опроса</label>
+            </div>
+            <hr />
             {this.props.survey.pages.map((elements, indexPage) => (
               <div key={indexPage} id={`${indexPage}`}>
                 <div className="container_page">
-                  <TextField
-                    borderless
-                    placeholder={`Страница ${indexPage + 1}`}
-                    id="pageTitle"
-                  />
-                  <TextField
-                    borderless
-                    placeholder="Описание страницы"
-                    styles={Styles}
-                    id="pageDescription"
-                  />
-                  {this.props.survey.pages[0].panels[0].questions.map(
+                  <div className="container_page_header">
+                    <label id="pageTitle">Страница {indexPage + 1}</label>
+                    <label id="pageDescription">Описание страницы</label>
+                  </div>
+                  {this.props.survey.pages[indexPage].panels[0].questions.map(
                     (elements, indexQuestion) => (
                       <div
                         className="question-item"
@@ -117,7 +101,6 @@ export class SurveyPage extends React.Component<
                       addQuestion={this.props.addQuestion}
                       refresh={this.refreshPage}
                       pageIndex={indexPage}
-                      
                     />
                     <DefaultButton
                       text="Удалить страницу"
@@ -135,7 +118,7 @@ export class SurveyPage extends React.Component<
             <DefaultButton
               text="Добавить страницу"
               onClick={() => {
-                console.log("addPage");
+                this.props.addPage();
               }}
             />
           </div>

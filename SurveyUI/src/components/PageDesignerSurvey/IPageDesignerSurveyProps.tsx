@@ -8,4 +8,5 @@ export interface IPageDesignerSurveyProps {
   addQuestion: (key: QuestionType) => void;
   deleteQuestion: (key: number) => void;
   deletePage: (key: number) => void;
+  addPage: () => void;
 }
