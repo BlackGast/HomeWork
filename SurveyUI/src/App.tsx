@@ -5,7 +5,6 @@ import * as React from "react";
 import { PartialTheme, ThemeProvider, IStackStyles } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
-import { QuestionBase } from "../../SurveyCore/src/Survey/Question/QuestionBase";
 import { IPageData } from "../../SurveyCore/src/model/IPageData";
 import { IPanelData } from "../../SurveyCore/src/model/IPanelData";
 import { IQuestionData } from "../../SurveyCore/src/model/IQuestionData";
@@ -104,7 +103,7 @@ export class App extends React.Component<{}, IAppState> {
 
   public addPage = (index?: number): void => {
     const emptyPage: IPageData = {
-      order: "0",
+      order: "",
       title: "",
       panels: [],
       id: "",

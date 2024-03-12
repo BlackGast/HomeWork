@@ -6,6 +6,11 @@
 .container {
   margin: 0 5%;
   &_title-survey {
+    &_block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     &_header {
       display: flex;
       flex-direction: column;
@@ -17,6 +22,11 @@
     }
   }
   &_page {
+    &_block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     &_header {
       display: flex;
       flex-direction: column;

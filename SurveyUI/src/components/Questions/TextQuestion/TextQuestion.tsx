@@ -8,7 +8,7 @@ import {
   DefaultButton,
   IconButton,
 } from "@fluentui/react";
-import { editPen, trashCan } from "../IProps/IIconProps";
+import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
@@ -20,8 +20,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
   }
 
   private delete = () => {
-    this.props.deleteQuestion(this.props.id);
-    console.log();
+    this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
 
   public render(): React.ReactNode {
@@ -50,7 +49,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
           <IconButton
             iconProps={editPen}
             onClick={() => {
-              console.log("click");
+              this.props.getIndex(this.props.id, this.props.pageId, "question")
             }}
           />
           <DefaultButton
