@@ -9,4 +9,5 @@ export interface IListTabsProps {
   addQuestion: (key: QuestionType) => void;
   deletePage: (key: number) => void;
   addPage: () => void;
+  saveModel: () => void;
 }

@@ -9,4 +9,5 @@ export interface IPageDesignerSurveyProps {
   deleteQuestion: (key: number) => void;
   deletePage: (key: number) => void;
   addPage: () => void;
+  saveModel: () => void;
 }

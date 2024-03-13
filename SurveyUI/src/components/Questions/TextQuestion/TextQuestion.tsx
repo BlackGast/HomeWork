@@ -2,11 +2,9 @@ import * as React from "react";
 import "./TextQuestion.scss";
 import {
   IStackStyles,
-  TextField,
-  Label,
-  Checkbox,
   DefaultButton,
   IconButton,
+  TagItem,
 } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
@@ -42,14 +40,20 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
               fontSize: 14,
             }}
           >
-            Название вопроса
+            {
+              this.props.survey.pages[this.props.pageId].panels[0].questions[
+                this.props.id
+              ].title
+            }
+            {/* Название вопроса */}
           </label>
         </div>
         <div className="question_settings">
           <IconButton
             iconProps={editPen}
             onClick={() => {
-              this.props.getIndex(this.props.id, this.props.pageId, "question")
+              this.props.getItem(this.props.id, this.props.pageId, "question");
+              this.props.refreshState();
             }}
           />
           <DefaultButton

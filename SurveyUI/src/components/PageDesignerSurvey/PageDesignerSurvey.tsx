@@ -13,11 +13,23 @@ export class PageDesignerSurvey extends React.Component<
     this.state = {
       pageId: 0,
       questionId: 0,
-      item: ''
+      item: 'survey',
+      refreshState: false,
     };
   }
 
-  public getIndex = (pageId?: number, questionId?: number, item?: string): void => {
+  private refreshPage = (): void => {
+    this.setState(() => ({ refreshState: true }));
+  };
+
+  componentDidUpdate(): void {
+    console.log("componentDidUpdate", this.state.refreshState);
+    if (this.state.refreshState === true) {
+      this.setState(() => ({ refreshState: false }));
+    }
+  }
+
+  public getIiem = (pageId?: number, questionId?: number, item?: string): void => {
     this.setState({
       item: item ?? 'survey',
       pageId: pageId ?? 0,
@@ -36,34 +48,40 @@ export class PageDesignerSurvey extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             deletePage={this.props.deletePage}
             addPage={this.props.addPage}
-            getIndex={this.getIndex}
+            getItem={this.getIiem}
+            refreshState={this.refreshPage}
           />
         </div>
       );
+    } 
+    else {
+      return (
+        <div className="page bodyPage_colored">
+          <div className="page_part page_part-part2">
+            <SurveyPage
+              survey={this.props.survey}
+              questions={this.props.questions}
+              addQuestion={this.props.addQuestion}
+              deleteQuestion={this.props.deleteQuestion}
+              deletePage={this.props.deletePage}
+              addPage={this.props.addPage}
+              getItem={this.getIiem}
+              refreshState={this.refreshPage}
+            />
+          </div>
+          <div className="vertical-line" />
+          <div className="page_part page_part-part3">
+            <PropertyPanel
+              survey={{...this.props.survey}}
+              pageId={this.state.pageId}
+              questionId={this.state.questionId}
+              item={this.state.item}
+              saveModel={this.props.saveModel}
+              refreshState={this.refreshPage}
+            />
+          </div>
+        </div>
+      );
     }
-    return (
-      <div className="page bodyPage_colored">
-        <div className="page_part page_part-part2">
-          <SurveyPage
-            survey={this.props.survey}
-            questions={this.props.questions}
-            addQuestion={this.props.addQuestion}
-            deleteQuestion={this.props.deleteQuestion}
-            deletePage={this.props.deletePage}
-            addPage={this.props.addPage}
-            getIndex={this.getIndex}
-          />
-        </div>
-        <div className="vertical-line" />
-        <div className="page_part page_part-part3">
-          <PropertyPanel
-            survey={this.props.survey}
-            pageId={this.state.pageId}
-            questionId={this.state.questionId}
-            item={this.state.item}
-          />
-        </div>
-      </div>
-    );
   }
 }

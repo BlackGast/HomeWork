@@ -9,5 +9,6 @@ export interface ISurveyPageProps {
   deleteQuestion: (key: number) => void;
   deletePage: (key: number) => void;
   addPage: () => void;
-  getIndex: (pageId?: number, questionId?: number, item?: string) => void;
+  getItem: (pageId?: number, questionId?: number, item?: string) => void;
+  refreshState: () => void;
 }

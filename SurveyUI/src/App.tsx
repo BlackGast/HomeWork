@@ -13,16 +13,12 @@ import Survey from "../../SurveyCore/src/Survey/Survey";
 import { DataManager } from "../../SurveyCore/src/DataManager/DataManager";
 import { Page } from "../../SurveyCore/src/Survey/Page/Page";
 import { ListTabs } from "./components/ListTabs/ListTabs";
+import { IAppState } from "./IAppState";
 initializeIcons();
 
 const appTheme: PartialTheme = {
   palette: {},
 };
-
-export interface IAppState {
-  survey: ISurveyModel;
-  questions: React.ReactNode[];
-}
 
 // https://github.com/microsoft/fluentui/wiki/Getting-Started-with-Fluent-UI-React
 export class App extends React.Component<{}, IAppState> {
@@ -49,25 +45,26 @@ export class App extends React.Component<{}, IAppState> {
 
   componentDidUpdate(): void {
     console.log("componentDidUpdate", this.state);
+    this.render();
   }
 
   componentDidMount(): void {
     console.log("componentDidMount");
   }
 
-  public addQuestion = (
+  private addQuestion = (
     key?: QuestionType,
     page?: string,
     panel?: string
   ): void => {
     if (this.surveyModel.pages.length === 0) {
-      this.addPage();
+      this.addPage(parseInt(page ?? '0'));
       this.addPanel();
     }
     const newEmptyQuestion: IQuestionData = {
       order: this.orderList.toString(),
       id: "",
-      title: "",
+      title: "Название вопроса",
       type: key ?? "Text",
     };
     if (
@@ -101,32 +98,32 @@ export class App extends React.Component<{}, IAppState> {
     console.log(this.questionPull);
   };
 
-  public addPage = (index?: number): void => {
+  private addPage = (index?: number): void => {
     const emptyPage: IPageData = {
       order: "",
-      title: "",
+      title: "Страница",
       panels: [],
       id: "",
-      description: "",
+      description: "Описание страницы",
     };
     if (this.surveyModel.pages.length === 0) {
       this.newModel.createModel();
       this.surveyModel = this.newModel.getModel();
-      this.setState({
-        survey: this.surveyModel,
-      });
+      this.surveyModel.title = "Название опроса";
+      this.surveyModel.description = "Описание опроса";
+      this.surveyModel.pages[0].title = "Страница"
+      this.surveyModel.pages[0].description = "Описание страницы"
+      this.saveModel();
     } else {
       const newPage = new Page(emptyPage);
       this.surveyModel.pages.push(newPage);
       this.addPanel(this.surveyModel.pages.length - 1);
       this.addQuestion("Text", (this.surveyModel.pages.length - 1).toString());
-      this.setState({
-        survey: this.surveyModel,
-      });
+      this.saveModel();
     }
   };
 
-  public addPanel(page?: number): void {
+  private addPanel(page?: number): void {
     const emptyPanel: IPanelData = {
       order: "",
       id: "",
@@ -136,13 +133,11 @@ export class App extends React.Component<{}, IAppState> {
     };
     if (this.surveyModel?.pages[page ?? 0].panels.length === 0) {
       this.surveyModel?.pages[page ?? 0].addPanel(emptyPanel);
-      this.setState({
-        survey: this.surveyModel,
-      });
+      this.saveModel();
     }
   }
 
-  public handleDeleteQuestion = (
+  private handleDeleteQuestion = (
     key: number,
     page?: number,
     panel?: number
@@ -154,19 +149,23 @@ export class App extends React.Component<{}, IAppState> {
     ) {
       this.handleDeletePage(page);
     }
-    this.setState({
-      survey: this.surveyModel,
-    });
-    console.log("delete click", key);
+    this.saveModel();
+    //console.log("delete click", key);
   };
 
-  public handleDeletePage = (
+  private handleDeletePage = (
     page?: number,
     panel?: number,
     key?: number
   ): void => {
     console.log("click", page);
     this.surveyModel.pages.splice(page ?? 0, 1);
+    this.setState({
+      survey: this.surveyModel,
+    });
+  };
+
+  private saveModel = (): void => {
     this.setState({
       survey: this.surveyModel,
     });
@@ -193,6 +192,7 @@ export class App extends React.Component<{}, IAppState> {
                     deleteQuestion={this.handleDeleteQuestion}
                     deletePage={this.handleDeletePage}
                     addPage={this.addPage}
+                    saveModel={this.saveModel}
                   />
                 </div>
               </div>

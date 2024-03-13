@@ -29,7 +29,7 @@ export class SurveyPage extends React.Component<
   };
 
   componentDidUpdate(): void {
-    console.log("componentDidUpdate", this.state.refreshState);
+    //console.log("componentDidUpdate", this.state.refreshState);
     if (this.state.refreshState === true) {
       this.setState(() => ({ refreshState: false }));
     }
@@ -48,7 +48,8 @@ export class SurveyPage extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
-            getIndex={this.props.getIndex}
+            getItem={this.props.getItem}
+            refreshState={this.props.refreshState}
           />
         );
       case "Select":
@@ -83,13 +84,15 @@ export class SurveyPage extends React.Component<
           <div className="container_title-survey">
             <div className="container_title-survey_block">
               <div className="container_title-survey_header">
-                <label id="surveyTitle">{"Название опроса" ?? this.props.survey.title}</label>
-                <label id="surveyDescription">Описание опроса</label>
+                {/* <label id="surveyTitle" >{this.props.survey.title ?? "Название опроса"}</label> */}
+                <label id="surveyTitle">{this.props.survey.title}</label>
+                <label id="surveyDescription">{this.props.survey.description}</label>
               </div>
               <IconButton
                 iconProps={editPen}
                 onClick={() => {
-                  this.props.getIndex(undefined, undefined, "survey");
+                  this.props.getItem(undefined, undefined, "survey");
+                  this.props.refreshState();
                 }}
               />
             </div>
@@ -99,13 +102,14 @@ export class SurveyPage extends React.Component<
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
-                      <label id="pageTitle">Страница {indexPage + 1}</label>
-                      <label id="pageDescription">Описание страницы</label>
+                      <label id="pageTitle">{indexPage + 1} {this.props.survey.pages[indexPage].title}</label>
+                      <label id="pageDescription">{this.props.survey.pages[indexPage].description}</label>
                     </div>
                     <IconButton
                       iconProps={editPen}
                       onClick={() => {
-                        this.props.getIndex(indexPage, undefined, "page");
+                        this.props.getItem(indexPage, undefined, "page");
+                        this.props.refreshState();
                       }}
                     />
                   </div>

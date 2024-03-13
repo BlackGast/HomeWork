@@ -5,5 +5,6 @@ export interface ITextQuestionProps {
   pageId: number;
   survey: ISurveyModel;
   deleteQuestion: (key: number, pageId: number) => void;
-  getIndex: (id: number, pageId: number, item: string) => void;
+  getItem: (id: number, pageId: number, item: string) => void;
+  refreshState: () => void;
 }
