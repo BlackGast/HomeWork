@@ -53,7 +53,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             iconProps={editPen}
             onClick={() => {
               this.props.getItem(this.props.id, this.props.pageId, "question");
-              this.props.refreshState();
+              this.props.editCurrentItem("question", this.props.pageId, this.props.id)
             }}
           />
           <DefaultButton

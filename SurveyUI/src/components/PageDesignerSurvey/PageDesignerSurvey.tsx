@@ -8,33 +8,17 @@ export class PageDesignerSurvey extends React.Component<
   IPageDesignerSurveyProps,
   IPageDesignerSurveyState
 > {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      pageId: 0,
-      questionId: 0,
-      item: 'survey',
-      refreshState: false,
-    };
-  }
-
-  private refreshPage = (): void => {
-    this.setState(() => ({ refreshState: true }));
-  };
-
-  componentDidUpdate(): void {
-    console.log("componentDidUpdate", this.state.refreshState);
-    if (this.state.refreshState === true) {
-      this.setState(() => ({ refreshState: false }));
-    }
-  }
-
-  public getIiem = (pageId?: number, questionId?: number, item?: string): void => {
-    this.setState({
-      item: item ?? 'survey',
-      pageId: pageId ?? 0,
-      questionId: questionId ?? 0,
-    })
+  private getItem = (
+    pageId?: number,
+    questionId?: number,
+    item?: string
+  ): void => {
+    // this.setState({
+    //   item: item ?? "survey",
+    //   pageId: pageId ?? 0,
+    //   questionId: questionId ?? 0,
+    // });
+    console.log("getItem");
   };
 
   public render(): React.ReactNode {
@@ -48,13 +32,12 @@ export class PageDesignerSurvey extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             deletePage={this.props.deletePage}
             addPage={this.props.addPage}
-            getItem={this.getIiem}
-            refreshState={this.refreshPage}
+            getItem={this.getItem}
+            editCurrentItem={this.props.editCurrentItem}
           />
         </div>
       );
-    } 
-    else {
+    } else {
       return (
         <div className="page bodyPage_colored">
           <div className="page_part page_part-part2">
@@ -65,19 +48,18 @@ export class PageDesignerSurvey extends React.Component<
               deleteQuestion={this.props.deleteQuestion}
               deletePage={this.props.deletePage}
               addPage={this.props.addPage}
-              getItem={this.getIiem}
-              refreshState={this.refreshPage}
+              getItem={this.getItem}
+              editCurrentItem={this.props.editCurrentItem}
             />
           </div>
           <div className="vertical-line" />
           <div className="page_part page_part-part3">
             <PropertyPanel
-              survey={{...this.props.survey}}
-              pageId={this.state.pageId}
-              questionId={this.state.questionId}
-              item={this.state.item}
+              survey={{ ...this.props.survey }}
+              pageId={this.props.currentItem.pageId}
+              questionId={this.props.currentItem.questionId}
+              item={this.props.currentItem.item}
               saveModel={this.props.saveModel}
-              refreshState={this.refreshPage}
             />
           </div>
         </div>

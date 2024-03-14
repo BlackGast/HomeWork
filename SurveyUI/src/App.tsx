@@ -30,7 +30,11 @@ export class App extends React.Component<{}, IAppState> {
         pages: [],
         title: "",
       },
-      questions: [],
+      currentItem: {
+        pageId: 0,
+        questionId: 0,
+        item: "survey",
+      },
     };
   }
   private orderList: number = 0;
@@ -45,7 +49,6 @@ export class App extends React.Component<{}, IAppState> {
 
   componentDidUpdate(): void {
     console.log("componentDidUpdate", this.state);
-    this.render();
   }
 
   componentDidMount(): void {
@@ -58,7 +61,7 @@ export class App extends React.Component<{}, IAppState> {
     panel?: string
   ): void => {
     if (this.surveyModel.pages.length === 0) {
-      this.addPage(parseInt(page ?? '0'));
+      this.addPage(parseInt(page ?? "0"));
       this.addPanel();
     }
     const newEmptyQuestion: IQuestionData = {
@@ -96,6 +99,7 @@ export class App extends React.Component<{}, IAppState> {
 
     console.log(this.surveyModel);
     console.log(this.questionPull);
+    this.saveModel();
   };
 
   private addPage = (index?: number): void => {
@@ -111,8 +115,8 @@ export class App extends React.Component<{}, IAppState> {
       this.surveyModel = this.newModel.getModel();
       this.surveyModel.title = "Название опроса";
       this.surveyModel.description = "Описание опроса";
-      this.surveyModel.pages[0].title = "Страница"
-      this.surveyModel.pages[0].description = "Описание страницы"
+      this.surveyModel.pages[0].title = "Страница";
+      this.surveyModel.pages[0].description = "Описание страницы";
       this.saveModel();
     } else {
       const newPage = new Page(emptyPage);
@@ -169,6 +173,21 @@ export class App extends React.Component<{}, IAppState> {
     this.setState({
       survey: this.surveyModel,
     });
+    console.log("save model");
+  };
+
+  private editCurrentItem = (
+    item?: string,
+    pageId?: number,
+    questionId?: number
+  ): void => {
+    this.setState({
+      currentItem: {
+        item: item ?? "survey",
+        pageId: pageId ?? 0,
+        questionId: questionId ?? 0,
+      },
+    });
   };
 
   public render(): React.ReactNode {
@@ -187,12 +206,14 @@ export class App extends React.Component<{}, IAppState> {
                 <div className="bodyPage">
                   <ListTabs
                     survey={this.surveyModel}
+                    currentItem={this.state.currentItem}
                     questions={this.questionPull}
                     addQuestion={this.addQuestion}
                     deleteQuestion={this.handleDeleteQuestion}
                     deletePage={this.handleDeletePage}
                     addPage={this.addPage}
                     saveModel={this.saveModel}
+                    editCurrentItem={this.editCurrentItem}
                   />
                 </div>
               </div>

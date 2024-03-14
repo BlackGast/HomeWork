@@ -6,5 +6,5 @@ export interface ITextQuestionProps {
   survey: ISurveyModel;
   deleteQuestion: (key: number, pageId: number) => void;
   getItem: (id: number, pageId: number, item: string) => void;
-  refreshState: () => void;
+  editCurrentItem: (item:string, pageId: number, questionId: number) => void;
 }

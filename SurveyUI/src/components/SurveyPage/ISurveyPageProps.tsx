@@ -10,5 +10,5 @@ export interface ISurveyPageProps {
   deletePage: (key: number) => void;
   addPage: () => void;
   getItem: (pageId?: number, questionId?: number, item?: string) => void;
-  refreshState: () => void;
+  editCurrentItem: (item?:string, pageId?: number, questionId?: number) => void;
 }

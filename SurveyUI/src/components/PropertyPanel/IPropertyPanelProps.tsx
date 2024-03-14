@@ -6,5 +6,4 @@ export interface IPropertyPanelProps {
   questionId?: number;
   item?: string;
   saveModel: () => void;
-  refreshState: () => void;
 }

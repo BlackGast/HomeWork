@@ -10,28 +10,7 @@ import { columnProps } from "./columnProps";
 import { IPropertyPanelProps } from "./IPropertyPanelProps";
 import { IPropertyPanelState } from "./IPropertyPanelState";
 
-export class PropertyPanel extends React.Component<
-  IPropertyPanelProps,
-  IPropertyPanelState
-> {
-  constructor(props: IPropertyPanelProps) {
-    super(props);
-    this.state = {
-      refreshState: false,
-    };
-  }
-
-  private refreshPage = (): void => {
-    this.setState(() => ({ refreshState: true }));
-  };
-
-  componentDidUpdate(): void {
-    // console.log("componentDidUpdate", this.state.refreshState);
-    if (this.state.refreshState === true) {
-      this.setState(() => ({ refreshState: false }));
-    }
-  }
-
+export class PropertyPanel extends React.Component<IPropertyPanelProps> {
   private _onChange(
     ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
     isChecked?: boolean
@@ -44,14 +23,15 @@ export class PropertyPanel extends React.Component<
       if (this.props.item === "survey") {
         return (
           <>
-            <p className="settings-lbl">Настройки</p>
+            <p className="settings-lbl">Настройки опроса</p>
             <hr />
             <Stack {...columnProps}>
               <TextField
-                label="Название"
+                label="Название опроса"
                 id="title"
                 defaultValue={`${this.props.survey.title}`}
               />
+              {/* <h1>{this.props.survey.title}</h1> */}
               <TextField
                 label="Описание"
                 id="description"
@@ -65,11 +45,13 @@ export class PropertyPanel extends React.Component<
                   this.props.survey.title = (
                     document.getElementById("title") as HTMLInputElement
                   ).value;
+                  console.log(
+                    (document.getElementById("title") as HTMLInputElement).value
+                  );
+                  console.log(this.props.survey.title);
                   this.props.survey.description = (
                     document.getElementById("description") as HTMLInputElement
                   ).value;
-                  this.props.refreshState();
-                  this.refreshPage();
                   this.props.saveModel();
                 }}
               />
@@ -78,18 +60,22 @@ export class PropertyPanel extends React.Component<
         );
       }
       if (this.props.item === "page") {
+        const pageIndex = this.props.pageId ?? 0
         return (
           <>
-            <p className="settings-lbl">Настройки</p>
+            <p className="settings-lbl">
+              Настройки страницы {(pageIndex ?? 0) + 1}
+            </p>
             <hr />
             <Stack {...columnProps}>
               <TextField
-                label="Название"
+                label="Название страницы"
                 id="title"
                 defaultValue={`${
                   this.props.survey.pages[this.props.pageId ?? 0].title
                 }`}
               />
+              {/* <h1>{this.props.survey.pages[this.props.pageId ?? 0].title}</h1> */}
               <TextField
                 label="Описание"
                 id="description"
@@ -109,8 +95,6 @@ export class PropertyPanel extends React.Component<
                     (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
-                  this.props.refreshState();
-                  this.refreshPage();
                   this.props.saveModel();
                 }}
               />
@@ -121,11 +105,11 @@ export class PropertyPanel extends React.Component<
       if (this.props.item === "question") {
         return (
           <>
-            <p className="settings-lbl">Настройки</p>
+            <p className="settings-lbl">Настройки вопроса</p>
             <hr />
             <Stack {...columnProps}>
               <TextField
-                label="Название"
+                label="Название вопроса"
                 id="title"
                 defaultValue={`${
                   this.props.survey.pages[this.props.pageId ?? 0].panels[0]
@@ -158,8 +142,6 @@ export class PropertyPanel extends React.Component<
                   ].description = (
                     document.getElementById("description") as HTMLInputElement
                   ).value;
-                  this.props.refreshState();
-                  this.refreshPage();
                   this.props.saveModel();
                 }}
               />

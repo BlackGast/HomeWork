@@ -11,30 +11,11 @@ import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
 import { editPen, trashCan } from "../IProps/IIconProps";
-import { columnProps } from "../PropertyPanel/columnProps";
 
 export class SurveyPage extends React.Component<
   ISurveyPageProps,
   ISurveyPageState
 > {
-  constructor(props: ISurveyPageProps) {
-    super(props);
-    this.state = {
-      refreshState: false,
-    };
-  }
-
-  private refreshPage = () => {
-    this.setState(() => ({ refreshState: true }));
-  };
-
-  componentDidUpdate(): void {
-    //console.log("componentDidUpdate", this.state.refreshState);
-    if (this.state.refreshState === true) {
-      this.setState(() => ({ refreshState: false }));
-    }
-  }
-
   private renderQuestion(
     item: QuestionType,
     id: number,
@@ -49,7 +30,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             getItem={this.props.getItem}
-            refreshState={this.props.refreshState}
+            editCurrentItem={this.props.editCurrentItem}
           />
         );
       case "Select":
@@ -86,13 +67,15 @@ export class SurveyPage extends React.Component<
               <div className="container_title-survey_header">
                 {/* <label id="surveyTitle" >{this.props.survey.title ?? "Название опроса"}</label> */}
                 <label id="surveyTitle">{this.props.survey.title}</label>
-                <label id="surveyDescription">{this.props.survey.description}</label>
+                <label id="surveyDescription">
+                  {this.props.survey.description}
+                </label>
               </div>
               <IconButton
                 iconProps={editPen}
                 onClick={() => {
                   this.props.getItem(undefined, undefined, "survey");
-                  this.props.refreshState();
+                  this.props.editCurrentItem("survey", undefined, undefined);
                 }}
               />
             </div>
@@ -102,14 +85,23 @@ export class SurveyPage extends React.Component<
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
-                      <label id="pageTitle">{indexPage + 1} {this.props.survey.pages[indexPage].title}</label>
-                      <label id="pageDescription">{this.props.survey.pages[indexPage].description}</label>
+                      <label id="pageTitle">
+                        {indexPage + 1}{" "}
+                        {this.props.survey.pages[indexPage].title}
+                      </label>
+                      <label id="pageDescription">
+                        {this.props.survey.pages[indexPage].description}
+                      </label>
                     </div>
                     <IconButton
                       iconProps={editPen}
                       onClick={() => {
                         this.props.getItem(indexPage, undefined, "page");
-                        this.props.refreshState();
+                        this.props.editCurrentItem(
+                          "page",
+                          indexPage,
+                          undefined
+                        );
                       }}
                     />
                   </div>
@@ -131,7 +123,6 @@ export class SurveyPage extends React.Component<
                   <div className="container_page_under-button">
                     <ButtonAddQuestion
                       addQuestion={this.props.addQuestion}
-                      refresh={this.refreshPage}
                       pageIndex={indexPage}
                     />
                     <DefaultButton

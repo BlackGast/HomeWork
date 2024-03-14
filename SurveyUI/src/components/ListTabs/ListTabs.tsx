@@ -13,19 +13,20 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
     }
   };
 
-  // Функция для отображения контента в зависимости от выбранного ключа
   const renderContent = (selectedKey: string) => {
     switch (selectedKey) {
       case "designerPage":
         return (
           <PageDesignerSurvey
             survey={props.survey}
+            currentItem={props.currentItem}
             questions={props.questions}
             addQuestion={props.addQuestion}
             deleteQuestion={props.deleteQuestion}
             deletePage={props.deletePage}
             addPage={props.addPage}
             saveModel={props.saveModel}
+            editCurrentItem={props.editCurrentItem}
           />
         );
       case "previewPage":
