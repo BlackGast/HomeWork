@@ -10,25 +10,12 @@ import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      key: 0,
-    };
-  }
 
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
 
   public render(): React.ReactNode {
-    const styleCheckbox: Partial<IStackStyles> = {
-      root: {
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "center",
-      },
-    };
     return (
       <div className="container_page_question">
         <div className="question-label">
@@ -52,7 +39,6 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
           <IconButton
             iconProps={editPen}
             onClick={() => {
-              this.props.getItem(this.props.id, this.props.pageId, "question");
               this.props.editCurrentItem("question", this.props.pageId, this.props.id)
             }}
           />

@@ -32,7 +32,6 @@ export class PageDesignerSurvey extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             deletePage={this.props.deletePage}
             addPage={this.props.addPage}
-            getItem={this.getItem}
             editCurrentItem={this.props.editCurrentItem}
           />
         </div>
@@ -48,7 +47,6 @@ export class PageDesignerSurvey extends React.Component<
               deleteQuestion={this.props.deleteQuestion}
               deletePage={this.props.deletePage}
               addPage={this.props.addPage}
-              getItem={this.getItem}
               editCurrentItem={this.props.editCurrentItem}
             />
           </div>

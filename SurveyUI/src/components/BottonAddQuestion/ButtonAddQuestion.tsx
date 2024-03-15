@@ -17,9 +17,6 @@ export const ButtonAddQuestion: React.FunctionComponent<
 > = (props) => {
   const addQuest = (key: QuestionType): void => {
     props.addQuestion(key, props.pageIndex ?? 0);
-    if (props.refresh) {
-      props.refresh();
-    }
   };
 
   const menuProps: IContextualMenuProps = {

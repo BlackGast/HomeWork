@@ -154,7 +154,6 @@ export class App extends React.Component<{}, IAppState> {
       this.handleDeletePage(page);
     }
     this.saveModel();
-    //console.log("delete click", key);
   };
 
   private handleDeletePage = (
@@ -166,6 +165,11 @@ export class App extends React.Component<{}, IAppState> {
     this.surveyModel.pages.splice(page ?? 0, 1);
     this.setState({
       survey: this.surveyModel,
+      currentItem: {
+        pageId: 0,
+        questionId: 0,
+        item: "survey",
+      },
     });
   };
 

@@ -6,7 +6,7 @@ import {
   Label,
 } from "@fluentui/react";
 import React from "react";
-import { circlePlus, trashCan } from "../IProps/IIconProps";
+import { circlePlus, trashCan } from "../../IProps/IIconProps";
 
 interface ICheckboxQuestionProps {
   id: number;

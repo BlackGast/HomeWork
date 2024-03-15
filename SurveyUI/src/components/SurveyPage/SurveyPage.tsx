@@ -3,7 +3,7 @@ import "./SurveyPage.scss";
 import { DefaultButton, IconButton, Stack, TextField } from "@fluentui/react";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
-import { CheckboxQuestion } from "../Questions/CheckboxQuestion";
+import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion";
 import { DateQuestion } from "../Questions/DateQuestion";
 import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion";
@@ -29,7 +29,6 @@ export class SurveyPage extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
-            getItem={this.props.getItem}
             editCurrentItem={this.props.editCurrentItem}
           />
         );
@@ -74,7 +73,6 @@ export class SurveyPage extends React.Component<
               <IconButton
                 iconProps={editPen}
                 onClick={() => {
-                  this.props.getItem(undefined, undefined, "survey");
                   this.props.editCurrentItem("survey", undefined, undefined);
                 }}
               />
@@ -96,7 +94,6 @@ export class SurveyPage extends React.Component<
                     <IconButton
                       iconProps={editPen}
                       onClick={() => {
-                        this.props.getItem(indexPage, undefined, "page");
                         this.props.editCurrentItem(
                           "page",
                           indexPage,
