@@ -5,8 +5,7 @@ import { ICurrentItem } from "../../model/ICurrentItem";
 
 export interface IListTabsProps {
   survey: ISurveyModel;
-  currentItem: ICurrentItem
-  questions: React.ReactNode[];
+  currentItem: ICurrentItem;
   deleteQuestion: (key: number) => void;
   addQuestion: (key: QuestionType) => void;
   deletePage: (key: number) => void;

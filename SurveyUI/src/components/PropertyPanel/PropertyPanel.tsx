@@ -1,13 +1,10 @@
 import * as React from "react";
-import {
-  Checkbox,
-  DefaultButton,
-  Stack,
-  TextField,
-} from "@fluentui/react";
+import { Checkbox, DefaultButton, IconButton, Stack, TextField } from "@fluentui/react";
 import { columnProps } from "./columnProps";
 import { IPropertyPanelProps } from "./IPropertyPanelProps";
 import { IPropertyPanelState } from "./IPropertyPanelState";
+import { CheckboxForQuestion } from "../CheckboxForQuestion/CheckboxForQuestion";
+import { trashCan } from "../IProps/IIconProps";
 
 export class PropertyPanel extends React.Component<
   IPropertyPanelProps,
@@ -108,79 +105,142 @@ export class PropertyPanel extends React.Component<
         );
       }
       if (this.props.item === "question") {
-        return (
-          <>
-            <p className="settings-lbl">Настройки вопроса</p>
-            <hr />
-            <Stack {...columnProps}>
-              <TextField
-                label="Название вопроса"
-                id="title"
-                defaultValue={`${
-                  this.props.survey.pages[this.props.pageId].panels[0]
-                    .questions[this.props.questionId].title
-                }`}
-              />
-              <TextField
-                label="Описание"
-                id="description"
-                multiline
-                rows={2}
-                defaultValue={`${
-                  this.props.survey.pages[this.props.pageId].panels[0]
-                    .questions[this.props.questionId].description
-                }`}
-              />
-              <Checkbox
-                label="Обязательно"
-                onChange={() => {
-                  if (this.state.checked === false) {
-                    this.setState({
-                      checked: true,
-                    });
+        if (
+          this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.questionId
+          ].type === "Text"
+        ) {
+          return (
+            <>
+              <p className="settings-lbl">Настройки вопроса</p>
+              <hr />
+              <Stack {...columnProps}>
+                <TextField
+                  label="Название вопроса"
+                  id="title"
+                  defaultValue={`${
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].title
+                  }`}
+                />
+                <TextField
+                  label="Описание"
+                  id="description"
+                  multiline
+                  rows={2}
+                  defaultValue={`${
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].description
+                  }`}
+                />
+                <CheckboxForQuestion
+                  checked={
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].required
+                  }
+                  survey={this.props.survey}
+                  pageId={this.props.pageId}
+                  questionId={this.props.questionId}
+                />
+                <DefaultButton
+                  text="Сохранить"
+                  onClick={() => {
                     this.props.survey.pages[
                       this.props.pageId
-                    ].panels[0].questions[this.props.questionId].required =
-                      this.state.checked;
-                    console.log(
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].required
-                    );
-                  }
-                  if (this.state.checked === true) {
-                    this.setState({
-                      checked: false,
-                    });
+                    ].panels[0].questions[this.props.questionId].title = (
+                      document.getElementById("title") as HTMLInputElement
+                    ).value;
                     this.props.survey.pages[
                       this.props.pageId
-                    ].panels[0].questions[this.props.questionId].required =
-                      this.state.checked;
-                    console.log(
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].required
-                    );
+                    ].panels[0].questions[this.props.questionId].description = (
+                      document.getElementById("description") as HTMLInputElement
+                    ).value;
+                    this.props.saveModel();
+                  }}
+                />
+              </Stack>
+            </>
+          );
+        }
+
+        if (
+          this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.questionId
+          ].type === "Select"
+        ) {
+          const tmp: any =
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.questionId
+            ].getValue();
+          return (
+            <>
+              <p className="settings-lbl">Настройки вопроса</p>
+              <hr />
+              <Stack {...columnProps}>
+                <TextField
+                  label="Название вопроса"
+                  id="title"
+                  defaultValue={`${
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].title
+                  }`}
+                />
+                <TextField
+                  label="Описание"
+                  id="description"
+                  multiline
+                  rows={2}
+                  defaultValue={`${
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].description
+                  }`}
+                />
+                {tmp.map((elements: any, index: number) => (
+                  <div key={index} style={{display: "flex"}}>
+                  <TextField defaultValue={elements.title} />
+                  <IconButton iconProps={trashCan} onClick={() => {
+                    console.log('Click');
+                  }}/>
+                  </div>
+                ))}
+                <DefaultButton
+                  text="Добавить ответ"
+                  onClick={() => {
+                    this.props.survey.pages[
+                      this.props.pageId
+                    ].panels[0].questions[this.props.questionId].addChoice();
+                    this.props.saveModel();
+                  }}
+                />
+                <CheckboxForQuestion
+                  checked={
+                    this.props.survey.pages[this.props.pageId].panels[0]
+                      .questions[this.props.questionId].required
                   }
-                }}
-              />
-              <DefaultButton
-                text="Сохранить"
-                onClick={() => {
-                  this.props.survey.pages[
-                    this.props.pageId
-                  ].panels[0].questions[this.props.questionId].title = (
-                    document.getElementById("title") as HTMLInputElement
-                  ).value;
-                  this.props.survey.pages[
-                    this.props.pageId
-                  ].panels[0].questions[this.props.questionId].description = (
-                    document.getElementById("description") as HTMLInputElement
-                  ).value;
-                  this.props.saveModel();
-                }}
-              />
-            </Stack>
-          </>
-        );
+                  survey={this.props.survey}
+                  pageId={this.props.pageId}
+                  questionId={this.props.questionId}
+                />
+                <DefaultButton
+                  text="Сохранить"
+                  onClick={() => {
+                    this.props.survey.pages[
+                      this.props.pageId
+                    ].panels[0].questions[this.props.questionId].title = (
+                      document.getElementById("title") as HTMLInputElement
+                    ).value;
+                    this.props.survey.pages[
+                      this.props.pageId
+                    ].panels[0].questions[this.props.questionId].description = (
+                      document.getElementById("description") as HTMLInputElement
+                    ).value;
+                    this.props.saveModel();
+                  }}
+                />
+              </Stack>
+            </>
+          );
+        }
       }
     }
   }

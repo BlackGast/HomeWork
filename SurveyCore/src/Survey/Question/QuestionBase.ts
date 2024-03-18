@@ -27,6 +27,11 @@ export class QuestionBase implements IQuestionData {
     }
 
     /**
+     * Базовый метод для добавления чойза в список ответов
+     */
+    public addChoice() { /* TODO document why this method 'addChoise' is empty */ }
+
+    /**
      * Базовый метод для получения значения ответа
      */
     public getValue() { /* TODO document why this method 'getValue' is empty */ }

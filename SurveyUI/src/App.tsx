@@ -45,8 +45,6 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
-  private questionPull: React.ReactNode[] = [];
-
   componentDidUpdate(): void {
     console.log("componentDidUpdate", this.state);
   }
@@ -98,7 +96,6 @@ export class App extends React.Component<{}, IAppState> {
     }
 
     console.log(this.surveyModel);
-    console.log(this.questionPull);
     this.saveModel();
   };
 
@@ -148,7 +145,7 @@ export class App extends React.Component<{}, IAppState> {
   ): void => {
     this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key, 1);
     if (
-      this.surveyModel.pages.length === 0 &&
+      // this.surveyModel.pages.length === 0 &&
       this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0
     ) {
       this.handleDeletePage(page);
@@ -194,6 +191,11 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
+  private addChoice = (pageId: number, questionId: number): void => {
+    console.log('');
+    
+  };
+
   public render(): React.ReactNode {
     return (
       <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
@@ -211,7 +213,6 @@ export class App extends React.Component<{}, IAppState> {
                   <ListTabs
                     survey={this.surveyModel}
                     currentItem={this.state.currentItem}
-                    questions={this.questionPull}
                     addQuestion={this.addQuestion}
                     deleteQuestion={this.handleDeleteQuestion}
                     deletePage={this.handleDeletePage}

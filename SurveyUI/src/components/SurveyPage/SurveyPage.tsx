@@ -33,7 +33,15 @@ export class SurveyPage extends React.Component<
           />
         );
       case "Select":
-        return <CheckboxQuestion id={id} />;
+        return (
+          <CheckboxQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+          />
+        );
       case "Choice":
         return <RadioButtonQuestion />;
       case "Date":

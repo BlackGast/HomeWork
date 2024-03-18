@@ -10,48 +10,100 @@ import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
-
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
 
   public render(): React.ReactNode {
-    return (
-      <div className="container_page_question">
-        <div className="question-label">
-          {this.props.id + 1}.
-          <label
-            id="questionName"
-            style={{
-              backgroundColor: "#f5f5f5",
-              fontSize: 14,
-            }}
-          >
-            {
-              this.props.survey.pages[this.props.pageId].panels[0].questions[
-                this.props.id
-              ].title
-            }
-            {/* Название вопроса */}
-          </label>
+    if (
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.id
+      ].required === false
+    ) {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            {this.props.id + 1}.
+            <label
+              id="questionName"
+              style={{
+                backgroundColor: "#f5f5f5",
+                fontSize: 14,
+              }}
+            >
+              {
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].title
+              }
+            </label>
+          </div>
+          <div className="question_settings">
+            <IconButton
+              iconProps={editPen}
+              onClick={() => {
+                this.props.editCurrentItem(
+                  "question",
+                  this.props.pageId,
+                  this.props.id
+                );
+              }}
+            />
+            <DefaultButton
+              text="Удалить"
+              iconProps={trashCan}
+              onClick={() => {
+                this.delete();
+              }}
+            />
+          </div>
         </div>
-        <div className="question_settings">
-          <IconButton
-            iconProps={editPen}
-            onClick={() => {
-              this.props.editCurrentItem("question", this.props.pageId, this.props.id)
-            }}
-          />
-          <DefaultButton
-            text="Удалить"
-            iconProps={trashCan}
-            // id={this.props.id}
-            onClick={() => {
-              this.delete();
-            }}
-          />
+      );
+    }
+    if (
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.id
+      ].required === true
+    ) {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            {this.props.id + 1}.
+            <label
+              id="questionName"
+              style={{
+                backgroundColor: "#f5f5f5",
+                fontSize: 14,
+              }}
+            >
+              {
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].title
+              }*
+            </label>
+          </div>
+          <div className="question_settings">
+            <IconButton
+              iconProps={editPen}
+              onClick={() => {
+                this.props.editCurrentItem(
+                  "question",
+                  this.props.pageId,
+                  this.props.id
+                );
+              }}
+            />
+            <DefaultButton
+              text="Удалить"
+              iconProps={trashCan}
+              onClick={() => {
+                this.delete();
+              }}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }

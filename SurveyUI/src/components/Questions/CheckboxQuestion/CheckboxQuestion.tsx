@@ -6,95 +6,84 @@ import {
   Label,
 } from "@fluentui/react";
 import React from "react";
-import { circlePlus, trashCan } from "../../IProps/IIconProps";
+import { circlePlus, editPen, trashCan } from "../../IProps/IIconProps";
+import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
+import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
-interface ICheckboxQuestionProps {
-  id: number;
-}
-
-interface CheckboxListProps {
-  id: number;
-}
-
-interface CheckboxListState {}
-
-interface CheckBoxQuestionState {
-  checkboxList: {
-    id: number;
-  }[];
-}
-
-export class CheckboxQuestion extends React.Component<
-  ICheckboxQuestionProps,
-  CheckBoxQuestionState
-> {
-  constructor(props: ICheckboxQuestionProps) {
-    super(props);
-    this.state = {
-      checkboxList: [],
-    };
+export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
+  private addCheckbox(): void {
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ].addChoice();
   }
+  private outputSelects(): React.ReactNode {
+    const tmp: any =
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.id
+      ].getValue();
 
-  componentDidUpdate(): void {
-    console.log("componentDidUpdate");
-    console.log(this.state);
-    this.render();
-  }
-
-  addCheckbox = () => {
-    //const { checkboxList } = this.state.checkboxList;
-    // this.setState({
-    //   checkboxList: [
-    //     ...checkboxList,
-    //     <Checkbox key={checkboxList.length} label="Ответ" />,
-    //   ],
-    // });
-  };
-
-  public render(): React.ReactNode {
-    const styleCheckbox: Partial<IStackStyles> = {
-      root: {
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "center",
-      },
-    };
     return (
-      <div className="container_page_question">
-        <Label>Вопрос</Label>
-        <Checkbox label="ответ" />
-        <CheckboxList id={this.props.id} />
-        <IconButton iconProps={circlePlus} onClick={this.addCheckbox} />
-        <div className="question_settings">
-          <Checkbox label="Обязательный" styles={styleCheckbox} />
-          <DefaultButton text="Удалить" iconProps={trashCan} />
-        </div>
-      </div>
+      <>
+        {tmp.map((elements: any, index: number) => (
+          <div key={index}>{elements.title}</div>
+        ))}
+      </>
     );
   }
-}
 
-export class CheckboxList extends React.Component<
-  CheckboxListProps,
-  CheckboxListState
-> {
   public render(): React.ReactNode {
-    // const { items } = this.props.id;
-    const styleCheckboxes: Partial<IStackStyles> = {
-      root: {
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "center",
-      },
-    };
     return (
-      // <div>
-      //   {items.map((item) => (
-      //     <div key={item.key}>{item.element}</div>
-      //   ))}
-      // </div>
-      <div>
-        Checkbox
+      <div className="container_page_question">
+        <div className="question-label">
+          {this.props.id + 1}.
+          <label
+            id="questionName"
+            style={{
+              backgroundColor: "#f5f5f5",
+              fontSize: 14,
+            }}
+          >
+            {
+              this.props.survey.pages[this.props.pageId].panels[0].questions[
+                this.props.id
+              ].title
+            }
+          </label>
+        </div>
+        {this.outputSelects()}
+        <IconButton
+          iconProps={circlePlus}
+          onClick={() => {
+            this.addCheckbox();
+            console.log(
+              this.props.survey.pages[this.props.pageId].panels[0].questions[
+                this.props.id
+              ].getValue()
+            );
+            // console.log(
+            //   this.props.survey.pages[this.props.pageId].panels[0].questions
+            // );
+          }}
+        />
+        <div className="question_settings">
+          <IconButton
+            iconProps={editPen}
+            onClick={() => {
+              this.props.editCurrentItem(
+                "question",
+                this.props.pageId,
+                this.props.id
+              );
+            }}
+          />
+          <DefaultButton
+            text="Удалить"
+            iconProps={trashCan}
+            onClick={() => {
+              this.props.deleteQuestion(this.props.id, this.props.pageId);
+            }}
+          />
+        </div>
       </div>
     );
   }

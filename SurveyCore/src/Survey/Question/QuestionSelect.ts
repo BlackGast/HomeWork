@@ -1,5 +1,6 @@
 import { IQuestionData } from "../../model/IQuestionData";
 import { ISelectAnswer } from "../../model/formElements/ISelectAnswer";
+import { Utils } from "../Utils";
 import { QuestionBase } from "./QuestionBase";
 
 export class QuestionSelect extends QuestionBase {
@@ -15,15 +16,15 @@ export class QuestionSelect extends QuestionBase {
         this._selects = this.createSelect(data.selects)
     }
 
-    private createSelect(data: ISelectAnswer[]) {
+    private createSelect(data?: ISelectAnswer[]) {
         const select: ISelectAnswer[] = [];
         if (data?.length) {
             for (const element of data) {
                 const selectObj: ISelectAnswer = {
-                    id: element.id,
-                    title: element.title,
-                    checked: element.checked,
-                    selected: element.selected,
+                    id: element.id || Utils.generateGUID(),
+                    title: element.title || 'Ответ',
+                    checked: element.checked || false,
+                    selected: element.selected || false,
                 }
                 select.push(selectObj);
             }
@@ -50,5 +51,15 @@ export class QuestionSelect extends QuestionBase {
 
     public setValue(newValue: any) {
         this.answer = newValue;
+    }
+
+    public override addChoice(): void {
+        const choiceObj: ISelectAnswer = {
+            id: Utils.generateGUID(),
+            title: 'Ответ',
+            checked: false,
+            selected: false,
+        };
+        this._selects.push(choiceObj);
     }
 }

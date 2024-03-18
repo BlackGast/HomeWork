@@ -53,4 +53,14 @@ export class QuestionChoice extends QuestionBase {
     public override setValue(newValue: any) {
         this.answer = newValue;
     }
+
+    public addChoice() {
+        const choiceObj: IChoice = {
+            id: Utils.generateGUID(),
+            title: '',
+            checked: false,
+            disabled: false,
+        };
+        this._choices.push(choiceObj);
+    }
 }
