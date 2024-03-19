@@ -23,9 +23,9 @@ export class QuestionChoice extends QuestionBase {
             for (const element of data) {
                 const choiceObj: IChoice = {
                     id: Utils.generateGUID(),
-                    title: element.title,
-                    checked: element.checked,
-                    disabled: element.disabled,
+                    title: element.title || 'Ответ',
+                    checked: element.checked || false,
+                    disabled: element.disabled || false,
                 }
                 choice.push(choiceObj);
             }
@@ -57,10 +57,14 @@ export class QuestionChoice extends QuestionBase {
     public addChoice() {
         const choiceObj: IChoice = {
             id: Utils.generateGUID(),
-            title: '',
+            title: 'Ответ',
             checked: false,
             disabled: false,
         };
         this._choices.push(choiceObj);
+    }
+
+    public override deleteChoice(itemId: number): void {
+        this._choices.splice(itemId, 1);
     }
 }

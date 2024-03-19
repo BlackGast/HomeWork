@@ -16,7 +16,7 @@ export class QuestionSelect extends QuestionBase {
         this._selects = this.createSelect(data.selects)
     }
 
-    private createSelect(data?: ISelectAnswer[]) {
+    private createSelect(data: ISelectAnswer[]) {
         const select: ISelectAnswer[] = [];
         if (data?.length) {
             for (const element of data) {
@@ -54,12 +54,16 @@ export class QuestionSelect extends QuestionBase {
     }
 
     public override addChoice(): void {
-        const choiceObj: ISelectAnswer = {
+        const selectObj: ISelectAnswer = {
             id: Utils.generateGUID(),
             title: 'Ответ',
             checked: false,
             selected: false,
         };
-        this._selects.push(choiceObj);
+        this._selects.push(selectObj);
+    }
+
+    public override deleteChoice(itemId: number): void {
+        this._selects.splice(itemId, 1);
     }
 }

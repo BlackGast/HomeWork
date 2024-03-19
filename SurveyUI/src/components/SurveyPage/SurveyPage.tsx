@@ -1,12 +1,12 @@
 import * as React from "react";
 import "./SurveyPage.scss";
-import { DefaultButton, IconButton, Stack, TextField } from "@fluentui/react";
+import { DefaultButton, IconButton } from "@fluentui/react";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
-import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion";
+import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion/RadioButtonQuestion";
 import { DateQuestion } from "../Questions/DateQuestion";
-import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion";
+import { RatingScaleQuestion } from "../Questions/RaitingScaleQuestion/RatingScaleQuestion";
 import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
@@ -43,11 +43,27 @@ export class SurveyPage extends React.Component<
           />
         );
       case "Choice":
-        return <RadioButtonQuestion />;
+        return (
+          <RadioButtonQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+          />
+        );
       case "Date":
         return <DateQuestion />;
       case "Number":
-        return <RatingScaleQuestion />;
+        return (
+          <RatingScaleQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+          />
+        );
       default:
         break;
     }

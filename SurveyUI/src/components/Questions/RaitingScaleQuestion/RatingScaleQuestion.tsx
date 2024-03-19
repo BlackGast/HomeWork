@@ -1,19 +1,26 @@
-import { DefaultButton, IconButton } from "@fluentui/react";
 import React from "react";
+import "./RaitingScaleQuestion.scss";
+import { IRatingScaleQuestion } from "./IRaitingScaleQuestion";
+import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
-import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
 
-export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
-  private outputSelects(): React.ReactNode {
-    const elementsPull: any =
+export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
+  private ratingNum(): React.ReactNode {
+    const maxValue: number =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
-      ].getValue();
-
+      ].getPropertyByName("maxNum");
+    const itemPull: React.ReactNode[] = [];
+    for (let i = 0; i < maxValue; i++) {
+      const element: React.ReactNode = <p>{i + 1}</p>;
+      itemPull.push(element);
+    }
     return (
       <>
-        {elementsPull.map((element: any, index: number) => (
-          <div key={index}>{element.title}</div>
+        {itemPull.map((element, index) => (
+          <div className="question_number-items_item" key={index}>
+            {element}
+          </div>
         ))}
       </>
     );
@@ -43,7 +50,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
               }
             </label>
           </div>
-          {this.outputSelects()}
+          <div className="question_number-items">{this.ratingNum()}</div>
           <div className="question_settings">
             <DefaultButton
               text="Удалить"
@@ -65,7 +72,12 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
           </div>
         </div>
       );
-    } else {
+    }
+    if (
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.id
+      ].required === true
+    ) {
       return (
         <div className="container_page_question">
           <div className="question-label">
@@ -85,7 +97,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
               *
             </label>
           </div>
-          {this.outputSelects()}
+          <div className="question_number-items">{this.ratingNum()}</div>
           <div className="question_settings">
             <DefaultButton
               text="Удалить"

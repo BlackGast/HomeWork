@@ -1,30 +1,28 @@
-import { DefaultButton, IconButton } from "@fluentui/react";
 import React from "react";
+import { IRadioButtonQuestionProps } from "./IRadioButtonQuestionProps";
+import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
-import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
 
-export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
+export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionProps> {
   private outputSelects(): React.ReactNode {
-    const elementsPull: any =
+    const tmp: any =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].getValue();
 
     return (
       <>
-        {elementsPull.map((element: any, index: number) => (
-          <div key={index}>{element.title}</div>
+        {tmp.map((elements: any, index: number) => (
+          <div key={index}>{elements.title}</div>
         ))}
       </>
     );
   }
 
   public render(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ].required === false) {
       return (
         <div className="container_page_question">
           <div className="question-label">
@@ -65,7 +63,10 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
           </div>
         </div>
       );
-    } else {
+    }
+    if (this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ].required === true) {
       return (
         <div className="container_page_question">
           <div className="question-label">
@@ -81,8 +82,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{" "}
-              *
+              } *
             </label>
           </div>
           {this.outputSelects()}

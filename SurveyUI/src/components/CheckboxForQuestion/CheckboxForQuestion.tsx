@@ -9,19 +9,19 @@ export class CheckboxForQuestion extends React.Component<IQuestionCheckbox> {
         <Checkbox
           label="Обязательно"
           onChange={() => {
-            console.log(
-              this.props.survey.pages[this.props.pageId].panels[0].questions[
-                this.props.questionId
-              ].required
-            );
+            // console.log(
+            //   this.props.survey.pages[this.props.pageId].panels[0].questions[
+            //     this.props.questionId
+            //   ].required
+            // );
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.questionId
             ].required = true;
-            console.log(
-              this.props.survey.pages[this.props.pageId].panels[0].questions[
-                this.props.questionId
-              ].required
-            );
+            // console.log(
+            //   this.props.survey.pages[this.props.pageId].panels[0].questions[
+            //     this.props.questionId
+            //   ].required
+            // );
           }}
         />
       );
@@ -31,7 +31,10 @@ export class CheckboxForQuestion extends React.Component<IQuestionCheckbox> {
           label="Обязательно"
           checked={true}
           onChange={() => {
-            console.log("click");
+            // console.log("click");
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.questionId
+            ].required = false;
           }}
         />
       );

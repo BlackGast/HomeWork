@@ -5,6 +5,7 @@ import { QuestionBase } from "./QuestionBase";
 export class QuestionNumber extends QuestionBase {
     public placeholder: string;
     public isMultiline: boolean;
+    public maxNum: number;
 
     constructor(data: IQuestionData) {
         super(data);
@@ -15,6 +16,7 @@ export class QuestionNumber extends QuestionBase {
         this.answer = '';
         this.placeholder = '';
         this.isMultiline = false;
+        this.maxNum = 5
     }
 
     public override getValue() {

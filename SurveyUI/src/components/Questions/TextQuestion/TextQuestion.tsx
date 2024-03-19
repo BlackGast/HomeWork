@@ -1,11 +1,6 @@
 import * as React from "react";
 import "./TextQuestion.scss";
-import {
-  IStackStyles,
-  DefaultButton,
-  IconButton,
-  TagItem,
-} from "@fluentui/react";
+import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 
@@ -39,6 +34,13 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             </label>
           </div>
           <div className="question_settings">
+            <DefaultButton
+              text="Удалить"
+              iconProps={trashCan}
+              onClick={() => {
+                this.delete();
+              }}
+            />
             <IconButton
               iconProps={editPen}
               onClick={() => {
@@ -47,13 +49,6 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                   this.props.pageId,
                   this.props.id
                 );
-              }}
-            />
-            <DefaultButton
-              text="Удалить"
-              iconProps={trashCan}
-              onClick={() => {
-                this.delete();
               }}
             />
           </div>
@@ -80,10 +75,18 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }*
+              }{" "}
+              *
             </label>
           </div>
           <div className="question_settings">
+            <DefaultButton
+              text="Удалить"
+              iconProps={trashCan}
+              onClick={() => {
+                this.delete();
+              }}
+            />
             <IconButton
               iconProps={editPen}
               onClick={() => {
@@ -92,13 +95,6 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                   this.props.pageId,
                   this.props.id
                 );
-              }}
-            />
-            <DefaultButton
-              text="Удалить"
-              iconProps={trashCan}
-              onClick={() => {
-                this.delete();
               }}
             />
           </div>
