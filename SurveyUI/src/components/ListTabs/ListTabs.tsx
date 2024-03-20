@@ -20,7 +20,6 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           <PageDesignerSurvey
             survey={props.survey}
             currentItem={props.currentItem}
-            questions={props.questions}
             addQuestion={props.addQuestion}
             deleteQuestion={props.deleteQuestion}
             deletePage={props.deletePage}

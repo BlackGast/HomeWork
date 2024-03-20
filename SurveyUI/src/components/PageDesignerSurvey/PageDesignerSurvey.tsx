@@ -27,7 +27,6 @@ export class PageDesignerSurvey extends React.Component<
         <div className="bodyPage_colored">
           <SurveyPage
             survey={this.props.survey}
-            questions={this.props.questions}
             addQuestion={this.props.addQuestion}
             deleteQuestion={this.props.deleteQuestion}
             deletePage={this.props.deletePage}
@@ -42,7 +41,6 @@ export class PageDesignerSurvey extends React.Component<
           <div className="page_part page_part-part2">
             <SurveyPage
               survey={this.props.survey}
-              questions={this.props.questions}
               addQuestion={this.props.addQuestion}
               deleteQuestion={this.props.deleteQuestion}
               deletePage={this.props.deletePage}
