@@ -1,14 +1,10 @@
-import * as React from "react";
+import React from "react";
 import "../Question.scss";
+import { IDateQuestionProps } from "./IDataQuestion";
 import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
-import { ITextQuestionProps } from "./ITextQuestionProps";
 
-export class TextQuestion extends React.Component<ITextQuestionProps> {
-  private delete = () => {
-    this.props.deleteQuestion(this.props.id, this.props.pageId);
-  };
-
+export class DateQuestion extends React.Component<IDateQuestionProps> {
   public render(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -33,14 +29,14 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                 }
               </label>
             </div>
-            <div className="question-label_type">Тип: Text question</div>
+            <div className="question-label_type">Тип: Data question</div>
           </div>
           <div className="question_settings">
             <DefaultButton
               text="Удалить"
               iconProps={trashCan}
               onClick={() => {
-                this.delete();
+                this.props.deleteQuestion(this.props.id, this.props.pageId);
               }}
             />
             <IconButton
@@ -81,14 +77,14 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                 *
               </label>
             </div>
-            <div className="question-label_type">Тип: Text question</div>
+            <div className="question-label_type">Тип: Data question</div>
           </div>
           <div className="question_settings">
             <DefaultButton
               text="Удалить"
               iconProps={trashCan}
               onClick={() => {
-                this.delete();
+                this.props.deleteQuestion(this.props.id, this.props.pageId);
               }}
             />
             <IconButton

@@ -1,5 +1,6 @@
 import { DefaultButton, IconButton } from "@fluentui/react";
 import React from "react";
+import "../Question.scss";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
 
@@ -28,20 +29,22 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
       return (
         <div className="container_page_question">
           <div className="question-label">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }
-            </label>
+            <div className="question-label_title">
+              {this.props.id + 1}.
+              <label
+                id="questionName"
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  fontSize: 14,
+                }}
+              >
+                {
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].title
+                }
+              </label>
+            </div>
+            <div className="question-label_type">Тип: Checkbox question</div>
           </div>
           {this.outputSelects()}
           <div className="question_settings">
@@ -69,21 +72,23 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
       return (
         <div className="container_page_question">
           <div className="question-label">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }{" "}
-              *
-            </label>
+            <div className="question-label_title">
+              {this.props.id + 1}.
+              <label
+                id="questionName"
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  fontSize: 14,
+                }}
+              >
+                {
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].title
+                }{" "}
+                *
+              </label>
+            </div>
+            <div className="question-label_type">Тип: Checkbox question</div>
           </div>
           {this.outputSelects()}
           <div className="question_settings">

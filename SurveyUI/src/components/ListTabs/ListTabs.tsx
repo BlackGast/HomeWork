@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Pivot, PivotItem, DefaultButton } from "@fluentui/react";
 import { PageDesignerSurvey } from "../PageDesignerSurvey/PageDesignerSurvey";
-import { PagePreviewSurvey, PageEditorJson } from "../../App";
+import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
+import { PagePreviewSurvey } from "../PagePriviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
 
 export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
@@ -29,7 +30,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           />
         );
       case "previewPage":
-        return <PagePreviewSurvey />;
+        return <PagePreviewSurvey survey={props.survey} />;
       case "editorJson":
         return <PageEditorJson />;
       default:
@@ -97,7 +98,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
 //     }
 //   };
 //   public render(): React.ReactNode {
-    
+
 //     return (
 //       <>
 //         <div className="buttonMenu">

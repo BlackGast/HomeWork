@@ -191,10 +191,10 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
-  private addChoice = (pageId: number, questionId: number): void => {
-    console.log('');
+  // private addChoice = (pageId: number, questionId: number): void => {
+  //   console.log('');
     
-  };
+  // };
 
   public render(): React.ReactNode {
     return (
@@ -228,18 +228,6 @@ export class App extends React.Component<{}, IAppState> {
         </Layout>
       </ThemeProvider>
     );
-  }
-}
-
-export class PagePreviewSurvey extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Preview Page</div>;
-  }
-}
-
-export class PageEditorJson extends React.Component {
-  public render(): React.ReactNode {
-    return <div>Editor JSON</div>;
   }
 }
 

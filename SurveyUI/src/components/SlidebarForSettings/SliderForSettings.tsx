@@ -12,9 +12,9 @@ export class SliderForSettings extends React.Component<
   public render(): JSX.Element {
     return (
       <Slider
-        label="Basic example"
+        label="Количество элементов"
         min={2}
-        max={10}
+        max={9}
         step={1}
         defaultValue={5}
         showValue={true}

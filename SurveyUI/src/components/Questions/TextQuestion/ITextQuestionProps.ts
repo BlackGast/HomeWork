@@ -1,9 +1,3 @@
-import { ISurveyModel } from "../../../../../SurveyCore/src/model/ISurveyModel";
+import { IQuestionBaseProps } from "../IQuestionBaseProps";
 
-export interface ITextQuestionProps {
-  id: number;
-  pageId: number;
-  survey: ISurveyModel;
-  deleteQuestion: (key: number, pageId: number) => void;
-  editCurrentItem: (item:string, pageId: number, questionId: number) => void;
-}
+export interface ITextQuestionProps extends IQuestionBaseProps {}

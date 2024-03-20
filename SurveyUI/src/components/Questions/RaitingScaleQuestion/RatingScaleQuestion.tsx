@@ -1,5 +1,6 @@
 import React from "react";
-import "./RaitingScaleQuestion.scss";
+// import "./RaitingScaleQuestion.scss";
+import "../Question.scss";
 import { IRatingScaleQuestion } from "./IRaitingScaleQuestion";
 import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
@@ -12,7 +13,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
       ].getPropertyByName("maxNum");
     const itemPull: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
-      const element: React.ReactNode = <p>{i + 1}</p>;
+      const element: React.ReactNode = <>{i + 1}</>;
       itemPull.push(element);
     }
     return (
@@ -35,20 +36,24 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
       return (
         <div className="container_page_question">
           <div className="question-label">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }
-            </label>
+            <div className="question-label_title">
+              {this.props.id + 1}.
+              <label
+                id="questionName"
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  fontSize: 14,
+                }}
+              >
+                {
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].title
+                }
+              </label>
+            </div>
+            <div className="question-label_type">
+              Тип: Rating scale question
+            </div>
           </div>
           <div className="question_number-items">{this.ratingNum()}</div>
           <div className="question_settings">
@@ -81,21 +86,25 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
       return (
         <div className="container_page_question">
           <div className="question-label">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }{" "}
-              *
-            </label>
+            <div className="question-label_title">
+              {this.props.id + 1}.
+              <label
+                id="questionName"
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  fontSize: 14,
+                }}
+              >
+                {
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].title
+                }{" "}
+                *
+              </label>
+            </div>
+            <div className="question-label_type">
+              Тип: Rating scale question
+            </div>
           </div>
           <div className="question_number-items">{this.ratingNum()}</div>
           <div className="question_settings">
