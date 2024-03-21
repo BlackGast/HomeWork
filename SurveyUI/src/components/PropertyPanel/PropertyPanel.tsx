@@ -5,7 +5,7 @@ import { IPropertyPanelProps } from "./IPropertyPanelProps";
 import { IPropertyPanelState } from "./IPropertyPanelState";
 import { CheckboxForQuestion } from "../CheckboxForQuestion/CheckboxForQuestion";
 import { trashCan } from "../IProps/IIconProps";
-import { SliderForSettings } from "../SlidebarForSettings/SliderForSettings";
+import { SliderForSettings } from "../SliderbarForSettings/SliderForSettings";
 
 export class PropertyPanel extends React.Component<
   IPropertyPanelProps,
@@ -107,9 +107,12 @@ export class PropertyPanel extends React.Component<
       }
       if (this.props.item === "question") {
         if (
+          (this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.questionId
+          ].type === "Text",
           this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.questionId
-          ].type === "Text"
+          ].type === "Date")
         ) {
           return (
             <>

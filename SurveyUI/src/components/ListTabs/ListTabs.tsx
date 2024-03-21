@@ -32,7 +32,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
       case "previewPage":
         return <PagePreviewSurvey survey={props.survey} />;
       case "editorJson":
-        return <PageEditorJson />;
+        return <PageEditorJson survey={props.survey} />;
       default:
         return null;
     }

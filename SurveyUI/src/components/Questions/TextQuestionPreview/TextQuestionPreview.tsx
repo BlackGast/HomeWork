@@ -1,13 +1,10 @@
 import * as React from "react";
 import "../Question.scss";
-import { DefaultButton, IconButton } from "@fluentui/react";
+import { DefaultButton, IconButton, TextField } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
-import { ITextQuestionProps } from "./ITextQuestionProps";
+import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 
-export class TextQuestion extends React.Component<ITextQuestionProps> {
-  private delete = () => {
-    this.props.deleteQuestion(this.props.id, this.props.pageId);
-  };
+export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
 
   private requiredSymbol(): React.ReactNode {
     if (
@@ -49,25 +46,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
           </div>
           <div className="question-label_type">Тип: Text question</div>
         </div>
-        <div className="question_settings">
-          <DefaultButton
-            text="Удалить"
-            iconProps={trashCan}
-            onClick={() => {
-              this.delete();
-            }}
-          />
-          <IconButton
-            iconProps={editPen}
-            onClick={() => {
-              this.props.editCurrentItem(
-                "question",
-                this.props.pageId,
-                this.props.id
-              );
-            }}
-          />
-        </div>
+        <div><TextField id="answer"/></div>
       </div>
     );
   }

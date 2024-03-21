@@ -53,12 +53,15 @@ export class SurveyPage extends React.Component<
           />
         );
       case "Date":
-        return <DateQuestion 
+        return (
+          <DateQuestion
             id={id}
             pageId={pageId}
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
-            editCurrentItem={this.props.editCurrentItem}/>;
+            editCurrentItem={this.props.editCurrentItem}
+          />
+        );
       case "Number":
         return (
           <RatingScaleQuestion
@@ -93,7 +96,6 @@ export class SurveyPage extends React.Component<
           <div className="container_title-survey">
             <div className="container_title-survey_block">
               <div className="container_title-survey_header">
-                {/* <label id="surveyTitle" >{this.props.survey.title ?? "Название опроса"}</label> */}
                 <label id="surveyTitle">{this.props.survey.title}</label>
                 <label id="surveyDescription">
                   {this.props.survey.description}

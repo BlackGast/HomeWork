@@ -8,19 +8,6 @@ export class PageDesignerSurvey extends React.Component<
   IPageDesignerSurveyProps,
   IPageDesignerSurveyState
 > {
-  private getItem = (
-    pageId?: number,
-    questionId?: number,
-    item?: string
-  ): void => {
-    // this.setState({
-    //   item: item ?? "survey",
-    //   pageId: pageId ?? 0,
-    //   questionId: questionId ?? 0,
-    // });
-    console.log("getItem");
-  };
-
   public render(): React.ReactNode {
     if (this.props.survey.pages.length === 0) {
       return (
