@@ -33,3 +33,11 @@ export const ratingStar: IIconProps = {
 export const circlePlus: IIconProps = {
   iconName: "CirclePlus",
 };
+
+export const forward: IIconProps ={ 
+  iconName: "Forward",
+}
+
+export const back: IIconProps ={ 
+  iconName: "Back",
+}

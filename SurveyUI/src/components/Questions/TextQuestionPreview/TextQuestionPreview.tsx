@@ -1,7 +1,6 @@
 import * as React from "react";
 import "../Question.scss";
-import { DefaultButton, IconButton, TextField } from "@fluentui/react";
-import { editPen, trashCan } from "../../IProps/IIconProps";
+import { TextField } from "@fluentui/react";
 import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {

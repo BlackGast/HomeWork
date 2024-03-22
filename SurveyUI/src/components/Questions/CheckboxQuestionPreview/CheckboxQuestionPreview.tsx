@@ -1,10 +1,8 @@
-import { DefaultButton, IconButton } from "@fluentui/react";
 import React from "react";
-import "../Question.scss";
-import { editPen, trashCan } from "../../IProps/IIconProps";
-import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
+import { ICheckboxQuestionPreviewProps } from "./ICheckboxQuestionPreviewProps";
+import { Checkbox } from "@fluentui/react";
 
-export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
+export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
   private outputSelects(): React.ReactNode {
     const elementsPull: any =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -14,7 +12,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
     return (
       <>
         {elementsPull.map((element: any, index: number) => (
-          <div key={index}>{element.title}</div>
+          <Checkbox key={index} label={element.title} />
         ))}
       </>
     );
@@ -60,25 +58,6 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
           <div className="question-label_type">Тип: Checkbox question</div>
         </div>
         {this.outputSelects()}
-        <div className="question_settings">
-          <DefaultButton
-            text="Удалить"
-            iconProps={trashCan}
-            onClick={() => {
-              this.props.deleteQuestion(this.props.id, this.props.pageId);
-            }}
-          />
-          <IconButton
-            iconProps={editPen}
-            onClick={() => {
-              this.props.editCurrentItem(
-                "question",
-                this.props.pageId,
-                this.props.id
-              );
-            }}
-          />
-        </div>
       </div>
     );
   }

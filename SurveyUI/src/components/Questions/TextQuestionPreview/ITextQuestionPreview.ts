@@ -1,7 +1,4 @@
 import { ISurveyModel } from "../../../../../SurveyCore/src/model/ISurveyModel";
+import { IQuestionPreviewBaseProps } from "../IQuestionPreviewBaseProps";
 
-export interface ITextQuestionPreviewProps {
-    id: number;
-    pageId: number;
-    survey: ISurveyModel;
-}
+export interface ITextQuestionPreviewProps extends IQuestionPreviewBaseProps {}

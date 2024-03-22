@@ -1,9 +1,23 @@
 import * as React from "react";
-import { IPagePreviewSurveyProps } from "./IPagePreviewSurvey";
+import "./PagePreviewSurvey.scss";
+import { IPagePreviewSurveyProps } from "./IPagePreviewSurveyProps";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestionPreview } from "../Questions/TextQuestionPreview/TextQuestionPreview";
+import { IPagePreviewSurveyState } from "./IPagePreviewSurveyState";
+import { CheckboxQuestionPreview } from "../Questions/CheckboxQuestionPreview/CheckboxQuestionPreview";
+import { DefaultButton } from "@fluentui/react";
+import { back, forward } from "../IProps/IIconProps";
 
-export class PagePreviewSurvey extends React.Component<IPagePreviewSurveyProps> {
+export class PagePreviewSurvey extends React.Component<
+  IPagePreviewSurveyProps,
+  IPagePreviewSurveyState
+> {
+  constructor(props: IPagePreviewSurveyProps) {
+    super(props);
+    this.state = {
+      currentPage: 0,
+    };
+  }
 
   private renderQuestion(
     item: QuestionType,
@@ -19,16 +33,14 @@ export class PagePreviewSurvey extends React.Component<IPagePreviewSurveyProps> 
             survey={this.props.survey}
           />
         );
-      // case "Select":
-      //   return (
-      //     <CheckboxQuestion
-      //       id={id}
-      //       pageId={pageId}
-      //       survey={this.props.survey}
-      //       deleteQuestion={this.props.deleteQuestion}
-      //       editCurrentItem={this.props.editCurrentItem}
-      //     />
-      //   );
+      case "Select":
+        return (
+          <CheckboxQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+          />
+        );
       // case "Choice":
       //   return (
       //     <RadioButtonQuestion
@@ -63,7 +75,96 @@ export class PagePreviewSurvey extends React.Component<IPagePreviewSurveyProps> 
         break;
     }
   }
-  
+
+  private renderPage(pageId: number): React.ReactNode {
+    return (
+      <div className="preview-container_page">
+        <div className="preview-container_page_block">
+          <div className="preview-container_page_header">
+            <label id="pageTitle">
+              {pageId + 1} {this.props.survey.pages[pageId].title}
+            </label>
+            <label id="pageDescription">
+              {this.props.survey.pages[pageId].description}
+            </label>
+          </div>
+        </div>
+        {this.props.survey.pages[pageId].panels[0].questions.map(
+          (elements, indexQuestion) => (
+            <div
+              className="question-item"
+              key={indexQuestion}
+              id={`${indexQuestion}`}
+            >
+              {this.renderQuestion(
+                this.props.survey.pages[pageId].panels[0].questions[
+                  indexQuestion
+                ].type,
+                indexQuestion,
+                pageId
+              )}
+            </div>
+          )
+        )}
+        {this.renderNavButton()}
+      </div>
+    );
+  }
+
+  private renderNavButton(): React.ReactNode {
+    if (this.props.survey.pages.length > 1) {
+      if (this.state.currentPage === 0) {
+        return (
+          <DefaultButton
+            iconProps={forward}
+            onClick={() => {
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage + 1,
+              }));
+            }}
+          />
+        );
+      }
+      if (this.state.currentPage !== 0) {
+        return (
+          <DefaultButton
+            iconProps={back}
+            onClick={() => {
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage - 1,
+              }));
+            }}
+          />
+        );
+      }
+
+      //
+      //Переделать отрисовку кнопок
+      //
+      
+      // if (this.state.currentPage !== this.props.survey.pages.length - 1) {
+      //   <>
+      //     <DefaultButton
+      //       iconProps={forward}
+      //       onClick={() => {
+      //         this.setState((prevState) => ({
+      //           currentPage: prevState.currentPage + 1,
+      //         }));
+      //       }}
+      //     />
+      //     <DefaultButton
+      //       iconProps={back}
+      //       onClick={() => {
+      //         this.setState((prevState) => ({
+      //           currentPage: prevState.currentPage - 1,
+      //         }));
+      //       }}
+      //     />
+      //   </>;
+      // }
+    }
+  }
+
   public render(): React.ReactNode {
     if (this.props.survey.pages.length === 0) {
       return (
@@ -86,35 +187,7 @@ export class PagePreviewSurvey extends React.Component<IPagePreviewSurveyProps> 
                 </label>
               </div>
               <hr />
-              {this.props.survey.pages.map((elements, indexPage) => (
-                <div key={indexPage} id={`${indexPage}`}>
-                  <div className="container_page">
-                  <div className="container_page_block">
-                    <div className="container_page_header">
-                      <label id="pageTitle">
-                        {indexPage + 1}{" "}
-                        {this.props.survey.pages[indexPage].title}
-                      </label>
-                      <label id="pageDescription">
-                        {this.props.survey.pages[indexPage].description}
-                      </label>
-                    </div>
-
-                  </div>
-                  {this.props.survey.pages[indexPage].panels[0].questions.map(
-                    (elements, indexQuestion) => (
-                      <div
-                        className="question-item"
-                        key={indexQuestion}
-                        id={`${indexQuestion}`}
-                      >
-                        
-                      </div>
-                    )
-                  )}
-                </div>
-                </div>
-              ))}
+              {this.renderPage(this.state.currentPage)}
             </div>
           </div>
         </div>
