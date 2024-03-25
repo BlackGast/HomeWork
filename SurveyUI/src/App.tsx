@@ -35,6 +35,12 @@ export class App extends React.Component<{}, IAppState> {
         questionId: 0,
         item: "survey",
       },
+      currentPropertyItem: {
+        title: "",
+        description: "",
+        required: false,
+        choices: [],
+      },
     };
   }
   private orderList: number = 0;
@@ -191,9 +197,39 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
+  private editCurrentPropertyItem = (
+    title?: string,
+    description?: string,
+    required?: boolean,
+    typeQuestion?: QuestionType,
+    pageId?: number,
+    questionId?: number
+  ): void => {
+    this.setState({
+      currentPropertyItem: {
+        title: title ?? "",
+        description: description ?? "",
+        required: required ?? false,
+        choices: this.addChoice(pageId, questionId, typeQuestion),
+        // choices: choices ?? [],
+      },
+    });
+  };
+
+  private addChoice = (pageId?: number, questionId?: number, typeQuestion?: QuestionType): string[] => {
+    const choices: string[] = [];
+    if (typeQuestion === "Select" || typeQuestion === "Choice") {
+      const elementsPull: any = this.surveyModel.pages[pageId ?? 0].panels[0].questions[
+        questionId ?? 0
+      ].getValue();
+      elementsPull.map((element: any) => (choices.push(element.title)))
+    }
+    return choices;
+  };
+
   // private addChoice = (pageId: number, questionId: number): void => {
   //   console.log('');
-    
+
   // };
 
   public render(): React.ReactNode {
@@ -213,18 +249,19 @@ export class App extends React.Component<{}, IAppState> {
                   <ListTabs
                     survey={this.surveyModel}
                     currentItem={this.state.currentItem}
+                    currentPropertyItem={this.state.currentPropertyItem}
                     addQuestion={this.addQuestion}
                     deleteQuestion={this.handleDeleteQuestion}
                     deletePage={this.handleDeletePage}
                     addPage={this.addPage}
                     saveModel={this.saveModel}
                     editCurrentItem={this.editCurrentItem}
+                    editCurrentPropertyItem={this.editCurrentPropertyItem}
                   />
                 </div>
               </div>
             </>
           }
-          ;
         </Layout>
       </ThemeProvider>
     );

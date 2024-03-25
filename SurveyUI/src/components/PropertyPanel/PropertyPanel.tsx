@@ -15,8 +15,35 @@ export class PropertyPanel extends React.Component<
     super(props);
     this.state = {
       checked: false,
+      title: "",
+      description: "",
+      choices: [],
     };
   }
+
+  componentDidUpdate(prevProps: IPropertyPanelProps): void {
+    if (
+      this.props.propertyItem !== prevProps.propertyItem
+    ) {
+      this.setState({
+        checked: this.props.propertyItem.required,
+        choices: this.props.propertyItem.choices,
+        description: this.props.propertyItem.description,
+        title: this.props.propertyItem.title,
+      });
+    }
+    console.log("componentDidUpdate PropertyPanel");
+  }
+
+  // componentDidMount(): void {
+  //   this.setState({
+  //     checked: this.props.propertyItem.required,
+  //     choices: this.props.propertyItem.choices,
+  //     description: this.props.propertyItem.description,
+  //     title: this.props.propertyItem.title,
+  //   });
+  // }
+
   public render(): React.ReactNode {
     if (this.props.survey.pages.length !== 0) {
       if (this.props.item === "survey") {
@@ -76,7 +103,8 @@ export class PropertyPanel extends React.Component<
                 label="Название страницы"
                 id="title"
                 defaultValue={`${
-                  this.props.survey.pages[this.props.pageId].title
+                  this.state.title
+                  // this.props.survey.pages[this.props.pageId].title
                 }`}
               />
               {/* <h1>{this.props.survey.pages[this.props.pageId ?? 0].title}</h1> */}
@@ -85,9 +113,7 @@ export class PropertyPanel extends React.Component<
                 id="description"
                 multiline
                 rows={2}
-                defaultValue={`${
-                  this.props.survey.pages[this.props.pageId].description
-                }`}
+                defaultValue={`${this.state.description}`}
               />
               <DefaultButton
                 text="Сохранить"
@@ -107,12 +133,12 @@ export class PropertyPanel extends React.Component<
       }
       if (this.props.item === "question") {
         if (
-          (this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Text",
           this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.questionId
-          ].type === "Date")
+          ].type === "Text" ||
+          this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.questionId
+          ].type === "Date"
         ) {
           return (
             <>
@@ -122,26 +148,19 @@ export class PropertyPanel extends React.Component<
                 <TextField
                   label="Название вопроса"
                   id="title"
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].title
-                  }`}
+                  value={`${this.state.title}`}
+                  // onChange={}
+                  // тут надо прокинуть пропсом функцию editCurrentPropertyItem чтобы обновить state в App
                 />
                 <TextField
                   label="Описание"
                   id="description"
                   multiline
                   rows={2}
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].description
-                  }`}
+                  value={`${this.state.description}`}
                 />
                 <CheckboxForQuestion
-                  checked={
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].required
-                  }
+                  checked={this.state.checked}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
@@ -187,26 +206,20 @@ export class PropertyPanel extends React.Component<
                 <TextField
                   label="Название вопроса"
                   id="title"
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].title
-                  }`}
+                  defaultValue={`${this.state.title}`}
                 />
                 <TextField
                   label="Описание"
                   id="description"
                   multiline
                   rows={2}
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].description
-                  }`}
+                  defaultValue={`${this.state.description}`}
                 />
                 {ItemsValue.map((elements: any, indexChoice: number) => (
                   <div key={indexChoice} style={{ display: "flex" }}>
                     <TextField
                       id={`choiceTitle-${indexChoice}`}
-                      defaultValue={elements.title}
+                      defaultValue={this.state.choices[indexChoice]}
                       onBlur={() => {
                         const valueTitle = (
                           document.getElementById(
@@ -251,10 +264,7 @@ export class PropertyPanel extends React.Component<
                   }}
                 />
                 <CheckboxForQuestion
-                  checked={
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].required
-                  }
+                  checked={this.props.propertyItem.required}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
@@ -292,20 +302,14 @@ export class PropertyPanel extends React.Component<
                 <TextField
                   label="Название вопроса"
                   id="title"
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].title
-                  }`}
+                  defaultValue={`${this.state.title}`}
                 />
                 <TextField
                   label="Описание"
                   id="description"
                   multiline
                   rows={2}
-                  defaultValue={`${
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].description
-                  }`}
+                  defaultValue={`${this.state.description}`}
                 />
                 <SliderForSettings
                   survey={this.props.survey}
@@ -313,10 +317,7 @@ export class PropertyPanel extends React.Component<
                   questionId={this.props.questionId}
                 />
                 <CheckboxForQuestion
-                  checked={
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].required
-                  }
+                  checked={this.props.propertyItem.required}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}

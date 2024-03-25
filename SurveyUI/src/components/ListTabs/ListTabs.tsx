@@ -21,12 +21,14 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           <PageDesignerSurvey
             survey={props.survey}
             currentItem={props.currentItem}
+            currentPropertyItem={props.currentPropertyItem}
             addQuestion={props.addQuestion}
             deleteQuestion={props.deleteQuestion}
             deletePage={props.deletePage}
             addPage={props.addPage}
             saveModel={props.saveModel}
             editCurrentItem={props.editCurrentItem}
+            editCurrentPropertyItem={props.editCurrentPropertyItem}
           />
         );
       case "previewPage":

@@ -9,4 +9,5 @@ export interface ISurveyPageProps {
   deletePage: (key: number) => void;
   addPage: () => void;
   editCurrentItem: (item?:string, pageId?: number, questionId?: number) => void;
+  editCurrentPropertyItem: (title?:string, description?: string, required?: boolean) => void;
 }

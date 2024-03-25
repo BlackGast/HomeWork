@@ -54,7 +54,8 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{this.requiredSymbol()}
+              }
+              {this.requiredSymbol()}
             </label>
           </div>
           <div className="question-label_type">Тип: Checkbox question</div>
@@ -73,6 +74,20 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
             onClick={() => {
               this.props.editCurrentItem(
                 "question",
+                this.props.pageId,
+                this.props.id
+              );
+              this.props.editCurrentPropertyItem(
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].title,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].description,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].required,
+                "Select",
                 this.props.pageId,
                 this.props.id
               );

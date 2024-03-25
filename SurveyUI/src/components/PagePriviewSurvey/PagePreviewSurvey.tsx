@@ -125,7 +125,11 @@ export class PagePreviewSurvey extends React.Component<
           />
         );
       }
-      if (this.state.currentPage !== 0) {
+
+      if (
+        this.state.currentPage !== 0 &&
+        this.props.survey.pages.length === 2
+      ) {
         return (
           <DefaultButton
             iconProps={back}
@@ -138,29 +142,63 @@ export class PagePreviewSurvey extends React.Component<
         );
       }
 
-      //
-      //Переделать отрисовку кнопок
-      //
-      
-      // if (this.state.currentPage !== this.props.survey.pages.length - 1) {
-      //   <>
-      //     <DefaultButton
-      //       iconProps={forward}
-      //       onClick={() => {
-      //         this.setState((prevState) => ({
-      //           currentPage: prevState.currentPage + 1,
-      //         }));
-      //       }}
-      //     />
-      //     <DefaultButton
-      //       iconProps={back}
-      //       onClick={() => {
-      //         this.setState((prevState) => ({
-      //           currentPage: prevState.currentPage - 1,
-      //         }));
-      //       }}
-      //     />
-      //   </>;
+      if (this.state.currentPage === this.props.survey.pages.length - 1) {
+        return (
+          <DefaultButton
+            iconProps={back}
+            onClick={() => {
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage - 1,
+              }));
+            }}
+          />
+        );
+      }
+
+      if (this.state.currentPage !== this.props.survey.pages.length - 1) {
+        return (
+          <>
+            <DefaultButton
+              iconProps={back}
+              onClick={() => {
+                this.setState((prevState) => ({
+                  currentPage: prevState.currentPage - 1,
+                }));
+              }}
+            />
+            <DefaultButton
+              iconProps={forward}
+              onClick={() => {
+                this.setState((prevState) => ({
+                  currentPage: prevState.currentPage + 1,
+                }));
+              }}
+            />
+          </>
+        );
+      }
+
+      // if (this.state.currentPage === this.props.survey.pages.length - 1) {
+      //   return (
+      // <>
+      //   <DefaultButton
+      //     iconProps={forward}
+      //     onClick={() => {
+      //       this.setState((prevState) => ({
+      //         currentPage: prevState.currentPage + 1,
+      //       }));
+      //     }}
+      //   />
+      //   <DefaultButton
+      //     iconProps={back}
+      //     onClick={() => {
+      //       this.setState((prevState) => ({
+      //         currentPage: prevState.currentPage - 1,
+      //       }));
+      //     }}
+      //   />
+      // </>
+      //   );
       // }
     }
   }

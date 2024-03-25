@@ -30,6 +30,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         );
       case "Select":
@@ -40,6 +41,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         );
       case "Choice":
@@ -50,6 +52,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         );
       case "Date":
@@ -60,6 +63,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         );
       case "Number":
@@ -70,6 +74,7 @@ export class SurveyPage extends React.Component<
             survey={this.props.survey}
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         );
       default:

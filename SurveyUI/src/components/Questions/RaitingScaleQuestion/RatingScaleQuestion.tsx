@@ -84,6 +84,20 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
                 this.props.pageId,
                 this.props.id
               );
+              this.props.editCurrentPropertyItem(
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].title,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].description,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].required,
+                "Number",
+                this.props.pageId,
+                this.props.id
+              );
             }}
           />
         </div>

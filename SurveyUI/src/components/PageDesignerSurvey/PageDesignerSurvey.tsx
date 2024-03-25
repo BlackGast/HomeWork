@@ -19,6 +19,7 @@ export class PageDesignerSurvey extends React.Component<
             deletePage={this.props.deletePage}
             addPage={this.props.addPage}
             editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
           />
         </div>
       );
@@ -33,6 +34,7 @@ export class PageDesignerSurvey extends React.Component<
               deletePage={this.props.deletePage}
               addPage={this.props.addPage}
               editCurrentItem={this.props.editCurrentItem}
+              editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             />
           </div>
           <div className="vertical-line" />
@@ -42,6 +44,7 @@ export class PageDesignerSurvey extends React.Component<
               pageId={this.props.currentItem.pageId}
               questionId={this.props.currentItem.questionId}
               item={this.props.currentItem.item}
+              propertyItem={this.props.currentPropertyItem}
               saveModel={this.props.saveModel}
             />
           </div>
