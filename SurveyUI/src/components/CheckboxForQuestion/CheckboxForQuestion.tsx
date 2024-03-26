@@ -4,28 +4,34 @@ import { IQuestionCheckbox } from "./ICheckboxForQuestionProps";
 
 export class CheckboxForQuestion extends React.Component<IQuestionCheckbox> {
   render(): React.ReactNode {
-    if (this.props.checked === false) {
+    if (
+      this.props.checked === false
+    ) {
       return (
         <Checkbox
           label="Обязательно"
+          checked={false}
           onChange={() => {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.questionId
             ].required = true;
+            this.props.editCurrentRequiredItem(true);
           }}
         />
       );
-    } 
-    if (this.props.checked === true) {
+    }
+    if (
+      this.props.checked === true
+    ) {
       return (
         <Checkbox
           label="Обязательно"
-          defaultChecked={true}
+          checked={true}
           onChange={() => {
-            // console.log("click");
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.questionId
             ].required = false;
+            this.props.editCurrentRequiredItem(false);
           }}
         />
       );

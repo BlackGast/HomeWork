@@ -7,6 +7,8 @@ import { IPagePreviewSurveyState } from "./IPagePreviewSurveyState";
 import { CheckboxQuestionPreview } from "../Questions/CheckboxQuestionPreview/CheckboxQuestionPreview";
 import { DefaultButton } from "@fluentui/react";
 import { back, forward } from "../IProps/IIconProps";
+import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
+import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -41,16 +43,14 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
           />
         );
-      // case "Choice":
-      //   return (
-      //     <RadioButtonQuestion
-      //       id={id}
-      //       pageId={pageId}
-      //       survey={this.props.survey}
-      //       deleteQuestion={this.props.deleteQuestion}
-      //       editCurrentItem={this.props.editCurrentItem}
-      //     />
-      //   );
+      case "Choice":
+        return (
+          <RadioButtonQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+          />
+        );
       // case "Date":
       //   return (
       //     <DateQuestion
@@ -61,16 +61,14 @@ export class PagePreviewSurvey extends React.Component<
       //       editCurrentItem={this.props.editCurrentItem}
       //     />
       //   );
-      // case "Number":
-      //   return (
-      //     <RatingScaleQuestion
-      //       id={id}
-      //       pageId={pageId}
-      //       survey={this.props.survey}
-      //       deleteQuestion={this.props.deleteQuestion}
-      //       editCurrentItem={this.props.editCurrentItem}
-      //     />
-      //   );
+      case "Number":
+        return (
+          <RatingScaleQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+          />
+        );
       default:
         break;
     }

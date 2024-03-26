@@ -211,26 +211,47 @@ export class App extends React.Component<{}, IAppState> {
         description: description ?? "",
         required: required ?? false,
         choices: this.addChoice(pageId, questionId, typeQuestion),
-        // choices: choices ?? [],
       },
     });
   };
 
-  private addChoice = (pageId?: number, questionId?: number, typeQuestion?: QuestionType): string[] => {
+  private editCurrentRequiredItem = (required?: boolean): void => {
+    this.setState({
+      currentPropertyItem: {
+        title: this.state.currentPropertyItem.title,
+        description: this.state.currentPropertyItem.description,
+        required: required ?? false,
+        choices: this.state.currentPropertyItem.choices,
+      },
+    });
+  };
+
+  // private editCurrentQuestionChoiceItem = (
+  //   pageId: number,
+  //   questionId: number,
+  //   indexChoice: number,
+  //   valueTitle: number
+  // ): void => {
+  //   this.surveyModel.pages[pageId].panels[0].questions[
+  //     questionId
+  //   ].setFieldByName("title", valueTitle, indexChoice);
+  // };
+
+  private addChoice = (
+    pageId?: number,
+    questionId?: number,
+    typeQuestion?: QuestionType
+  ): string[] => {
     const choices: string[] = [];
     if (typeQuestion === "Select" || typeQuestion === "Choice") {
-      const elementsPull: any = this.surveyModel.pages[pageId ?? 0].panels[0].questions[
-        questionId ?? 0
-      ].getValue();
-      elementsPull.map((element: any) => (choices.push(element.title)))
+      const elementsPull: any =
+        this.surveyModel.pages[pageId ?? 0].panels[0].questions[
+          questionId ?? 0
+        ].getValue();
+      elementsPull.map((element: any) => choices.push(element.title));
     }
     return choices;
   };
-
-  // private addChoice = (pageId: number, questionId: number): void => {
-  //   console.log('');
-
-  // };
 
   public render(): React.ReactNode {
     return (
@@ -257,6 +278,7 @@ export class App extends React.Component<{}, IAppState> {
                     saveModel={this.saveModel}
                     editCurrentItem={this.editCurrentItem}
                     editCurrentPropertyItem={this.editCurrentPropertyItem}
+                    editCurrentRequiredItem={this.editCurrentRequiredItem}
                   />
                 </div>
               </div>

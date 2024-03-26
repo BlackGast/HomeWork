@@ -8,4 +8,12 @@ export interface IPropertyPanelProps {
   item: string;
   propertyItem: ICurrentPropertyItem;
   saveModel: () => void;
+  editCurrentPropertyItem: (
+    title?: string,
+    description?: string,
+    required?: boolean,
+    typeQuestion?: string,
+    pageId?: number,
+    questionId?: number) => void;
+  editCurrentRequiredItem: () => void;
 }

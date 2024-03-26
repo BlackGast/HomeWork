@@ -1,10 +1,8 @@
 import React from "react";
 import "../Question.scss";
-import { IRatingScaleQuestion } from "./IRaitingScaleQuestion";
-import { DefaultButton, IconButton } from "@fluentui/react";
-import { editPen, trashCan } from "../../IProps/IIconProps";
+import { IRatingScaleQuestionPreviewProps } from "./IRatingScaleQuestionPreviewProps";
 
-export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
+export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQuestionPreviewProps> {
   private ratingNum(): React.ReactNode {
     const maxValue: number =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -67,39 +65,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
           <div className="question-label_type">Тип: Rating scale question</div>
         </div>
         <div className="question_number-items">{this.ratingNum()}</div>
-        <div className="question_settings">
-          <DefaultButton
-            text="Удалить"
-            iconProps={trashCan}
-            onClick={() => {
-              this.props.deleteQuestion(this.props.id, this.props.pageId);
-            }}
-          />
-          <IconButton
-            iconProps={editPen}
-            onClick={() => {
-              this.props.editCurrentItem(
-                "question",
-                this.props.pageId,
-                this.props.id
-              );
-              this.props.editCurrentPropertyItem(
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title,
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].description,
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].required,
-                "Number",
-                this.props.pageId,
-                this.props.id
-              );
-            }}
-          />
-        </div>
+        
       </div>
     );
   }

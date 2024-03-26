@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { ICurrentItem } from "../../model/ICurrentItem";
@@ -15,4 +14,5 @@ export interface IListTabsProps {
   saveModel: () => void;
   editCurrentItem: () => void;
   editCurrentPropertyItem: () => void;
+  editCurrentRequiredItem: () => void;
 }

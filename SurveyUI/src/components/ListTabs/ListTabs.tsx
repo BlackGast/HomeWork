@@ -2,7 +2,7 @@ import * as React from "react";
 import { Pivot, PivotItem, DefaultButton } from "@fluentui/react";
 import { PageDesignerSurvey } from "../PageDesignerSurvey/PageDesignerSurvey";
 import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
-import { PagePreviewSurvey } from "../PagePriviewSurvey/PagePreviewSurvey";
+import { PagePreviewSurvey } from "../PagePreviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
 
 export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
@@ -29,6 +29,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
             saveModel={props.saveModel}
             editCurrentItem={props.editCurrentItem}
             editCurrentPropertyItem={props.editCurrentPropertyItem}
+            editCurrentRequiredItem={props.editCurrentRequiredItem}
           />
         );
       case "previewPage":
