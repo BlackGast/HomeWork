@@ -30,6 +30,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
             editCurrentItem={props.editCurrentItem}
             editCurrentPropertyItem={props.editCurrentPropertyItem}
             editCurrentRequiredItem={props.editCurrentRequiredItem}
+            setItemSurvey={props.setItemSurvey}
           />
         );
       case "previewPage":

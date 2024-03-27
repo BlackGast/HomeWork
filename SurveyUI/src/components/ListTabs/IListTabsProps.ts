@@ -15,4 +15,5 @@ export interface IListTabsProps {
   editCurrentItem: () => void;
   editCurrentPropertyItem: () => void;
   editCurrentRequiredItem: () => void;
+  setItemSurvey: () => void;
 }

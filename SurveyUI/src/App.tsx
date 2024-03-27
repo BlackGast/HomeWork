@@ -65,7 +65,8 @@ export class App extends React.Component<{}, IAppState> {
     panel?: string
   ): void => {
     if (this.surveyModel.pages.length === 0) {
-      this.addPage(parseInt(page ?? "0"));
+      // this.addPage(parseInt(page ?? "0"));
+      this.addPage();
       this.addPanel();
     }
     const newEmptyQuestion: IQuestionData = {
@@ -105,7 +106,7 @@ export class App extends React.Component<{}, IAppState> {
     this.saveModel();
   };
 
-  private addPage = (index?: number): void => {
+  private addPage = (): void => {
     const emptyPage: IPageData = {
       order: "",
       title: "Страница",
@@ -144,11 +145,7 @@ export class App extends React.Component<{}, IAppState> {
     }
   }
 
-  private handleDeleteQuestion = (
-    key: number,
-    page?: number,
-    panel?: number
-  ): void => {
+  private handleDeleteQuestion = (key: number, page?: number): void => {
     this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key, 1);
     if (
       // this.surveyModel.pages.length === 0 &&
@@ -159,12 +156,8 @@ export class App extends React.Component<{}, IAppState> {
     this.saveModel();
   };
 
-  private handleDeletePage = (
-    page?: number,
-    panel?: number,
-    key?: number
-  ): void => {
-    console.log("click", page);
+  private handleDeletePage = (page?: number): void => {
+    //console.log("click", page);
     this.surveyModel.pages.splice(page ?? 0, 1);
     this.setState({
       survey: this.surveyModel,
@@ -180,7 +173,7 @@ export class App extends React.Component<{}, IAppState> {
     this.setState({
       survey: this.surveyModel,
     });
-    console.log("save model");
+    //console.log("save model");
   };
 
   private editCurrentItem = (
@@ -253,6 +246,20 @@ export class App extends React.Component<{}, IAppState> {
     return choices;
   };
 
+  private setItemSurvey = (
+    title?: string,
+    description?: string,
+    pageId?: number  ) => {
+    if (pageId === undefined) {
+      this.surveyModel.title = title ?? "";
+      this.surveyModel.description = description ?? "";
+    }
+    if (pageId !== undefined) {
+      this.surveyModel.pages[pageId].title = title ?? "";
+      this.surveyModel.pages[pageId].description = description ?? "";
+    }
+  };
+
   public render(): React.ReactNode {
     return (
       <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
@@ -279,6 +286,7 @@ export class App extends React.Component<{}, IAppState> {
                     editCurrentItem={this.editCurrentItem}
                     editCurrentPropertyItem={this.editCurrentPropertyItem}
                     editCurrentRequiredItem={this.editCurrentRequiredItem}
+                    setItemSurvey={this.setItemSurvey}
                   />
                 </div>
               </div>

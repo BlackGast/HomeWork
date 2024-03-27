@@ -15,8 +15,8 @@ export class PropertyPanel extends React.Component<
     super(props);
     this.state = {
       checked: false,
-      title: "",
-      description: "",
+      title: this.props.propertyItem.title,
+      description: this.props.propertyItem.description,
       choices: [],
     };
   }
@@ -52,17 +52,18 @@ export class PropertyPanel extends React.Component<
               <TextField
                 label="Название опроса"
                 id="title"
-                defaultValue={`${this.props.survey.title}`}
-                onBlur={() => {
-                  const tmpTitle = document.getElementById(
-                    "title"
-                  ) as HTMLInputElement;
-                  this.props.survey.title = tmpTitle.value;
-                  console.log(
-                    (document.getElementById("title") as HTMLInputElement).value
-                  );
-                  console.log(this.props.survey.title);
-                }}
+                defaultValue={this.props.survey.title}
+                // onChange={(e) => {
+                //   // this.props.editCurrentPropertyItem(
+                //   //   e.currentTarget.value,
+                //   //   this.props.propertyItem.description
+                //   // );
+                //   this.setState({
+                //     title: (
+                //       document.getElementById("title") as HTMLInputElement
+                //     ).value,
+                //   });
+                // }}
               />
               {/* Сделать такое же обновление названия и описания опроса как и в вопросах */}
               <TextField
@@ -70,16 +71,34 @@ export class PropertyPanel extends React.Component<
                 id="description"
                 multiline
                 rows={2}
-                defaultValue={`${this.props.survey.description}`}
-                onBlur={() => {
-                  this.props.survey.description = (
-                    document.getElementById("description") as HTMLInputElement
-                  ).value;
-                }}
+                defaultValue={this.props.survey.description}
+                // onChange={(e) => {
+                //   // this.props.editCurrentPropertyItem(
+                //   //   e.currentTarget.value,
+                //   //   this.props.propertyItem.description
+                //   // );
+                //   this.setState({
+                //     description: (
+                //       document.getElementById("description") as HTMLInputElement
+                //     ).value,
+                //   });
+                // }}
               />
               <DefaultButton
                 text="Сохранить"
                 onClick={() => {
+                  // this.props.survey.title = (
+                  //   document.getElementById("title") as HTMLInputElement
+                  // ).value;
+                  // this.props.survey.description = (
+                  //   document.getElementById("description") as HTMLInputElement
+                  // ).value;
+                  this.props.setItemSurvey(
+                    (document.getElementById("title") as HTMLInputElement)
+                      .value,
+                    (document.getElementById("description") as HTMLInputElement)
+                      .value
+                  );
                   this.props.saveModel();
                 }}
               />
@@ -97,7 +116,16 @@ export class PropertyPanel extends React.Component<
               <TextField
                 label="Название страницы"
                 id="title"
-                defaultValue={this.state.title}
+                value={this.state.title}
+                onChange={(e) => {
+                  this.props.editCurrentPropertyItem(
+                    e.currentTarget.value,
+                    this.props.propertyItem.description
+                  );
+                  this.setState({
+                    title: e.currentTarget.value,
+                  });
+                }}
               />
               {/* Сделать такое же обновление названия и описания каждой страницы как и в вопросах */}
               <TextField
@@ -105,17 +133,33 @@ export class PropertyPanel extends React.Component<
                 id="description"
                 multiline
                 rows={2}
-                defaultValue={this.state.description}
+                value={this.state.description}
+                onChange={(e) => {
+                  this.props.editCurrentPropertyItem(
+                    this.props.propertyItem.title,
+                    e.currentTarget.value
+                  );
+                  this.setState({
+                    description: e.currentTarget.value,
+                  });
+                }}
               />
               <DefaultButton
                 text="Сохранить"
                 onClick={() => {
-                  this.props.survey.pages[this.props.pageId].title = (
-                    document.getElementById("title") as HTMLInputElement
-                  ).value;
-                  this.props.survey.pages[this.props.pageId].description = (
-                    document.getElementById("description") as HTMLInputElement
-                  ).value;
+                  // this.props.survey.pages[this.props.pageId].title = (
+                  //   document.getElementById("title") as HTMLInputElement
+                  // ).value;
+                  // this.props.survey.pages[this.props.pageId].description = (
+                  //   document.getElementById("description") as HTMLInputElement
+                  // ).value;
+                  this.props.setItemSurvey(
+                    (document.getElementById("title") as HTMLInputElement)
+                      .value,
+                    (document.getElementById("description") as HTMLInputElement)
+                      .value,
+                    this.props.pageId
+                  );
                   this.props.saveModel();
                 }}
               />

@@ -109,13 +109,13 @@ export class SurveyPage extends React.Component<
               <IconButton
                 iconProps={editPen}
                 onClick={() => {
-                  this.props.editCurrentItem("survey", undefined, undefined);
+                  this.props.editCurrentItem("survey");
                 }}
               />
             </div>
             <hr />
             {this.props.survey.pages.map((elements, indexPage) => (
-              <div key={indexPage} id={`${indexPage}`}>
+              <div key={elements.id} id={`${indexPage}`}>
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
@@ -132,8 +132,7 @@ export class SurveyPage extends React.Component<
                       onClick={() => {
                         this.props.editCurrentItem(
                           "page",
-                          indexPage,
-                          undefined
+                          indexPage
                         );
                       }}
                     />
@@ -142,7 +141,7 @@ export class SurveyPage extends React.Component<
                     (elements, indexQuestion) => (
                       <div
                         className="question-item"
-                        key={indexQuestion}
+                        key={elements.id}
                         id={`${indexQuestion}`}
                       >
                         {this.renderQuestion(
@@ -161,9 +160,9 @@ export class SurveyPage extends React.Component<
                     <DefaultButton
                       text="Удалить страницу"
                       onClick={() => {
-                        console.log(indexPage);
-                        const index: number = indexPage;
-                        this.props.deletePage(index);
+                        // console.log(indexPage);
+                        // const index: number = indexPage;
+                        this.props.deletePage(indexPage);
                       }}
                       iconProps={trashCan}
                     />

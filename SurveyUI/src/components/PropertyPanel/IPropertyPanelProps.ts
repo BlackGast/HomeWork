@@ -16,4 +16,5 @@ export interface IPropertyPanelProps {
     pageId?: number,
     questionId?: number) => void;
   editCurrentRequiredItem: () => void;
+  setItemSurvey: (title?: string, description?: string, pageId?: number) => void;
 }

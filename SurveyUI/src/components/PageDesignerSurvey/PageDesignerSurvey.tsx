@@ -48,6 +48,7 @@ export class PageDesignerSurvey extends React.Component<
               saveModel={this.props.saveModel}
               editCurrentPropertyItem={this.props.editCurrentPropertyItem}
               editCurrentRequiredItem={this.props.editCurrentRequiredItem}
+              setItemSurvey={this.props.setItemSurvey}
             />
           </div>
         </div>
