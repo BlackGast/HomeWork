@@ -33,7 +33,7 @@ export class QuestionChoice extends QuestionBase {
         return choice;
     }
 
-    public override getValue() {
+    public override getValue(): IChoice[] {
         let choices: IChoice[] = [];
         if (this._choices?.length) {
             choices = [...this._choices];

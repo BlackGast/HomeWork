@@ -39,7 +39,7 @@ export class QuestionBase implements IQuestionData {
     /**
      * Базовый метод для получения значения ответа.
      */
-    public getValue() { /* TODO document why this method 'getValue' is empty */ }
+    public getValue?();
 
     /**
      * Базовый метод для изменения значения ответа.

@@ -17,7 +17,8 @@ export class Panel {
     public title: string;
     public description: string;
     public columns: number;
-    public questions: QuestionBase[];
+    public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText)[];
+    // public questions: QuestionBase[];
 
     constructor(data: IPanelData) {
         this.order = data.order || '';
@@ -36,8 +37,8 @@ export class Panel {
             }
         }
     }
-
-    public addQuestion = (data: IQuestionData) => {
+    // переделать функционал по 
+    public addQuestion = (data: IQuestionData): void => {
         if (data.type === 'Choice') {
             const question = new QuestionChoice(data);
             this.questions.push(question);

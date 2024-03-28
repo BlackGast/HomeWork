@@ -1,38 +1,23 @@
 import React from "react";
-import { ICheckboxQuestionPreviewProps } from "./ICheckboxQuestionPreviewProps";
-import { Checkbox, Stack } from "@fluentui/react";
+import "../Question.scss";
+import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
+import { TextField } from "@fluentui/react";
 
-export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
-  private outputSelects(): React.ReactNode {
-    const elementsPull: any =
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getValue();
-
-      const stackTokens = { childrenGap: 10 };
-    return (
-      <Stack tokens={stackTokens} style={{paddingLeft: "10px"}}>
-        {elementsPull.map((element: any, index: number) => (
-          <Checkbox key={element.id} label={element.title} />
-        ))}
-      </Stack>
-    );
-  }
-
-  private requiredSymbol(): React.ReactNode {
+export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
+  private requiredTextField(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === false
     ) {
-      return <></>;
+      return <TextField id="answer" type="date" />;
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <> *</>;
+      return <TextField id="answer" required type="date" />;
     }
   }
 
@@ -53,12 +38,11 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{this.requiredSymbol()}
+              }
             </label>
           </div>
-          <div className="question-label_type">Тип: Checkbox question</div>
         </div>
-        {this.outputSelects()}
+        <div className="question-textfield">{this.requiredTextField()}</div>
       </div>
     );
   }

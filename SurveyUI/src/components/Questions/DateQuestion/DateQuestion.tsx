@@ -1,6 +1,6 @@
 import React from "react";
 import "../Question.scss";
-import { IDateQuestionProps } from "./IDataQuestion";
+import { IDateQuestionProps } from "./IDataQuestionProps";
 import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 
@@ -38,7 +38,7 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{" "}
+              }
               {this.requiredSymbol()}
             </label>
           </div>

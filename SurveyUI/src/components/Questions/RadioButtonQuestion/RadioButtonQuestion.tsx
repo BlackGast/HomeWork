@@ -3,18 +3,19 @@ import "../Question.scss";
 import { IRadioButtonQuestionProps } from "./IRadioButtonQuestionProps";
 import { DefaultButton, IconButton } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
+import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
 export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionProps> {
   private outputSelects(): React.ReactNode {
-    const tmp: any =
+    const tmp: ISelectAnswer[] =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
-      ].getValue();
+      ].getValue() as ISelectAnswer[];
 
     return (
       <>
-        {tmp.map((elements: any, index: number) => (
-          <div key={index}>{elements.title}</div>
+        {tmp.map((elements: ISelectAnswer, index: number) => (
+          <div key={elements.id}>{elements.title}</div>
         ))}
       </>
     );

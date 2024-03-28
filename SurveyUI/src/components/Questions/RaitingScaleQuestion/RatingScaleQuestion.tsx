@@ -60,7 +60,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{" "}
+              }
               {this.requiredSymbol()}
             </label>
           </div>

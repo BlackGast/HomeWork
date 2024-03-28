@@ -3,18 +3,19 @@ import React from "react";
 import "../Question.scss";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
+import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
 
 export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
   private outputSelects(): React.ReactNode {
-    const elementsPull: any =
+    const elementsPull: IChoice[] =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
-      ].getValue();
+      ].getValue() as IChoice[];
 
     return (
       <>
-        {elementsPull.map((element: any, index: number) => (
-          <div key={index}>{element.title}</div>
+        {elementsPull.map((element: IChoice) => (
+          <div key={element.id}>{element.title}</div>
         ))}
       </>
     );

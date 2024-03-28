@@ -219,17 +219,6 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
-  // private editCurrentQuestionChoiceItem = (
-  //   pageId: number,
-  //   questionId: number,
-  //   indexChoice: number,
-  //   valueTitle: number
-  // ): void => {
-  //   this.surveyModel.pages[pageId].panels[0].questions[
-  //     questionId
-  //   ].setFieldByName("title", valueTitle, indexChoice);
-  // };
-
   private addChoice = (
     pageId?: number,
     questionId?: number,
@@ -249,7 +238,8 @@ export class App extends React.Component<{}, IAppState> {
   private setItemSurvey = (
     title?: string,
     description?: string,
-    pageId?: number  ) => {
+    pageId?: number
+  ) => {
     if (pageId === undefined) {
       this.surveyModel.title = title ?? "";
       this.surveyModel.description = description ?? "";
@@ -268,7 +258,7 @@ export class App extends React.Component<{}, IAppState> {
             <>
               <header className="header">
                 <div className="logo">
-                  <img src={Logo} alt="Логотип" width={150} height={60} />
+                  {/* <img src={Logo} alt="Логотип" width={150} height={60} /> */}
                 </div>
               </header>
               <div className="bodyPage">

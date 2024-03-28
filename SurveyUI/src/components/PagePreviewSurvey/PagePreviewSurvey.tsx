@@ -9,6 +9,7 @@ import { DefaultButton } from "@fluentui/react";
 import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
+import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -51,16 +52,14 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
           />
         );
-      // case "Date":
-      //   return (
-      //     <DateQuestion
-      //       id={id}
-      //       pageId={pageId}
-      //       survey={this.props.survey}
-      //       deleteQuestion={this.props.deleteQuestion}
-      //       editCurrentItem={this.props.editCurrentItem}
-      //     />
-      //   );
+      case "Date":
+        return (
+          <DateQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+          />
+        );
       case "Number":
         return (
           <RatingScaleQuestionPreview

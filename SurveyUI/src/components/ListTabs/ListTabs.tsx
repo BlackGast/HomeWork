@@ -58,7 +58,7 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
           />
           <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
         </Pivot>
-        <DefaultButton title="Создание опроса" text="Создание опроса" />
+        {/* <DefaultButton title="Создание опроса" text="Создание опроса" /> */}
       </div>
       <hr className="no-margin" />
       <div className="bodyPage">{renderContent(selectedKey)} </div>

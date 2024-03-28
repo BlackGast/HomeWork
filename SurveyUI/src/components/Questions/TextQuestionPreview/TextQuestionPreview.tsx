@@ -4,21 +4,20 @@ import { TextField } from "@fluentui/react";
 import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
-
-  private requiredSymbol(): React.ReactNode {
+  private requiredTextField(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === false
     ) {
-      return <></>;
+      return <TextField id="answer" />;
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <> *</>;
+      return <TextField id="answer" required />;
     }
   }
 
@@ -40,12 +39,10 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                   this.props.id
                 ].title
               }
-              {this.requiredSymbol()}
             </label>
           </div>
-          <div className="question-label_type">Тип: Text question</div>
         </div>
-        <div><TextField id="answer"/></div>
+        <div className="question-textfield">{this.requiredTextField()}</div>
       </div>
     );
   }

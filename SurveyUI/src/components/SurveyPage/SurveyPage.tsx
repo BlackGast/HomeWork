@@ -11,6 +11,7 @@ import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
 import { editPen, trashCan } from "../IProps/IIconProps";
+import { classNames } from "@fluentui/react/lib/components/Icon/Icon.styles";
 
 export class SurveyPage extends React.Component<
   ISurveyPageProps,
@@ -110,12 +111,20 @@ export class SurveyPage extends React.Component<
                 iconProps={editPen}
                 onClick={() => {
                   this.props.editCurrentItem("survey");
+                  this.props.editCurrentPropertyItem(
+                    this.props.survey.title,
+                    this.props.survey.description
+                  );
                 }}
               />
             </div>
             <hr />
             {this.props.survey.pages.map((elements, indexPage) => (
-              <div key={elements.id} id={`${indexPage}`}>
+              <div
+                key={elements.id}
+                id={`${indexPage}`}
+                style={{ paddingBottom: "10px" }}
+              >
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
@@ -130,9 +139,10 @@ export class SurveyPage extends React.Component<
                     <IconButton
                       iconProps={editPen}
                       onClick={() => {
-                        this.props.editCurrentItem(
-                          "page",
-                          indexPage
+                        this.props.editCurrentItem("page", indexPage);
+                        this.props.editCurrentPropertyItem(
+                          this.props.survey.pages[indexPage].title,
+                          this.props.survey.pages[indexPage].description
                         );
                       }}
                     />
@@ -160,8 +170,6 @@ export class SurveyPage extends React.Component<
                     <DefaultButton
                       text="Удалить страницу"
                       onClick={() => {
-                        // console.log(indexPage);
-                        // const index: number = indexPage;
                         this.props.deletePage(indexPage);
                       }}
                       iconProps={trashCan}

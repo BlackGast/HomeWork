@@ -52,18 +52,16 @@ export class PropertyPanel extends React.Component<
               <TextField
                 label="Название опроса"
                 id="title"
-                defaultValue={this.props.survey.title}
-                // onChange={(e) => {
-                //   // this.props.editCurrentPropertyItem(
-                //   //   e.currentTarget.value,
-                //   //   this.props.propertyItem.description
-                //   // );
-                //   this.setState({
-                //     title: (
-                //       document.getElementById("title") as HTMLInputElement
-                //     ).value,
-                //   });
-                // }}
+                value={this.state.title}
+                onChange={(e) => {
+                  // this.props.editCurrentPropertyItem(
+                  //   e.currentTarget.value,
+                  //   this.props.propertyItem.description
+                  // );
+                  this.setState({
+                    title: e.currentTarget.value,
+                  });
+                }}
               />
               {/* Сделать такое же обновление названия и описания опроса как и в вопросах */}
               <TextField
@@ -71,18 +69,16 @@ export class PropertyPanel extends React.Component<
                 id="description"
                 multiline
                 rows={2}
-                defaultValue={this.props.survey.description}
-                // onChange={(e) => {
-                //   // this.props.editCurrentPropertyItem(
-                //   //   e.currentTarget.value,
-                //   //   this.props.propertyItem.description
-                //   // );
-                //   this.setState({
-                //     description: (
-                //       document.getElementById("description") as HTMLInputElement
-                //     ).value,
-                //   });
-                // }}
+                value={this.state.description}
+                onChange={(e) => {
+                  // this.props.editCurrentPropertyItem(
+                  //   e.currentTarget.value,
+                  //   this.props.propertyItem.description
+                  // );
+                  this.setState({
+                    description: e.currentTarget.value,
+                  });
+                }}
               />
               <DefaultButton
                 text="Сохранить"
@@ -94,10 +90,8 @@ export class PropertyPanel extends React.Component<
                   //   document.getElementById("description") as HTMLInputElement
                   // ).value;
                   this.props.setItemSurvey(
-                    (document.getElementById("title") as HTMLInputElement)
-                      .value,
-                    (document.getElementById("description") as HTMLInputElement)
-                      .value
+                    this.state.title,
+                    this.state.description
                   );
                   this.props.saveModel();
                 }}
@@ -118,10 +112,10 @@ export class PropertyPanel extends React.Component<
                 id="title"
                 value={this.state.title}
                 onChange={(e) => {
-                  this.props.editCurrentPropertyItem(
-                    e.currentTarget.value,
-                    this.props.propertyItem.description
-                  );
+                  // this.props.editCurrentPropertyItem(
+                  //   e.currentTarget.value,
+                  //   this.props.propertyItem.description
+                  // );
                   this.setState({
                     title: e.currentTarget.value,
                   });
@@ -135,10 +129,10 @@ export class PropertyPanel extends React.Component<
                 rows={2}
                 value={this.state.description}
                 onChange={(e) => {
-                  this.props.editCurrentPropertyItem(
-                    this.props.propertyItem.title,
-                    e.currentTarget.value
-                  );
+                  // this.props.editCurrentPropertyItem(
+                  //   this.props.propertyItem.title,
+                  //   e.currentTarget.value
+                  // );
                   this.setState({
                     description: e.currentTarget.value,
                   });
@@ -154,10 +148,8 @@ export class PropertyPanel extends React.Component<
                   //   document.getElementById("description") as HTMLInputElement
                   // ).value;
                   this.props.setItemSurvey(
-                    (document.getElementById("title") as HTMLInputElement)
-                      .value,
-                    (document.getElementById("description") as HTMLInputElement)
-                      .value,
+                    this.state.title,
+                    this.state.description,
                     this.props.pageId
                   );
                   this.props.saveModel();
@@ -186,15 +178,9 @@ export class PropertyPanel extends React.Component<
                   id="title"
                   value={this.state.title}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      e.currentTarget.value,
-                      this.props.propertyItem.description,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      title: e.currentTarget.value,
+                    });
                   }}
                 />
                 <TextField
@@ -204,15 +190,9 @@ export class PropertyPanel extends React.Component<
                   rows={2}
                   value={this.state.description}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      this.props.propertyItem.title,
-                      e.currentTarget.value,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      description: e.currentTarget.value,
+                    });
                   }}
                 />
                 <CheckboxForQuestion
@@ -268,15 +248,9 @@ export class PropertyPanel extends React.Component<
                   id="title"
                   value={this.state.title}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      e.currentTarget.value,
-                      this.props.propertyItem.description,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      title: e.currentTarget.value,
+                    });
                   }}
                 />
                 <TextField
@@ -286,15 +260,9 @@ export class PropertyPanel extends React.Component<
                   rows={2}
                   value={this.state.description}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      this.props.propertyItem.title,
-                      e.currentTarget.value,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      description: e.currentTarget.value,
+                    });
                   }}
                 />
                 {ItemsValue.map((elements: any, indexChoice: number) => (
@@ -373,15 +341,9 @@ export class PropertyPanel extends React.Component<
                   id="title"
                   value={`${this.state.title}`}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      e.currentTarget.value,
-                      this.props.propertyItem.description,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      title: e.currentTarget.value,
+                    });
                   }}
                 />
                 <TextField
@@ -391,15 +353,9 @@ export class PropertyPanel extends React.Component<
                   rows={2}
                   value={`${this.state.description}`}
                   onChange={(e) => {
-                    this.props.editCurrentPropertyItem(
-                      this.props.propertyItem.title,
-                      e.currentTarget.value,
-                      this.props.propertyItem.required,
-                      this.props.survey.pages[this.props.pageId].panels[0]
-                        .questions[this.props.questionId].type,
-                      this.props.pageId,
-                      this.props.questionId
-                    );
+                    this.setState({
+                      description: e.currentTarget.value,
+                    });
                   }}
                 />
                 <SliderForSettings

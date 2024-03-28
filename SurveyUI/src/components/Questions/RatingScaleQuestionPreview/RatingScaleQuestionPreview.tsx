@@ -58,7 +58,7 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
                 this.props.survey.pages[this.props.pageId].panels[0].questions[
                   this.props.id
                 ].title
-              }{" "}
+              }
               {this.requiredSymbol()}
             </label>
           </div>
