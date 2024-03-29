@@ -1,23 +1,52 @@
 import * as React from "react";
 import "../Question.scss";
-import { TextField } from "@fluentui/react";
+import { Label, TextField } from "@fluentui/react";
 import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
-  private requiredTextField(): React.ReactNode {
+  private requiredSymbol(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === false
     ) {
-      return <TextField id="answer" />;
+      return (
+        <Label
+          id="questionName"
+          style={{
+            backgroundColor: "#f5f5f5",
+            fontSize: 14,
+          }}
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <TextField id="answer" required />;
+      return (
+        <Label
+          id="questionName"
+          required
+          style={{
+            backgroundColor: "#f5f5f5",
+            fontSize: 14,
+          }}
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
   }
 
@@ -26,23 +55,14 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
       <div className="container_page_question">
         <div className="question-label">
           <div className="question-label_title">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }
-            </label>
+            {this.props.id + 1}
+            {"."}
+            {this.requiredSymbol()}
           </div>
         </div>
-        <div className="question-textfield">{this.requiredTextField()}</div>
+        <div className="question-textfield">
+          <TextField id="answer" />
+        </div>
       </div>
     );
   }

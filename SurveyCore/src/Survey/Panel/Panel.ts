@@ -18,7 +18,6 @@ export class Panel {
     public description: string;
     public columns: number;
     public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText)[];
-    // public questions: QuestionBase[];
 
     constructor(data: IPanelData) {
         this.order = data.order || '';
@@ -61,7 +60,7 @@ export class Panel {
         }
     }
 
-    public getQuestions(): QuestionBase[] {
+    public getQuestions(): (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText)[] {
         return this.questions;
     }
 

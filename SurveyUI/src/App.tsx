@@ -65,7 +65,6 @@ export class App extends React.Component<{}, IAppState> {
     panel?: string
   ): void => {
     if (this.surveyModel.pages.length === 0) {
-      // this.addPage(parseInt(page ?? "0"));
       this.addPage();
       this.addPanel();
     }
@@ -239,7 +238,7 @@ export class App extends React.Component<{}, IAppState> {
     title?: string,
     description?: string,
     pageId?: number
-  ) => {
+  ): void => {
     if (pageId === undefined) {
       this.surveyModel.title = title ?? "";
       this.surveyModel.description = description ?? "";
@@ -248,6 +247,13 @@ export class App extends React.Component<{}, IAppState> {
       this.surveyModel.pages[pageId].title = title ?? "";
       this.surveyModel.pages[pageId].description = description ?? "";
     }
+  };
+
+  private parseStrToSurvey = (strSurvey?: string): void => {
+    this.newModel.createModel(strSurvey);
+    this.surveyModel = this.newModel.getModel();
+    //this.surveyModel = this.dataManager.stringToJSON(strSurvey ?? "");
+    this.saveModel();
   };
 
   public render(): React.ReactNode {
@@ -277,6 +283,7 @@ export class App extends React.Component<{}, IAppState> {
                     editCurrentPropertyItem={this.editCurrentPropertyItem}
                     editCurrentRequiredItem={this.editCurrentRequiredItem}
                     setItemSurvey={this.setItemSurvey}
+                    parseStrToSurvey={this.parseStrToSurvey}
                   />
                 </div>
               </div>

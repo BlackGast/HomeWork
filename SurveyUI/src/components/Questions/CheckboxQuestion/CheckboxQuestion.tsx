@@ -1,4 +1,4 @@
-import { DefaultButton, IconButton } from "@fluentui/react";
+import { DefaultButton, IconButton, Label } from "@fluentui/react";
 import React from "react";
 import "../Question.scss";
 import { editPen, trashCan } from "../../IProps/IIconProps";
@@ -7,10 +7,9 @@ import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoic
 
 export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
   private outputSelects(): React.ReactNode {
-    const elementsPull: IChoice[] =
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getValue() as IChoice[];
+    const elementsPull: IChoice[] = this.props.survey.pages[
+      this.props.pageId
+    ].panels[0].questions[this.props.id].getValue() as IChoice[];
 
     return (
       <>
@@ -27,14 +26,36 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
         this.props.id
       ].required === false
     ) {
-      return <></>;
+      return (
+        <Label
+          id="questionName"
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <> *</>;
+      return (
+        <Label
+          id="questionName"
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
   }
 
@@ -43,21 +64,9 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
       <div className="container_page_question">
         <div className="question-label">
           <div className="question-label_title">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }
-              {this.requiredSymbol()}
-            </label>
+            {this.props.id + 1}
+            {"."}
+            {this.requiredSymbol()}
           </div>
           <div className="question-label_type">Тип: Checkbox question</div>
         </div>

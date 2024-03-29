@@ -1,23 +1,45 @@
 import React from "react";
 import "../Question.scss";
 import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
-import { TextField } from "@fluentui/react";
+import { Label, TextField } from "@fluentui/react";
 
 export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
-  private requiredTextField(): React.ReactNode {
+  private requiredSymbol(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === false
     ) {
-      return <TextField id="answer" type="date" />;
+      return (
+        <Label
+          id="questionName"
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <TextField id="answer" required type="date" />;
+      return (
+        <Label
+          id="questionName"
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
   }
 
@@ -26,23 +48,14 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
       <div className="container_page_question">
         <div className="question-label">
           <div className="question-label_title">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }
-            </label>
+            {this.props.id + 1}
+            {"."}
+            {this.requiredSymbol()}
           </div>
         </div>
-        <div className="question-textfield">{this.requiredTextField()}</div>
+        <div className="question-textfield">
+          <TextField id="answer" type="date" />
+        </div>
       </div>
     );
   }

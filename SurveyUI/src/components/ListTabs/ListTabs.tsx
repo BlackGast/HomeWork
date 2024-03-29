@@ -36,13 +36,14 @@ export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
       case "previewPage":
         return <PagePreviewSurvey survey={props.survey} />;
       case "editorJson":
-        return <PageEditorJson survey={props.survey} />;
+        return <PageEditorJson survey={props.survey} parseStrToSurvey={props.parseStrToSurvey}/>;
       default:
         return null;
     }
   };
 
   return (
+    // сделать стиль для адаптива display: flex; flex-wrap: wrap;
     <>
       <div className="buttonMenu">
         <Pivot

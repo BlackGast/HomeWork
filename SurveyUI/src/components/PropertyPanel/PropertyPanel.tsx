@@ -54,16 +54,11 @@ export class PropertyPanel extends React.Component<
                 id="title"
                 value={this.state.title}
                 onChange={(e) => {
-                  // this.props.editCurrentPropertyItem(
-                  //   e.currentTarget.value,
-                  //   this.props.propertyItem.description
-                  // );
                   this.setState({
                     title: e.currentTarget.value,
                   });
                 }}
               />
-              {/* Сделать такое же обновление названия и описания опроса как и в вопросах */}
               <TextField
                 label="Описание"
                 id="description"
@@ -71,10 +66,6 @@ export class PropertyPanel extends React.Component<
                 rows={2}
                 value={this.state.description}
                 onChange={(e) => {
-                  // this.props.editCurrentPropertyItem(
-                  //   e.currentTarget.value,
-                  //   this.props.propertyItem.description
-                  // );
                   this.setState({
                     description: e.currentTarget.value,
                   });
@@ -83,12 +74,6 @@ export class PropertyPanel extends React.Component<
               <DefaultButton
                 text="Сохранить"
                 onClick={() => {
-                  // this.props.survey.title = (
-                  //   document.getElementById("title") as HTMLInputElement
-                  // ).value;
-                  // this.props.survey.description = (
-                  //   document.getElementById("description") as HTMLInputElement
-                  // ).value;
                   this.props.setItemSurvey(
                     this.state.title,
                     this.state.description
@@ -112,16 +97,11 @@ export class PropertyPanel extends React.Component<
                 id="title"
                 value={this.state.title}
                 onChange={(e) => {
-                  // this.props.editCurrentPropertyItem(
-                  //   e.currentTarget.value,
-                  //   this.props.propertyItem.description
-                  // );
                   this.setState({
                     title: e.currentTarget.value,
                   });
                 }}
               />
-              {/* Сделать такое же обновление названия и описания каждой страницы как и в вопросах */}
               <TextField
                 label="Описание"
                 id="description"
@@ -129,10 +109,6 @@ export class PropertyPanel extends React.Component<
                 rows={2}
                 value={this.state.description}
                 onChange={(e) => {
-                  // this.props.editCurrentPropertyItem(
-                  //   this.props.propertyItem.title,
-                  //   e.currentTarget.value
-                  // );
                   this.setState({
                     description: e.currentTarget.value,
                   });
@@ -141,12 +117,6 @@ export class PropertyPanel extends React.Component<
               <DefaultButton
                 text="Сохранить"
                 onClick={() => {
-                  // this.props.survey.pages[this.props.pageId].title = (
-                  //   document.getElementById("title") as HTMLInputElement
-                  // ).value;
-                  // this.props.survey.pages[this.props.pageId].description = (
-                  //   document.getElementById("description") as HTMLInputElement
-                  // ).value;
                   this.props.setItemSurvey(
                     this.state.title,
                     this.state.description,

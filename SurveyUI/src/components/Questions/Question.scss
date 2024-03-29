@@ -6,8 +6,15 @@
   align-items: center;
   justify-content: space-between;
   &_title {
+    display: flex;
+    align-items: center;
     width: 60%;
     text-align: start;
+    &_name {
+      background-color: "#f5f5f5";
+      font-size: 14;
+      font-weight: 400;
+    }
   }
   &_type {
     width: 40%;
@@ -16,8 +23,8 @@
 }
 
 .question-textfield {
-    width: 95%;
-    padding-left: 10px;
+  padding-right: 1%;
+  padding-left: 1%;
 }
 
 .question {

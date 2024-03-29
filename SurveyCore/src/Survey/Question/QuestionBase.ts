@@ -30,7 +30,7 @@ export class QuestionBase implements IQuestionData {
      * Базовый метод для редактирования чойза в списке ответов. Предназначено для типов вопросов Choice и Select.
      */
     public deleteChoice(itemId: number) { /* TODO document why this method 'setChoise' is empty */ }
-    
+
     /**
      * Базовый метод для добавления чойза в список ответов. Предназначено для типов вопросов Choice и Select.
      */
@@ -39,7 +39,7 @@ export class QuestionBase implements IQuestionData {
     /**
      * Базовый метод для получения значения ответа.
      */
-    public getValue?();
+    public getValue?()
 
     /**
      * Базовый метод для изменения значения ответа.

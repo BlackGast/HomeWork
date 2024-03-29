@@ -1,7 +1,8 @@
 import React from "react";
 import "../Question.scss";
 import { IRadioButtonQuestionPreviewProps } from "./IRadioButtonQuestionPreviewProps";
-import { RadioButtonForPreview } from "../../RadioButtonForPreview/RadioButtonForPreview"
+import { RadioButtonForPreview } from "../../RadioButtonForPreview/RadioButtonForPreview";
+import { Label } from "@fluentui/react";
 
 export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQuestionPreviewProps> {
   private requiredSymbol(): React.ReactNode {
@@ -10,14 +11,37 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
         this.props.id
       ].required === false
     ) {
-      return <></>;
+      return (
+        <Label
+          id="questionName"
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.id
       ].required === true
     ) {
-      return <> *</>;
+      return (
+        <Label
+          id="questionName"
+          required
+          className="question-label_title_name"
+        >
+          {
+            this.props.survey.pages[this.props.pageId].panels[0].questions[
+              this.props.id
+            ].title
+          }
+        </Label>
+      );
     }
   }
 
@@ -26,29 +50,18 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
       <div className="container_page_question">
         <div className="question-label">
           <div className="question-label_title">
-            {this.props.id + 1}.
-            <label
-              id="questionName"
-              style={{
-                backgroundColor: "#f5f5f5",
-                fontSize: 14,
-              }}
-            >
-              {
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title
-              }{" "}
-              {this.requiredSymbol()}
-            </label>
+            {this.props.id + 1}
+            {"."}
+            {this.requiredSymbol()}
           </div>
           <div className="question-label_type">Тип: Radio button question</div>
         </div>
-        {/* {this.outputSelects()} */}
-        <RadioButtonForPreview survey={this.props.survey} items={this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getValue()}/>
-        
+        <RadioButtonForPreview
+          survey={this.props.survey}
+          items={this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.id
+          ].getValue()}
+        />
       </div>
     );
   }
