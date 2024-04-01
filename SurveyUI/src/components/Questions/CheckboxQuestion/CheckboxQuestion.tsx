@@ -1,11 +1,14 @@
 import { DefaultButton, IconButton, Label } from "@fluentui/react";
 import React from "react";
 import "../Question.scss";
-import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
 import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
+import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
+  private delete = () => {
+    this.props.deleteQuestion(this.props.id, this.props.pageId);
+  };
   private outputSelects(): React.ReactNode {
     const elementsPull: IChoice[] = this.props.survey.pages[
       this.props.pageId
@@ -48,6 +51,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
         <Label
           id="questionName"
           className="question-label_title_name"
+          required
         >
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -72,7 +76,19 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
         </div>
         {this.outputSelects()}
         <div className="question_settings">
-          <DefaultButton
+        <CommandBarProperties
+            item="question"
+            itemQuestion="Select"
+            survey={this.props.survey}
+            pageId={this.props.pageId}
+            questionId={this.props.id}
+            deleteQuestion={this.delete}
+            deletePage={this.delete}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            addPage={this.delete}
+          />
+          {/* <DefaultButton
             text="Удалить"
             iconProps={trashCan}
             onClick={() => {
@@ -102,7 +118,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
                 this.props.id
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     );

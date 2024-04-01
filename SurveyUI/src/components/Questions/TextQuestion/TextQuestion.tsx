@@ -3,6 +3,7 @@ import "../Question.scss";
 import { DefaultButton, IconButton, Label } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ITextQuestionProps } from "./ITextQuestionProps";
+import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
   private delete = () => {
@@ -16,10 +17,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
       ].required === false
     ) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
+        <Label id="questionName" className="question-label_title_name">
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id
@@ -34,11 +32,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
       ].required === true
     ) {
       return (
-        <Label
-          id="questionName"
-          required
-          className="question-label_title_name"
-        >
+        <Label id="questionName" required className="question-label_title_name">
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id
@@ -61,7 +55,19 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
           <div className="question-label_type">Тип: Text question</div>
         </div>
         <div className="question_settings">
-          <DefaultButton
+          <CommandBarProperties
+            item="question"
+            itemQuestion="Text"
+            survey={this.props.survey}
+            pageId={this.props.pageId}
+            questionId={this.props.id}
+            deleteQuestion={this.delete}
+            deletePage={this.delete}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            addPage={this.delete}
+          />
+          {/* <DefaultButton
             text="Удалить"
             iconProps={trashCan}
             onClick={() => {
@@ -91,7 +97,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
                 this.props.id
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     );

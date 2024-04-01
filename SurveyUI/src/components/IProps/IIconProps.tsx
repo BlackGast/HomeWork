@@ -1,4 +1,4 @@
-import { IIconProps } from "@fluentui/react";
+import { IIconProps, extendComponent } from "@fluentui/react";
 
 export const trashCan: IIconProps = {
   iconName: "Delete",
@@ -34,10 +34,18 @@ export const circlePlus: IIconProps = {
   iconName: "CirclePlus",
 };
 
-export const forward: IIconProps ={ 
+export const forward: IIconProps = {
   iconName: "Forward",
-}
+};
 
-export const back: IIconProps ={ 
+export const back: IIconProps = {
   iconName: "Back",
-}
+};
+
+export const more: IIconProps = {
+  iconName: "More",
+};
+
+export const addPageIcon: IIconProps = {
+  iconName: "Page",
+};

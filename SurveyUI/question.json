@@ -38,7 +38,7 @@
 							"readOnly": false,
 							"answer": "",
 							"required": true,
-							"_selects": [
+							"selects": [
 								{
 									"id": "77508a00-4f29-4b38-8f85-1c5a7194c74e",
 									"title": "Оwgsagтвеsg",
@@ -115,7 +115,7 @@
 							"answer": "",
 							"required": true,
 							"isMultiple": true,
-							"_choices": [
+							"choices": [
 								{
 									"id": "70ca3727-19d3-4c99-99e0-68086e0c027d",
 									"title": "Ответadhf",

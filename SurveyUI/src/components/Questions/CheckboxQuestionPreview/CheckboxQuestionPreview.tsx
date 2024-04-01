@@ -47,6 +47,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
         <Label
           id="questionName"
           className="question-label_title_name"
+          required
         >
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[

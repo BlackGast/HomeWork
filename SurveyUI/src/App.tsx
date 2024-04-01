@@ -62,18 +62,22 @@ export class App extends React.Component<{}, IAppState> {
   private addQuestion = (
     key?: QuestionType,
     page?: string,
-    panel?: string
+    panel?: string,
+    questionId?: number
   ): void => {
     if (this.surveyModel.pages.length === 0) {
       this.addPage();
       this.addPanel();
     }
+    console.log(questionId);
+    
     const newEmptyQuestion: IQuestionData = {
       order: this.orderList.toString(),
       id: "",
       title: "Название вопроса",
       type: key ?? "Text",
     };
+
     if (
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
@@ -82,11 +86,12 @@ export class App extends React.Component<{}, IAppState> {
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
       ].addQuestion(newEmptyQuestion);
-      this.orderList++;
+      //this.orderList++;
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
-      ].order = this.orderList.toString();
+      ].order = (questionId ?? 0).toString();
     }
+
     if (
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
@@ -95,10 +100,10 @@ export class App extends React.Component<{}, IAppState> {
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
       ].addQuestion(newEmptyQuestion);
-      this.orderList++;
+      //this.orderList++;
       this.surveyModel.pages[parseInt(page ?? "0")].panels[
         parseInt(panel ?? "0")
-      ].order = this.orderList.toString();
+      ].order = (questionId ?? 0).toString();
     }
 
     console.log(this.surveyModel);
@@ -146,8 +151,14 @@ export class App extends React.Component<{}, IAppState> {
 
   private handleDeleteQuestion = (key: number, page?: number): void => {
     this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key, 1);
+    this.setState({
+      currentItem: {
+        pageId: 0,
+        questionId: 0,
+        item: "survey",
+      },
+    });
     if (
-      // this.surveyModel.pages.length === 0 &&
       this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0
     ) {
       this.handleDeletePage(page);
@@ -156,7 +167,6 @@ export class App extends React.Component<{}, IAppState> {
   };
 
   private handleDeletePage = (page?: number): void => {
-    //console.log("click", page);
     this.surveyModel.pages.splice(page ?? 0, 1);
     this.setState({
       survey: this.surveyModel,
@@ -166,13 +176,13 @@ export class App extends React.Component<{}, IAppState> {
         item: "survey",
       },
     });
+    this.saveModel();
   };
 
   private saveModel = (): void => {
     this.setState({
       survey: this.surveyModel,
     });
-    //console.log("save model");
   };
 
   private editCurrentItem = (

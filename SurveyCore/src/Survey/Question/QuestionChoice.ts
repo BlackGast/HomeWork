@@ -5,16 +5,17 @@ import { QuestionBase } from "./QuestionBase";
 
 export class QuestionChoice extends QuestionBase {
     public isMultiple: boolean;
-    private _choices: IChoice[];
+    private choices: IChoice[];
 
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Choice';
         this.title = data.title || '';
         this.readOnly = data.readOnly || false;
+        this.required = data.required || false;
         this.isMultiple = true;
         this.answer = '';
-        this._choices = this.createChoice(data.choices);
+        this.choices = this.createChoice(data.choices);
     }
 
     private createChoice(data: IChoice[]) {
@@ -35,15 +36,15 @@ export class QuestionChoice extends QuestionBase {
 
     public override getValue(): IChoice[] {
         let choices: IChoice[] = [];
-        if (this._choices?.length) {
-            choices = [...this._choices];
+        if (this.choices?.length) {
+            choices = [...this.choices];
         }
         return choices;
     }
 
     public override setFieldByName(fieldName: string, newValue: any, index: number) {
-        if (index >= 0 && index < this._choices.length) {
-            const choice = this._choices[index];
+        if (index >= 0 && index < this.choices.length) {
+            const choice = this.choices[index];
             if (fieldName in choice) {
                 choice[fieldName] = newValue;
             }
@@ -61,10 +62,10 @@ export class QuestionChoice extends QuestionBase {
             checked: false,
             disabled: false,
         };
-        this._choices.push(choiceObj);
+        this.choices.push(choiceObj);
     }
 
     public override deleteChoice(itemId: number): void {
-        this._choices.splice(itemId, 1);
+        this.choices.splice(itemId, 1);
     }
 }

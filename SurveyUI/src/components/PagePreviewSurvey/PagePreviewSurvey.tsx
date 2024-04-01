@@ -90,7 +90,7 @@ export class PagePreviewSurvey extends React.Component<
           (elements, indexQuestion) => (
             <div
               className="question-item"
-              key={indexQuestion}
+              key={elements.id}
               id={`${indexQuestion}`}
             >
               {this.renderQuestion(
@@ -174,29 +174,6 @@ export class PagePreviewSurvey extends React.Component<
           </>
         );
       }
-
-      // if (this.state.currentPage === this.props.survey.pages.length - 1) {
-      //   return (
-      // <>
-      //   <DefaultButton
-      //     iconProps={forward}
-      //     onClick={() => {
-      //       this.setState((prevState) => ({
-      //         currentPage: prevState.currentPage + 1,
-      //       }));
-      //     }}
-      //   />
-      //   <DefaultButton
-      //     iconProps={back}
-      //     onClick={() => {
-      //       this.setState((prevState) => ({
-      //         currentPage: prevState.currentPage - 1,
-      //       }));
-      //     }}
-      //   />
-      // </>
-      //   );
-      // }
     }
   }
 

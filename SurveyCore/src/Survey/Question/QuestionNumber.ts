@@ -12,6 +12,7 @@ export class QuestionNumber extends QuestionBase {
         this.type = 'Number';
         this.title = data.title || '';
         this.description = data.description || '';
+        this.required = data.required || false;
         this.readOnly = data.readOnly || false;
         this.answer = '';
         this.placeholder = '';

@@ -13,10 +13,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
       return (
         <Label
           id="questionName"
-          style={{
-            backgroundColor: "#f5f5f5",
-            fontSize: 14,
-          }}
+          className="question-label_title_name"
         >
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -34,11 +31,8 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
       return (
         <Label
           id="questionName"
+          className="question-label_title_name"
           required
-          style={{
-            backgroundColor: "#f5f5f5",
-            fontSize: 14,
-          }}
         >
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[

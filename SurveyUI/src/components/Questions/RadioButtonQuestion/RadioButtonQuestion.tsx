@@ -4,8 +4,12 @@ import { IRadioButtonQuestionProps } from "./IRadioButtonQuestionProps";
 import { DefaultButton, IconButton, Label } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
 import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
+import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionProps> {
+  private delete = () => {
+    this.props.deleteQuestion(this.props.id, this.props.pageId);
+  };
   private outputSelects(): React.ReactNode {
     const tmp: ISelectAnswer[] = this.props.survey.pages[
       this.props.pageId
@@ -72,7 +76,19 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
         </div>
         {this.outputSelects()}
         <div className="question_settings">
-          <DefaultButton
+        <CommandBarProperties
+            item="question"
+            itemQuestion="Choice"
+            survey={this.props.survey}
+            pageId={this.props.pageId}
+            questionId={this.props.id}
+            deleteQuestion={this.delete}
+            deletePage={this.delete}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            addPage={this.delete}
+          />
+          {/* <DefaultButton
             text="Удалить"
             iconProps={trashCan}
             onClick={() => {
@@ -102,7 +118,7 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
                 this.props.id
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     );

@@ -20,10 +20,10 @@ export class QuestionBase implements IQuestionData {
         this.type = 'Text';
         this.title = '';
         this.description = '';
-        this.disabled = false;
-        this.readOnly = false;
+        this.disabled = data.disabled || false;
+        this.readOnly = data.readOnly || false;
         this.answer = '';
-        this.required = false;
+        this.required = data.required || false;
     }
 
     /**

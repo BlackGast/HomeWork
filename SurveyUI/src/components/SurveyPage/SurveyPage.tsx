@@ -1,6 +1,5 @@
 import * as React from "react";
 import "./SurveyPage.scss";
-import { DefaultButton, IconButton } from "@fluentui/react";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
@@ -10,8 +9,7 @@ import { RatingScaleQuestion } from "../Questions/RaitingScaleQuestion/RatingSca
 import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
-import { editPen, trashCan } from "../IProps/IIconProps";
-import { classNames } from "@fluentui/react/lib/components/Icon/Icon.styles";
+import { CommandBarProperties } from "../CommandBarProperties/CommandBarProperties";
 
 export class SurveyPage extends React.Component<
   ISurveyPageProps,
@@ -90,7 +88,7 @@ export class SurveyPage extends React.Component<
           <div className="container">
             <div className="container_title-survey">
               <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
-              <ButtonAddQuestion addQuestion={this.props.addQuestion} />
+              <ButtonAddQuestion addQuestion={this.props.addQuestion}/>
             </div>
           </div>
         </div>
@@ -107,24 +105,23 @@ export class SurveyPage extends React.Component<
                   {this.props.survey.description}
                 </label>
               </div>
-              <IconButton
-                iconProps={editPen}
-                onClick={() => {
-                  this.props.editCurrentItem("survey");
-                  this.props.editCurrentPropertyItem(
-                    this.props.survey.title,
-                    this.props.survey.description
-                  );
-                }}
+              <CommandBarProperties
+                item="survey"
+                survey={this.props.survey}
+                editCurrentItem={this.props.editCurrentItem}
+                editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+                deletePage={this.props.deletePage}
+                deleteQuestion={this.props.deleteQuestion}
+                addPage={this.props.addPage}
               />
             </div>
-            <hr />
             {this.props.survey.pages.map((elements, indexPage) => (
               <div
                 key={elements.id}
                 id={`${indexPage}`}
                 style={{ paddingBottom: "10px" }}
               >
+                <hr />
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
@@ -136,15 +133,17 @@ export class SurveyPage extends React.Component<
                         {this.props.survey.pages[indexPage].description}
                       </label>
                     </div>
-                    <IconButton
-                      iconProps={editPen}
-                      onClick={() => {
-                        this.props.editCurrentItem("page", indexPage);
-                        this.props.editCurrentPropertyItem(
-                          this.props.survey.pages[indexPage].title,
-                          this.props.survey.pages[indexPage].description
-                        );
-                      }}
+                    <CommandBarProperties
+                      item="page"
+                      survey={this.props.survey}
+                      pageId={indexPage}
+                      editCurrentItem={this.props.editCurrentItem}
+                      editCurrentPropertyItem={
+                        this.props.editCurrentPropertyItem
+                      }
+                      deletePage={this.props.deletePage}
+                      deleteQuestion={this.props.deleteQuestion}
+                      addPage={this.props.addPage}
                     />
                   </div>
                   {this.props.survey.pages[indexPage].panels[0].questions.map(
@@ -162,28 +161,17 @@ export class SurveyPage extends React.Component<
                       </div>
                     )
                   )}
+
                   <div className="container_page_under-button">
                     <ButtonAddQuestion
                       addQuestion={this.props.addQuestion}
                       pageIndex={indexPage}
-                    />
-                    <DefaultButton
-                      text="Удалить страницу"
-                      onClick={() => {
-                        this.props.deletePage(indexPage);
-                      }}
-                      iconProps={trashCan}
+                      questionId={this.props.survey.pages[indexPage].panels[0].questions.length - 1}
                     />
                   </div>
                 </div>
               </div>
             ))}
-            <DefaultButton
-              text="Добавить страницу"
-              onClick={() => {
-                this.props.addPage();
-              }}
-            />
           </div>
         </div>
       );

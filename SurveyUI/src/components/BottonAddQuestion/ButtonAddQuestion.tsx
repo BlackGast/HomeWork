@@ -16,7 +16,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
   IButtonProps & IButtonAddQuestionProps
 > = (props) => {
   const addQuest = (key: QuestionType): void => {
-    props.addQuestion(key, props.pageIndex ?? 0);
+    props.addQuestion(key, props.pageIndex ?? 0, 0, (props.questionId ?? 0) + 1);
   };
 
   const menuProps: IContextualMenuProps = {

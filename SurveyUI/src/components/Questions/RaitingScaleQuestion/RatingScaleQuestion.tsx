@@ -3,8 +3,12 @@ import "../Question.scss";
 import { IRatingScaleQuestion } from "./IRaitingScaleQuestion";
 import { DefaultButton, IconButton, Label } from "@fluentui/react";
 import { editPen, trashCan } from "../../IProps/IIconProps";
+import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
+  private delete = () => {
+    this.props.deleteQuestion(this.props.id, this.props.pageId);
+  };
   private ratingNum(): React.ReactNode {
     const maxValue: number =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -79,6 +83,19 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
         </div>
         <div className="question_number-items">{this.ratingNum()}</div>
         <div className="question_settings">
+        <CommandBarProperties
+            item="question"
+            itemQuestion="Number"
+            survey={this.props.survey}
+            pageId={this.props.pageId}
+            questionId={this.props.id}
+            deleteQuestion={this.delete}
+            deletePage={this.delete}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            addPage={this.delete}
+          />
+{/* 
           <DefaultButton
             text="Удалить"
             iconProps={trashCan}
@@ -109,7 +126,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
                 this.props.id
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     );

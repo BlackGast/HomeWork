@@ -9,6 +9,7 @@ export class QuestionDate extends QuestionBase {
         this.type = 'Date';
         this.title = data.title || '';
         this.description = data.description || '';
+        this.required = data.required || false;
         this.readOnly = data.readOnly || false;
         this.answer = '';
     }

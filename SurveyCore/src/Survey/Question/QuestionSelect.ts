@@ -4,16 +4,17 @@ import { Utils } from "../Utils";
 import { QuestionBase } from "./QuestionBase";
 
 export class QuestionSelect extends QuestionBase {
-    private _selects: ISelectAnswer[];
+    private selects: ISelectAnswer[];
 
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Select';
         this.title = data.title || '';
         this.description = data.description || '';
+        this.required = data.required || false;
         this.answer = '';
         this.readOnly = data.readOnly || false;
-        this._selects = this.createSelect(data.selects)
+        this.selects = this.createSelect(data.selects)
     }
 
     private createSelect(data: ISelectAnswer[]) {
@@ -34,15 +35,15 @@ export class QuestionSelect extends QuestionBase {
 
     public override getValue() {
         let selects: ISelectAnswer[] = [];
-        if (this._selects?.length) {
-            selects = [...this._selects]
+        if (this.selects?.length) {
+            selects = [...this.selects]
         }
         return selects;
     }
 
     public override setFieldByName(fieldName: string, newValue: any, index: number) {
-        if (index >= 0 && index < this._selects.length) {
-            const choice = this._selects[index];
+        if (index >= 0 && index < this.selects.length) {
+            const choice = this.selects[index];
             if (fieldName in choice) {
                 choice[fieldName] = newValue;
             }
@@ -60,10 +61,10 @@ export class QuestionSelect extends QuestionBase {
             checked: false,
             selected: false,
         };
-        this._selects.push(selectObj);
+        this.selects.push(selectObj);
     }
 
     public override deleteChoice(itemId: number): void {
-        this._selects.splice(itemId, 1);
+        this.selects.splice(itemId, 1);
     }
 }
