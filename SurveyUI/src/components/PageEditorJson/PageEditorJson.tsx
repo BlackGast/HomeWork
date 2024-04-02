@@ -47,7 +47,7 @@ export class PageEditorJson extends React.Component<IPageEditorJsonProps, IPageE
                 //console.log(JSON.parse(e.currentTarget.value));
                 this.props.parseStrToSurvey(this.state.surveyStr);
               } catch (error) {
-                alert("Ошибка при изменении JSON");
+                alert("Ошибка при изменении/загрузке JSON");
                 // console.log("Ошибка");
               }
             }}

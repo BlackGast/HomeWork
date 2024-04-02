@@ -40,6 +40,9 @@ body,
 }
 
 .page {
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
   display: flex;
   height: 100%;
   &_part {
@@ -52,12 +55,28 @@ body,
       overflow-y: auto;
     }
     &-part3 {
+      @media (max-width: 768px) {
+        height: 40%;
+      }
       flex: 2;
     }
   }
 }
 
+@media (max-width: 768px) {
+  .vertical-line {
+    position: relative;
+  }
+}
+
 .vertical-line::after {
+  @media (max-width: 768px) {
+    // content: "";
+    // position: absolute;
+    border-bottom: 1px solid black;
+    // height: 1px;
+    width: 100%;
+  }
   content: "";
   display: block;
   border-left: 1px solid black;

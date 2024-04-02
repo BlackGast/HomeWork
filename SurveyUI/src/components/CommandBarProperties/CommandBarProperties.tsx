@@ -58,7 +58,7 @@ export class CommandBarProperties extends React.Component<
     };
 
     const addPage = (): void => {
-      this.props.addPage();
+      this.props.addPage(this.props.survey.pages.length);
     };
 
     if (this.props.item === "page") {

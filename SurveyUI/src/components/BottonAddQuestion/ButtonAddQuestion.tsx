@@ -5,21 +5,34 @@ import {
   checkBox,
   radioBtn,
   ratingStar,
-  textDocument
+  textDocument,
 } from "../IProps/IIconProps";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { IButtonAddQuestionProps } from "./IButtonAddQuestionProps";
 import { IButtonProps } from "./IButtonProps";
 
-
-export const ButtonAddQuestion: React.FunctionComponent<
+export class ButtonAddQuestion extends React.Component<
   IButtonProps & IButtonAddQuestionProps
-> = (props) => {
-  const addQuest = (key: QuestionType): void => {
-    props.addQuestion(key, props.pageIndex ?? 0, 0, (props.questionId ?? 0) + 1);
+> {
+  private addQuest = (key: QuestionType): void => {
+    if (this.props.pageIndex === undefined) {
+      this.props.addQuestion(
+        key,
+        this.props.pageIndex ?? 0,
+        0,
+        this.props.questionId ?? 0
+      );
+    } else {
+      this.props.addQuestion(
+        key,
+        this.props.pageIndex ?? 0,
+        0,
+        (this.props.questionId ?? 0) + 1
+      );
+    }
   };
 
-  const menuProps: IContextualMenuProps = {
+  private menuProps: IContextualMenuProps = {
     items: [
       {
         id: "Text",
@@ -27,7 +40,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
         text: "Text",
         iconProps: textDocument,
         onClick: () => {
-          addQuest("Text");
+          this.addQuest("Text");
         },
       },
       {
@@ -36,7 +49,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
         text: "Checkboxes",
         iconProps: checkBox,
         onClick: () => {
-          addQuest("Select");
+          this.addQuest("Select");
         },
       },
       {
@@ -45,7 +58,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
         text: "Radio Button Text",
         iconProps: radioBtn,
         onClick: () => {
-          addQuest("Choice");
+          this.addQuest("Choice");
         },
       },
       {
@@ -54,7 +67,7 @@ export const ButtonAddQuestion: React.FunctionComponent<
         text: "Data",
         iconProps: calendar,
         onClick: () => {
-          addQuest("Date");
+          this.addQuest("Date");
         },
       },
       {
@@ -63,20 +76,23 @@ export const ButtonAddQuestion: React.FunctionComponent<
         text: "Rating Scale",
         iconProps: ratingStar,
         onClick: () => {
-          addQuest("Number");
+          this.addQuest("Number");
         },
       },
     ],
   };
-  return (
-    <DefaultButton
-      text="Добавить вопрос"
-      split
-      splitButtonAriaLabel="See 2 options"
-      aria-roledescription="split button"
-      menuProps={menuProps}
-      disabled={props.disabled}
-      checked={props.checked}
-      onClick={() => addQuest("Text")} />
-  );
-};
+  render(): React.ReactNode {
+    return (
+      <DefaultButton
+        text="Добавить вопрос"
+        split
+        splitButtonAriaLabel="See 2 options"
+        aria-roledescription="split button"
+        menuProps={this.menuProps}
+        disabled={this.props.disabled}
+        checked={this.props.checked}
+        onClick={() => this.addQuest("Text")}
+      />
+    );
+  }
+}

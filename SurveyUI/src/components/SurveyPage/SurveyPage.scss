@@ -3,10 +3,16 @@
   margin-bottom: 10px;
 }
 
+.ms-Pivot {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .container {
   margin: 0 5%;
   &_title-survey {
     &_block {
+      font-weight: 500;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -23,6 +29,7 @@
   }
   &_page {
     &_block {
+      font-weight: 500;
       display: flex;
       justify-content: space-between;
       align-items: center;

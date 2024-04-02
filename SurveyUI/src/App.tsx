@@ -51,13 +51,13 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
-  componentDidUpdate(): void {
-    console.log("componentDidUpdate", this.state);
-  }
+  // componentDidUpdate(): void {
+  //   console.log("componentDidUpdate", this.state);
+  // }
 
-  componentDidMount(): void {
-    console.log("componentDidMount");
-  }
+  // componentDidMount(): void {
+  //   console.log("componentDidMount");
+  // }
 
   private addQuestion = (
     key?: QuestionType,
@@ -69,50 +69,28 @@ export class App extends React.Component<{}, IAppState> {
       this.addPage();
       this.addPanel();
     }
-    console.log(questionId);
-    
+    //console.log(questionId);
+
     const newEmptyQuestion: IQuestionData = {
-      order: this.orderList.toString(),
+      order: (questionId ?? 0).toString(),
       id: "",
       title: "Название вопроса",
       type: key ?? "Text",
     };
+    this.surveyModel.pages[parseInt(page ?? "0")].panels[
+      parseInt(panel ?? "0")
+    ].addQuestion(newEmptyQuestion);
+    this.surveyModel.pages[parseInt(page ?? "0")].panels[
+      parseInt(panel ?? "0")
+    ].order = (questionId ?? 0).toString();
 
-    if (
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].questions.length !== 0
-    ) {
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].addQuestion(newEmptyQuestion);
-      //this.orderList++;
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].order = (questionId ?? 0).toString();
-    }
-
-    if (
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].questions.length === 0
-    ) {
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].addQuestion(newEmptyQuestion);
-      //this.orderList++;
-      this.surveyModel.pages[parseInt(page ?? "0")].panels[
-        parseInt(panel ?? "0")
-      ].order = (questionId ?? 0).toString();
-    }
-
-    console.log(this.surveyModel);
+    //console.log(this.surveyModel);
     this.saveModel();
   };
 
-  private addPage = (): void => {
+  private addPage = (pageId?: number): void => {
     const emptyPage: IPageData = {
-      order: "",
+      order: (pageId ?? 0).toString(),
       title: "Страница",
       panels: [],
       id: "",
@@ -158,9 +136,7 @@ export class App extends React.Component<{}, IAppState> {
         item: "survey",
       },
     });
-    if (
-      this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0
-    ) {
+    if (this.surveyModel.pages[page ?? 0].panels[0].questions.length === 0) {
       this.handleDeletePage(page);
     }
     this.saveModel();
