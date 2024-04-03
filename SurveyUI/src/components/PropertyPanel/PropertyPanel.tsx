@@ -29,7 +29,7 @@ export class PropertyPanel extends React.Component<
         title: this.props.propertyItem.title,
       });
     }
-    console.log("componentDidUpdate PropertyPanel");
+    //console.log("componentDidUpdate PropertyPanel");
   }
 
   private editCurrentQuestionChoiceItem = (

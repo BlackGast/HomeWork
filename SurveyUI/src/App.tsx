@@ -41,6 +41,7 @@ export class App extends React.Component<{}, IAppState> {
         required: false,
         choices: [],
       },
+      required: false,
     };
   }
   private orderList: number = 0;
@@ -193,15 +194,23 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
-  private editCurrentRequiredItem = (required?: boolean): void => {
-    this.setState({
-      currentPropertyItem: {
-        title: this.state.currentPropertyItem.title,
-        description: this.state.currentPropertyItem.description,
-        required: required ?? false,
-        choices: this.state.currentPropertyItem.choices,
-      },
-    });
+  private editCurrentRequiredItem = (
+    required?: boolean,
+    pageId?: number,
+    questionId?: number
+  ): void => {
+    this.surveyModel.pages[pageId ?? 0].panels[0].questions[
+      questionId ?? 0
+    ].required = required ?? false;
+    this.setState({required: required ?? false})
+    // this.setState({
+    //   currentPropertyItem: {
+    //     title: this.state.currentPropertyItem.title,
+    //     description: this.state.currentPropertyItem.description,
+    //     required: required ?? false,
+    //     choices: this.state.currentPropertyItem.choices,
+    //   },
+    // });
   };
 
   private addChoice = (

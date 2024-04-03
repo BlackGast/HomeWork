@@ -1,9 +1,9 @@
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 
-export interface IQuestionCheckbox {
+export interface ICheckboxForQuestionProps {
     checked: boolean;
     survey: ISurveyModel;
     pageId: number;
     questionId: number;
-    editCurrentRequiredItem: (required:boolean) => void
+    editCurrentRequiredItem: (required:boolean, pageId: number, questionId: number) => void
 }

@@ -57,7 +57,7 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
             {"."}
             {this.requiredSymbol()}
           </div>
-          <div className="question-label_type">Тип: Data question</div>
+          <div className="question-label_type">Тип: Date question</div>
         </div>
         <div className="question_settings">
         <CommandBarProperties
@@ -72,37 +72,6 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
           />
-          {/* <DefaultButton
-            text="Удалить"
-            iconProps={trashCan}
-            onClick={() => {
-              this.props.deleteQuestion(this.props.id, this.props.pageId);
-            }}
-          />
-          <IconButton
-            iconProps={editPen}
-            onClick={() => {
-              this.props.editCurrentItem(
-                "question",
-                this.props.pageId,
-                this.props.id
-              );
-              this.props.editCurrentPropertyItem(
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].title,
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].description,
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].required,
-                "Date",
-                this.props.pageId,
-                this.props.id
-              );
-            }}
-          /> */}
         </div>
       </div>
     );

@@ -63,8 +63,8 @@ export class ButtonAddQuestion extends React.Component<
       },
       {
         id: "Date",
-        key: "dataQuestion",
-        text: "Data",
+        key: "dateQuestion",
+        text: "Date",
         iconProps: calendar,
         onClick: () => {
           this.addQuest("Date");

@@ -7,9 +7,9 @@ export interface IPageDesignerSurveyProps {
   survey: ISurveyModel;
   currentItem: ICurrentItem;
   currentPropertyItem: ICurrentPropertyItem;
-  addQuestion: (key: QuestionType) => void;
-  deleteQuestion: (key: number) => void;
-  deletePage: (key: number) => void;
+  addQuestion: (key?: QuestionType) => void;
+  deleteQuestion: (key?: number) => void;
+  deletePage: (key?: number) => void;
   addPage: () => void;
   saveModel: () => void;
   editCurrentItem: () => void;
