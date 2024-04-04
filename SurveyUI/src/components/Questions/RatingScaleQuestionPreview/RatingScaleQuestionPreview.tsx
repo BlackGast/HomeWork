@@ -17,14 +17,16 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
     return (
       <>
         {itemPull.map((element, index) => (
-          <div className="question_number-items_item" key={index}>
+          <button className="question_number-items_item" key={index}>
             {element}
-          </div>
+          </button>
+          // <div className="question_number-items_item" key={index}>
+          //   {element}
+          // </div>
         ))}
       </>
     );
   }
-
   private requiredSymbol(): React.ReactNode {
     if (
       this.props.survey.pages[this.props.pageId].panels[0].questions[
@@ -32,10 +34,7 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
       ].required === false
     ) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
+        <Label id="questionName" className="question-label_title_name">
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id
@@ -50,12 +49,7 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
       ].required === true
     ) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-          required
-          
-        >
+        <Label id="questionName" className="question-label_title_name" required>
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id

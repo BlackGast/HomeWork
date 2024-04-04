@@ -1,4 +1,4 @@
-import Logo from "./img/Logo.png";
+import Logo from "./img/Logo.svg";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
 import * as React from "react";
@@ -44,7 +44,6 @@ export class App extends React.Component<{}, IAppState> {
       required: false,
     };
   }
-  private orderList: number = 0;
   private dataManager: DataManager = new DataManager();
   private newModel: Survey = new Survey(this.dataManager);
   private surveyModel: ISurveyModel = {
@@ -52,13 +51,6 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
-  // componentDidUpdate(): void {
-  //   console.log("componentDidUpdate", this.state);
-  // }
-
-  // componentDidMount(): void {
-  //   console.log("componentDidMount");
-  // }
 
   private addQuestion = (
     key?: QuestionType,
@@ -70,7 +62,6 @@ export class App extends React.Component<{}, IAppState> {
       this.addPage();
       this.addPanel();
     }
-    //console.log(questionId);
 
     const newEmptyQuestion: IQuestionData = {
       order: (questionId ?? 0).toString(),
@@ -85,7 +76,6 @@ export class App extends React.Component<{}, IAppState> {
       parseInt(panel ?? "0")
     ].order = (questionId ?? 0).toString();
 
-    //console.log(this.surveyModel);
     this.saveModel();
   };
 
@@ -202,15 +192,6 @@ export class App extends React.Component<{}, IAppState> {
     this.surveyModel.pages[pageId ?? 0].panels[0].questions[
       questionId ?? 0
     ].required = required ?? false;
-    this.setState({required: required ?? false})
-    // this.setState({
-    //   currentPropertyItem: {
-    //     title: this.state.currentPropertyItem.title,
-    //     description: this.state.currentPropertyItem.description,
-    //     required: required ?? false,
-    //     choices: this.state.currentPropertyItem.choices,
-    //   },
-    // });
   };
 
   private addChoice = (
@@ -247,7 +228,6 @@ export class App extends React.Component<{}, IAppState> {
   private parseStrToSurvey = (strSurvey?: string): void => {
     this.newModel.createModel(strSurvey);
     this.surveyModel = this.newModel.getModel();
-    //this.surveyModel = this.dataManager.stringToJSON(strSurvey ?? "");
     this.saveModel();
   };
 
@@ -259,7 +239,7 @@ export class App extends React.Component<{}, IAppState> {
             <>
               <header className="header">
                 <div className="logo">
-                  {/* <img src={Logo} alt="Логотип" width={150} height={60} /> */}
+                  <img src={Logo} alt="Логотип" width={150} height={60} />
                 </div>
               </header>
               <div className="bodyPage">
