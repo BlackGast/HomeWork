@@ -40,8 +40,18 @@ export class PropertyPanel extends React.Component<
       this.props.questionId
     ].setFieldByName("title", valueTitle, indexChoice);
   };
+  
+  private editRequired = (required?: boolean) => {
+    this.setState({checked: required || false})
+  }
 
   public render(): React.ReactNode {
+    //const survey = this.props.survey;
+    //const page =
+    const question =
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.questionId
+      ];
     if (this.props.survey.pages.length !== 0) {
       if (this.props.item === "survey") {
         return (
@@ -130,14 +140,7 @@ export class PropertyPanel extends React.Component<
         );
       }
       if (this.props.item === "question") {
-        if (
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Text" ||
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Date"
-        ) {
+        if (question.type === "Text" || question.type === "Date") {
           return (
             <>
               <p className="settings-lbl">Настройки вопроса</p>
@@ -166,28 +169,23 @@ export class PropertyPanel extends React.Component<
                   }}
                 />
                 <CheckboxForQuestion
-                  checked={
-                    this.props.survey.pages[this.props.pageId].panels[0]
-                      .questions[this.props.questionId].required
-                  }
+                  checked={question.required}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
+                  editRequired={this.editRequired}
                   editCurrentRequiredItem={this.props.editCurrentRequiredItem}
                 />
                 <DefaultButton
                   text="Сохранить"
                   onClick={() => {
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].title = (
+                    question.title = (
                       document.getElementById("title") as HTMLInputElement
                     ).value;
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].description = (
+                    question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
+                    this.props.editCurrentRequiredItem(this.state.checked, this.props.pageId, this.props.questionId)
                     this.props.saveModel();
                   }}
                 />
@@ -196,18 +194,8 @@ export class PropertyPanel extends React.Component<
           );
         }
 
-        if (
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Select" ||
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Choice"
-        ) {
-          const ItemsValue: any =
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.questionId
-            ].getValue();
+        if (question.type === "Select" || question.type === "Choice") {
+          const ItemsValue: any = question.getValue();
           return (
             <>
               <p className="settings-lbl">Настройки вопроса</p>
@@ -250,11 +238,7 @@ export class PropertyPanel extends React.Component<
                     <IconButton
                       iconProps={trashCan}
                       onClick={() => {
-                        this.props.survey.pages[
-                          this.props.pageId
-                        ].panels[0].questions[
-                          this.props.questionId
-                        ].deleteChoice(indexChoice);
+                        question.deleteChoice(indexChoice);
                         this.props.saveModel();
                       }}
                     />
@@ -263,9 +247,7 @@ export class PropertyPanel extends React.Component<
                 <DefaultButton
                   text="Добавить ответ"
                   onClick={() => {
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].addChoice();
+                    question.addChoice();
                     this.props.saveModel();
                   }}
                 />
@@ -274,19 +256,16 @@ export class PropertyPanel extends React.Component<
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
+                  editRequired={this.editRequired}
                   editCurrentRequiredItem={this.props.editCurrentRequiredItem}
                 />
                 <DefaultButton
                   text="Сохранить"
                   onClick={() => {
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].title = (
+                    question.title = (
                       document.getElementById("title") as HTMLInputElement
                     ).value;
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].description = (
+                    question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
                     this.props.saveModel();
@@ -296,11 +275,7 @@ export class PropertyPanel extends React.Component<
             </>
           );
         }
-        if (
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].type === "Number"
-        ) {
+        if (question.type === "Number") {
           return (
             <>
               <p className="settings-lbl">Настройки вопроса</p>
@@ -338,19 +313,16 @@ export class PropertyPanel extends React.Component<
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
+                  editRequired={this.editRequired}
                   editCurrentRequiredItem={this.props.editCurrentRequiredItem}
                 />
                 <DefaultButton
                   text="Сохранить"
                   onClick={() => {
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].title = (
+                    question.title = (
                       document.getElementById("title") as HTMLInputElement
                     ).value;
-                    this.props.survey.pages[
-                      this.props.pageId
-                    ].panels[0].questions[this.props.questionId].description = (
+                    question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
                     this.props.saveModel();

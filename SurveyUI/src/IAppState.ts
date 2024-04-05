@@ -8,4 +8,5 @@ export interface IAppState {
   currentItem: ICurrentItem;
   currentPropertyItem: ICurrentPropertyItem;
   required: boolean;
+  surveyModel: ISurveyModel;
 }

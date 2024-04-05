@@ -10,6 +10,8 @@ import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
+import Answer from "./AnswerModel/AnswerModel";
+import { IAnswerModel } from "./AnswerModel/model/IAnswerModel";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -20,6 +22,24 @@ export class PagePreviewSurvey extends React.Component<
     this.state = {
       currentPage: 0,
     };
+  }
+
+  private newModel: Answer = new Answer();
+  private answerModel: IAnswerModel = {
+    title: "",
+    pages: [],
+  };
+
+  private renderAnswerTable(): React.ReactNode {
+    this.newModel.createModel(this.props.survey);
+    this.answerModel = this.newModel.getModel();
+    console.log(this.answerModel);
+    return (
+      <div>
+        Table
+        <></>
+      </div>
+    );
   }
 
   private renderQuestion(
@@ -74,19 +94,21 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private renderPage(pageId: number): React.ReactNode {
+    const page = this.props.survey.pages[pageId];
+    const panel = this.props.survey.pages[pageId].panels[0];
     return (
       <div className="preview-container_page">
         <div className="preview-container_page_block">
           <div className="preview-container_page_header">
             <label id="pageTitle">
-              {pageId + 1} {this.props.survey.pages[pageId].title}
+              {pageId + 1} {page.title}
             </label>
             <label id="pageDescription">
-              {this.props.survey.pages[pageId].description}
+              {page.description}
             </label>
           </div>
         </div>
-        {this.props.survey.pages[pageId].panels[0].questions.map(
+        {panel.questions.map(
           (elements, indexQuestion) => (
             <div
               className="question-item"
@@ -94,7 +116,7 @@ export class PagePreviewSurvey extends React.Component<
               id={`${indexQuestion}`}
             >
               {this.renderQuestion(
-                this.props.survey.pages[pageId].panels[0].questions[
+                panel.questions[
                   indexQuestion
                 ].type,
                 indexQuestion,
@@ -109,7 +131,8 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private renderNavButton(): React.ReactNode {
-    if (this.props.survey.pages.length > 1) {
+    const page = this.props.survey.pages
+    if (page.length > 1) {
       if (this.state.currentPage === 0) {
         return (
           <DefaultButton
@@ -125,7 +148,7 @@ export class PagePreviewSurvey extends React.Component<
 
       if (
         this.state.currentPage !== 0 &&
-        this.props.survey.pages.length === 2
+        page.length === 2
       ) {
         return (
           <DefaultButton
@@ -139,7 +162,7 @@ export class PagePreviewSurvey extends React.Component<
         );
       }
 
-      if (this.state.currentPage === this.props.survey.pages.length - 1) {
+      if (this.state.currentPage === page.length - 1) {
         return (
           <DefaultButton
             iconProps={back}
@@ -152,7 +175,7 @@ export class PagePreviewSurvey extends React.Component<
         );
       }
 
-      if (this.state.currentPage !== this.props.survey.pages.length - 1) {
+      if (this.state.currentPage !== page.length - 1) {
         return (
           <>
             <DefaultButton
@@ -178,7 +201,9 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   public render(): React.ReactNode {
-    if (this.props.survey.pages.length === 0) {
+    const survey = this.props.survey;
+    const page = this.props.survey.pages;
+    if (page.length === 0) {
       return (
         <div className="preview-container">
           <div className="preview-container_title-survey">
@@ -187,18 +212,19 @@ export class PagePreviewSurvey extends React.Component<
         </div>
       );
     }
-    if (this.props.survey.pages.length !== 0) {
+    if (page.length !== 0) {
       return (
         <div>
           <div className="preview-container">
             <div className="preview-container_title-survey">
               <div className="preview-container_title-survey_block">
-                <label id="surveyTitle">{this.props.survey.title}</label>
+                <label id="surveyTitle">{survey.title}</label>
                 <label id="surveyDescription">
-                  {this.props.survey.description}
+                  {survey.description}
                 </label>
               </div>
               <hr />
+              {/* {this.renderAnswerTable()} */}
               {this.renderPage(this.state.currentPage)}
             </div>
           </div>

@@ -25,6 +25,11 @@ export class App extends React.Component<{}, IAppState> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      surveyModel: {
+        description: "",
+        pages: [],
+        title: "",
+      },
       survey: {
         description: "",
         pages: [],
@@ -148,7 +153,7 @@ export class App extends React.Component<{}, IAppState> {
 
   private saveModel = (): void => {
     this.setState({
-      survey: this.surveyModel,
+      surveyModel: this.surveyModel,
     });
   };
 
@@ -246,7 +251,7 @@ export class App extends React.Component<{}, IAppState> {
                 <hr />
                 <div className="bodyPage">
                   <ListTabs
-                    survey={this.surveyModel}
+                    survey={this.state.surveyModel}
                     currentItem={this.state.currentItem}
                     currentPropertyItem={this.state.currentPropertyItem}
                     addQuestion={this.addQuestion}

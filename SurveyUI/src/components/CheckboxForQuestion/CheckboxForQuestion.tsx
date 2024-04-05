@@ -27,14 +27,15 @@ export class CheckboxForQuestion extends React.Component<
           label="Обязательно"
           checked={this.state.checked}
           onChange={() => {
-            this.props.editCurrentRequiredItem(
-              true,
-              this.props.pageId,
-              this.props.questionId
-            );
+            // this.props.editCurrentRequiredItem(
+            //   true,
+            //   this.props.pageId,
+            //   this.props.questionId
+            // );
             this.setState({
               checked: true,
             });
+            this.props.editRequired(this.state.checked);
           }}
         />
       );
@@ -45,14 +46,15 @@ export class CheckboxForQuestion extends React.Component<
           label="Обязательно"
           checked={this.state.checked}
           onChange={() => {
-            this.props.editCurrentRequiredItem(
-              false,
-              this.props.pageId,
-              this.props.questionId
-            );
+            // this.props.editCurrentRequiredItem(
+            //   false,
+            //   this.props.pageId,
+            //   this.props.questionId
+            // );
             this.setState({
               checked: false,
             });
+            this.props.editRequired(this.state.checked);
           }}
         />
       );

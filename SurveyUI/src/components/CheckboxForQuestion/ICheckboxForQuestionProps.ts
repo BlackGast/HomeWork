@@ -5,5 +5,6 @@ export interface ICheckboxForQuestionProps {
     survey: ISurveyModel;
     pageId: number;
     questionId: number;
-    editCurrentRequiredItem: (required:boolean, pageId: number, questionId: number) => void
+    editRequired: (required: boolean) => void;
+    editCurrentRequiredItem: (required: boolean, pageId: number, questionId: number) => void;
 }
