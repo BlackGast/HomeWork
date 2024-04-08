@@ -12,6 +12,7 @@ export class CheckboxForQuestion extends React.Component<
     this.state = {
       checked: this.props.checked,
     };
+    this._onCheckboxChange = this._onCheckboxChange.bind(this);
   }
 
   componentDidUpdate(prevProps: ICheckboxForQuestionProps): void {
@@ -20,23 +21,20 @@ export class CheckboxForQuestion extends React.Component<
     }
   }
 
+  private _onCheckboxChange(ev?: React.FormEvent<HTMLElement>, checked?: boolean): void {
+    this.setState({
+      checked: checked ?? false,
+    })
+    this.props.editRequired(!this.state.checked)
+  }
+
   public render(): React.ReactNode {
     if (this.state.checked === false) {
       return (
         <Checkbox
           label="Обязательно"
           checked={this.state.checked}
-          onChange={() => {
-            // this.props.editCurrentRequiredItem(
-            //   true,
-            //   this.props.pageId,
-            //   this.props.questionId
-            // );
-            this.setState({
-              checked: true,
-            });
-            this.props.editRequired(this.state.checked);
-          }}
+          onChange={this._onCheckboxChange}
         />
       );
     }
@@ -45,19 +43,10 @@ export class CheckboxForQuestion extends React.Component<
         <Checkbox
           label="Обязательно"
           checked={this.state.checked}
-          onChange={() => {
-            // this.props.editCurrentRequiredItem(
-            //   false,
-            //   this.props.pageId,
-            //   this.props.questionId
-            // );
-            this.setState({
-              checked: false,
-            });
-            this.props.editRequired(this.state.checked);
-          }}
+          onChange={this._onCheckboxChange}
         />
       );
     }
   }
+  
 }

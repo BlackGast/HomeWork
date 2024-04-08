@@ -41,8 +41,8 @@ export class PropertyPanel extends React.Component<
     ].setFieldByName("title", valueTitle, indexChoice);
   };
   
-  private editRequired = (required?: boolean) => {
-    this.setState({checked: required || false})
+  private editRequired = (required: boolean) => {
+    this.setState({checked: required})
   }
 
   public render(): React.ReactNode {

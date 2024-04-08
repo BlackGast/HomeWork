@@ -13,7 +13,18 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
         {elementsPull.map((element: any) => (
-          <Checkbox key={element.id} label={element.title} />
+          <Checkbox
+            key={element.id}
+            label={element.title}
+            onChange={(e) => {
+              console.log(e?.currentTarget.nextElementSibling?.textContent);
+              this.props.setAnswer(
+                this.props.pageId,
+                this.props.id,
+                e?.currentTarget.nextElementSibling?.textContent ?? ""
+              );
+            }}
+          />
         ))}
       </Stack>
     );
@@ -26,10 +37,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
       ].required === false
     ) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
+        <Label id="questionName" className="question-label_title_name">
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id
@@ -44,11 +52,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
       ].required === true
     ) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-          required
-        >
+        <Label id="questionName" className="question-label_title_name" required>
           {
             this.props.survey.pages[this.props.pageId].panels[0].questions[
               this.props.id

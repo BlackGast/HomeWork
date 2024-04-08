@@ -5,7 +5,7 @@ import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion/RadioButtonQuestion";
 import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
-import { RatingScaleQuestion } from "../Questions/RaitingScaleQuestion/RatingScaleQuestion";
+import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion/RatingScaleQuestion";
 import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
