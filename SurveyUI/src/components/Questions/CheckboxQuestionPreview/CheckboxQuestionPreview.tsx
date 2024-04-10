@@ -1,27 +1,28 @@
 import React from "react";
 import { ICheckboxQuestionPreviewProps } from "./ICheckboxQuestionPreviewProps";
 import { Checkbox, Label, Stack } from "@fluentui/react";
+import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
 
 export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private outputSelects(): React.ReactNode {
-    const elementsPull: any =
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getValue();
+    const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
 
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
-        {elementsPull.map((element: any) => (
+        {elementsPull.map((element: IChoice) => (
           <Checkbox
             key={element.id}
             label={element.title}
-            onChange={(e) => {
-              console.log(e?.currentTarget.nextElementSibling?.textContent);
-              this.props.setAnswer(
+            onChange={() => {
+              this.props.addChoices(
                 this.props.pageId,
                 this.props.id,
-                e?.currentTarget.nextElementSibling?.textContent ?? ""
+                element.title
               );
             }}
           />
@@ -31,33 +32,17 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
   }
 
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
         <Label id="questionName" className="question-label_title_name">
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
         <Label id="questionName" className="question-label_title_name" required>
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }

@@ -4,11 +4,12 @@ import { IRatingScaleQuestionPreviewProps } from "./IRatingScaleQuestionPreviewP
 import { Label } from "@fluentui/react";
 
 export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQuestionPreviewProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private ratingNum(): React.ReactNode {
-    const maxValue: number =
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getPropertyByName("maxNum");
+    const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPull: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
@@ -17,44 +18,35 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
     return (
       <>
         {itemPull.map((element, index) => (
-          <button className="question_number-items_item" key={index}>
+          <button
+            className="question_number-items_item"
+            key={index}
+            onClick={(e) => {
+              this.props.setAnswer(
+                this.props.pageId,
+                this.props.id,
+                e.currentTarget.textContent ?? ""
+              );
+            }}
+          >
             {element}
           </button>
-          // <div className="question_number-items_item" key={index}>
-          //   {element}
-          // </div>
         ))}
       </>
     );
   }
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
         <Label id="questionName" className="question-label_title_name">
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
         <Label id="questionName" className="question-label_title_name" required>
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }

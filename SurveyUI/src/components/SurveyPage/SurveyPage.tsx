@@ -88,7 +88,7 @@ export class SurveyPage extends React.Component<
           <div className="container">
             <div className="container_title-survey">
               <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
-              <ButtonAddQuestion addQuestion={this.props.addQuestion}/>
+              <ButtonAddQuestion addQuestion={this.props.addQuestion} />
             </div>
           </div>
         </div>
@@ -166,7 +166,10 @@ export class SurveyPage extends React.Component<
                     <ButtonAddQuestion
                       addQuestion={this.props.addQuestion}
                       pageIndex={indexPage}
-                      questionId={this.props.survey.pages[indexPage].panels[0].questions.length - 1}
+                      questionId={
+                        this.props.survey.pages[indexPage].panels[0].questions
+                          .length - 1
+                      }
                     />
                   </div>
                 </div>

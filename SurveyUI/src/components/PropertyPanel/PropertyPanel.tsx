@@ -29,7 +29,6 @@ export class PropertyPanel extends React.Component<
         title: this.props.propertyItem.title,
       });
     }
-    //console.log("componentDidUpdate PropertyPanel");
   }
 
   private editCurrentQuestionChoiceItem = (
@@ -46,8 +45,6 @@ export class PropertyPanel extends React.Component<
   }
 
   public render(): React.ReactNode {
-    //const survey = this.props.survey;
-    //const page =
     const question =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.questionId

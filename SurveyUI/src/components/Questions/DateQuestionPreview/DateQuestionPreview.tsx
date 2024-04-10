@@ -4,40 +4,22 @@ import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
 import { Label, TextField } from "@fluentui/react";
 
 export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
@@ -54,7 +36,18 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
           </div>
         </div>
         <div className="question-textfield">
-          <TextField id="answer" type="date" />
+          <TextField
+            id="answer"
+            type="date"
+            onChange={(e) => {
+              console.log(e.currentTarget.value);
+              this.props.setAnswer(
+                this.props.pageId,
+                this.props.id,
+                e.currentTarget.value
+              );
+            }}
+          />
         </div>
       </div>
     );

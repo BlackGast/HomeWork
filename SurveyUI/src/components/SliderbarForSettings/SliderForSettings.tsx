@@ -19,7 +19,9 @@ export class SliderForSettings extends React.Component<
         defaultValue={5}
         showValue={true}
         onChange={(value: number) => {
-          this.props.survey.pages[this.props.pageId].panels[0].questions[this.props.questionId].setPropertyByName('maxNum', value)
+          this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.questionId
+          ].setPropertyByName("maxNum", value);
         }}
       />
     );

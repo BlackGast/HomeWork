@@ -1,49 +1,29 @@
 import React from "react";
 import "../Question.scss";
 import { IDateQuestionProps } from "./IDataQuestionProps";
-import { DefaultButton, IconButton, Label } from "@fluentui/react";
-import { editPen, trashCan } from "../../IProps/IIconProps";
+import { Label } from "@fluentui/react";
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class DateQuestion extends React.Component<IDateQuestionProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
-        <Label
-          id="questionName"
-          required
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" required className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
@@ -60,7 +40,7 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
           <div className="question-label_type">Тип: Date question</div>
         </div>
         <div className="question_settings">
-        <CommandBarProperties
+          <CommandBarProperties
             item="question"
             itemQuestion="Date"
             survey={this.props.survey}

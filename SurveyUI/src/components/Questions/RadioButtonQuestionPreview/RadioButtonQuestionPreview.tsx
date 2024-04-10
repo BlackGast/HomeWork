@@ -5,41 +5,22 @@ import { RadioButtonForPreview } from "../../RadioButtonForPreview/RadioButtonFo
 import { Label } from "@fluentui/react";
 
 export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQuestionPreviewProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
-        <Label
-          id="questionName"
-          required
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" required className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
@@ -61,6 +42,10 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
           items={this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.id
           ].getValue()}
+          setAnswer={this.props.setAnswer}
+          pageId={this.props.pageId}
+          questionId={this.props.id}
+          answerModel={this.props.answerModel}
         />
       </div>
     );

@@ -5,7 +5,7 @@ import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestionPreview } from "../Questions/TextQuestionPreview/TextQuestionPreview";
 import { IPagePreviewSurveyState } from "./IPagePreviewSurveyState";
 import { CheckboxQuestionPreview } from "../Questions/CheckboxQuestionPreview/CheckboxQuestionPreview";
-import { DefaultButton, ThemeContext } from "@fluentui/react";
+import { DefaultButton } from "@fluentui/react";
 import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
@@ -41,10 +41,6 @@ export class PagePreviewSurvey extends React.Component<
       answerModel: this.answerModel,
     });
   }
-  // componentDidUpdate(): void {
-  //   console.log(this.state.answerModel.pages);
-
-  // }
 
   private createAnswerModel(): void {
     this.newModel.createModel(this.props.survey);
@@ -52,42 +48,36 @@ export class PagePreviewSurvey extends React.Component<
     console.log(this.answerModel);
   }
 
-  private renderAnswerTable(): React.ReactNode {
-    return (
-      <>
-        {/* {this.state.answerModel.pages.map((element, indexPage) => { */}
-          {
-            this.state.answerModel.pages[0].panels[0].questions.map(
-              (item, indexItem) => {
-                <tr>
-                <td>{item.answer}</td>
-                <td>{item.title}</td>
-              </tr>;
-            }
-          )
-        }
-      {/* })} */}
-      </>
-    );
-  }
-
   private renderTable(): React.ReactNode {
     return (
-      <div>
-        Ответы
-        <table>
+      <div className="answer-table">
+        <table style={{ width: "70%" }}>
           <thead>
-            <tr>
-              <th>Название</th>
-              <th>Ответ</th>
+            <tr
+              className="answer-table_element"
+              style={{ background: "white" }}
+            >
+              <th className="answer-table_element_item">Название</th>
+              <th className="answer-table_element_item">Ответ</th>
             </tr>
           </thead>
           <tbody>
-            {/* <tr>{this.renderAnswerTable()}</tr> */}
-            <tr>
-              <td>1</td>
-              <td>2</td>
-            </tr>
+            {this.answerModel.pages.map(({}, indexPage) => (
+              <tr key={indexPage}>
+                {this.answerModel.pages[indexPage].panels[0].questions.map(
+                  (item, indexQuestion) => (
+                    <tr key={indexQuestion} className="answer-table_element">
+                      <td className="answer-table_element_item">
+                        {item.title}
+                      </td>
+                      <td className="answer-table_element_item">
+                        {item.answer}
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -118,6 +108,7 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
+            addChoices={this.addChoices}
           />
         );
       case "Choice":
@@ -198,7 +189,6 @@ export class PagePreviewSurvey extends React.Component<
 
   private renderNavButton(): React.ReactNode {
     const page = this.props.survey.pages;
-    // if (page.length > 1) {
     if (this.state.currentPage === 0) {
       return (
         <DefaultButton
@@ -265,7 +255,6 @@ export class PagePreviewSurvey extends React.Component<
         </>
       );
     }
-    // }
   }
 
   private setAnswer(
@@ -273,11 +262,19 @@ export class PagePreviewSurvey extends React.Component<
     QuestionId?: number,
     answer?: string
   ): void {
-    // this.state.answerModel.pages[pageId ?? 0].panels[0].questions[QuestionId ?? 0].answer = answer ?? ""
     this.answerModel.pages[pageId ?? 0].panels[0].questions[
       QuestionId ?? 0
     ].answer = answer ?? "";
-    //this.saveAnswerModel()
+  }
+
+  private addChoices(
+    pageId?: number,
+    QuestionId?: number,
+    answer?: string
+  ): void {
+    this.answerModel.pages[pageId ?? 0].panels[0].questions[
+      QuestionId ?? 0
+    ].answer += ` ${answer}`
   }
 
   private saveAnswerModel(): void {
@@ -287,7 +284,6 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   public render(): React.ReactNode {
-    //this.createAnswerModel();
     const survey = this.props.survey;
     const page = this.props.survey.pages;
     if (page.length === 0) {

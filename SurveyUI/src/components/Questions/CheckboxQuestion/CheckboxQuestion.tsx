@@ -1,4 +1,4 @@
-import { DefaultButton, IconButton, Label } from "@fluentui/react";
+import { Label } from "@fluentui/react";
 import React from "react";
 import "../Question.scss";
 import { ICheckboxQuestionProps } from "./ICheckboxQuestionProps";
@@ -6,13 +6,15 @@ import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoic
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
   private outputSelects(): React.ReactNode {
-    const elementsPull: IChoice[] = this.props.survey.pages[
-      this.props.pageId
-    ].panels[0].questions[this.props.id].getValue() as IChoice[];
+    const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
 
     return (
       <>
@@ -24,40 +26,17 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
   }
 
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-          required
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name" required>
+          {this.questions.title}
         </Label>
       );
     }
@@ -76,7 +55,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
         </div>
         {this.outputSelects()}
         <div className="question_settings">
-        <CommandBarProperties
+          <CommandBarProperties
             item="question"
             itemQuestion="Select"
             survey={this.props.survey}

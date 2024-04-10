@@ -50,3 +50,27 @@
     }
   }
 }
+
+.answer-table {
+  display: flex;
+  justify-content: center;
+  &_element {
+    display: flex;
+    justify-content: space-evenly;
+    background: rgba(0, 0, 0, 0.1);
+    &_item {
+      min-width: 35%;
+      max-width: 35%;
+    }
+  }
+  &_element:nth-child(2n){
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.tr {
+  background: rgba(0, 0, 0, 0.1);
+}
+.tbody tr:nth-child(2n) {
+  background: rgba(0, 0, 0, 0.05);
+}

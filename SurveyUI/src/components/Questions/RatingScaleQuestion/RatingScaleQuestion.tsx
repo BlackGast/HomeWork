@@ -1,19 +1,19 @@
 import React from "react";
 import "../Question.scss";
 import { IRatingScaleQuestion } from "./IRaitingScaleQuestion";
-import { DefaultButton, IconButton, Label } from "@fluentui/react";
-import { editPen, trashCan } from "../../IProps/IIconProps";
+import { Label } from "@fluentui/react";
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
   private ratingNum(): React.ReactNode {
-    const maxValue: number =
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].getPropertyByName("maxNum");
+    const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPull: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
@@ -31,40 +31,17 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
   }
 
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
-        <Label
-          id="questionName"
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
-        <Label
-          id="questionName"
-          required
-          className="question-label_title_name"
-        >
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+        <Label id="questionName" required className="question-label_title_name">
+          {this.questions.title}
         </Label>
       );
     }
@@ -83,7 +60,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
         </div>
         <div className="question_number-items">{this.ratingNum()}</div>
         <div className="question_settings">
-        <CommandBarProperties
+          <CommandBarProperties
             item="question"
             itemQuestion="Number"
             survey={this.props.survey}

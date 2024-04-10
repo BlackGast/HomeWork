@@ -1,43 +1,30 @@
 import * as React from "react";
 import "../Question.scss";
-import { DefaultButton, IconButton, Label } from "@fluentui/react";
-import { editPen, trashCan } from "../../IProps/IIconProps";
+import { Label } from "@fluentui/react";
 import { ITextQuestionProps } from "./ITextQuestionProps";
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 
 export class TextQuestion extends React.Component<ITextQuestionProps> {
+  private questions =
+    this.props.survey.pages[this.props.pageId].panels[0].questions[
+      this.props.id
+    ];
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
 
   private requiredSymbol(): React.ReactNode {
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === false
-    ) {
+    if (this.questions.required === false) {
       return (
         <Label id="questionName" className="question-label_title_name">
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }
-    if (
-      this.props.survey.pages[this.props.pageId].panels[0].questions[
-        this.props.id
-      ].required === true
-    ) {
+    if (this.questions.required === true) {
       return (
         <Label id="questionName" required className="question-label_title_name">
-          {
-            this.props.survey.pages[this.props.pageId].panels[0].questions[
-              this.props.id
-            ].title
-          }
+          {this.questions.title}
         </Label>
       );
     }
