@@ -22,6 +22,14 @@
       flex-direction: column;
       align-items: flex-start;
       padding-left: 10px;
+      &_title {
+        font-size: x-large;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+      &_description {
+        margin-bottom: 5px
+      }
     }
     &_description {
       font-weight: 800;
@@ -41,6 +49,11 @@
       flex-direction: column;
       align-items: flex-start;
       padding-left: 10px;
+      &_title {
+        font-size: large;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
     }
     &_question {
       width: 97%;

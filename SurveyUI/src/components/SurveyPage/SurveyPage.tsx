@@ -111,11 +111,14 @@ export class SurveyPage extends React.Component<
               <div className="container_title-survey_header">
                 <label
                   id="surveyTitle"
-                  style={{ fontSize: "x-large", marginBottom: "5px" }}
+                  className="container_title-survey_header_title"
                 >
                   {this.props.survey.title}
                 </label>
-                <label id="surveyDescription" style={{ marginBottom: "5px" }}>
+                <label
+                  id="surveyDescription"
+                  className="container_title-survey_header_description"
+                >
                   {this.props.survey.description}
                 </label>
               </div>
@@ -142,14 +145,17 @@ export class SurveyPage extends React.Component<
                     <div className="container_page_header">
                       <label
                         id="pageTitle"
-                        style={{ fontSize: "large", marginBottom: "5px" }}
+                        className="container_page_header_title"
+                        style={{
+                          fontSize: "large",
+                          marginBottom: "5px",
+                          marginTop: "5px",
+                        }}
                       >
                         {indexPage + 1}{" "}
                         {this.props.survey.pages[indexPage].title}
                       </label>
-                      <label
-                        id="pageDescription"
-                      >
+                      <label id="pageDescription" >
                         {this.props.survey.pages[indexPage].description}
                       </label>
                     </div>

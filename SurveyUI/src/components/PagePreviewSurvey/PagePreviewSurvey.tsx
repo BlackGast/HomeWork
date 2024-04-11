@@ -161,10 +161,18 @@ export class PagePreviewSurvey extends React.Component<
         <div className="preview-container_page">
           <div className="preview-container_page_block">
             <div className="preview-container_page_header">
-              <label id="pageTitle" style={{ fontSize: "large" }}>
+              <label
+                id="pageTitle"
+                className="preview-container_page_header_title"
+              >
                 {pageId + 1} {page.title}
               </label>
-              <label id="pageDescription">{page.description}</label>
+              <label
+                id="pageDescription"
+                className="preview-container_page_header_description"
+              >
+                {page.description}
+              </label>
             </div>
           </div>
           {panel.questions.map((elements, indexQuestion) => (
@@ -303,10 +311,18 @@ export class PagePreviewSurvey extends React.Component<
           <div className="preview-container">
             <div className="preview-container_title-survey">
               <div className="preview-container_title-survey_block">
-                <label id="surveyTitle" style={{ fontSize: "x-large" }}>
+                <label
+                  className="preview-container_title-survey_block_title"
+                  id="surveyTitle"
+                >
                   {survey.title}
                 </label>
-                <label id="surveyDescription">{survey.description}</label>
+                <label
+                  id="surveyDescription"
+                  className="preview-container_title-survey_block_description"
+                >
+                  {survey.description}
+                </label>
               </div>
               <hr />
               {this.renderPage(this.state.currentPage)}

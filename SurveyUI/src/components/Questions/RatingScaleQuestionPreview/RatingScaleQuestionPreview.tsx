@@ -1,7 +1,7 @@
 import React from "react";
 import "../Question.scss";
 import { IRatingScaleQuestionPreviewProps } from "./IRatingScaleQuestionPreviewProps";
-import { Label } from "@fluentui/react";
+import { DefaultButton, Label } from "@fluentui/react";
 
 export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQuestionPreviewProps> {
   private questions =
@@ -22,10 +22,11 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
             className="question_number-items_item"
             key={index}
             onClick={(e) => {
+              const button = e.target as HTMLButtonElement;
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
-                e.currentTarget.textContent ?? ""
+                button.innerText
               );
             }}
           >
