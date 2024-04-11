@@ -21,7 +21,7 @@ export class CheckboxForQuestion extends React.Component<
     }
   }
 
-  private _onCheckboxChange(ev?: React.FormEvent<HTMLElement>, checked?: boolean): void {
+  private _onCheckboxChange(_ev?: React.FormEvent<HTMLElement>, checked?: boolean): void {
     this.setState({
       checked: checked ?? false,
     })
@@ -29,6 +29,8 @@ export class CheckboxForQuestion extends React.Component<
   }
 
   public render(): React.ReactNode {
+    console.log(this.props);
+    
     if (this.state.checked === false) {
       return (
         <Checkbox

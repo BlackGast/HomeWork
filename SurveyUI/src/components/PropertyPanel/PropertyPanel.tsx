@@ -39,10 +39,11 @@ export class PropertyPanel extends React.Component<
       this.props.questionId
     ].setFieldByName("title", valueTitle, indexChoice);
   };
-  
+
   private editRequired = (required: boolean) => {
-    this.setState({checked: required})
-  }
+    this.setState({ checked: required });
+    
+  };
 
   public render(): React.ReactNode {
     const question =
@@ -182,7 +183,11 @@ export class PropertyPanel extends React.Component<
                     question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
-                    this.props.editCurrentRequiredItem(this.state.checked, this.props.pageId, this.props.questionId)
+                    this.props.editCurrentRequiredItem(
+                      this.state.checked,
+                      this.props.pageId,
+                      this.props.questionId
+                    );
                     this.props.saveModel();
                   }}
                 />
@@ -265,6 +270,11 @@ export class PropertyPanel extends React.Component<
                     question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
+                    this.props.editCurrentRequiredItem(
+                      this.state.checked,
+                      this.props.pageId,
+                      this.props.questionId
+                    );
                     this.props.saveModel();
                   }}
                 />
@@ -322,6 +332,11 @@ export class PropertyPanel extends React.Component<
                     question.description = (
                       document.getElementById("description") as HTMLInputElement
                     ).value;
+                    this.props.editCurrentRequiredItem(
+                      this.state.checked,
+                      this.props.pageId,
+                      this.props.questionId
+                    );
                     this.props.saveModel();
                   }}
                 />

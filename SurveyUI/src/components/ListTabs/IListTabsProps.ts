@@ -7,9 +7,9 @@ export interface IListTabsProps {
   survey: ISurveyModel;
   currentItem: ICurrentItem;
   currentPropertyItem: ICurrentPropertyItem;
-  deleteQuestion: (key: number) => void;
-  addQuestion: (key: QuestionType) => void;
-  deletePage: (key: number) => void;
+  deleteQuestion: (key?: number) => void;
+  addQuestion: (key?: QuestionType) => void;
+  deletePage: (key?: number) => void;
   addPage: () => void;
   saveModel: () => void;
   editCurrentItem: () => void;

@@ -123,8 +123,8 @@ export class App extends React.Component<{}, IAppState> {
     }
   }
 
-  private handleDeleteQuestion = (key: number, page?: number): void => {
-    this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key, 1);
+  private handleDeleteQuestion = (key?: number, page?: number): void => {
+    this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key ?? 0, 1);
     this.setState({
       currentItem: {
         pageId: 0,
@@ -242,13 +242,13 @@ export class App extends React.Component<{}, IAppState> {
         <Layout>
           {
             <>
-              <header className="header">
+              {/* <header className="header">
                 <div className="logo">
                   <img src={Logo} alt="Логотип" width={150} height={60} />
                 </div>
-              </header>
+              </header> */}
               <div className="bodyPage">
-                <hr />
+                {/* <hr /> */}
                 <div className="bodyPage">
                   <ListTabs
                     survey={this.state.surveyModel}

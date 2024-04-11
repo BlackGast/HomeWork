@@ -1,192 +1,85 @@
 import * as React from "react";
-import { Pivot, PivotItem, DefaultButton } from "@fluentui/react";
+import { Pivot, PivotItem } from "@fluentui/react";
 import { PageDesignerSurvey } from "../PageDesignerSurvey/PageDesignerSurvey";
 import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
 import { PagePreviewSurvey } from "../PagePreviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
 
-// export class ListTabs extends React.Component<IListTabsProps> {
-//   private  handleLinkClick = (item?: PivotItem) => {
-//     if (item) {
-//       setSelectedKey(item.props.itemKey!);
-//     }
-//   };
+export class ListTabs extends React.Component<
+  IListTabsProps,
+  { selectedKey: string }
+> {
+  constructor(props: IListTabsProps) {
+    super(props);
 
-//   private renderContent = (selectedKey: string) => {
-//     switch (selectedKey) {
-//       case "designerPage":
-//         return (
-//           <PageDesignerSurvey
-//             survey={props.survey}
-//             currentItem={props.currentItem}
-//             currentPropertyItem={props.currentPropertyItem}
-//             addQuestion={props.addQuestion}
-//             deleteQuestion={props.deleteQuestion}
-//             deletePage={props.deletePage}
-//             addPage={props.addPage}
-//             saveModel={props.saveModel}
-//             editCurrentItem={props.editCurrentItem}
-//             editCurrentPropertyItem={props.editCurrentPropertyItem}
-//             editCurrentRequiredItem={props.editCurrentRequiredItem}
-//             setItemSurvey={props.setItemSurvey}
-//           />
-//         );
-//       case "previewPage":
-//         return <PagePreviewSurvey survey={props.survey} />;
-//       case "editorJson":
-//         return <PageEditorJson survey={props.survey} parseStrToSurvey={props.parseStrToSurvey}/>;
-//       default:
-//         return null;
-//     }
-//   };
+    this.state = {
+      selectedKey: "designerPage",
+    };
+  }
 
-//   render(): React.ReactNode {
-//     return (
-//       // сделать стиль для адаптива display: flex; flex-wrap: wrap;
-//       <>
-//         <div className="buttonMenu">
-//           <Pivot
-//             aria-label="Separately Rendered Content Pivot Example"
-//             selectedKey={selectedKey}
-//             onLinkClick={this.handleLinkClick}
-//             headersOnly={true}
-//           >
-//             <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-//             <PivotItem
-//               headerText="Предварительный просмотр"
-//               itemKey="previewPage"
-//             />
-//             <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
-//           </Pivot>
-//           {/* <DefaultButton title="Создание опроса" text="Создание опроса" /> */}
-//         </div>
-//         <hr className="no-margin" />
-//         <div className="bodyPage">{renderContent(selectedKey)} </div>
-//       </>
-//     );
-//   }
-// }
+  public render(): React.ReactNode {
+    return (
+      <>
+        <div className="buttonMenu">
+          <Pivot
+            aria-label="Separately Rendered Content Pivot Example"
+            selectedKey={this.state.selectedKey}
+            onLinkClick={this.handleLinkClick}
+            headersOnly={true}
+          >
+            <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
+            <PivotItem
+              headerText="Предварительный просмотр"
+              itemKey="previewPage"
+            />
+            <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
+          </Pivot>
+          {/* <DefaultButton title="Создание опроса" text="Создание опроса" /> */}
+        </div>
+        <hr className="no-margin" />
+        <div className="bodyPage">
+          {this.renderContent(this.state.selectedKey)}
+        </div>
+      </>
+    );
+  }
 
-export const ListTabs: React.FunctionComponent<IListTabsProps> = (props) => {
-  const [selectedKey, setSelectedKey] = React.useState("designerPage");
-
-  const handleLinkClick = (item?: PivotItem) => {
+  private handleLinkClick = (item?: PivotItem) => {
     if (item) {
-      setSelectedKey(item.props.itemKey!);
+      this.setState({ selectedKey: item.props.itemKey! });
     }
   };
 
-  const renderContent = (selectedKey: string) => {
+  private renderContent = (selectedKey: string) => {
     switch (selectedKey) {
       case "designerPage":
         return (
           <PageDesignerSurvey
-            survey={props.survey}
-            currentItem={props.currentItem}
-            currentPropertyItem={props.currentPropertyItem}
-            addQuestion={props.addQuestion}
-            deleteQuestion={props.deleteQuestion}
-            deletePage={props.deletePage}
-            addPage={props.addPage}
-            saveModel={props.saveModel}
-            editCurrentItem={props.editCurrentItem}
-            editCurrentPropertyItem={props.editCurrentPropertyItem}
-            editCurrentRequiredItem={props.editCurrentRequiredItem}
-            setItemSurvey={props.setItemSurvey}
+            survey={this.props.survey}
+            currentItem={this.props.currentItem}
+            currentPropertyItem={this.props.currentPropertyItem}
+            addQuestion={this.props.addQuestion}
+            deleteQuestion={this.props.deleteQuestion}
+            deletePage={this.props.deletePage}
+            addPage={this.props.addPage}
+            saveModel={this.props.saveModel}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            editCurrentRequiredItem={this.props.editCurrentRequiredItem}
+            setItemSurvey={this.props.setItemSurvey}
           />
         );
       case "previewPage":
-        return <PagePreviewSurvey survey={props.survey} />;
+        return <PagePreviewSurvey survey={this.props.survey} />;
       case "editorJson":
-        return <PageEditorJson survey={props.survey} parseStrToSurvey={props.parseStrToSurvey}/>;
+        return (
+          <PageEditorJson
+            survey={this.props.survey}
+            parseStrToSurvey={this.props.parseStrToSurvey}
+          />
+        );
       default:
         return null;
     }
   };
-
-  return (
-    // сделать стиль для адаптива display: flex; flex-wrap: wrap;
-    <>
-      <div className="buttonMenu">
-        <Pivot
-          aria-label="Separately Rendered Content Pivot Example"
-          selectedKey={selectedKey}
-          onLinkClick={handleLinkClick}
-          headersOnly={true}
-        >
-          <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-          <PivotItem
-            headerText="Предварительный просмотр"
-            itemKey="previewPage"
-            />
-          <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
-        </Pivot>
-        {/* <DefaultButton title="Создание опроса" text="Создание опроса" /> */}
-      </div>
-      <hr className="no-margin" />
-      <div className="bodyPage">{renderContent(selectedKey)} </div>
-    </>
-  );
-};
-
-// export class ListTabs extends React.Component<IListTabsProps> {
-//   // const [selectedKey, setSelectedKey] = React.useState("designerPage");
-
-//   public state = {selectedKey: 'designerPage'}
-
-//   private handleLinkClick = (item?: PivotItem) => {
-//     if (item) {
-//       setSelectedKey(item.props.itemKey!);
-//     }
-//   };
-
-//   private renderContent = (selectedKey: string) => {
-//     switch (selectedKey) {
-//       case "designerPage":
-//         return (
-//           <PageDesignerSurvey
-//             survey={this.props.survey}
-//             currentItem={this.props.currentItem}
-//             questions={this.props.questions}
-//             addQuestion={this.props.addQuestion}
-//             deleteQuestion={this.props.deleteQuestion}
-//             deletePage={this.props.deletePage}
-//             addPage={this.props.addPage}
-//             saveModel={this.props.saveModel}
-//             editCurrentItem={this.props.editCurrentItem}
-//           />
-//         );
-//       case "previewPage":
-//         return <PagePreviewSurvey />;
-//       case "editorJson":
-//         return <PageEditorJson />;
-//       default:
-//         return null;
-//     }
-//   };
-//   public render(): React.ReactNode {
-
-//     return (
-//       <>
-//         <div className="buttonMenu">
-//           <Pivot
-//             aria-label="Separately Rendered Content Pivot Example"
-//             selectedKey={selectedKey}
-//             onLinkClick={handleLinkClick}
-//             headersOnly={true}
-//           >
-//             <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-//             <PivotItem
-//               headerText="Предварительный просмотр"
-//               itemKey="previewPage"
-//             />
-//             <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
-//           </Pivot>
-//           <DefaultButton title="Создание опроса" text="Создание опроса" />
-//         </div>
-//         <hr className="no-margin" />
-//         <div className="bodyPage">{this.renderContent(selectedKey)} </div>
-//       </>
-//     );
-//   }
-// }
+}
