@@ -3,6 +3,10 @@
   margin-bottom: 10px;
 }
 
+.bodyPage {
+  background-color: #f5f5f5;
+}
+
 .preview-container {
   margin: 0 5%;
   &_title-survey {
@@ -24,6 +28,8 @@
     }
   }
   &_page {
+    border-radius: 10px;
+    background-color: #ffffff;
     &_block {
       font-weight: 500;
       display: flex;
@@ -38,6 +44,7 @@
     }
     &_question {
       background-color: #f5f5f5;
+      border-radius: 10px;
       &_item {
         padding-top: 5px;
         padding-bottom: 5px;

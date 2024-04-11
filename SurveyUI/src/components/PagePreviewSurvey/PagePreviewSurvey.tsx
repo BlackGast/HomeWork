@@ -45,7 +45,6 @@ export class PagePreviewSurvey extends React.Component<
   private createAnswerModel(): void {
     this.newModel.createModel(this.props.survey);
     this.answerModel = this.newModel.getModel();
-    console.log(this.answerModel);
   }
 
   private renderTable(): React.ReactNode {
@@ -162,7 +161,7 @@ export class PagePreviewSurvey extends React.Component<
         <div className="preview-container_page">
           <div className="preview-container_page_block">
             <div className="preview-container_page_header">
-              <label id="pageTitle">
+              <label id="pageTitle" style={{ fontSize: "large" }}>
                 {pageId + 1} {page.title}
               </label>
               <label id="pageDescription">{page.description}</label>
@@ -193,6 +192,7 @@ export class PagePreviewSurvey extends React.Component<
       return (
         <DefaultButton
           iconProps={forward}
+          style={{ marginBottom: "10px" }}
           onClick={() => {
             this.setState((prevState) => ({
               currentPage: prevState.currentPage + 1,
@@ -207,6 +207,7 @@ export class PagePreviewSurvey extends React.Component<
       return (
         <DefaultButton
           iconProps={back}
+          style={{ marginBottom: "10px" }}
           onClick={() => {
             this.setState((prevState) => ({
               currentPage: prevState.currentPage - 1,
@@ -221,6 +222,7 @@ export class PagePreviewSurvey extends React.Component<
       return (
         <DefaultButton
           iconProps={back}
+          style={{ marginBottom: "10px" }}
           onClick={() => {
             this.setState((prevState) => ({
               currentPage: prevState.currentPage - 1,
@@ -231,30 +233,30 @@ export class PagePreviewSurvey extends React.Component<
       );
     }
 
-    if (this.state.currentPage !== page.length - 1) {
-      return (
-        <>
-          <DefaultButton
-            iconProps={back}
-            onClick={() => {
-              this.setState((prevState) => ({
-                currentPage: prevState.currentPage - 1,
-              }));
-              this.saveAnswerModel();
-            }}
-          />
-          <DefaultButton
-            iconProps={forward}
-            onClick={() => {
-              this.setState((prevState) => ({
-                currentPage: prevState.currentPage + 1,
-              }));
-              this.saveAnswerModel();
-            }}
-          />
-        </>
-      );
-    }
+    return (
+      <>
+        <DefaultButton
+          iconProps={back}
+          style={{ marginBottom: "10px" }}
+          onClick={() => {
+            this.setState((prevState) => ({
+              currentPage: prevState.currentPage - 1,
+            }));
+            this.saveAnswerModel();
+          }}
+        />
+        <DefaultButton
+          iconProps={forward}
+          style={{ marginBottom: "10px" }}
+          onClick={() => {
+            this.setState((prevState) => ({
+              currentPage: prevState.currentPage + 1,
+            }));
+            this.saveAnswerModel();
+          }}
+        />
+      </>
+    );
   }
 
   private setAnswer(
@@ -274,7 +276,7 @@ export class PagePreviewSurvey extends React.Component<
   ): void {
     this.answerModel.pages[pageId ?? 0].panels[0].questions[
       QuestionId ?? 0
-    ].answer += ` ${answer}`
+    ].answer += ` ${answer}`;
   }
 
   private saveAnswerModel(): void {
@@ -301,7 +303,9 @@ export class PagePreviewSurvey extends React.Component<
           <div className="preview-container">
             <div className="preview-container_title-survey">
               <div className="preview-container_title-survey_block">
-                <label id="surveyTitle">{survey.title}</label>
+                <label id="surveyTitle" style={{ fontSize: "x-large" }}>
+                  {survey.title}
+                </label>
                 <label id="surveyDescription">{survey.description}</label>
               </div>
               <hr />

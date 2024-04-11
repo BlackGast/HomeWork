@@ -131,6 +131,7 @@ export class CommandBarProperties extends React.Component<
             disabled={disabled}
             checked={checked}
             iconProps={more}
+            style={{ backgroundColor: "#f5f5f5" }}
             menuProps={{
               items: [
                 {

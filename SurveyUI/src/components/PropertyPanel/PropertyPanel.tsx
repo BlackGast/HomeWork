@@ -1,6 +1,5 @@
 import * as React from "react";
-import { DefaultButton, IconButton, Stack, TextField } from "@fluentui/react";
-import { columnProps } from "./columnProps";
+import { DefaultButton, IStackProps, IconButton, Stack, TextField } from "@fluentui/react";
 import { IPropertyPanelProps } from "./IPropertyPanelProps";
 import { IPropertyPanelState } from "./IPropertyPanelState";
 import { CheckboxForQuestion } from "../CheckboxForQuestion/CheckboxForQuestion";
@@ -46,6 +45,10 @@ export class PropertyPanel extends React.Component<
   };
 
   public render(): React.ReactNode {
+    const columnProps: Partial<IStackProps> = {
+      tokens: { childrenGap: 15 },
+      styles: { root: "settings-inp" },
+    };
     const question =
       this.props.survey.pages[this.props.pageId].panels[0].questions[
         this.props.questionId
@@ -154,18 +157,6 @@ export class PropertyPanel extends React.Component<
                     });
                   }}
                 />
-                <TextField
-                  label="Описание"
-                  id="description"
-                  multiline
-                  rows={2}
-                  value={this.state.description}
-                  onChange={(e) => {
-                    this.setState({
-                      description: e.currentTarget.value,
-                    });
-                  }}
-                />
                 <CheckboxForQuestion
                   checked={question.required}
                   survey={this.props.survey}
@@ -179,9 +170,6 @@ export class PropertyPanel extends React.Component<
                   onClick={() => {
                     question.title = (
                       document.getElementById("title") as HTMLInputElement
-                    ).value;
-                    question.description = (
-                      document.getElementById("description") as HTMLInputElement
                     ).value;
                     this.props.editCurrentRequiredItem(
                       this.state.checked,
@@ -210,18 +198,6 @@ export class PropertyPanel extends React.Component<
                   onChange={(e) => {
                     this.setState({
                       title: e.currentTarget.value,
-                    });
-                  }}
-                />
-                <TextField
-                  label="Описание"
-                  id="description"
-                  multiline
-                  rows={2}
-                  value={this.state.description}
-                  onChange={(e) => {
-                    this.setState({
-                      description: e.currentTarget.value,
                     });
                   }}
                 />
@@ -267,9 +243,6 @@ export class PropertyPanel extends React.Component<
                     question.title = (
                       document.getElementById("title") as HTMLInputElement
                     ).value;
-                    question.description = (
-                      document.getElementById("description") as HTMLInputElement
-                    ).value;
                     this.props.editCurrentRequiredItem(
                       this.state.checked,
                       this.props.pageId,
@@ -298,18 +271,6 @@ export class PropertyPanel extends React.Component<
                     });
                   }}
                 />
-                <TextField
-                  label="Описание"
-                  id="description"
-                  multiline
-                  rows={2}
-                  value={`${this.state.description}`}
-                  onChange={(e) => {
-                    this.setState({
-                      description: e.currentTarget.value,
-                    });
-                  }}
-                />
                 <SliderForSettings
                   survey={this.props.survey}
                   pageId={this.props.pageId}
@@ -328,9 +289,6 @@ export class PropertyPanel extends React.Component<
                   onClick={() => {
                     question.title = (
                       document.getElementById("title") as HTMLInputElement
-                    ).value;
-                    question.description = (
-                      document.getElementById("description") as HTMLInputElement
                     ).value;
                     this.props.editCurrentRequiredItem(
                       this.state.checked,

@@ -88,7 +88,16 @@ export class SurveyPage extends React.Component<
           <div className="container">
             <div className="container_title-survey">
               <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
-              <ButtonAddQuestion addQuestion={this.props.addQuestion} />
+              <div
+                style={{
+                  background: "#ffffff",
+                  maxWidth: "max-content",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                <ButtonAddQuestion addQuestion={this.props.addQuestion} />
+              </div>
             </div>
           </div>
         </div>
@@ -100,12 +109,18 @@ export class SurveyPage extends React.Component<
           <div className="container_title-survey">
             <div className="container_title-survey_block">
               <div className="container_title-survey_header">
-                <label id="surveyTitle">{this.props.survey.title}</label>
-                <label id="surveyDescription">
+                <label
+                  id="surveyTitle"
+                  style={{ fontSize: "x-large", marginBottom: "5px" }}
+                >
+                  {this.props.survey.title}
+                </label>
+                <label id="surveyDescription" style={{ marginBottom: "5px" }}>
                   {this.props.survey.description}
                 </label>
               </div>
               <CommandBarProperties
+                style={{ background: "#f5f5f5" }}
                 item="survey"
                 survey={this.props.survey}
                 editCurrentItem={this.props.editCurrentItem}
@@ -125,11 +140,16 @@ export class SurveyPage extends React.Component<
                 <div className="container_page">
                   <div className="container_page_block">
                     <div className="container_page_header">
-                      <label id="pageTitle">
+                      <label
+                        id="pageTitle"
+                        style={{ fontSize: "large", marginBottom: "5px" }}
+                      >
                         {indexPage + 1}{" "}
                         {this.props.survey.pages[indexPage].title}
                       </label>
-                      <label id="pageDescription">
+                      <label
+                        id="pageDescription"
+                      >
                         {this.props.survey.pages[indexPage].description}
                       </label>
                     </div>

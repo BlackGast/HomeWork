@@ -40,7 +40,6 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
             id="answer"
             type="date"
             onChange={(e) => {
-              console.log(e.currentTarget.value);
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
