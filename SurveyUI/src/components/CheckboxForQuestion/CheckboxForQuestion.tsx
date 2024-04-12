@@ -16,21 +16,22 @@ export class CheckboxForQuestion extends React.Component<
   }
 
   componentDidUpdate(prevProps: ICheckboxForQuestionProps): void {
-    if (this.props.checked !== prevProps.checked) {
+    if (prevProps.checked !== this.props.checked) {
       this.setState({ checked: this.props.checked });
     }
   }
 
-  private _onCheckboxChange(_ev?: React.FormEvent<HTMLElement>, checked?: boolean): void {
+  private _onCheckboxChange(
+    _ev?: React.FormEvent<HTMLElement>,
+    checked?: boolean
+  ): void {
     this.setState({
       checked: checked ?? false,
-    })
-    this.props.editRequired(!this.state.checked)
+    });
+    this.props.editRequired(!this.state.checked);
   }
 
   public render(): React.ReactNode {
-    console.log(this.props);
-    
     if (this.state.checked === false) {
       return (
         <Checkbox
@@ -50,5 +51,4 @@ export class CheckboxForQuestion extends React.Component<
       );
     }
   }
-  
 }

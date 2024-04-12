@@ -6,7 +6,7 @@ export class Question implements IQuestion {
     
     constructor(data: IQuestion) {
         this.title = data.title || '';
-        this.answer = data.answer || '';
+        this.answer = data.answer || 'Нет ответа';
     }
     public getTitle() {
         return this.title;

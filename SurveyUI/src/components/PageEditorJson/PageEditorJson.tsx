@@ -76,41 +76,6 @@ export class PageEditorJson extends React.Component<
   };
 
   public render(): React.ReactNode {
-    // const styles = mergeStyleSets({
-    //   container: {
-    //     display: "flex",
-    //     flexFlow: "column nowrap",
-    //     alignItems: "stretch",
-    //   },
-    //   header: [
-    //     this.theme.fonts.xLargePlus,
-    //     {
-    //       flex: "1 1 auto",
-    //       borderTop: `4px solid ${this.theme.palette.themePrimary}`,
-    //       color: this.theme.palette.neutralPrimary,
-    //       display: "flex",
-    //       alignItems: "center",
-    //       fontWeight: FontWeights.semibold,
-    //       padding: "12px 12px 14px 24px",
-    //     },
-    //   ],
-    //   heading: {
-    //     color: this.theme.palette.neutralPrimary,
-    //     fontWeight: FontWeights.semibold,
-    //     fontSize: "inherit",
-    //     margin: "0",
-    //   },
-    //   body: {
-    //     flex: "4 4 auto",
-    //     padding: "0 24px 24px 24px",
-    //     overflowY: "hidden",
-    //     selectors: {
-    //       p: { margin: "14px 0" },
-    //       "p:first-child": { marginTop: 0 },
-    //       "p:last-child": { marginBottom: 0 },
-    //     },
-    //   },
-    // });
     if (this.props.survey.pages.length === 0) {
       return (
         <div className="preview-container">

@@ -1,9 +1,19 @@
 import React from "react";
 import "../Question.scss";
 import { IRatingScaleQuestionPreviewProps } from "./IRatingScaleQuestionPreviewProps";
-import { DefaultButton, Label } from "@fluentui/react";
+import { Label, constructKeytip } from "@fluentui/react";
+import { IRatingScaleQuestionPreviewState } from "./IRatingScaleQuestionPreviewState";
 
-export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQuestionPreviewProps> {
+export class RatingScaleQuestionPreview extends React.Component<
+  IRatingScaleQuestionPreviewProps,
+  IRatingScaleQuestionPreviewState
+> {
+  constructor(props: IRatingScaleQuestionPreviewProps) {
+    super(props);
+    this.state = {
+      selectedNum: 0,
+    };
+  }
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
@@ -13,28 +23,31 @@ export class RatingScaleQuestionPreview extends React.Component<IRatingScaleQues
     const itemPull: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
-      itemPull.push(element);
+      const buttonClassName =
+        i + 1 <= this.state.selectedNum
+          ? "question_number-items_item-preview selected"
+          : "question_number-items_item-preview";
+      itemPull.push(
+        <button
+          className={buttonClassName}
+          key={i}
+          onClick={(e) => {
+            const button = e.target as HTMLButtonElement;
+            this.setState({
+              selectedNum: Number(button.innerText)
+            })
+            this.props.setAnswer(
+              this.props.pageId,
+              this.props.id,
+              button.innerText
+            );
+          }}
+        >
+          {element}
+        </button>
+      );
     }
-    return (
-      <>
-        {itemPull.map((element, index) => (
-          <button
-            className="question_number-items_item"
-            key={index}
-            onClick={(e) => {
-              const button = e.target as HTMLButtonElement;
-              this.props.setAnswer(
-                this.props.pageId,
-                this.props.id,
-                button.innerText
-              );
-            }}
-          >
-            {element}
-          </button>
-        ))}
-      </>
-    );
+    return <>{itemPull}</>;
   }
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {

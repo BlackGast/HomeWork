@@ -6,4 +6,8 @@ export interface ICheckboxQuestionPreviewProps extends IQuestionPreviewBaseProps
         QuestionId?: number,
         answer?: string
     ) => void;
+    delChoice: (
+        pageId?: number,
+        QuestionId?: number
+    ) => void;
 }

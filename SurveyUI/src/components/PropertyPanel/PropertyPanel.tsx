@@ -26,6 +26,7 @@ export class PropertyPanel extends React.Component<
         choices: this.props.propertyItem.choices,
         description: this.props.propertyItem.description,
         title: this.props.propertyItem.title,
+        checked: this.props.propertyItem.required
       });
     }
   }
@@ -158,7 +159,7 @@ export class PropertyPanel extends React.Component<
                   }}
                 />
                 <CheckboxForQuestion
-                  checked={question.required}
+                  checked={this.state.checked}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
@@ -230,7 +231,7 @@ export class PropertyPanel extends React.Component<
                   }}
                 />
                 <CheckboxForQuestion
-                  checked={this.props.propertyItem.required}
+                  checked={this.state.checked}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}
@@ -277,7 +278,7 @@ export class PropertyPanel extends React.Component<
                   questionId={this.props.questionId}
                 />
                 <CheckboxForQuestion
-                  checked={this.props.propertyItem.required}
+                  checked={this.state.checked}
                   survey={this.props.survey}
                   pageId={this.props.pageId}
                   questionId={this.props.questionId}

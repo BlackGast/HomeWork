@@ -10,7 +10,6 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     ];
   private outputSelects(): React.ReactNode {
     const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
-
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
@@ -19,6 +18,11 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
             key={element.id}
             label={element.title}
             onChange={() => {
+              if (this.props.answerModel.pages[this.props.pageId].panels[0].questions[
+                this.props.id
+              ].answer === "Нет ответа") {
+                this.props.setAnswer(this.props.pageId, this.props.id, '')
+              }
               this.props.addChoices(
                 this.props.pageId,
                 this.props.id,

@@ -108,6 +108,7 @@ export class PagePreviewSurvey extends React.Component<
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
             addChoices={this.addChoices}
+            delChoice={this.delChoice}
           />
         );
       case "Choice":
@@ -211,21 +212,6 @@ export class PagePreviewSurvey extends React.Component<
       );
     }
 
-    if (this.state.currentPage !== 0 && page.length === 2) {
-      return (
-        <DefaultButton
-          iconProps={back}
-          style={{ marginBottom: "10px" }}
-          onClick={() => {
-            this.setState((prevState) => ({
-              currentPage: prevState.currentPage - 1,
-            }));
-            this.saveAnswerModel();
-          }}
-        />
-      );
-    }
-
     if (this.state.currentPage === page.length) {
       return (
         <DefaultButton
@@ -285,6 +271,16 @@ export class PagePreviewSurvey extends React.Component<
     this.answerModel.pages[pageId ?? 0].panels[0].questions[
       QuestionId ?? 0
     ].answer += ` ${answer}`;
+  }
+
+  private delChoice(
+    pageId?: number,
+    QuestionId?: number
+  ): void {
+    // this.answerModel.pages[pageId ?? 0].panels[0].questions[
+    //   QuestionId ?? 0
+    // ].answer = ''
+    // this
   }
 
   private saveAnswerModel(): void {

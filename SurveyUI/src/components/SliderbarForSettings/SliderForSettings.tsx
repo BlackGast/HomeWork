@@ -10,18 +10,20 @@ export class SliderForSettings extends React.Component<
   public state: ISliderForSettingsState = { value: 0 };
 
   public render(): JSX.Element {
+    const question =
+      this.props.survey.pages[this.props.pageId].panels[0].questions[
+        this.props.questionId
+      ];
     return (
       <Slider
         label="Количество элементов"
         min={2}
         max={9}
         step={1}
-        defaultValue={5}
+        defaultValue={question.getPropertyByName("maxNum")}
         showValue={true}
         onChange={(value: number) => {
-          this.props.survey.pages[this.props.pageId].panels[0].questions[
-            this.props.questionId
-          ].setPropertyByName("maxNum", value);
+          question.setPropertyByName("maxNum", value);
         }}
       />
     );

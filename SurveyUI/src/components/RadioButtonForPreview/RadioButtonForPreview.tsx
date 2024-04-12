@@ -14,7 +14,6 @@ export class RadioButtonForPreview extends React.Component<IRadioButtonForPrevie
             text: elements.title,
           }))}
           onChange={(e) => {
-            console.log(e?.currentTarget.nextElementSibling?.textContent);
             this.props.setAnswer(
               this.props.pageId,
               this.props.questionId,
