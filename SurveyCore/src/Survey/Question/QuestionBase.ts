@@ -7,10 +7,7 @@ export class QuestionBase implements IQuestionData {
     public order: string;
     public id: string;
     public title: string;
-    public description: string;
     public type: QuestionType;
-    public disabled: boolean;
-    public readOnly: boolean;
     public required: boolean;
     public answer: string;
 
@@ -19,9 +16,6 @@ export class QuestionBase implements IQuestionData {
         this.id = data.id || Utils.generateGUID();
         this.type = 'Text';
         this.title = '';
-        this.description = '';
-        this.disabled = data.disabled || false;
-        this.readOnly = data.readOnly || false;
         this.answer = '';
         this.required = data.required || false;
     }

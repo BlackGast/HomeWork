@@ -18,7 +18,7 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
     }
     if (this.questions.required === true) {
       return (
-        <Label id="questionName" className="question-label_title_name">
+        <Label id="questionName" className="question-label_title_name" required>
           {this.questions.title}
         </Label>
       );

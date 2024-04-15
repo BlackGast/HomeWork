@@ -30,11 +30,11 @@ export class App extends React.Component<{}, IAppState> {
         pages: [],
         title: "",
       },
-      survey: {
-        description: "",
-        pages: [],
-        title: "",
-      },
+      // survey: {
+      //   description: "",
+      //   pages: [],
+      //   title: "",
+      // },
       currentItem: {
         pageId: 0,
         questionId: 0,
@@ -49,6 +49,7 @@ export class App extends React.Component<{}, IAppState> {
       required: false,
     };
   }
+
   private dataManager: DataManager = new DataManager();
   private newModel: Survey = new Survey(this.dataManager);
   private surveyModel: ISurveyModel = {
@@ -141,7 +142,7 @@ export class App extends React.Component<{}, IAppState> {
   private handleDeletePage = (page?: number): void => {
     this.surveyModel.pages.splice(page ?? 0, 1);
     this.setState({
-      survey: this.surveyModel,
+      surveyModel: this.surveyModel,
       currentItem: {
         pageId: 0,
         questionId: 0,
@@ -275,6 +276,6 @@ export class App extends React.Component<{}, IAppState> {
   }
 }
 
-export const stackStyles: Partial<IStackStyles> = {
-  root: "menu",
-};
+// export const stackStyles: Partial<IStackStyles> = {
+//   root: "menu",
+// };

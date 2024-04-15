@@ -11,7 +11,6 @@ export class QuestionChoice extends QuestionBase {
         super(data);
         this.type = 'Choice';
         this.title = data.title || '';
-        this.readOnly = data.readOnly || false;
         this.required = data.required || false;
         this.isMultiple = true;
         this.answer = '';

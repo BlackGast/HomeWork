@@ -4,7 +4,7 @@ import { ICurrentPropertyItem } from "./model/ICurrentPropertyItem";
 
 
 export interface IAppState {
-  survey: ISurveyModel;
+  // survey: ISurveyModel;
   currentItem: ICurrentItem;
   currentPropertyItem: ICurrentPropertyItem;
   required: boolean;

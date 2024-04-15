@@ -35,9 +35,7 @@ export class CommandBarProperties extends React.Component<
           this.props.survey.pages[this.props.pageId ?? 0].panels[0].questions[
             this.props.questionId ?? 0
           ].title,
-          this.props.survey.pages[this.props.pageId ?? 0].panels[0].questions[
-            this.props.questionId ?? 0
-          ].description,
+          undefined,
           this.props.survey.pages[this.props.pageId ?? 0].panels[0].questions[
             this.props.questionId ?? 0
           ].required,

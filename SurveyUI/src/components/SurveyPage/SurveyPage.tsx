@@ -82,19 +82,14 @@ export class SurveyPage extends React.Component<
   }
 
   public render(): React.ReactNode {
-    if (this.props.survey.pages.length === 0) {
+    const page = this.props.survey.pages;
+    if (page.length === 0) {
       return (
         <div>
           <div className="container">
             <div className="container_title-survey">
               <p>Опрос пустой. Нажмите на кнопку "Добавить вопрос."</p>
-              <div
-                style={{
-                  background: "#ffffff",
-                  maxWidth: "max-content",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
+              <div className="container_button-add-question"
               >
                 <ButtonAddQuestion addQuestion={this.props.addQuestion} />
               </div>
@@ -103,7 +98,7 @@ export class SurveyPage extends React.Component<
         </div>
       );
     }
-    if (this.props.survey.pages.length !== 0) {
+    if (page.length !== 0) {
       return (
         <div className="container">
           <div className="container_title-survey">
@@ -133,7 +128,7 @@ export class SurveyPage extends React.Component<
                 addPage={this.props.addPage}
               />
             </div>
-            {this.props.survey.pages.map((elements, indexPage) => (
+            {page.map((elements, indexPage) => (
               <div
                 key={elements.id}
                 id={`${indexPage}`}
@@ -146,17 +141,12 @@ export class SurveyPage extends React.Component<
                       <label
                         id="pageTitle"
                         className="container_page_header_title"
-                        style={{
-                          fontSize: "large",
-                          marginBottom: "5px",
-                          marginTop: "5px",
-                        }}
                       >
                         {indexPage + 1}{" "}
-                        {this.props.survey.pages[indexPage].title}
+                        {page[indexPage].title}
                       </label>
-                      <label id="pageDescription" >
-                        {this.props.survey.pages[indexPage].description}
+                      <label id="pageDescription">
+                        {page[indexPage].description}
                       </label>
                     </div>
                     <CommandBarProperties
@@ -172,7 +162,7 @@ export class SurveyPage extends React.Component<
                       addPage={this.props.addPage}
                     />
                   </div>
-                  {this.props.survey.pages[indexPage].panels[0].questions.map(
+                  {page[indexPage].panels[0].questions.map(
                     (elements, indexQuestion) => (
                       <div
                         className="question-item"
@@ -193,7 +183,7 @@ export class SurveyPage extends React.Component<
                       addQuestion={this.props.addQuestion}
                       pageIndex={indexPage}
                       questionId={
-                        this.props.survey.pages[indexPage].panels[0].questions
+                        page[indexPage].panels[0].questions
                           .length - 1
                       }
                     />

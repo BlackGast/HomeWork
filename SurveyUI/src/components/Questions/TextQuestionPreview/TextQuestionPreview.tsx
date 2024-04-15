@@ -37,13 +37,23 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
         </div>
         <div className="question-textfield">
           <TextField
-            id="answer"
+            id={`answer-${this.props.pageId}-${this.props.id}`}
             onChange={(e) => {
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
                 e.currentTarget.value
               );
+            }}
+            onBlur={(e) => {
+              if (e.currentTarget.value === "" && this.questions.required === true) {
+                console.log("click");
+                const tmp = document.getElementById(`answer-${this.props.pageId}-${this.props.id}`)
+                
+                //tmp?.;
+                console.log(tmp?.textContent);
+                
+              }
             }}
           />
         </div>

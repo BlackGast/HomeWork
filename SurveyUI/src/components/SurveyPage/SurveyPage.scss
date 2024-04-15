@@ -10,6 +10,12 @@
 
 .container {
   margin: 0 5%;
+  &_button-add-question {
+    background: #ffffff;
+    max-width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
   &_title-survey {
     &_block {
       font-weight: 500;

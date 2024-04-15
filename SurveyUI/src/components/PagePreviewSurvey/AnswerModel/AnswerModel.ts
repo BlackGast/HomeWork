@@ -13,7 +13,6 @@ class Answer {
     }
     public createModel(data?: ISurveyModel) {
         if (data) {
-            // const model
             const pages: Page[] = [];
             data.pages?.forEach((page: IPage) => {
                 const pageModel = new Page(page);

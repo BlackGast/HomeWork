@@ -10,13 +10,10 @@ export class QuestionText extends QuestionBase {
         super(data);
         this.type = 'Text';
         this.title = data.title || '';
-        this.description = data.description || '';
         this.asDescription = false;
         this.required = data.required || false;
-        this.readOnly = data.readOnly || false;
         this.answer = '';
         this.isMultiline = false;
-        this.placeholder = '';
     }
 
     public override getValue() {

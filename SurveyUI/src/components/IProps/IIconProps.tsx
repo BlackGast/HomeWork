@@ -1,4 +1,4 @@
-import { IIconProps, extendComponent } from "@fluentui/react";
+import { IIconProps } from "@fluentui/react";
 
 export const trashCan: IIconProps = {
   iconName: "Delete",

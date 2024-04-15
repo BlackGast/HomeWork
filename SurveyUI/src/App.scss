@@ -13,7 +13,6 @@ body,
   &_colored {
     height: 100%;
     width: 100%;
-    //background-color: #d9d9d9;
   }
 }
 
@@ -72,10 +71,7 @@ body,
 
 .vertical-line::after {
   @media (max-width: 768px) {
-    // content: "";
-    // position: absolute;
     border-bottom: 1px solid black;
-    // height: 1px;
     width: 100%;
   }
   content: "";
@@ -93,12 +89,6 @@ body,
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
-  // &_item {
-  //   @media (max-width: 768px) {
-  //     opacity: 0;
-  //   }
-  // }
 }
 
 .settings {

@@ -26,6 +26,8 @@ export class PagePreviewSurvey extends React.Component<
         pages: [],
       },
       answer: "",
+      requiredLength: 0,
+      requiredPull: 0,
     };
   }
 
@@ -34,6 +36,7 @@ export class PagePreviewSurvey extends React.Component<
     title: "",
     pages: [],
   };
+  private requiredLength: number = 0;
 
   componentDidMount(): void {
     this.createAnswerModel();
@@ -45,6 +48,19 @@ export class PagePreviewSurvey extends React.Component<
   private createAnswerModel(): void {
     this.newModel.createModel(this.props.survey);
     this.answerModel = this.newModel.getModel();
+  }
+
+  private fillRequiredLength(pageId: number, questionId?: number): number {
+    let lengthElement = 0;
+    this.props.survey.pages[pageId].panels[0].questions.map(
+      (element, index) => {
+        if (element.required === true) {
+          lengthElement++;
+        }
+      }
+    );
+
+    return lengthElement;
   }
 
   private renderTable(): React.ReactNode {
@@ -108,7 +124,6 @@ export class PagePreviewSurvey extends React.Component<
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
             addChoices={this.addChoices}
-            delChoice={this.delChoice}
           />
         );
       case "Choice":
@@ -156,6 +171,8 @@ export class PagePreviewSurvey extends React.Component<
       );
     }
     if (this.props.survey.pages.length !== this.state.currentPage) {
+      this.requiredLength = this.fillRequiredLength(pageId);
+      console.log(this.requiredLength);
       const page = this.props.survey.pages[pageId];
       const panel = this.props.survey.pages[pageId].panels[0];
       return (
@@ -231,7 +248,7 @@ export class PagePreviewSurvey extends React.Component<
       <>
         <DefaultButton
           iconProps={back}
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: "10px", marginRight: "5px" }}
           onClick={() => {
             this.setState((prevState) => ({
               currentPage: prevState.currentPage - 1,
@@ -241,7 +258,7 @@ export class PagePreviewSurvey extends React.Component<
         />
         <DefaultButton
           iconProps={forward}
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: "10px", marginLeft: "5px" }}
           onClick={() => {
             this.setState((prevState) => ({
               currentPage: prevState.currentPage + 1,
@@ -271,16 +288,6 @@ export class PagePreviewSurvey extends React.Component<
     this.answerModel.pages[pageId ?? 0].panels[0].questions[
       QuestionId ?? 0
     ].answer += ` ${answer}`;
-  }
-
-  private delChoice(
-    pageId?: number,
-    QuestionId?: number
-  ): void {
-    // this.answerModel.pages[pageId ?? 0].panels[0].questions[
-    //   QuestionId ?? 0
-    // ].answer = ''
-    // this
   }
 
   private saveAnswerModel(): void {

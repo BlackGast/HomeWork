@@ -11,11 +11,8 @@ export class QuestionNumber extends QuestionBase {
         super(data);
         this.type = 'Number';
         this.title = data.title || '';
-        this.description = data.description || '';
         this.required = data.required || false;
-        this.readOnly = data.readOnly || false;
         this.answer = '';
-        this.placeholder = '';
         this.isMultiline = false;
         this.maxNum = 5
     }

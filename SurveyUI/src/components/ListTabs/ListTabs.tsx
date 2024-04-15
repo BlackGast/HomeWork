@@ -34,7 +34,6 @@ export class ListTabs extends React.Component<
             />
             <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
           </Pivot>
-          {/* <DefaultButton title="Создание опроса" text="Создание опроса" /> */}
         </div>
         <hr className="no-margin" />
         <div className="bodyPage">
