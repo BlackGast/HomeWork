@@ -44,15 +44,31 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                 this.props.id,
                 e.currentTarget.value
               );
+              const element = document.getElementById(
+                `answer-${this.props.pageId}-${this.props.id}`
+              );
+              if (element) {
+                element.style.border = "none";
+              }
             }}
             onBlur={(e) => {
-              if (e.currentTarget.value === "" && this.questions.required === true) {
-                console.log("click");
-                const tmp = document.getElementById(`answer-${this.props.pageId}-${this.props.id}`)
-                
-                //tmp?.;
-                console.log(tmp?.textContent);
-                
+              // if (
+              //   this.questions.required === true &&
+              //   e.currentTarget.value !== ""
+              // ) {
+              //   this.props.fillRequiredPull(1);
+              // }
+              if (
+                e.currentTarget.value === "" &&
+                this.questions.required === true
+              ) {
+                //console.log("click");
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (element) {
+                  element.style.border = "1px solid red";
+                }
               }
             }}
           />

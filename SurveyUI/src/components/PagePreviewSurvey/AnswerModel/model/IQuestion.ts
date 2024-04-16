@@ -1,4 +1,5 @@
 export interface IQuestion {
     title: string;
-    answer: string
+    answer: string;
+    required: boolean;
 }

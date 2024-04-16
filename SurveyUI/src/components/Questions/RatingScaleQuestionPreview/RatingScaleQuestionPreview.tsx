@@ -1,7 +1,7 @@
 import React from "react";
 import "../Question.scss";
 import { IRatingScaleQuestionPreviewProps } from "./IRatingScaleQuestionPreviewProps";
-import { Label, constructKeytip } from "@fluentui/react";
+import { Label } from "@fluentui/react";
 import { IRatingScaleQuestionPreviewState } from "./IRatingScaleQuestionPreviewState";
 
 export class RatingScaleQuestionPreview extends React.Component<
@@ -34,8 +34,8 @@ export class RatingScaleQuestionPreview extends React.Component<
           onClick={(e) => {
             const button = e.target as HTMLButtonElement;
             this.setState({
-              selectedNum: Number(button.innerText)
-            })
+              selectedNum: Number(button.innerText),
+            });
             this.props.setAnswer(
               this.props.pageId,
               this.props.id,

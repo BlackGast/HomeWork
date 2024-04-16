@@ -37,6 +37,7 @@ export class PagePreviewSurvey extends React.Component<
     pages: [],
   };
   private requiredLength: number = 0;
+  private requiredPull: string[] = [];
 
   componentDidMount(): void {
     this.createAnswerModel();
@@ -44,6 +45,10 @@ export class PagePreviewSurvey extends React.Component<
       answerModel: this.answerModel,
     });
   }
+  // componentDidUpdate(): void {
+  //   console.log("update");
+
+  // }
 
   private createAnswerModel(): void {
     this.newModel.createModel(this.props.survey);
@@ -59,8 +64,35 @@ export class PagePreviewSurvey extends React.Component<
         }
       }
     );
-
     return lengthElement;
+  }
+
+  // private fillRequiredPull(item?: number): void {
+  //   this.requiredPull++;
+  //   // this.setState(prevState => ({requiredPull: prevState.requiredPull + 1}))
+  //   // this.state.requiredPull = this.state.requiredPull + 1;
+  //   console.log(this.requiredPull);
+  // }
+
+  private checkPullAndLength(): boolean {
+    if (this.requiredLength === this.state.requiredPull) {
+      return false;
+    }
+    return true;
+  }
+
+  private checkRequired(): void {
+    this.answerModel.pages.map((page, indexPage) => {
+      this.answerModel.pages[indexPage].panels[0].questions.map(
+        (element, questionId) => {
+          if (element.required === true) {
+            this.requiredPull.push(`answer-${indexPage}-${questionId}`)
+          }
+        }
+      );
+    });
+    console.log(this.requiredPull);
+    
   }
 
   private renderTable(): React.ReactNode {
@@ -113,6 +145,8 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
+            // fillRequiredPull={this.fillRequiredPull}
+            // requiredPull={this.state.requiredPull}
           />
         );
       case "Select":
@@ -124,6 +158,8 @@ export class PagePreviewSurvey extends React.Component<
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
             addChoices={this.addChoices}
+            // fillRequiredPull={this.fillRequiredPull}
+            // requiredPull={this.state.requiredPull}
           />
         );
       case "Choice":
@@ -134,6 +170,8 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
+            // fillRequiredPull={this.fillRequiredPull}
+            // requiredPull={this.state.requiredPull}
           />
         );
       case "Date":
@@ -144,6 +182,8 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
+            // fillRequiredPull={this.fillRequiredPull}
+            // requiredPull={this.state.requiredPull}
           />
         );
       case "Number":
@@ -154,6 +194,8 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
+            // fillRequiredPull={this.fillRequiredPull}
+            // requiredPull={this.state.requiredPull}
           />
         );
       default:
@@ -171,10 +213,13 @@ export class PagePreviewSurvey extends React.Component<
       );
     }
     if (this.props.survey.pages.length !== this.state.currentPage) {
-      this.requiredLength = this.fillRequiredLength(pageId);
-      console.log(this.requiredLength);
+      //this.requiredPull = 0;
+      //this.requiredLength = this.fillRequiredLength(pageId);
+      //console.log(this.requiredLength);
+      
       const page = this.props.survey.pages[pageId];
       const panel = this.props.survey.pages[pageId].panels[0];
+
       return (
         <div className="preview-container_page">
           <div className="preview-container_page_block">
@@ -212,7 +257,7 @@ export class PagePreviewSurvey extends React.Component<
     }
   }
 
-  private renderNavButton(): React.ReactNode {
+  private renderNavButton(disabl?: boolean): React.ReactNode {
     const page = this.props.survey.pages;
     if (this.state.currentPage === 0) {
       return (
@@ -329,6 +374,7 @@ export class PagePreviewSurvey extends React.Component<
               </div>
               <hr />
               {this.renderPage(this.state.currentPage)}
+              {/* {this.checkRequired()} */}
             </div>
           </div>
         </div>
