@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Pivot, PivotItem } from "@fluentui/react";
+import { DefaultButton, Pivot, PivotItem } from "@fluentui/react";
 import { PageDesignerSurvey } from "../PageDesignerSurvey/PageDesignerSurvey";
 import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
 import { PagePreviewSurvey } from "../PagePreviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
+import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 
 export class ListTabs extends React.Component<
   IListTabsProps,
@@ -16,31 +17,74 @@ export class ListTabs extends React.Component<
       selectedKey: "designerPage",
     };
   }
+  private downloadJSON(obj: ISurveyModel, name: string): void {
+    const dataUri = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+    const anchorElement = document.createElement('a');
+    anchorElement.href = dataUri;
+    anchorElement.download = `${name}.json`;
+    document.body.appendChild(anchorElement);
+    anchorElement.click();
+    document.body.removeChild(anchorElement);
+  }
 
   public render(): React.ReactNode {
-    return (
-      <>
-        <div className="buttonMenu">
-          <Pivot
-            aria-label="Separately Rendered Content Pivot Example"
-            selectedKey={this.state.selectedKey}
-            onLinkClick={this.handleLinkClick}
-            headersOnly={true}
-          >
-            <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
-            <PivotItem
-              headerText="Предварительный просмотр"
-              itemKey="previewPage"
+    if (this.props.survey.pages.length < 1) {
+      return (
+        <>
+          <div className="buttonMenu">
+            <Pivot
+              aria-label="Separately Rendered Content Pivot Example"
+              selectedKey={this.state.selectedKey}
+              onLinkClick={this.handleLinkClick}
+              headersOnly={true}
+            >
+              <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
+              <PivotItem
+                headerText="Предварительный просмотр"
+                itemKey="previewPage"
+              />
+              <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
+            </Pivot>
+          </div>
+          <hr className="no-margin" />
+          <div className="bodyPage">
+            {this.renderContent(this.state.selectedKey)}
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="buttonMenu">
+            <Pivot
+              aria-label="Separately Rendered Content Pivot Example"
+              selectedKey={this.state.selectedKey}
+              onLinkClick={this.handleLinkClick}
+              headersOnly={true}
+            >
+              <PivotItem headerText="Редактор опроса" itemKey="designerPage" />
+              <PivotItem
+                headerText="Предварительный просмотр"
+                itemKey="previewPage"
+              />
+              <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
+            </Pivot>
+            <DefaultButton
+              text="Сохранить опрос"
+              style={{ marginTop: "10px", marginRight: "10px" }}
+              onClick={() => {
+                console.log("click");
+                this.downloadJSON(this.props.survey, "questions")
+              }}
             />
-            <PivotItem headerText="Редактор JSON" itemKey="editorJson" />
-          </Pivot>
-        </div>
-        <hr className="no-margin" />
-        <div className="bodyPage">
-          {this.renderContent(this.state.selectedKey)}
-        </div>
-      </>
-    );
+          </div>
+          <hr className="no-margin" />
+          <div className="bodyPage">
+            {this.renderContent(this.state.selectedKey)}
+          </div>
+        </>
+      );
+    }
   }
 
   private handleLinkClick = (item?: PivotItem) => {

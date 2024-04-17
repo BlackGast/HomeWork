@@ -35,7 +35,7 @@ export class PageEditorJson extends React.Component<
       alignItems: "stretch",
     },
     header: [
-      this.theme.fonts.xLargePlus,
+      this.theme.fonts.xLarge,
       {
         flex: "1 1 auto",
         borderTop: `4px solid ${this.theme.palette.themePrimary}`,

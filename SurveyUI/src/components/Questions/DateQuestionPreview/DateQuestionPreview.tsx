@@ -37,14 +37,33 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
         </div>
         <div className="question-textfield">
           <TextField
-            id="answer"
             type="date"
+            id={`answer-${this.props.pageId}-${this.props.id}`}
             onChange={(e) => {
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
                 e.currentTarget.value
               );
+              const element = document.getElementById(
+                `answer-${this.props.pageId}-${this.props.id}`
+              );
+              if (element) {
+                element.style.border = "none";
+              }
+            }}
+            onBlur={(e) => {
+              if (
+                e.currentTarget.value === "" &&
+                this.questions.required === true
+              ) {
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (element) {
+                  element.style.border = "1px solid red";
+                }
+              }
             }}
           />
         </div>

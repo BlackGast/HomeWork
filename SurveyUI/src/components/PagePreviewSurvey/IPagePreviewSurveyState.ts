@@ -4,6 +4,6 @@ export interface IPagePreviewSurveyState {
     currentPage: number;
     answerModel: IAnswerModel;
     answer: string;
-    requiredLength: number;
-    requiredPull: number;
+    showModal: boolean;
+    errorState: boolean;
 }

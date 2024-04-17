@@ -5,13 +5,21 @@ import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestionPreview } from "../Questions/TextQuestionPreview/TextQuestionPreview";
 import { IPagePreviewSurveyState } from "./IPagePreviewSurveyState";
 import { CheckboxQuestionPreview } from "../Questions/CheckboxQuestionPreview/CheckboxQuestionPreview";
-import { DefaultButton } from "@fluentui/react";
+import {
+  DefaultButton,
+  FontWeights,
+  Modal,
+  getId,
+  getTheme,
+  mergeStyleSets,
+} from "@fluentui/react";
 import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
 import Answer from "./AnswerModel/AnswerModel";
 import { IAnswerModel } from "./AnswerModel/model/IAnswerModel";
+import { IQuestion } from "./AnswerModel/model/IQuestion";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -26,8 +34,8 @@ export class PagePreviewSurvey extends React.Component<
         pages: [],
       },
       answer: "",
-      requiredLength: 0,
-      requiredPull: 0,
+      showModal: false,
+      errorState: false,
     };
   }
 
@@ -36,8 +44,8 @@ export class PagePreviewSurvey extends React.Component<
     title: "",
     pages: [],
   };
-  private requiredLength: number = 0;
-  private requiredPull: string[] = [];
+  private requiredPull: IQuestion[] = [];
+  private errorPull: boolean = false;
 
   componentDidMount(): void {
     this.createAnswerModel();
@@ -45,55 +53,78 @@ export class PagePreviewSurvey extends React.Component<
       answerModel: this.answerModel,
     });
   }
-  // componentDidUpdate(): void {
-  //   console.log("update");
-
-  // }
 
   private createAnswerModel(): void {
     this.newModel.createModel(this.props.survey);
     this.answerModel = this.newModel.getModel();
   }
 
-  private fillRequiredLength(pageId: number, questionId?: number): number {
-    let lengthElement = 0;
-    this.props.survey.pages[pageId].panels[0].questions.map(
-      (element, index) => {
+  private checkRequired(): void {
+    this.errorPull = false;
+    // this.answerModel.pages.map(({}, indexPage) => {
+    this.answerModel.pages[this.state.currentPage].panels[0].questions.map(
+      (element) => {
         if (element.required === true) {
-          lengthElement++;
+          this.requiredPull.push(element);
         }
       }
     );
-    return lengthElement;
-  }
-
-  // private fillRequiredPull(item?: number): void {
-  //   this.requiredPull++;
-  //   // this.setState(prevState => ({requiredPull: prevState.requiredPull + 1}))
-  //   // this.state.requiredPull = this.state.requiredPull + 1;
-  //   console.log(this.requiredPull);
-  // }
-
-  private checkPullAndLength(): boolean {
-    if (this.requiredLength === this.state.requiredPull) {
-      return false;
-    }
-    return true;
-  }
-
-  private checkRequired(): void {
-    this.answerModel.pages.map((page, indexPage) => {
-      this.answerModel.pages[indexPage].panels[0].questions.map(
-        (element, questionId) => {
-          if (element.required === true) {
-            this.requiredPull.push(`answer-${indexPage}-${questionId}`)
-          }
-        }
-      );
+    // });
+    this.requiredPull.map((element) => {
+      if (element.required === true && element.answer === "Нет ответа") {
+        this.errorPull = true;
+        this._showModal();
+      }
     });
-    console.log(this.requiredPull);
-    
   }
+
+  private theme = getTheme();
+  private styles = mergeStyleSets({
+    container: {
+      display: "flex",
+      flexFlow: "column nowrap",
+      alignItems: "stretch",
+    },
+    header: [
+      this.theme.fonts.xLarge,
+      {
+        flex: "1 1 auto",
+        borderTop: `4px solid ${this.theme.palette.themePrimary}`,
+        color: this.theme.palette.neutralPrimary,
+        display: "flex",
+        alignItems: "center",
+        fontWeight: FontWeights.semibold,
+        padding: "12px 12px 14px 24px",
+      },
+    ],
+    heading: {
+      color: this.theme.palette.neutralPrimary,
+      fontWeight: FontWeights.semibold,
+      fontSize: "inherit",
+      margin: "0",
+    },
+    body: {
+      flex: "4 4 auto",
+      padding: "0 24px 24px 24px",
+      overflowY: "hidden",
+      selectors: {
+        p: { margin: "14px 0" },
+        "p:first-child": { marginTop: 0 },
+        "p:last-child": { marginBottom: 0 },
+      },
+    },
+  });
+
+  private _titleId: string = getId("title");
+  private _subtitleId: string = getId("subText");
+
+  private _showModal = (): void => {
+    this.setState({ showModal: true });
+  };
+
+  private _closeModal = (): void => {
+    this.setState({ showModal: false });
+  };
 
   private renderTable(): React.ReactNode {
     return (
@@ -145,8 +176,6 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
-            // fillRequiredPull={this.fillRequiredPull}
-            // requiredPull={this.state.requiredPull}
           />
         );
       case "Select":
@@ -158,8 +187,6 @@ export class PagePreviewSurvey extends React.Component<
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
             addChoices={this.addChoices}
-            // fillRequiredPull={this.fillRequiredPull}
-            // requiredPull={this.state.requiredPull}
           />
         );
       case "Choice":
@@ -170,8 +197,6 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
-            // fillRequiredPull={this.fillRequiredPull}
-            // requiredPull={this.state.requiredPull}
           />
         );
       case "Date":
@@ -182,8 +207,6 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
-            // fillRequiredPull={this.fillRequiredPull}
-            // requiredPull={this.state.requiredPull}
           />
         );
       case "Number":
@@ -194,8 +217,6 @@ export class PagePreviewSurvey extends React.Component<
             survey={this.props.survey}
             setAnswer={this.setAnswer}
             answerModel={this.state.answerModel}
-            // fillRequiredPull={this.fillRequiredPull}
-            // requiredPull={this.state.requiredPull}
           />
         );
       default:
@@ -213,10 +234,6 @@ export class PagePreviewSurvey extends React.Component<
       );
     }
     if (this.props.survey.pages.length !== this.state.currentPage) {
-      //this.requiredPull = 0;
-      //this.requiredLength = this.fillRequiredLength(pageId);
-      //console.log(this.requiredLength);
-      
       const page = this.props.survey.pages[pageId];
       const panel = this.props.survey.pages[pageId].panels[0];
 
@@ -257,7 +274,7 @@ export class PagePreviewSurvey extends React.Component<
     }
   }
 
-  private renderNavButton(disabl?: boolean): React.ReactNode {
+  private renderNavButton(): React.ReactNode {
     const page = this.props.survey.pages;
     if (this.state.currentPage === 0) {
       return (
@@ -265,10 +282,17 @@ export class PagePreviewSurvey extends React.Component<
           iconProps={forward}
           style={{ marginBottom: "10px" }}
           onClick={() => {
-            this.setState((prevState) => ({
-              currentPage: prevState.currentPage + 1,
-            }));
-            this.saveAnswerModel();
+            this.checkRequired();
+            if (this.errorPull === true) {
+              console.log(this.errorPull);
+              return;
+            }
+            if (this.errorPull === false) {
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage + 1,
+              }));
+              this.saveAnswerModel();
+            }
           }}
         />
       );
@@ -305,10 +329,17 @@ export class PagePreviewSurvey extends React.Component<
           iconProps={forward}
           style={{ marginBottom: "10px", marginLeft: "5px" }}
           onClick={() => {
-            this.setState((prevState) => ({
-              currentPage: prevState.currentPage + 1,
-            }));
-            this.saveAnswerModel();
+            this.checkRequired();
+            if (this.errorPull === true) {
+              return;
+            }
+            if (this.errorPull === false) {
+              this.errorPull = false;
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage + 1,
+              }));
+              this.saveAnswerModel();
+            }
           }}
         />
       </>
@@ -374,7 +405,25 @@ export class PagePreviewSurvey extends React.Component<
               </div>
               <hr />
               {this.renderPage(this.state.currentPage)}
-              {/* {this.checkRequired()} */}
+              <Modal
+                titleAriaId={this._titleId}
+                isOpen={this.state.showModal}
+                onDismiss={this._closeModal}
+                isBlocking={false}
+                containerClassName={this.styles.container}
+              >
+                <div className={this.styles.header}>
+                  <span id={this._titleId}>Ошибка</span>
+                </div>
+                <div id={this._subtitleId} className={this.styles.body}>
+                  <p>Заполните обязательные поля</p>
+                </div>
+                <DefaultButton
+                  onClick={this._closeModal}
+                  text="Close"
+                  style={{ margin: "20px" }}
+                />
+              </Modal>
             </div>
           </div>
         </div>

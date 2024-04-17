@@ -52,17 +52,10 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
               }
             }}
             onBlur={(e) => {
-              // if (
-              //   this.questions.required === true &&
-              //   e.currentTarget.value !== ""
-              // ) {
-              //   this.props.fillRequiredPull(1);
-              // }
               if (
                 e.currentTarget.value === "" &&
                 this.questions.required === true
               ) {
-                //console.log("click");
                 const element = document.getElementById(
                   `answer-${this.props.pageId}-${this.props.id}`
                 );

@@ -1,8 +1,7 @@
-import Logo from "./img/Logo.svg";
 import "./App.scss";
 import { Layout } from "./pages/Layout/Layout";
 import * as React from "react";
-import { PartialTheme, ThemeProvider, IStackStyles } from "@fluentui/react";
+import { PartialTheme, ThemeProvider } from "@fluentui/react";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { ISurveyModel } from "../../SurveyCore/src/model/ISurveyModel";
 import { IPageData } from "../../SurveyCore/src/model/IPageData";
@@ -30,11 +29,6 @@ export class App extends React.Component<{}, IAppState> {
         pages: [],
         title: "",
       },
-      // survey: {
-      //   description: "",
-      //   pages: [],
-      //   title: "",
-      // },
       currentItem: {
         pageId: 0,
         questionId: 0,
@@ -57,7 +51,14 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
-
+/**
+ * 
+ * Функция добавления вопроса
+ * @param key Тип вопроса
+ * @param page Номер страницы
+ * @param panel Номер панели
+ * @param questionId Номер вопроса
+ */
   private addQuestion = (
     key?: QuestionType,
     page?: string,
@@ -84,7 +85,10 @@ export class App extends React.Component<{}, IAppState> {
 
     this.saveModel();
   };
-
+/**
+ * Функция добавления страницы
+ * @param pageId Номер страницы
+ */
   private addPage = (pageId?: number): void => {
     const emptyPage: IPageData = {
       order: (pageId ?? 0).toString(),
@@ -109,7 +113,10 @@ export class App extends React.Component<{}, IAppState> {
       this.saveModel();
     }
   };
-
+/**
+ * Функция добавления панели
+ * @param page Номер страницы
+ */
   private addPanel(page?: number): void {
     const emptyPanel: IPanelData = {
       order: "",
@@ -124,6 +131,11 @@ export class App extends React.Component<{}, IAppState> {
     }
   }
 
+  /**
+   * Функция удаления вопроса
+   * @param key Номер вопроса
+   * @param page Номер страницы
+   */
   private handleDeleteQuestion = (key?: number, page?: number): void => {
     this.surveyModel.pages[page ?? 0].panels[0].questions.splice(key ?? 0, 1);
     this.setState({
@@ -139,6 +151,10 @@ export class App extends React.Component<{}, IAppState> {
     this.saveModel();
   };
 
+  /**
+   * Функция удаления вопроса
+   * @param page Номер вопроса
+   */
   private handleDeletePage = (page?: number): void => {
     this.surveyModel.pages.splice(page ?? 0, 1);
     this.setState({
@@ -152,12 +168,21 @@ export class App extends React.Component<{}, IAppState> {
     this.saveModel();
   };
 
+  /**
+   * Функция сохранения модели в состояние
+   */
   private saveModel = (): void => {
     this.setState({
       surveyModel: this.surveyModel,
     });
   };
 
+  /**
+   * Функция для выбора объекта, которое будет изменяться в PropertyPanel
+   * @param item Название переданного объекта (survey, page, question)
+   * @param pageId Номер страницы
+   * @param questionId Номер вопроса
+   */
   private editCurrentItem = (
     item?: string,
     pageId?: number,
@@ -242,40 +267,28 @@ export class App extends React.Component<{}, IAppState> {
       <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
         <Layout>
           {
-            <>
-              {/* <header className="header">
-                <div className="logo">
-                  <img src={Logo} alt="Логотип" width={150} height={60} />
-                </div>
-              </header> */}
+            <div className="bodyPage">
               <div className="bodyPage">
-                {/* <hr /> */}
-                <div className="bodyPage">
-                  <ListTabs
-                    survey={this.state.surveyModel}
-                    currentItem={this.state.currentItem}
-                    currentPropertyItem={this.state.currentPropertyItem}
-                    addQuestion={this.addQuestion}
-                    deleteQuestion={this.handleDeleteQuestion}
-                    deletePage={this.handleDeletePage}
-                    addPage={this.addPage}
-                    saveModel={this.saveModel}
-                    editCurrentItem={this.editCurrentItem}
-                    editCurrentPropertyItem={this.editCurrentPropertyItem}
-                    editCurrentRequiredItem={this.editCurrentRequiredItem}
-                    setItemSurvey={this.setItemSurvey}
-                    parseStrToSurvey={this.parseStrToSurvey}
-                  />
-                </div>
+                <ListTabs
+                  survey={this.state.surveyModel}
+                  currentItem={this.state.currentItem}
+                  currentPropertyItem={this.state.currentPropertyItem}
+                  addQuestion={this.addQuestion}
+                  deleteQuestion={this.handleDeleteQuestion}
+                  deletePage={this.handleDeletePage}
+                  addPage={this.addPage}
+                  saveModel={this.saveModel}
+                  editCurrentItem={this.editCurrentItem}
+                  editCurrentPropertyItem={this.editCurrentPropertyItem}
+                  editCurrentRequiredItem={this.editCurrentRequiredItem}
+                  setItemSurvey={this.setItemSurvey}
+                  parseStrToSurvey={this.parseStrToSurvey}
+                />
               </div>
-            </>
+            </div>
           }
         </Layout>
       </ThemeProvider>
     );
   }
 }
-
-// export const stackStyles: Partial<IStackStyles> = {
-//   root: "menu",
-// };

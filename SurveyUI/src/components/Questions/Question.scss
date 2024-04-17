@@ -6,17 +6,19 @@
   align-items: center;
   justify-content: space-between;
   &_title {
+    font-size: 15px;
     display: flex;
     align-items: center;
     width: 60%;
     text-align: start;
     &_name {
+      font-size: 15px;
       background-color: "#f5f5f5";
-      font-size: 14;
       font-weight: 400;
     }
   }
   &_type {
+    font-size: 12px;
     width: 40%;
     text-align: end;
   }
@@ -87,5 +89,5 @@
 
 hr {
   margin-bottom: 25px;
-  margin-top: 14px;
+  margin-top: 10px;
 }

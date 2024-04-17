@@ -39,7 +39,7 @@ body,
 }
 
 .page {
-  background-color: #f5f5f5;
+  //background-color: #f5f5f5;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -51,10 +51,12 @@ body,
       flex: 1;
     }
     &-part2 {
+      background-color: #eff6fc;
       flex: 3;
       overflow-y: auto;
     }
     &-part3 {
+      background-color: #eff6fc;
       @media (max-width: 768px) {
         height: 40%;
       }
@@ -95,6 +97,8 @@ body,
   &-lbl {
     text-align: left;
     margin-left: 1rem;
+    font-size: medium;
+    font-weight: 600;
   }
 
   &-inp {

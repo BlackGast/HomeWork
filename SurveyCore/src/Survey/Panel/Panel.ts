@@ -36,7 +36,7 @@ export class Panel {
             }
         }
     }
-    // переделать функционал по 
+
     public addQuestion = (data: IQuestionData): void => {
         if (data.type === 'Choice') {
             const question = new QuestionChoice(data);
