@@ -47,7 +47,7 @@ export class ListTabs extends React.Component<
             </Pivot>
           </div>
           <hr className="no-margin" />
-          <div className="bodyPage">
+          <div>
             {this.renderContent(this.state.selectedKey)}
           </div>
         </>
@@ -79,7 +79,7 @@ export class ListTabs extends React.Component<
             />
           </div>
           <hr className="no-margin" />
-          <div className="bodyPage">
+          <div style={{height: "93.7%"}}>
             {this.renderContent(this.state.selectedKey)}
           </div>
         </>

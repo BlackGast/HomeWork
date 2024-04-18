@@ -1,5 +1,5 @@
 #surveyRoot {
-  height: 95%;
+  height: 100%;
   text-align: center;
 }
 
@@ -10,6 +10,7 @@ html {
 body,
 .bodyPage {
   height: 100%;
+  background-color: #eff6fc;
   &_colored {
     height: 100%;
     width: 100%;
@@ -36,6 +37,8 @@ body,
   justify-content: space-between;
   width: 100%;
   flex-wrap: wrap;
+  padding-bottom: 14px;
+  background-color: white;
 }
 
 .page {
@@ -84,6 +87,7 @@ body,
 
 .no-margin {
   margin-block-end: 0;
+  margin-block-start: 0;
 }
 
 .menu {
@@ -100,7 +104,6 @@ body,
     font-size: medium;
     font-weight: 600;
   }
-
   &-inp {
     margin: 0 5%;
   }

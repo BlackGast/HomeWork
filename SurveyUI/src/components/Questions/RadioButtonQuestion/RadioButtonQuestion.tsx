@@ -14,7 +14,8 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
   private outputSelects(): React.ReactNode {
-    const elementsPull: ISelectAnswer[] = this.questions.getValue() as ISelectAnswer[];
+    const elementsPull: ISelectAnswer[] =
+      this.questions.getValue() as ISelectAnswer[];
 
     return (
       <>
@@ -43,7 +44,10 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
 
   public render(): React.ReactNode {
     return (
-      <div className="container_page_question">
+      <div
+        className="container_page_question"
+        id={`question-${this.props.pageId}-${this.props.id}`}
+      >
         <div className="question-label">
           <div className="question-label_title">
             {this.props.id + 1}

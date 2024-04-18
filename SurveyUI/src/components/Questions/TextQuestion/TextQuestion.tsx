@@ -32,7 +32,10 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
 
   public render(): React.ReactNode {
     return (
-      <div className="container_page_question">
+      <div
+        className="container_page_question"
+        id={`question-${this.props.pageId}-${this.props.id}`}
+      >
         <div className="question-label">
           <div className="question-label_title">
             {this.props.id + 1}

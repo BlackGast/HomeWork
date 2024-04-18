@@ -74,6 +74,24 @@ export class CommandBarProperties extends React.Component<
                   iconProps: editPen,
                   onClick: () => {
                     editCurrentItem();
+                    const prevItemPage = document.getElementsByClassName(
+                      "container_page active-page"
+                    );
+                    const prevItem = document.getElementsByClassName(
+                      "container_page_question active-item"
+                    );
+                    if (prevItem.length !== 0) {
+                      prevItem[0].classList.value = "container_page_question"
+                    }
+                    if (prevItemPage.length !== 0) {
+                      prevItemPage[0].classList.value = "container_page";
+                    }
+                    const itemPage = document.getElementById(
+                      `page-${this.props.pageId ?? 0}`
+                    );
+                    if (itemPage) {
+                      itemPage.className = "container_page active-page";
+                    }
                   },
                 },
                 {
@@ -97,7 +115,7 @@ export class CommandBarProperties extends React.Component<
             disabled={disabled}
             checked={checked}
             iconProps={more}
-            style={{ backgroundColor: "#f5f5f5" }}
+            style={{ backgroundColor: "#deecf9" }}
             menuProps={{
               items: [
                 {
@@ -106,6 +124,26 @@ export class CommandBarProperties extends React.Component<
                   iconProps: editPen,
                   onClick: () => {
                     editCurrentItem();
+                    const prevItem = document.getElementsByClassName(
+                      "container_page_question active-item"
+                    );
+                    const prevItemPage = document.getElementsByClassName(
+                      "container_page active-page"
+                    );
+                    if (prevItemPage.length !== 0) {
+                      prevItemPage[0].classList.value = "container_page"
+                    }
+                    if (prevItem.length !== 0) {
+                      prevItem[0].classList.value = "container_page_question";
+                    }
+                    const item = document.getElementById(
+                      `question-${this.props.pageId ?? 0}-${
+                        this.props.questionId ?? 0
+                      }`
+                    );
+                    if (item) {
+                      item.className = "container_page_question active-item";
+                    }
                   },
                 },
                 {
@@ -129,7 +167,7 @@ export class CommandBarProperties extends React.Component<
             disabled={disabled}
             checked={checked}
             iconProps={more}
-            style={{ backgroundColor: "#f5f5f5" }}
+            style={{ backgroundColor: "#eff6fc" }}
             menuProps={{
               items: [
                 {
@@ -138,6 +176,18 @@ export class CommandBarProperties extends React.Component<
                   iconProps: editPen,
                   onClick: () => {
                     editCurrentItem();
+                    const prevItemPage = document.getElementsByClassName(
+                      "container_page active-page"
+                    );
+                    const prevItem = document.getElementsByClassName(
+                      "container_page_question active-item"
+                    );
+                    if (prevItem.length !== 0) {
+                      prevItem[0].classList.value = "container_page_question"
+                    }
+                    if (prevItemPage.length !== 0) {
+                      prevItemPage[0].classList.value = "container_page";
+                    }
                   },
                 },
                 {

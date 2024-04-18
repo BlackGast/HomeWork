@@ -51,14 +51,14 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
-/**
- * 
- * Функция добавления вопроса
- * @param key Тип вопроса
- * @param page Номер страницы
- * @param panel Номер панели
- * @param questionId Номер вопроса
- */
+  /**
+   *
+   * Функция добавления вопроса
+   * @param key Тип вопроса
+   * @param page Номер страницы
+   * @param panel Номер панели
+   * @param questionId Номер вопроса
+   */
   private addQuestion = (
     key?: QuestionType,
     page?: string,
@@ -85,10 +85,10 @@ export class App extends React.Component<{}, IAppState> {
 
     this.saveModel();
   };
-/**
- * Функция добавления страницы
- * @param pageId Номер страницы
- */
+  /**
+   * Функция добавления страницы
+   * @param pageId Номер страницы
+   */
   private addPage = (pageId?: number): void => {
     const emptyPage: IPageData = {
       order: (pageId ?? 0).toString(),
@@ -113,10 +113,10 @@ export class App extends React.Component<{}, IAppState> {
       this.saveModel();
     }
   };
-/**
- * Функция добавления панели
- * @param page Номер страницы
- */
+  /**
+   * Функция добавления панели
+   * @param page Номер страницы
+   */
   private addPanel(page?: number): void {
     const emptyPanel: IPanelData = {
       order: "",
@@ -268,23 +268,21 @@ export class App extends React.Component<{}, IAppState> {
         <Layout>
           {
             <div className="bodyPage">
-              <div className="bodyPage">
-                <ListTabs
-                  survey={this.state.surveyModel}
-                  currentItem={this.state.currentItem}
-                  currentPropertyItem={this.state.currentPropertyItem}
-                  addQuestion={this.addQuestion}
-                  deleteQuestion={this.handleDeleteQuestion}
-                  deletePage={this.handleDeletePage}
-                  addPage={this.addPage}
-                  saveModel={this.saveModel}
-                  editCurrentItem={this.editCurrentItem}
-                  editCurrentPropertyItem={this.editCurrentPropertyItem}
-                  editCurrentRequiredItem={this.editCurrentRequiredItem}
-                  setItemSurvey={this.setItemSurvey}
-                  parseStrToSurvey={this.parseStrToSurvey}
-                />
-              </div>
+              <ListTabs
+                survey={this.state.surveyModel}
+                currentItem={this.state.currentItem}
+                currentPropertyItem={this.state.currentPropertyItem}
+                addQuestion={this.addQuestion}
+                deleteQuestion={this.handleDeleteQuestion}
+                deletePage={this.handleDeletePage}
+                addPage={this.addPage}
+                saveModel={this.saveModel}
+                editCurrentItem={this.editCurrentItem}
+                editCurrentPropertyItem={this.editCurrentPropertyItem}
+                editCurrentRequiredItem={this.editCurrentRequiredItem}
+                setItemSurvey={this.setItemSurvey}
+                parseStrToSurvey={this.parseStrToSurvey}
+              />
             </div>
           }
         </Layout>
