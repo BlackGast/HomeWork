@@ -35,7 +35,6 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
             {"."}
             {this.requiredSymbol()}
           </div>
-          <div className="question-label_type">Тип: Radio button question</div>
         </div>
         <RadioButtonForPreview
           survey={this.props.survey}

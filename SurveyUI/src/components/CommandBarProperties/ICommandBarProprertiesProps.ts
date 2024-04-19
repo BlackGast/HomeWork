@@ -1,5 +1,6 @@
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
+import { ICurrentItem } from "../../model/ICurrentItem";
 
 export interface ICommandBarPropertiesProps {
     item: string;
@@ -18,4 +19,5 @@ export interface ICommandBarPropertiesProps {
     deletePage: (pageId?: number) => void;
     deleteQuestion: (questionId?: number, pageId?: number) => void;
     addPage: (pageId?: number) => void;
+    currentItem?: ICurrentItem;
 }

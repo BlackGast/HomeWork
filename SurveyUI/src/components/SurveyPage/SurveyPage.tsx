@@ -6,7 +6,7 @@ import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion/RadioButtonQuestion";
 import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
 import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion/RatingScaleQuestion";
-import { ButtonAddQuestion } from "../BottonAddQuestion/ButtonAddQuestion";
+import { ButtonAddQuestion } from "../ButtonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
 import { CommandBarProperties } from "../CommandBarProperties/CommandBarProperties";
@@ -30,6 +30,7 @@ export class SurveyPage extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
           />
         );
       case "Select":
@@ -41,6 +42,7 @@ export class SurveyPage extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
           />
         );
       case "Choice":
@@ -52,6 +54,7 @@ export class SurveyPage extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
           />
         );
       case "Date":
@@ -63,6 +66,7 @@ export class SurveyPage extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
           />
         );
       case "Number":
@@ -74,6 +78,7 @@ export class SurveyPage extends React.Component<
             deleteQuestion={this.props.deleteQuestion}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
           />
         );
       default:
@@ -117,6 +122,7 @@ export class SurveyPage extends React.Component<
                 </label>
               </div>
               <CommandBarProperties
+                currentItem={this.props.currentItem}
                 style={{ backgroundColor: "#eff6fc" }}
                 item="survey"
                 survey={this.props.survey}
@@ -149,6 +155,7 @@ export class SurveyPage extends React.Component<
                     </div>
                     <CommandBarProperties
                       item="page"
+                      currentItem={this.props.currentItem}
                       survey={this.props.survey}
                       pageId={indexPage}
                       editCurrentItem={this.props.editCurrentItem}
@@ -165,7 +172,7 @@ export class SurveyPage extends React.Component<
                       <div
                         className="question-item"
                         key={elements.id}
-                        //id={`question-${indexPage}-${indexQuestion}`}
+                        id={`${indexQuestion}`}
                       >
                         {this.renderQuestion(
                           elements.type,

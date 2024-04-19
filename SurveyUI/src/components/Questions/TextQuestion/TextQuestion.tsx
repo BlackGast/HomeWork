@@ -56,6 +56,7 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
+            currentItem={this.props.currentItem}
           />
         </div>
       </div>

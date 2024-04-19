@@ -69,6 +69,7 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
+            currentItem={this.props.currentItem}
           />
         </div>
       </div>

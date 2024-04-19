@@ -63,7 +63,6 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
             {"."}
             {this.requiredSymbol()}
           </div>
-          <div className="question-label_type">Тип: Checkbox question</div>
         </div>
         {this.outputSelects()}
       </div>

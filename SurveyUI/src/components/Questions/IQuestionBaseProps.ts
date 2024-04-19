@@ -1,5 +1,6 @@
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
+import { ICurrentItem } from "../../model/ICurrentItem";
 
 export interface IQuestionBaseProps {
   id: number;
@@ -15,4 +16,5 @@ export interface IQuestionBaseProps {
     pageId?: number,
     questionId?: number
   ) => void;
+  currentItem?: ICurrentItem;
 }

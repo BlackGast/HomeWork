@@ -74,6 +74,7 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
+            currentItem={this.props.currentItem}
           />
         </div>
       </div>

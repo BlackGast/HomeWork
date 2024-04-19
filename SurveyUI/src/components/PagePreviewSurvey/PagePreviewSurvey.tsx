@@ -61,7 +61,6 @@ export class PagePreviewSurvey extends React.Component<
 
   private checkRequired(): void {
     this.errorPull = false;
-    // this.answerModel.pages.map(({}, indexPage) => {
     this.answerModel.pages[this.state.currentPage].panels[0].questions.map(
       (element) => {
         if (element.required === true) {
@@ -69,7 +68,6 @@ export class PagePreviewSurvey extends React.Component<
         }
       }
     );
-    // });
     this.requiredPull.map((element) => {
       if (element.required === true && element.answer === "Нет ответа") {
         this.errorPull = true;
@@ -140,11 +138,11 @@ export class PagePreviewSurvey extends React.Component<
             </tr>
           </thead>
           <tbody>
-            {this.answerModel.pages.map(({}, indexPage) => (
-              <tr key={indexPage}>
+            {this.answerModel.pages.map((element, indexPage) => (
+              <React.Fragment key={element.id}>
                 {this.answerModel.pages[indexPage].panels[0].questions.map(
-                  (item, indexQuestion) => (
-                    <tr key={indexQuestion} className="answer-table_element">
+                  (item) => (
+                    <tr key={item.id} className="answer-table_element">
                       <td className="answer-table_element_item">
                         {item.title}
                       </td>
@@ -154,7 +152,7 @@ export class PagePreviewSurvey extends React.Component<
                     </tr>
                   )
                 )}
-              </tr>
+              </React.Fragment>
             ))}
           </tbody>
         </table>

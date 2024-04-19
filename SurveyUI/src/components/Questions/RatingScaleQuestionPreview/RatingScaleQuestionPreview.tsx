@@ -75,7 +75,6 @@ export class RatingScaleQuestionPreview extends React.Component<
             {"."}
             {this.requiredSymbol()}
           </div>
-          <div className="question-label_type">Тип: Rating scale question</div>
         </div>
         <div className="question_number-items">{this.ratingNum()}</div>
       </div>

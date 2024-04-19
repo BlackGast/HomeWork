@@ -69,6 +69,7 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
+            currentItem={this.props.currentItem}
           />
         </div>
       </div>

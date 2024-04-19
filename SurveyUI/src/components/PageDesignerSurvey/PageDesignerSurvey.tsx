@@ -25,7 +25,7 @@ export class PageDesignerSurvey extends React.Component<
       );
     } else {
       return (
-        <div className="page bodyPage_colored">
+        <div className="page bodyPage_colored" id="bodyPage">
           <div className="page_part page_part-part2">
             <SurveyPage
               survey={this.props.survey}
@@ -35,6 +35,7 @@ export class PageDesignerSurvey extends React.Component<
               addPage={this.props.addPage}
               editCurrentItem={this.props.editCurrentItem}
               editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+              currentItem={this.props.currentItem}
             />
           </div>
           <div className="vertical-line" />
@@ -49,6 +50,7 @@ export class PageDesignerSurvey extends React.Component<
               editCurrentPropertyItem={this.props.editCurrentPropertyItem}
               editCurrentRequiredItem={this.props.editCurrentRequiredItem}
               setItemSurvey={this.props.setItemSurvey}
+              editCurrentItem={this.props.editCurrentItem}
             />
           </div>
         </div>

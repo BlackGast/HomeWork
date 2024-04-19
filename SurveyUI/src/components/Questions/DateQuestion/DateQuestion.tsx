@@ -54,6 +54,7 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             addPage={this.delete}
+            currentItem={this.props.currentItem}
           />
         </div>
       </div>
