@@ -10,7 +10,7 @@ html {
 body,
 .bodyPage {
   height: 100%;
-  background-color: #eff6fc;
+  background-color: #f9fcff;
   &_colored {
     height: 100%;
     width: 100%;
@@ -113,4 +113,12 @@ body,
     display: flex;
     justify-content: flex-end;
   }
+}
+
+.fieldGroup-153 {
+  border-radius: 4px;
+}
+
+.fieldGroup-163 {
+  border-radius: 4px;
 }

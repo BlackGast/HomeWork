@@ -225,7 +225,7 @@ export class PagePreviewSurvey extends React.Component<
   private renderPage(pageId: number): React.ReactNode {
     if (this.props.survey.pages.length === this.state.currentPage) {
       return (
-        <div className="preview-container_page">
+        <div className="preview-container_page ms-depth-4">
           {this.renderTable()}
           {this.renderNavButton()}
         </div>
@@ -236,7 +236,7 @@ export class PagePreviewSurvey extends React.Component<
       const panel = this.props.survey.pages[pageId].panels[0];
 
       return (
-        <div className="preview-container_page">
+        <div className="preview-container_page ms-depth-4">
           <div className="preview-container_page_block">
             <div className="preview-container_page_header">
               <label

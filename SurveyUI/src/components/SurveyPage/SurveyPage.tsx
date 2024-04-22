@@ -140,7 +140,7 @@ export class SurveyPage extends React.Component<
                 style={{ paddingBottom: "10px" }}
               >
                 <hr />
-                <div className="container_page" id={`page-${indexPage}`}>
+                <div className="container_page ms-depth-4" id={`page-${indexPage}`}>
                   <div className="container_page_block">
                     <div className="container_page_header">
                       <label
@@ -149,7 +149,7 @@ export class SurveyPage extends React.Component<
                       >
                         {indexPage + 1} {page[indexPage].title}
                       </label>
-                      <label id="pageDescription">
+                      <label id="pageDescription" style={{marginBottom: "5px"}}>
                         {page[indexPage].description}
                       </label>
                     </div>
@@ -174,6 +174,7 @@ export class SurveyPage extends React.Component<
                         key={elements.id}
                         id={`${indexQuestion}`}
                       >
+                        {/* <hr className="no-margin" style={{margin: 0}}/> */}
                         {this.renderQuestion(
                           elements.type,
                           indexQuestion,

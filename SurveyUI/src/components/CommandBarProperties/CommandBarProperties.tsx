@@ -75,22 +75,25 @@ export class CommandBarProperties extends React.Component<
                   onClick: () => {
                     editCurrentItem();
                     const prevItemPage = document.getElementsByClassName(
-                      "container_page active-page"
+                      "container_page active-page ms-depth-8"
                     );
                     const prevItem = document.getElementsByClassName(
-                      "container_page_question active-item"
+                      "container_page_question active-item ms-depth-8"
                     );
                     if (prevItem.length !== 0) {
-                      prevItem[0].classList.value = "container_page_question"
+                      prevItem[0].classList.value =
+                        "container_page_question ms-depth-4";
                     }
                     if (prevItemPage.length !== 0) {
-                      prevItemPage[0].classList.value = "container_page";
+                      prevItemPage[0].classList.value =
+                        "container_page ms-depth-4";
                     }
                     const itemPage = document.getElementById(
                       `page-${this.props.pageId ?? 0}`
                     );
                     if (itemPage) {
-                      itemPage.className = "container_page active-page";
+                      itemPage.className =
+                        "container_page active-page ms-depth-8";
                     }
                   },
                 },
@@ -125,16 +128,18 @@ export class CommandBarProperties extends React.Component<
                   onClick: () => {
                     editCurrentItem();
                     const prevItem = document.getElementsByClassName(
-                      "container_page_question active-item"
+                      "container_page_question active-item ms-depth-8"
                     );
                     const prevItemPage = document.getElementsByClassName(
-                      "container_page active-page"
+                      "container_page active-page ms-depth-8"
                     );
                     if (prevItemPage.length !== 0) {
-                      prevItemPage[0].classList.value = "container_page"
+                      prevItemPage[0].classList.value =
+                        "container_page ms-depth-4";
                     }
                     if (prevItem.length !== 0) {
-                      prevItem[0].classList.value = "container_page_question";
+                      prevItem[0].classList.value =
+                        "container_page_question ms-depth-4";
                     }
                     const item = document.getElementById(
                       `question-${this.props.pageId ?? 0}-${
@@ -142,7 +147,8 @@ export class CommandBarProperties extends React.Component<
                       }`
                     );
                     if (item) {
-                      item.className = "container_page_question active-item";
+                      item.className =
+                        "container_page_question active-item ms-depth-8";
                     }
                   },
                 },
@@ -177,16 +183,18 @@ export class CommandBarProperties extends React.Component<
                   onClick: () => {
                     editCurrentItem();
                     const prevItemPage = document.getElementsByClassName(
-                      "container_page active-page"
+                      "container_page active-page ms-depth-8"
                     );
                     const prevItem = document.getElementsByClassName(
-                      "container_page_question active-item"
+                      "container_page_question active-item ms-depth-8"
                     );
                     if (prevItem.length !== 0) {
-                      prevItem[0].classList.value = "container_page_question"
+                      prevItem[0].classList.value =
+                        "container_page_question ms-depth-4";
                     }
                     if (prevItemPage.length !== 0) {
-                      prevItemPage[0].classList.value = "container_page";
+                      prevItemPage[0].classList.value =
+                        "container_page ms-depth-4";
                     }
                   },
                 },
