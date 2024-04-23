@@ -20,6 +20,7 @@ import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuesti
 import Answer from "./AnswerModel/AnswerModel";
 import { IAnswerModel } from "./AnswerModel/model/IAnswerModel";
 import { IQuestion } from "./AnswerModel/model/IQuestion";
+import { ListTabsAnswer } from "./ListTabsAnswer/ListTabsAnswer";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -124,42 +125,6 @@ export class PagePreviewSurvey extends React.Component<
     this.setState({ showModal: false });
   };
 
-  private renderTable(): React.ReactNode {
-    return (
-      <div className="answer-table">
-        <table style={{ width: "70%" }}>
-          <thead>
-            <tr
-              className="answer-table_element"
-              style={{ background: "white" }}
-            >
-              <th className="answer-table_element_item">Название</th>
-              <th className="answer-table_element_item">Ответ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.answerModel.pages.map((element, indexPage) => (
-              <React.Fragment key={element.id}>
-                {this.answerModel.pages[indexPage].panels[0].questions.map(
-                  (item) => (
-                    <tr key={item.id} className="answer-table_element">
-                      <td className="answer-table_element_item">
-                        {item.title}
-                      </td>
-                      <td className="answer-table_element_item">
-                        {item.answer}
-                      </td>
-                    </tr>
-                  )
-                )}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
   private renderQuestion(
     item: QuestionType,
     id: number,
@@ -226,7 +191,8 @@ export class PagePreviewSurvey extends React.Component<
     if (this.props.survey.pages.length === this.state.currentPage) {
       return (
         <div className="preview-container_page ms-depth-4">
-          {this.renderTable()}
+          <ListTabsAnswer answerModel={this.state.answerModel}/>
+          {/* {this.renderTable()} */}
           {this.renderNavButton()}
         </div>
       );
