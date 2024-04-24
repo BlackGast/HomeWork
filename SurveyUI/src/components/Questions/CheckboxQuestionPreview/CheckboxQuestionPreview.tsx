@@ -8,7 +8,6 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
-
   private outputSelects(): React.ReactNode {
     const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
     const stackTokens = { childrenGap: 10 };

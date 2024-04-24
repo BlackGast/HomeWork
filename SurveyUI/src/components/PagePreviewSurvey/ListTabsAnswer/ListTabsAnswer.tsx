@@ -1,6 +1,6 @@
 import React from "react";
 import { IListTabsAnswerProps } from "./IListTabsAnswerProps";
-import { Label, Pivot, PivotItem } from "@fluentui/react";
+import { Pivot, PivotItem } from "@fluentui/react";
 
 export class ListTabsAnswer extends React.Component<IListTabsAnswerProps> {
   private renderTable(): React.ReactNode {
@@ -50,6 +50,8 @@ export class ListTabsAnswer extends React.Component<IListTabsAnswerProps> {
   }
 
   render(): React.ReactNode {
+    //console.log(this.props.easyAnswerModel);
+    
     return (
       <div>
         <Pivot aria-label="Tabs of answer" linkFormat="tabs">

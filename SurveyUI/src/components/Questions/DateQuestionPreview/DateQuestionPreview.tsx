@@ -1,7 +1,12 @@
 import React from "react";
 import "../Question.scss";
 import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
-import { Label, TextField } from "@fluentui/react";
+import {
+  DatePicker,
+  Label,
+  TextField,
+  defaultDatePickerStrings,
+} from "@fluentui/react";
 
 export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
   private questions =
@@ -36,34 +41,18 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
           </div>
         </div>
         <div className="question-textfield">
-          <TextField
-            type="date"
+          <DatePicker
+            placeholder="Выберите дату..."
+            ariaLabel="Select a date"
+            strings={defaultDatePickerStrings}
             id={`answer-${this.props.pageId}-${this.props.id}`}
-            onChange={(e) => {
+            onSelectDate={(date) => {
+              const formattedDate = date?.toLocaleDateString("ru-RU")
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
-                e.currentTarget.value
+                formattedDate
               );
-              const element = document.getElementById(
-                `answer-${this.props.pageId}-${this.props.id}`
-              );
-              if (element) {
-                element.style.border = "none";
-              }
-            }}
-            onBlur={(e) => {
-              if (
-                e.currentTarget.value === "" &&
-                this.questions.required === true
-              ) {
-                const element = document.getElementById(
-                  `answer-${this.props.pageId}-${this.props.id}`
-                );
-                if (element) {
-                  element.style.border = "1px solid red";
-                }
-              }
             }}
           />
         </div>
