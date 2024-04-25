@@ -16,4 +16,7 @@ export class EasyQuestion implements IEasyAnswerModel {
     public getAnswer() {
         return this.answer;
     }
+    public setAnswer(answer: string) {
+        this.answer = answer;
+    }
 }

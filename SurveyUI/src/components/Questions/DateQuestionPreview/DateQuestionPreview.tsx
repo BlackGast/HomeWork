@@ -50,7 +50,10 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
               this.props.setAnswer(
                 this.props.pageId,
                 this.props.id,
-                formattedDate
+                formattedDate,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].id
               );
             }}
           />

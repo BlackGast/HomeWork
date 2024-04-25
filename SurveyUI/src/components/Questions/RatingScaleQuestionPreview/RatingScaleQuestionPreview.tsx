@@ -39,7 +39,10 @@ export class RatingScaleQuestionPreview extends React.Component<
             this.props.setAnswer(
               this.props.pageId,
               this.props.id,
-              button.innerText
+              button.innerText,
+              this.props.survey.pages[this.props.pageId].panels[0].questions[
+                this.props.id
+              ].id
             );
           }}
         >
