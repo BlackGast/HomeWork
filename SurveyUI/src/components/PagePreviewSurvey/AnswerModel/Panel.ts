@@ -5,7 +5,7 @@ import { IQuestion } from "./model/IQuestion";
 export class Panel {
     public title: string;
     public questions: Question[];
-    constructor (data: IPanel) {
+    constructor(data: IPanel) {
         this.title = data.title || '';
         this.questions = [];
         if (data.questions.length) {

@@ -1,7 +1,5 @@
-import { IEasyAnswerModel } from "../EasyAnswerModel/model/IEasyAnswerModel";
-import { IAnswerModel } from "../AnswerModel/model/IAnswerModel";
+import { IEasyModel } from "../EasyAnswerModel/model/IEasyModel";
 
 export interface IListTabsAnswerProps {
-    answerModel: IAnswerModel;
-    easyAnswerModel: IEasyAnswerModel[];
+    easyAnswerModel: IEasyModel;
 }

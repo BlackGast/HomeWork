@@ -174,7 +174,6 @@ export class SurveyPage extends React.Component<
                         key={elements.id}
                         id={`${indexQuestion}`}
                       >
-                        {/* <hr className="no-margin" style={{margin: 0}}/> */}
                         {this.renderQuestion(
                           elements.type,
                           indexQuestion,

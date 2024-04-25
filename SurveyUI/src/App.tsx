@@ -197,6 +197,15 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
+  /**
+   * Функция изменения Property у currentPropertyItem
+   * @param title Название
+   * @param description Описание
+   * @param required Обязательность элемента
+   * @param typeQuestion Тип вопроса
+   * @param pageId Номер страницы
+   * @param questionId Номер вопроса
+   */
   private editCurrentPropertyItem = (
     title?: string,
     description?: string,
@@ -215,6 +224,12 @@ export class App extends React.Component<{}, IAppState> {
     });
   };
 
+  /**
+   * Функция для изменения обязательности вопроса
+   * @param required Булевое значение обязательности
+   * @param pageId Номер страницы
+   * @param questionId Номер вопроса
+   */
   private editCurrentRequiredItem = (
     required?: boolean,
     pageId?: number,
@@ -225,6 +240,13 @@ export class App extends React.Component<{}, IAppState> {
     ].required = required ?? false;
   };
 
+  /**
+   * Функция добавления списка ответов для одного вопроса
+   * @param pageId Номер страницы
+   * @param questionId Номер вопроса
+   * @param typeQuestion Тип вопроса
+   * @returns Возвращает массив состоящий из ответов
+   */
   private addChoice = (
     pageId?: number,
     questionId?: number,
@@ -256,6 +278,10 @@ export class App extends React.Component<{}, IAppState> {
     }
   };
 
+  /**
+   * Функция для парсинга JSON из строки в объект
+   * @param strSurvey JSON строка
+   */
   private parseStrToSurvey = (strSurvey?: string): void => {
     this.newModel.createModel(strSurvey);
     this.surveyModel = this.newModel.getModel();

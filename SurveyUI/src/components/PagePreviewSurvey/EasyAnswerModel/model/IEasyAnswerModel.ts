@@ -1,5 +1,5 @@
 export interface IEasyAnswerModel {
-    id: number;
+    id: string;
     title: string;
     answer: string;
 }

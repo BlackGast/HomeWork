@@ -11,6 +11,4 @@ export interface IQuestionPreviewBaseProps {
         QuestionId?: number,
         answer?: string
     ) => void;
-    // fillRequiredPull: (item: number) => void;
-    // requiredPull: number;
 }

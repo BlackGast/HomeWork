@@ -17,18 +17,12 @@ export class ListTabsAnswer extends React.Component<IListTabsAnswerProps> {
             </tr>
           </thead>
           <tbody>
-            {this.props.answerModel.pages.map((element, indexPage) => (
-              <React.Fragment key={element.id}>
-                {this.props.answerModel.pages[
-                  indexPage
-                ].panels[0].questions.map((item) => (
-                  <tr key={item.id} className="answer-table_element">
-                    <td className="answer-table_element_item">{item.title}</td>
-                    <td className="answer-table_element_item">{item.answer}</td>
-                  </tr>
-                ))}
-              </React.Fragment>
-            ))}
+            {this.props.easyAnswerModel.answer.map((element) => [
+              <tr key={element.id} className="answer-table_element">
+                <td className="answer-table_element_item">{element.title}</td>
+                <td className="answer-table_element_item">{element.answer}</td>
+              </tr>,
+            ])}
           </tbody>
         </table>
       </div>
@@ -44,14 +38,12 @@ export class ListTabsAnswer extends React.Component<IListTabsAnswerProps> {
           marginRight: "14px",
         }}
       >
-        {JSON.stringify(this.props.answerModel, null, 2)}
+        {JSON.stringify(this.props.easyAnswerModel, null, 2)}
       </pre>
     );
   }
 
   render(): React.ReactNode {
-    //console.log(this.props.easyAnswerModel);
-    
     return (
       <div>
         <Pivot aria-label="Tabs of answer" linkFormat="tabs">

@@ -18,8 +18,9 @@ export class ListTabs extends React.Component<
     };
   }
   private downloadJSON(obj: ISurveyModel, name: string): void {
-    const dataUri = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
-    const anchorElement = document.createElement('a');
+    const dataUri =
+      "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+    const anchorElement = document.createElement("a");
     anchorElement.href = dataUri;
     anchorElement.download = `${name}.json`;
     document.body.appendChild(anchorElement);
@@ -47,9 +48,7 @@ export class ListTabs extends React.Component<
             </Pivot>
           </div>
           <hr className="no-margin" />
-          <div>
-            {this.renderContent(this.state.selectedKey)}
-          </div>
+          <div>{this.renderContent(this.state.selectedKey)}</div>
         </>
       );
     } else {
@@ -74,12 +73,12 @@ export class ListTabs extends React.Component<
               style={{ marginTop: "10px", marginRight: "10px" }}
               onClick={() => {
                 console.log("click");
-                this.downloadJSON(this.props.survey, "questions")
+                this.downloadJSON(this.props.survey, "questions");
               }}
             />
           </div>
           <hr className="no-margin" />
-          <div style={{height: "93.7%"}}>
+          <div style={{ height: "93.7%" }}>
             {this.renderContent(this.state.selectedKey)}
           </div>
         </>

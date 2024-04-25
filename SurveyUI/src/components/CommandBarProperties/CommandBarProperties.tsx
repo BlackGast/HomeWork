@@ -1,6 +1,6 @@
 import { CommandBarButton, IButtonProps } from "@fluentui/react";
 import * as React from "react";
-import { ICommandBarPropertiesProps } from "./ICommandBarProprertiesProps";
+import { ICommandBarPropertiesProps } from "./ICommandBarPropertiesProps";
 import { addPageIcon, editPen, more, trashCan } from "../IProps/IIconProps";
 
 export class CommandBarProperties extends React.Component<

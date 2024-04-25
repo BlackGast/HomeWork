@@ -4,7 +4,6 @@ import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
 import {
   DatePicker,
   Label,
-  TextField,
   defaultDatePickerStrings,
 } from "@fluentui/react";
 

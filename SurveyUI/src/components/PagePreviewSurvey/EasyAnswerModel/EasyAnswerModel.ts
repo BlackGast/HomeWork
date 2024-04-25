@@ -1,5 +1,5 @@
 import { IAnswerModel } from "../AnswerModel/model/IAnswerModel";
-import { IEasyAnswerModel } from "./model/IEasyAnswerModel";
+import { EasyQuestion } from "./EasyQuestion";
 import { IEasyModel } from "./model/IEasyModel";
 
 class EasyAnswerModel {
@@ -11,24 +11,23 @@ class EasyAnswerModel {
         }
     }
     public createModel(data?: IAnswerModel) {
-        let questionId: number = 0;
-        let itemQuestion: IEasyAnswerModel = {
-            answer: '',
-            id: 0,
-            title: '',
-          };
         if (data) {
-            data.pages.map((_page, index) => {
-                data.pages[index].panels[0].questions.map((item) => {
-                    itemQuestion.id = questionId;
-                    itemQuestion.title = item.title;
-                    itemQuestion.answer = item.answer;
-                    questionId++;
-                    this._model.answer.push(itemQuestion)
-                });
-            });
+            const answers: EasyQuestion[] = [];
+            data.pages.map((_page, pageIndex) => {
+                data.pages[pageIndex].panels[0].questions.map((question) => {
+                    const answerModel = new EasyQuestion(question)
+                    answers.push(answerModel);
+                })
+            })
+            this._model.answer = answers;
         }
         return this._model
+    }
+    public setTitle(title: string) {
+        this._model.title = title;
+    }
+    public getModel() {
+        return this._model;
     }
 }
 

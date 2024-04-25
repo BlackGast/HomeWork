@@ -21,8 +21,8 @@ import Answer from "./AnswerModel/AnswerModel";
 import { IAnswerModel } from "./AnswerModel/model/IAnswerModel";
 import { IQuestion } from "./AnswerModel/model/IQuestion";
 import { ListTabsAnswer } from "./ListTabsAnswer/ListTabsAnswer";
-import { IEasyAnswerModel } from "./EasyAnswerModel/model/IEasyAnswerModel";
 import EasyAnswerModel from "./EasyAnswerModel/EasyAnswerModel";
+import { IEasyModel } from "./EasyAnswerModel/model/IEasyModel";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -35,6 +35,10 @@ export class PagePreviewSurvey extends React.Component<
       answerModel: {
         title: "",
         pages: [],
+      },
+      easyAnswerModel: {
+        title: "",
+        answer: [],
       },
       answer: "",
       showModal: false,
@@ -49,8 +53,11 @@ export class PagePreviewSurvey extends React.Component<
   };
   private requiredPull: IQuestion[] = [];
   private errorPull: boolean = false;
-  private easyAnswerModel: IEasyAnswerModel[] = [];
-  private easyModel: EasyAnswerModel = new EasyAnswerModel;
+  private easyNewModel: EasyAnswerModel = new EasyAnswerModel();
+  private easyModel: IEasyModel = {
+    answer: [],
+    title: "",
+  };
 
   componentDidMount(): void {
     this.createAnswerModel();
@@ -60,22 +67,9 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private createAnswerObj(): void {
-    
-    let questionId: number = 1;
-    let itemQuestion: IEasyAnswerModel = {
-      answer: '',
-      id: 0,
-      title: '',
-    };
-    this.answerModel.pages.map((_page, index) => {
-      this.answerModel.pages[index].panels[0].questions.map((item) => {
-        itemQuestion.id = questionId;
-        itemQuestion.title = item.title;
-        itemQuestion.answer = item.answer;
-        this.easyAnswerModel.push(itemQuestion);
-        questionId++;
-      });
-    });
+    this.easyNewModel.createModel(this.answerModel);
+    this.easyNewModel.setTitle(this.props.survey.title);
+    this.easyModel = this.easyNewModel.getModel();
   }
 
   private createAnswerModel(): void {
@@ -212,10 +206,10 @@ export class PagePreviewSurvey extends React.Component<
 
   private renderPage(pageId: number): React.ReactNode {
     if (this.props.survey.pages.length === this.state.currentPage) {
-      //this.createAnswerObj();
+      this.createAnswerObj();
       return (
         <div className="preview-container_page ms-depth-4">
-          <ListTabsAnswer answerModel={this.state.answerModel} easyAnswerModel={this.easyAnswerModel}/>
+          <ListTabsAnswer easyAnswerModel={this.easyModel} />
           {this.renderNavButton()}
         </div>
       );
