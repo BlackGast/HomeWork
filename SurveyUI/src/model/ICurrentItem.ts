@@ -1,4 +1,3 @@
-
 export interface ICurrentItem {
   pageId: number;
   questionId: number;

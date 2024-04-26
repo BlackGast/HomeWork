@@ -32,11 +32,7 @@ export class ListTabsAnswer extends React.Component<IListTabsAnswerProps> {
   private renderJson(): React.ReactNode {
     return (
       <pre
-        style={{
-          textAlign: "start",
-          marginLeft: "14px",
-          marginRight: "14px",
-        }}
+        className="answer-table_json"
       >
         {JSON.stringify(this.props.easyAnswerModel, null, 2)}
       </pre>

@@ -79,6 +79,11 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  &_json {
+    text-align: start;
+    margin-left: 14px;
+    margin-right: 14px;
+  }
   &_element {
     display: flex;
     justify-content: space-evenly;
