@@ -7,7 +7,7 @@ export class EasyQuestion implements IEasyAnswerModel {
 
     constructor(data: IEasyAnswerModel) {
         this.id = data.id || '';
-        this.answer = data.answer || '';
+        this.answer = data.answer || 'Нет ответа';
         this.title = data.title || '';
     }
     public getTitle() {
