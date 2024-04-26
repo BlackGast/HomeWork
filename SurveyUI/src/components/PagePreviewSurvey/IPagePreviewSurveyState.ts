@@ -3,7 +3,7 @@ import { IEasyModel } from "./EasyAnswerModel/model/IEasyModel";
 
 export interface IPagePreviewSurveyState {
     currentPage: number;
-    answerModel: IAnswerModel;
+    // answerModel: IAnswerModel;
     answer: string;
     showModal: boolean;
     errorState: boolean;

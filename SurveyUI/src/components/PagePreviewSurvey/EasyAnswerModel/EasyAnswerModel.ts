@@ -1,3 +1,4 @@
+import { ISurveyModel } from "../../../../../SurveyCore/src/model/ISurveyModel";
 import { IAnswerModel } from "../AnswerModel/model/IAnswerModel";
 import { EasyQuestion } from "./EasyQuestion";
 import { IEasyModel } from "./model/IEasyModel";
@@ -10,7 +11,7 @@ class EasyAnswerModel {
             answer: []
         }
     }
-    public createModel(data?: IAnswerModel) {
+    public createModel(data?: ISurveyModel) {
         if (data) {
             const answers: EasyQuestion[] = [];
             data.pages.map((_page, pageIndex) => {

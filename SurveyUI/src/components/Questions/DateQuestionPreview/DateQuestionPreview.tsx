@@ -1,11 +1,7 @@
 import React from "react";
 import "../Question.scss";
 import { IDateQuestionPreviewProps } from "./IDateQuestionPreviewProps";
-import {
-  DatePicker,
-  Label,
-  defaultDatePickerStrings,
-} from "@fluentui/react";
+import { DatePicker, Label, defaultDatePickerStrings } from "@fluentui/react";
 
 export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
   private questions =
@@ -46,11 +42,12 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
             strings={defaultDatePickerStrings}
             id={`answer-${this.props.pageId}-${this.props.id}`}
             onSelectDate={(date) => {
-              const formattedDate = date?.toLocaleDateString("ru-RU")
+              const formattedDate = date?.toLocaleDateString("ru-RU");
               this.props.setAnswer(
-                this.props.pageId,
-                this.props.id,
-                formattedDate
+                formattedDate,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].id
               );
             }}
           />

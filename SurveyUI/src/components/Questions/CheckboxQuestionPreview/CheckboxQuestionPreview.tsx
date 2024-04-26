@@ -18,17 +18,15 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
             key={element.id}
             label={element.title}
             onChange={() => {
-              if (
-                this.props.answerModel.pages[this.props.pageId].panels[0]
-                  .questions[this.props.id].answer === "Нет ответа"
-              ) {
-                this.props.setAnswer(this.props.pageId, this.props.id, " ");
-              }
-              this.props.addChoices(
-                this.props.pageId,
-                this.props.id,
-                element.title
-              );
+              this.props.answerModel.answer.map((item) => {
+                if (
+                  item.id === this.props.idStr &&
+                  item.answer === "Нет ответа"
+                ) {
+                  this.props.setAnswer("", this.props.idStr);
+                }
+              });
+              this.props.addChoices(element.title, this.props.idStr);
             }}
           />
         ))}

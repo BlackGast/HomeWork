@@ -17,9 +17,7 @@ import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
-import Answer from "./AnswerModel/AnswerModel";
-import { IAnswerModel } from "./AnswerModel/model/IAnswerModel";
-import { IQuestion } from "./AnswerModel/model/IQuestion";
+import { IQuestion } from "./EasyAnswerModel/model/IQuestion";
 import { ListTabsAnswer } from "./ListTabsAnswer/ListTabsAnswer";
 import EasyAnswerModel from "./EasyAnswerModel/EasyAnswerModel";
 import { IEasyModel } from "./EasyAnswerModel/model/IEasyModel";
@@ -32,10 +30,6 @@ export class PagePreviewSurvey extends React.Component<
     super(props);
     this.state = {
       currentPage: 0,
-      answerModel: {
-        title: "",
-        pages: [],
-      },
       easyAnswerModel: {
         title: "",
         answer: [],
@@ -46,11 +40,6 @@ export class PagePreviewSurvey extends React.Component<
     };
   }
 
-  private newModel: Answer = new Answer();
-  private answerModel: IAnswerModel = {
-    title: "",
-    pages: [],
-  };
   private requiredPull: IQuestion[] = [];
   private errorPull: boolean = false;
   private easyNewModel: EasyAnswerModel = new EasyAnswerModel();
@@ -60,26 +49,21 @@ export class PagePreviewSurvey extends React.Component<
   };
 
   componentDidMount(): void {
-    this.createAnswerModel();
+    this.createAnswerObj();
     this.setState({
-      answerModel: this.answerModel,
+      easyAnswerModel: this.easyModel,
     });
   }
 
   private createAnswerObj(): void {
-    this.easyNewModel.createModel(this.answerModel);
+    this.easyNewModel.createModel(this.props.survey);
     this.easyNewModel.setTitle(this.props.survey.title);
     this.easyModel = this.easyNewModel.getModel();
   }
 
-  private createAnswerModel(): void {
-    this.newModel.createModel(this.props.survey);
-    this.answerModel = this.newModel.getModel();
-  }
-
   private checkRequired(): void {
     this.errorPull = false;
-    this.answerModel.pages[this.state.currentPage].panels[0].questions.map(
+    this.props.survey.pages[this.state.currentPage].panels[0].questions.map(
       (element) => {
         if (element.required === true) {
           this.requiredPull.push(element);
@@ -87,10 +71,16 @@ export class PagePreviewSurvey extends React.Component<
       }
     );
     this.requiredPull.map((element) => {
-      if (element.required === true && element.answer === "Нет ответа") {
-        this.errorPull = true;
-        this._showModal();
-      }
+      this.easyModel.answer.map((item) => {
+        if (
+          element.id === item.id &&
+          element.required === true &&
+          item.answer === "Нет ответа"
+        ) {
+          this.errorPull = true;
+          this._showModal();
+        }
+      });
     });
   }
 
@@ -145,7 +135,8 @@ export class PagePreviewSurvey extends React.Component<
   private renderQuestion(
     item: QuestionType,
     id: number,
-    pageId: number
+    pageId: number,
+    idStr: string
   ): React.ReactNode {
     switch (item) {
       case "Text":
@@ -155,7 +146,9 @@ export class PagePreviewSurvey extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             setAnswer={this.setAnswer}
-            answerModel={this.state.answerModel}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
           />
         );
       case "Select":
@@ -165,8 +158,10 @@ export class PagePreviewSurvey extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             setAnswer={this.setAnswer}
-            answerModel={this.state.answerModel}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
             addChoices={this.addChoices}
+            idStr={idStr}
           />
         );
       case "Choice":
@@ -176,7 +171,9 @@ export class PagePreviewSurvey extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             setAnswer={this.setAnswer}
-            answerModel={this.state.answerModel}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
           />
         );
       case "Date":
@@ -186,7 +183,9 @@ export class PagePreviewSurvey extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             setAnswer={this.setAnswer}
-            answerModel={this.state.answerModel}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
           />
         );
       case "Number":
@@ -196,7 +195,9 @@ export class PagePreviewSurvey extends React.Component<
             pageId={pageId}
             survey={this.props.survey}
             setAnswer={this.setAnswer}
-            answerModel={this.state.answerModel}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
           />
         );
       default:
@@ -206,7 +207,6 @@ export class PagePreviewSurvey extends React.Component<
 
   private renderPage(pageId: number): React.ReactNode {
     if (this.props.survey.pages.length === this.state.currentPage) {
-      this.createAnswerObj();
       return (
         <div className="preview-container_page ms-depth-4">
           <ListTabsAnswer easyAnswerModel={this.easyModel} />
@@ -245,7 +245,8 @@ export class PagePreviewSurvey extends React.Component<
               {this.renderQuestion(
                 panel.questions[indexQuestion].type,
                 indexQuestion,
-                pageId
+                pageId,
+                elements.id
               )}
             </div>
           ))}
@@ -329,34 +330,34 @@ export class PagePreviewSurvey extends React.Component<
     );
   }
 
-  private setAnswer(
-    pageId?: number,
-    QuestionId?: number,
-    answer?: string
-  ): void {
-    this.answerModel.pages[pageId ?? 0].panels[0].questions[
-      QuestionId ?? 0
-    ].answer = answer ?? "";
+  private setAnswer(answer?: string, id?: string): void {
+    this.easyModel.answer.map((element) => {
+      if (element.id === id) {
+        element.answer = answer ?? "";
+      }
+    });
   }
 
-  private addChoices(
-    pageId?: number,
-    QuestionId?: number,
-    answer?: string
-  ): void {
-    this.answerModel.pages[pageId ?? 0].panels[0].questions[
-      QuestionId ?? 0
-    ].answer += ` ${answer}`;
+  private addChoices(answer?: string, id?: string): void {
+    this.easyModel.answer.map((element) => {
+      if (element.id === id) {
+        element.answer += ` ${answer}`;
+      }
+    });
   }
   private delChoices(pageId?: number): void {
-    this.answerModel.pages[pageId ?? 0].panels[0].questions.map((elements) => {
-      elements.answer = "Нет ответа";
+    this.props.survey.pages[pageId ?? 0].panels[0].questions.map((element) => {
+      this.easyModel.answer.map((item) => {
+        if (element.id === item.id) {
+          item.answer = "Нет ответа";
+        }
+      });
     });
   }
 
   private saveAnswerModel(): void {
     this.setState({
-      answerModel: this.answerModel,
+      easyAnswerModel: this.easyModel,
     });
   }
 

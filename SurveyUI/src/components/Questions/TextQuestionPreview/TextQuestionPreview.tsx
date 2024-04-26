@@ -40,9 +40,10 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
             id={`answer-${this.props.pageId}-${this.props.id}`}
             onChange={(e) => {
               this.props.setAnswer(
-                this.props.pageId,
-                this.props.id,
-                e.currentTarget.value
+                e.currentTarget.value,
+                this.props.survey.pages[this.props.pageId].panels[0].questions[
+                  this.props.id
+                ].id
               );
               const element = document.getElementById(
                 `answer-${this.props.pageId}-${this.props.id}`

@@ -1,14 +1,15 @@
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
-import { IAnswerModel } from "../PagePreviewSurvey/AnswerModel/model/IAnswerModel";
+import { IEasyModel } from "../PagePreviewSurvey/EasyAnswerModel/model/IEasyModel";
 
 export interface IQuestionPreviewBaseProps {
     id: number;
     pageId: number;
     survey: ISurveyModel;
-    answerModel: IAnswerModel;
+    answerModel: IEasyModel;
+    easyModel: IEasyModel;
+    idStr: string;
     setAnswer: (
-        pageId?: number,
-        QuestionId?: number,
-        answer?: string
+        answer?: string,
+        id?: string
     ) => void;
 }
