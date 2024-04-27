@@ -8,12 +8,13 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+  private answerPull: string[] = []
   private outputSelects(): React.ReactNode {
     const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
-        {elementsPull.map((element: IChoice) => (
+        {elementsPull.map((element: IChoice, indexElement) => (
           <Checkbox
             key={element.id}
             label={element.title}
@@ -26,6 +27,39 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
                   this.props.setAnswer("", this.props.idStr);
                 }
               });
+              // this.answerPull.push(element.title);
+              if (this.answerPull.length > 0) {
+                this.answerPull.map((item, indexItem) => {
+                  if (item === element.title) {
+                    console.log(item, element.title, indexElement, indexItem);
+                    this.answerPull.pop();
+                    this.answerPull.splice(indexElement, 1);
+                  }
+                });
+              }
+              // if (this.answerPull.length !== 0) {
+              //   this.answerPull.map((item, index) => {
+              //     console.log(item, element.title, indexElement);
+              //     if (item === element.title) {
+              //       this.answerPull.splice(indexElement, 1);
+              //     }
+
+              //   });
+
+              //   // this.answerPull.push(element.title);
+              //   // this.props.setAnswer(
+              //   //   this.answerPull.toString(),
+              //   //   this.props.idStr
+              //   // );
+              //   console.log(this.answerPull, " внутри");
+              //   // console.log(this.answerPull.toString());
+              //   return;
+              // }
+              if (this.answerPull.length === 0) {
+                this.answerPull.push(element.title);
+              }
+              
+              console.log(this.answerPull);
               this.props.addChoices(element.title, this.props.idStr);
             }}
           />
