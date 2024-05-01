@@ -8,6 +8,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+  private answerPull: string[] = [];
   private outputSelects(): React.ReactNode {
     const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
     const stackTokens = { childrenGap: 10 };
@@ -18,6 +19,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
             key={element.id}
             label={element.title}
             onChange={() => {
+              let red: boolean = false;
               this.props.answerModel.answer.map((item) => {
                 if (
                   item.id === this.props.idStr &&
@@ -26,7 +28,31 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
                   this.props.setAnswer("", this.props.idStr);
                 }
               });
+              if (this.answerPull.length > 0) {
+                this.answerPull.map((item, indexItem) => {
+                  if (item === element.title) {
+                    this.answerPull.splice(indexItem, 1);
+                    red = true;
+                  }
+                });
+              }
+              if (this.answerPull.length === 0 && red === false) {
+                this.answerPull.push(element.title);
+              }
+              if (
+                this.answerPull.length !== 0 &&
+                red === false &&
+                element.title !== this.answerPull[0]
+              ) {
+                this.answerPull.push(element.title);
+              }
+              red = false;
+              console.log(this.answerPull.toString());
               this.props.addChoices(element.title, this.props.idStr);
+              this.props.setAnswer(
+                this.answerPull.toString(),
+                this.props.idStr
+              );
             }}
           />
         ))}
