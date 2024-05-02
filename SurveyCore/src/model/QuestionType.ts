@@ -4,5 +4,6 @@ Choice - один или группа checkbox
 Select - аналог <select></select>
 Date - пикер даты с календарем
 Number - аналог <input type="number" />
+Dropdown - выбор из выпадающего списка
 */
-export type QuestionType = 'Text' | 'Number' | 'Choice' | 'Select' | 'Date';
+export type QuestionType = 'Text' | 'Number' | 'Choice' | 'Select' | 'Date' | 'Dropdown';
