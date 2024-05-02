@@ -50,10 +50,8 @@ export class DateQuestion extends React.Component<IDateQuestionProps> {
             pageId={this.props.pageId}
             questionId={this.props.id}
             deleteQuestion={this.delete}
-            deletePage={this.delete}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
-            addPage={this.delete}
             currentItem={this.props.currentItem}
           />
         </div>

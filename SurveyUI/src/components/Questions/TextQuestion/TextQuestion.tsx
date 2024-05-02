@@ -52,10 +52,8 @@ export class TextQuestion extends React.Component<ITextQuestionProps> {
             pageId={this.props.pageId}
             questionId={this.props.id}
             deleteQuestion={this.delete}
-            deletePage={this.delete}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
-            addPage={this.delete}
             currentItem={this.props.currentItem}
           />
         </div>

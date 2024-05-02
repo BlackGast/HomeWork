@@ -16,8 +16,8 @@ export interface ICommandBarPropertiesProps {
         typeQuestion?: QuestionType,
         questionId?: number,
         pageId?: number) => void;
-    deletePage: (pageId?: number) => void;
+    deletePage?: (pageId?: number) => void;
     deleteQuestion: (questionId?: number, pageId?: number) => void;
-    addPage: (pageId?: number) => void;
+    addPage?: (pageId?: number) => void;
     currentItem?: ICurrentItem;
 }

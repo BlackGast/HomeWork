@@ -42,9 +42,6 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
             this.props.id
           ].getValue()}
           setAnswer={this.props.setAnswer}
-          pageId={this.props.pageId}
-          questionId={this.props.id}
-          answerModel={this.props.answerModel}
           idStr={this.props.idStr}
           easyModel={this.props.easyModel}
         />

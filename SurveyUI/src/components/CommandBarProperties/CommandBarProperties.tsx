@@ -48,7 +48,9 @@ export class CommandBarProperties extends React.Component<
 
     const deleteItem = (): void => {
       if (this.props.item === "page") {
-        this.props.deletePage(this.props.pageId);
+        if (this.props.deletePage) {
+          this.props.deletePage(this.props.pageId);
+        }
       }
       if (this.props.item === "question") {
         this.props.deleteQuestion(this.props.questionId, this.props.pageId);
@@ -56,7 +58,10 @@ export class CommandBarProperties extends React.Component<
     };
 
     const addPage = (): void => {
-      this.props.addPage(this.props.survey.pages.length);
+      if (this.props.addPage) {
+        this.props.addPage(this.props.survey.pages.length)
+      }
+      //this.props.addPage(this.props.survey.pages.length);
     };
 
     if (this.props.item === "page") {

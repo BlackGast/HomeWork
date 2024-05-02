@@ -14,11 +14,11 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
   private outputSelects(): React.ReactNode {
-    const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
+    const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
 
     return (
       <>
-        {elementsPull.map((element: IChoice) => (
+        {elementsPool.map((element: IChoice) => (
           <div key={element.id}>{element.title}</div>
         ))}
       </>
@@ -65,10 +65,8 @@ export class CheckboxQuestion extends React.Component<ICheckboxQuestionProps> {
             pageId={this.props.pageId}
             questionId={this.props.id}
             deleteQuestion={this.delete}
-            deletePage={this.delete}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
-            addPage={this.delete}
             currentItem={this.props.currentItem}
           />
         </div>

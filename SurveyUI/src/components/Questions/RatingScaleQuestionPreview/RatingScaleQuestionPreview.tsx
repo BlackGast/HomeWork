@@ -20,14 +20,14 @@ export class RatingScaleQuestionPreview extends React.Component<
     ];
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
-    const itemPull: React.ReactNode[] = [];
+    const itemPool: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
       const buttonClassName =
         i + 1 <= this.state.selectedNum
           ? "question_number-items_item-preview selected"
           : "question_number-items_item-preview";
-      itemPull.push(
+      itemPool.push(
         <button
           className={buttonClassName}
           key={i}
@@ -48,7 +48,7 @@ export class RatingScaleQuestionPreview extends React.Component<
         </button>
       );
     }
-    return <>{itemPull}</>;
+    return <>{itemPool}</>;
   }
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {

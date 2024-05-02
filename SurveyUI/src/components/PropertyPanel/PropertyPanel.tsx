@@ -42,7 +42,6 @@ export class PropertyPanel extends React.Component<
 
   private editRequired = (required: boolean) => {
     this.setState({ checked: required });
-    
   };
 
   public render(): React.ReactNode {
@@ -184,7 +183,6 @@ export class PropertyPanel extends React.Component<
             </>
           );
         }
-
         if (question.type === "Select" || question.type === "Choice") {
           const ItemsValue: any = question.getValue();
           return (

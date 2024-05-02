@@ -34,7 +34,6 @@ export class ListTabs extends React.Component<
         <>
           <div className="buttonMenu">
             <Pivot
-              aria-label="Separately Rendered Content Pivot Example"
               selectedKey={this.state.selectedKey}
               onLinkClick={this.handleLinkClick}
               headersOnly={true}
@@ -56,7 +55,6 @@ export class ListTabs extends React.Component<
         <>
           <div className="buttonMenu">
             <Pivot
-              aria-label="Separately Rendered Content Pivot Example"
               selectedKey={this.state.selectedKey}
               onLinkClick={this.handleLinkClick}
               headersOnly={true}
@@ -72,7 +70,6 @@ export class ListTabs extends React.Component<
               text="Сохранить опрос"
               style={{ marginTop: "10px", marginRight: "10px" }}
               onClick={() => {
-                console.log("click");
                 this.downloadJSON(this.props.survey, "questions");
               }}
             />

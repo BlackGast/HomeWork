@@ -14,14 +14,14 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
   };
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
-    const itemPull: React.ReactNode[] = [];
+    const itemPool: React.ReactNode[] = [];
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
-      itemPull.push(element);
+      itemPool.push(element);
     }
     return (
       <>
-        {itemPull.map((element, index) => (
+        {itemPool.map((element, index) => (
           <div className="question_number-items_item" key={index}>
             {element}
           </div>
@@ -70,10 +70,8 @@ export class RatingScaleQuestion extends React.Component<IRatingScaleQuestion> {
             pageId={this.props.pageId}
             questionId={this.props.id}
             deleteQuestion={this.delete}
-            deletePage={this.delete}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
-            addPage={this.delete}
             currentItem={this.props.currentItem}
           />
         </div>

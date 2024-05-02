@@ -254,11 +254,11 @@ export class App extends React.Component<{}, IAppState> {
   ): string[] => {
     const choices: string[] = [];
     if (typeQuestion === "Select" || typeQuestion === "Choice") {
-      const elementsPull: any =
+      const elementsPool: any =
         this.surveyModel.pages[pageId ?? 0].panels[0].questions[
           questionId ?? 0
         ].getValue();
-      elementsPull.map((element: any) => choices.push(element.title));
+      elementsPool.map((element: any) => choices.push(element.title));
     }
     return choices;
   };

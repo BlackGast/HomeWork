@@ -34,25 +34,22 @@ export class PagePreviewSurvey extends React.Component<
         title: "",
         answer: [],
       },
-      answer: "",
       showModal: false,
       errorState: false,
     };
   }
 
-  private requiredPull: IQuestion[] = [];
-  private errorPull: boolean = false;
+  private requiredPool: IQuestion[] = [];
+  private errorPool: boolean = false;
   private easyNewModel: EasyAnswerModel = new EasyAnswerModel();
   private easyModel: IEasyModel = {
-    answer: [],
     title: "",
+    answer: [],
   };
 
   componentDidMount(): void {
     this.createAnswerObj();
-    this.setState({
-      easyAnswerModel: this.easyModel,
-    });
+    this.saveAnswerModel();
   }
 
   private createAnswerObj(): void {
@@ -62,22 +59,22 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private checkRequired(): void {
-    this.errorPull = false;
+    this.errorPool = false;
     this.props.survey.pages[this.state.currentPage].panels[0].questions.map(
       (element) => {
         if (element.required === true) {
-          this.requiredPull.push(element);
+          this.requiredPool.push(element);
         }
       }
     );
-    this.requiredPull.map((element) => {
+    this.requiredPool.map((element) => {
       this.easyModel.answer.map((item) => {
         if (
           element.id === item.id &&
           element.required === true &&
           item.answer === "Нет ответа"
         ) {
-          this.errorPull = true;
+          this.errorPool = true;
           this._showModal();
         }
       });
@@ -265,11 +262,10 @@ export class PagePreviewSurvey extends React.Component<
           style={{ marginBottom: "10px" }}
           onClick={() => {
             this.checkRequired();
-            if (this.errorPull === true) {
-              console.log(this.errorPull);
+            if (this.errorPool === true) {
               return;
             }
-            if (this.errorPull === false) {
+            if (this.errorPool === false) {
               this.setState((prevState) => ({
                 currentPage: prevState.currentPage + 1,
               }));
@@ -314,11 +310,11 @@ export class PagePreviewSurvey extends React.Component<
           style={{ marginBottom: "10px", marginLeft: "5px" }}
           onClick={() => {
             this.checkRequired();
-            if (this.errorPull === true) {
+            if (this.errorPool === true) {
               return;
             }
-            if (this.errorPull === false) {
-              this.errorPull = false;
+            if (this.errorPool === false) {
+              this.errorPool = false;
               this.setState((prevState) => ({
                 currentPage: prevState.currentPage + 1,
               }));

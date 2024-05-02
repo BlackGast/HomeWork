@@ -1,5 +1,4 @@
 import { ISurveyModel } from "../../../../../SurveyCore/src/model/ISurveyModel";
-import { IAnswerModel } from "../AnswerModel/model/IAnswerModel";
 import { EasyQuestion } from "./EasyQuestion";
 import { IEasyModel } from "./model/IEasyModel";
 

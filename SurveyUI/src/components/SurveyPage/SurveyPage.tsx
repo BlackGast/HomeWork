@@ -123,7 +123,6 @@ export class SurveyPage extends React.Component<
               </div>
               <CommandBarProperties
                 currentItem={this.props.currentItem}
-                style={{ backgroundColor: "#eff6fc" }}
                 item="survey"
                 survey={this.props.survey}
                 editCurrentItem={this.props.editCurrentItem}
@@ -140,7 +139,10 @@ export class SurveyPage extends React.Component<
                 style={{ paddingBottom: "10px" }}
               >
                 <hr />
-                <div className="container_page ms-depth-4" id={`page-${indexPage}`}>
+                <div
+                  className="container_page ms-depth-4"
+                  id={`page-${indexPage}`}
+                >
                   <div className="container_page_block">
                     <div className="container_page_header">
                       <label
@@ -149,7 +151,10 @@ export class SurveyPage extends React.Component<
                       >
                         {indexPage + 1} {page[indexPage].title}
                       </label>
-                      <label id="pageDescription" style={{marginBottom: "5px"}}>
+                      <label
+                        id="pageDescription"
+                        style={{ marginBottom: "5px" }}
+                      >
                         {page[indexPage].description}
                       </label>
                     </div>

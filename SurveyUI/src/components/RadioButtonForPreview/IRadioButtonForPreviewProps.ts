@@ -6,8 +6,5 @@ export interface IRadioButtonForPreviewProps {
     items: any;
     idStr: string;
     setAnswer: (answer: string, id: string) => void;
-    pageId: number;
-    questionId: number;
-    answerModel: IEasyModel;
     easyModel: IEasyModel;
 }

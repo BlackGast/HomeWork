@@ -8,18 +8,18 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
-  private answerPull: string[] = [];
+  private answerPool: string[] = [];
   private outputSelects(): React.ReactNode {
-    const elementsPull: IChoice[] = this.questions.getValue() as IChoice[];
+    const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
-        {elementsPull.map((element: IChoice) => (
+        {elementsPool.map((element: IChoice) => (
           <Checkbox
             key={element.id}
             label={element.title}
             onChange={() => {
-              let red: boolean = false;
+              let redactor: boolean = false;
               this.props.answerModel.answer.map((item) => {
                 if (
                   item.id === this.props.idStr &&
@@ -28,31 +28,36 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
                   this.props.setAnswer("", this.props.idStr);
                 }
               });
-              if (this.answerPull.length > 0) {
-                this.answerPull.map((item, indexItem) => {
+              if (this.answerPool.length > 0) {
+                this.answerPool.map((item, indexItem) => {
                   if (item === element.title) {
-                    this.answerPull.splice(indexItem, 1);
-                    red = true;
+                    this.answerPool.splice(indexItem, 1);
+                    redactor = true;
                   }
                 });
               }
-              if (this.answerPull.length === 0 && red === false) {
-                this.answerPull.push(element.title);
+              if (this.answerPool.length === 0 && redactor === false) {
+                this.answerPool.push(element.title);
               }
               if (
-                this.answerPull.length !== 0 &&
-                red === false &&
-                element.title !== this.answerPull[0]
+                this.answerPool.length !== 0 &&
+                redactor === false &&
+                element.title !== this.answerPool[0]
               ) {
-                this.answerPull.push(element.title);
+                this.answerPool.push(element.title);
               }
-              red = false;
-              console.log(this.answerPull.toString());
+              redactor = false;
               this.props.addChoices(element.title, this.props.idStr);
               this.props.setAnswer(
-                this.answerPull.toString(),
+                this.answerPool.toString(),
                 this.props.idStr
               );
+              if (this.answerPool.length < 1) {
+                this.props.setAnswer(
+                  "Нет ответа",
+                  this.props.idStr
+                );
+              }
             }}
           />
         ))}
