@@ -253,7 +253,7 @@ export class App extends React.Component<{}, IAppState> {
     typeQuestion?: QuestionType
   ): string[] => {
     const choices: string[] = [];
-    if (typeQuestion === "Select" || typeQuestion === "Choice") {
+    if (typeQuestion === "Select" || typeQuestion === "Choice" || typeQuestion === "Dropdown") {
       const elementsPool: any =
         this.surveyModel.pages[pageId ?? 0].panels[0].questions[
           questionId ?? 0

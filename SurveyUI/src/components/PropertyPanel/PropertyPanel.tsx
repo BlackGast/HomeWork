@@ -183,7 +183,7 @@ export class PropertyPanel extends React.Component<
             </>
           );
         }
-        if (question.type === "Select" || question.type === "Choice") {
+        if (question.type === "Select" || question.type === "Choice" || question.type === "Dropdown") {
           const ItemsValue: any = question.getValue();
           return (
             <>

@@ -4,8 +4,9 @@ import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion/RadioButtonQuestion";
-import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
 import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion/RatingScaleQuestion";
+import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
+import { DropdownQuestion } from "../Questions/DropdownQuestion/DropdownQuestion";
 import { ButtonAddQuestion } from "../ButtonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
@@ -72,6 +73,18 @@ export class SurveyPage extends React.Component<
       case "Number":
         return (
           <RatingScaleQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
+          />
+        );
+      case "Dropdown":
+        return (
+          <DropdownQuestion
             id={id}
             pageId={pageId}
             survey={this.props.survey}

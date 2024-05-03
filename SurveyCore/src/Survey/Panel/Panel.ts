@@ -6,6 +6,7 @@ import { QuestionDate } from "../Question/QuestionDate";
 import { QuestionNumber } from "../Question/QuestionNumber";
 import { QuestionSelect } from "../Question/QuestionSelect";
 import { QuestionText } from "../Question/QuestionText";
+import { QuestionDropdown } from "../Question/QuestionDropdown";
 import { Utils } from "../Utils";
 
 /**
@@ -17,7 +18,7 @@ export class Panel {
     public title: string;
     public description: string;
     public columns: number;
-    public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText)[];
+    public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown)[];
 
     constructor(data: IPanelData) {
         this.order = data.order || '';
@@ -58,9 +59,13 @@ export class Panel {
             const question = new QuestionDate(data);
             this.questions.push(question);
         }
+        if (data.type === 'Dropdown') {
+            const question = new QuestionDropdown(data);
+            this.questions.push(question);  
+        }
     }
 
-    public getQuestions(): (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText)[] {
+    public getQuestions(): (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown)[] {
         return this.questions;
     }
 

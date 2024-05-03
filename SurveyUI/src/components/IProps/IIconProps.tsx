@@ -49,3 +49,7 @@ export const more: IIconProps = {
 export const addPageIcon: IIconProps = {
   iconName: "Page",
 };
+
+export const dropdown: IIconProps = {
+  iconName: "Dropdown",
+};

@@ -3,6 +3,7 @@ import { DefaultButton, IContextualMenuProps } from "@fluentui/react";
 import {
   calendar,
   checkBox,
+  dropdown,
   radioBtn,
   ratingStar,
   textDocument,
@@ -77,6 +78,15 @@ export class ButtonAddQuestion extends React.Component<
         iconProps: ratingStar,
         onClick: () => {
           this.addQuest("Number");
+        },
+      },
+      {
+        id: "Dropdown",
+        key: "dropdownQuestion",
+        text: "Dropdown",
+        iconProps: dropdown,
+        onClick: () => {
+          this.addQuest("Dropdown");
         },
       },
     ],
