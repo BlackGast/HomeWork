@@ -9,7 +9,6 @@ import { IDropdownQuestionPreviewProps } from "./IDropdownQuestionPreview";
 import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
 export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPreviewProps> {
-
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
@@ -33,24 +32,39 @@ export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPr
   }
 
   private dropdownStyles: Partial<IDropdownStyles> = {
-    dropdown: { width: 300 },
+    dropdown: {
+      width: 300,
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
   };
 
-  private options: IDropdownOption[] = [];
+  private answerPush(): IDropdownOption[] {
+    let elements: IDropdownOption[] = [];
+    this.answerPool.map((element) => {
+      const item: IDropdownOption = {
+        key: element.title.toLocaleLowerCase(),
+        text: element.title,
+      };
+      elements.push(item);
+    });
+    return elements;
+  }
+
+  private options: IDropdownOption[] = this.answerPush();
 
   private renderDropdown(): React.ReactNode {
-    this.answerPool.map((element) => {
-        const item: IDropdownOption = {
-          key: element.id,
-          text: element.title,
-        };
-        this.options.push(item);
-      });
     return (
       <Dropdown
         placeholder="Select an option"
         options={this.options}
         styles={this.dropdownStyles}
+        onChange={(e) => {
+            this.props.setAnswer(
+                e.currentTarget.childNodes[0].textContent || undefined,
+                this.props.idStr
+            )            
+        }}
       />
     );
   }
@@ -66,7 +80,6 @@ export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPr
           </div>
         </div>
         {this.renderDropdown()}
-        {/* {this.outputSelects()} */}
       </div>
     );
   }

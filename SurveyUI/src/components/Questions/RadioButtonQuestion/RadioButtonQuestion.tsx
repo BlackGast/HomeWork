@@ -10,9 +10,11 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
+
   private outputSelects(): React.ReactNode {
     const elementsPool: ISelectAnswer[] =
       this.questions.getValue() as ISelectAnswer[];
@@ -25,6 +27,7 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
       </>
     );
   }
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (
@@ -33,6 +36,7 @@ export class RadioButtonQuestion extends React.Component<IRadioButtonQuestionPro
         </Label>
       );
     }
+    
     if (this.questions.required === true) {
       return (
         <Label id="questionName" required className="question-label_title_name">

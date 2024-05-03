@@ -1,12 +1,10 @@
 import React from "react";
 import { IDropdownQuestionProps } from "./IDropdownQuestionProps";
 import {
-  Dropdown,
-  IDropdownOption,
-  IDropdownStyles,
   Label,
 } from "@fluentui/react";
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
+import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
 export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
   private questions =
@@ -17,20 +15,16 @@ export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
   };
 
-  private dropdownStyles: Partial<IDropdownStyles> = {
-    dropdown: { width: 300 },
-  };
+  private outputSelects(): React.ReactNode {
+    const elementsPool: ISelectAnswer[] =
+      this.questions.getValue() as ISelectAnswer[];
 
-  private options: IDropdownOption[] = [];
-
-  private renderDropdown(): React.ReactNode {
     return (
-      <Dropdown
-        placeholder="Select an option"
-        label="Basic uncontrolled example"
-        options={this.options}
-        styles={this.dropdownStyles}
-      />
+      <>
+        {elementsPool.map((elements: ISelectAnswer) => (
+          <div key={elements.id}>{elements.title}</div>
+        ))}
+      </>
     );
   }
 
@@ -63,9 +57,9 @@ export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
             {"."}
             {this.requiredSymbol()}
           </div>
-          <div className="question-label_type">Тип: Text question</div>
+          <div className="question-label_type">Тип: Dropdown question</div>
         </div>
-        {/* {this.renderDropdown()} */}
+        {this.outputSelects()}
         <div className="question_settings">
           <CommandBarProperties
             item="question"
