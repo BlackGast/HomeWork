@@ -106,6 +106,8 @@ export class ListTabs extends React.Component<
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             editCurrentRequiredItem={this.props.editCurrentRequiredItem}
             setItemSurvey={this.props.setItemSurvey}
+            selectDefaultDesignPage={this.props.selectDefaultDesignPage}
+            setSubType={this.props.setSubType}
           />
         );
       case "previewPage":

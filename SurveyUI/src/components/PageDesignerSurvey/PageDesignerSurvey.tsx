@@ -8,6 +8,10 @@ export class PageDesignerSurvey extends React.Component<
   IPageDesignerSurveyProps,
   IPageDesignerSurveyState
 > {
+  componentDidMount(): void {
+    this.props.selectDefaultDesignPage();
+  }
+
   public render(): React.ReactNode {
     if (this.props.survey.pages.length === 0) {
       return (
@@ -51,6 +55,7 @@ export class PageDesignerSurvey extends React.Component<
               editCurrentRequiredItem={this.props.editCurrentRequiredItem}
               setItemSurvey={this.props.setItemSurvey}
               editCurrentItem={this.props.editCurrentItem}
+              setSubType={this.props.setSubType}
             />
           </div>
         </div>

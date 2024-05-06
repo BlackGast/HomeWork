@@ -51,6 +51,23 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
+
+  private selectDefaultDesignPage = (): void => {
+    this.setState({
+      currentItem: {
+        pageId: 0,
+        questionId: 0,
+        item: "survey",
+      },
+      currentPropertyItem: {
+        choices: [],
+        description: this.surveyModel.description,
+        title: this.surveyModel.title,
+        required: false,
+      },
+    });
+  };
+
   /**
    *
    * Функция добавления вопроса
@@ -253,7 +270,11 @@ export class App extends React.Component<{}, IAppState> {
     typeQuestion?: QuestionType
   ): string[] => {
     const choices: string[] = [];
-    if (typeQuestion === "Select" || typeQuestion === "Choice" || typeQuestion === "Dropdown") {
+    if (
+      typeQuestion === "Select" ||
+      typeQuestion === "Choice" ||
+      typeQuestion === "Dropdown"
+    ) {
       const elementsPool: any =
         this.surveyModel.pages[pageId ?? 0].panels[0].questions[
           questionId ?? 0
@@ -261,6 +282,17 @@ export class App extends React.Component<{}, IAppState> {
       elementsPool.map((element: any) => choices.push(element.title));
     }
     return choices;
+  };
+
+  private setSubType = (
+    pageId?: number,
+    questionId?: number,
+    subType?: string
+  ): void => {
+    this.surveyModel.pages[pageId ?? 0].panels[0].questions[
+      questionId ?? 0
+    ].setPropertyByName("subType", subType);
+    // this.saveModel();
   };
 
   private setItemSurvey = (
@@ -308,6 +340,8 @@ export class App extends React.Component<{}, IAppState> {
                 editCurrentRequiredItem={this.editCurrentRequiredItem}
                 setItemSurvey={this.setItemSurvey}
                 parseStrToSurvey={this.parseStrToSurvey}
+                selectDefaultDesignPage={this.selectDefaultDesignPage}
+                setSubType={this.setSubType}
               />
             </div>
           }

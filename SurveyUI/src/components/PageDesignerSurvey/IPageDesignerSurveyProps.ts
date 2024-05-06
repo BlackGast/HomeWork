@@ -15,4 +15,6 @@ export interface IPageDesignerSurveyProps {
   editCurrentPropertyItem: () => void;
   editCurrentRequiredItem: () => void;
   setItemSurvey: () => void;
+  selectDefaultDesignPage: () => void;
+  setSubType: () => void;
 }

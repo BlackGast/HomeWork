@@ -5,6 +5,7 @@ import { IPropertyPanelState } from "./IPropertyPanelState";
 import { CheckboxForQuestion } from "../CheckboxForQuestion/CheckboxForQuestion";
 import { trashCan } from "../IProps/IIconProps";
 import { SliderForSettings } from "../SliderbarForSettings/SliderForSettings";
+import { DropdownForQSubtype } from "../DropdownForQSubType/DropdownForQSubtype";
 
 export class PropertyPanel extends React.Component<
   IPropertyPanelProps,
@@ -141,7 +142,50 @@ export class PropertyPanel extends React.Component<
         );
       }
       if (this.props.item === "question") {
-        if (question.type === "Text" || question.type === "Date") {
+        if (question.type === "Text") {
+          return (
+            <>
+              <p className="settings-lbl">Настройки вопроса</p>
+              <hr />
+              <Stack {...columnProps}>
+                <TextField
+                  label="Название вопроса"
+                  id="title"
+                  value={this.state.title}
+                  onChange={(e) => {
+                    this.setState({
+                      title: e.currentTarget.value,
+                    });
+                  }}
+                />
+                <DropdownForQSubtype survey={this.props.survey} pageId={this.props.pageId} questionId={this.props.questionId} setSubType={this.props.setSubType}/>
+                <CheckboxForQuestion
+                  checked={this.state.checked}
+                  survey={this.props.survey}
+                  pageId={this.props.pageId}
+                  questionId={this.props.questionId}
+                  editRequired={this.editRequired}
+                  editCurrentRequiredItem={this.props.editCurrentRequiredItem}
+                />
+                <DefaultButton
+                  text="Сохранить"
+                  onClick={() => {
+                    question.title = (
+                      document.getElementById("title") as HTMLInputElement
+                    ).value;
+                    this.props.editCurrentRequiredItem(
+                      this.state.checked,
+                      this.props.pageId,
+                      this.props.questionId
+                    );
+                    this.props.saveModel();
+                  }}
+                />
+              </Stack>
+            </>
+          );
+        }
+        if (question.type === "Date") {
           return (
             <>
               <p className="settings-lbl">Настройки вопроса</p>

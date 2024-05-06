@@ -23,12 +23,12 @@ export class QuestionBase implements IQuestionData {
     /**
      * Базовый метод для редактирования чойза в списке ответов. Предназначено для типов вопросов Choice и Select.
      */
-    public deleteChoice(itemId: number) { /* TODO document why this method 'setChoise' is empty */ }
+    public deleteChoice(itemId: number) { /* TODO document why this method 'setChoice' is empty */ }
 
     /**
      * Базовый метод для добавления чойза в список ответов. Предназначено для типов вопросов Choice и Select.
      */
-    public addChoice() { /* TODO document why this method 'addChoise' is empty */ }
+    public addChoice() { /* TODO document why this method 'addChoice' is empty */ }
 
     /**
      * Базовый метод для получения значения ответа.

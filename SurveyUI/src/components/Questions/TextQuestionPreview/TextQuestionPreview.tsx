@@ -26,48 +26,161 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
   }
 
   public render(): React.ReactNode {
-    return (
-      <div className="container_page_question">
-        <div className="question-label">
-          <div className="question-label_title">
-            {this.props.id + 1}
-            {"."}
-            {this.requiredSymbol()}
+    if (this.questions.getPropertyByName("subType") === "Text") {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            <div className="question-label_title">
+              {this.props.id + 1}
+              {"."}
+              {this.requiredSymbol()}
+            </div>
           </div>
-        </div>
-        <div className="question-textfield">
-          <TextField
-            id={`answer-${this.props.pageId}-${this.props.id}`}
-            onChange={(e) => {
-              this.props.setAnswer(
-                e.currentTarget.value,
-                this.props.survey.pages[this.props.pageId].panels[0].questions[
-                  this.props.id
-                ].id
-              );
-              const element = document.getElementById(
-                `answer-${this.props.pageId}-${this.props.id}`
-              );
-              if (element) {
-                element.style.border = "none";
-              }
-            }}
-            onBlur={(e) => {
-              if (
-                e.currentTarget.value === "" &&
-                this.questions.required === true
-              ) {
+          <div className="question-textfield">
+            <TextField
+              id={`answer-${this.props.pageId}-${this.props.id}`}
+              onChange={(e) => {
+                this.props.setAnswer(
+                  e.currentTarget.value,
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].id
+                );
                 const element = document.getElementById(
                   `answer-${this.props.pageId}-${this.props.id}`
                 );
                 if (element) {
-                  element.style.border = "1px solid red";
+                  element.style.border = "none";
                 }
-              }
-            }}
-          />
+              }}
+              onBlur={(e) => {
+                if (
+                  e.currentTarget.value === "" &&
+                  this.questions.required === true
+                ) {
+                  const element = document.getElementById(
+                    `answer-${this.props.pageId}-${this.props.id}`
+                  );
+                  if (element) {
+                    element.style.border = "1px solid red";
+                  }
+                }
+              }}
+            />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    if (this.questions.getPropertyByName("subType") === "Number") {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            <div className="question-label_title">
+              {this.props.id + 1}
+              {"."}
+              {this.requiredSymbol()}
+            </div>
+          </div>
+          <div className="question-textfield">
+            <TextField
+              id={`answer-${this.props.pageId}-${this.props.id}`}
+              type="number"
+              onChange={(e) => {
+                this.props.setAnswer(
+                  e.currentTarget.value,
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].id
+                );
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (element) {
+                  element.style.border = "none";
+                }
+              }}
+              onBlur={(e) => {
+                if (
+                  e.currentTarget.value === "" &&
+                  this.questions.required === true
+                ) {
+                  const element = document.getElementById(
+                    `answer-${this.props.pageId}-${this.props.id}`
+                  );
+                  if (element) {
+                    element.style.border = "1px solid red";
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    if (this.questions.getPropertyByName("subType") === "Email") {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            <div className="question-label_title">
+              {this.props.id + 1}
+              {"."}
+              {this.requiredSymbol()}
+            </div>
+          </div>
+          <div className="question-textfield">
+            <TextField
+              id={`answer-${this.props.pageId}-${this.props.id}`}
+              type="email"
+              onChange={(e) => {
+                const EMAIL_REGEXP =
+                  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+                const input = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+
+                function isEmailValid(value: string) {
+                  return EMAIL_REGEXP.test(value);
+                }
+
+                function onInput() {
+                  if (isEmailValid((input as HTMLTextAreaElement).value)) {
+                    console.log(true);
+                  } else {
+                    console.log(false);
+                  }
+                }
+                if (input) {
+                  input.addEventListener("input", onInput);
+                }
+                this.props.setAnswer(
+                  e.currentTarget.value,
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].id
+                );
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (element) {
+                  element.style.border = "none";
+                }
+              }}
+              onBlur={(e) => {
+                if (
+                  e.currentTarget.value === "" &&
+                  this.questions.required === true
+                ) {
+                  const element = document.getElementById(
+                    `answer-${this.props.pageId}-${this.props.id}`
+                  );
+                  if (element) {
+                    element.style.border = "1px solid red";
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+      );
+    }
   }
 }
