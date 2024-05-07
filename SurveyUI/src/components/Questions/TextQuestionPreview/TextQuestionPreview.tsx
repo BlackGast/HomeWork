@@ -1,6 +1,6 @@
 import * as React from "react";
 import "../Question.scss";
-import { Label, TextField } from "@fluentui/react";
+import { Label, MaskedTextField, TextField } from "@fluentui/react";
 import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
@@ -116,8 +116,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
         </div>
       );
     }
-
-    if (this.questions.getPropertyByName("subType") === "Email") {
+    if (this.questions.getPropertyByName("subType") === "PhoneNumber") {
       return (
         <div className="container_page_question">
           <div className="question-label">
@@ -128,30 +127,10 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
             </div>
           </div>
           <div className="question-textfield">
-            <TextField
+            <MaskedTextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
-              type="email"
+              mask="+7 (999) 999 - 9999"
               onChange={(e) => {
-                const EMAIL_REGEXP =
-                  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-                const input = document.getElementById(
-                  `answer-${this.props.pageId}-${this.props.id}`
-                );
-
-                function isEmailValid(value: string) {
-                  return EMAIL_REGEXP.test(value);
-                }
-
-                function onInput() {
-                  if (isEmailValid((input as HTMLTextAreaElement).value)) {
-                    console.log(true);
-                  } else {
-                    console.log(false);
-                  }
-                }
-                if (input) {
-                  input.addEventListener("input", onInput);
-                }
                 this.props.setAnswer(
                   e.currentTarget.value,
                   this.props.survey.pages[this.props.pageId].panels[0]
@@ -174,6 +153,67 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                   );
                   if (element) {
                     element.style.border = "1px solid red";
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    if (this.questions.getPropertyByName("subType") === "Email") {
+      return (
+        <div className="container_page_question">
+          <div className="question-label">
+            <div className="question-label_title">
+              {this.props.id + 1}
+              {"."}
+              {this.requiredSymbol()}
+            </div>
+          </div>
+          <div className="question-textfield">
+            <TextField
+              id={`answer-${this.props.pageId}-${this.props.id}`}
+              type="email"
+              onChange={(e) => {
+                this.props.setAnswer(
+                  e.currentTarget.value,
+                  this.props.survey.pages[this.props.pageId].panels[0]
+                    .questions[this.props.id].id
+                );
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (element) {
+                  element.style.border = "none";
+                }
+              }}
+              onBlur={(e) => {
+                const element = document.getElementById(
+                  `answer-${this.props.pageId}-${this.props.id}`
+                );
+                if (
+                  e.currentTarget.value === "" &&
+                  this.questions.required === true
+                ) {
+                  if (element) {
+                    element.style.border = "1px solid red";
+                  }
+                }
+                const validateEmail = (email: string) => {
+                  const expression =
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                  return expression.test(String(email).toLowerCase());
+                };
+                if (validateEmail(e.currentTarget.value) === false) {
+                  if (element) {
+                    element.style.border = "1px solid red";
+                  }
+                } else {
+                  if (element) {
+                    element.style.border = "none";
                   }
                 }
               }}

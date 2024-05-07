@@ -8,6 +8,7 @@ import { QuestionSelect } from "../Question/QuestionSelect";
 import { QuestionText } from "../Question/QuestionText";
 import { QuestionDropdown } from "../Question/QuestionDropdown";
 import { Utils } from "../Utils";
+import { QuestionRanging } from "../Question/QuestionRanging";
 
 /**
  * Используется для группировки вопросов в UI
@@ -18,7 +19,7 @@ export class Panel {
     public title: string;
     public description: string;
     public columns: number;
-    public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown)[];
+    public questions: (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown | QuestionRanging)[];
 
     constructor(data: IPanelData) {
         this.order = data.order || '';
@@ -63,9 +64,13 @@ export class Panel {
             const question = new QuestionDropdown(data);
             this.questions.push(question);  
         }
+        if (data.type === 'Ranging') {
+            const question = new QuestionRanging(data);
+            this.questions.push(question);  
+        }
     }
 
-    public getQuestions(): (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown)[] {
+    public getQuestions(): (QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown | QuestionRanging)[] {
         return this.questions;
     }
 

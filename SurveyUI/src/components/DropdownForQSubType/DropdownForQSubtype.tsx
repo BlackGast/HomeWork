@@ -19,7 +19,7 @@ export class DropdownForQSubtype extends React.Component<
   }
 
   componentDidMount(): void {
-      console.log(this.state.subType);
+      // console.log(this.state.subType);
       
   }
 
@@ -43,6 +43,10 @@ export class DropdownForQSubtype extends React.Component<
     {
       key: "email",
       text: "Email",
+    },
+    {
+      key: "phonenumber",
+      text: "PhoneNumber",
     },
   ];
 
