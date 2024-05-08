@@ -18,6 +18,12 @@ export class ListTabs extends React.Component<
     };
   }
   private downloadJSON(obj: ISurveyModel, name: string): void {
+    // const fs = require('fs');
+    // let rawData = fs.readFileSync('../question.json');
+    // let parsedData= JSON.parse(rawData);
+    // parsedData.push(obj);
+    // let data = JSON.stringify(parsedData);
+    // fs.writeFileSync('my.json', data);
     const dataUri =
       "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
     const anchorElement = document.createElement("a");

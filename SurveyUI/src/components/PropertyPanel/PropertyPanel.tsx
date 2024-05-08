@@ -227,7 +227,7 @@ export class PropertyPanel extends React.Component<
             </>
           );
         }
-        if (question.type === "Select" || question.type === "Choice" || question.type === "Dropdown") {
+        if (question.type === "Select" || question.type === "Choice" || question.type === "Dropdown" || question.type === "Ranging") {
           const ItemsValue: any = question.getValue();
           return (
             <>

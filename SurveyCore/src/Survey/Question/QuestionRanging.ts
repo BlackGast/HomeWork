@@ -8,7 +8,7 @@ export class QuestionRanging extends QuestionBase {
 
     constructor(data: IQuestionData) {
         super(data);
-        this.type = 'Dropdown';
+        this.type = 'Ranging';
         this.title = data.title || '';
         this.required = data.required || false;
         this.answer = '';

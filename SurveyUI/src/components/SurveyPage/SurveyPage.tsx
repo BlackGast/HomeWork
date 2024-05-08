@@ -11,6 +11,7 @@ import { ButtonAddQuestion } from "../ButtonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
 import { CommandBarProperties } from "../CommandBarProperties/CommandBarProperties";
+import { RangingQuestion } from "../Questions/RangingQuestion/RangingQuestion";
 
 export class SurveyPage extends React.Component<
   ISurveyPageProps,
@@ -85,6 +86,18 @@ export class SurveyPage extends React.Component<
       case "Dropdown":
         return (
           <DropdownQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
+          />
+        );
+      case "Ranging":
+        return (
+          <RangingQuestion
             id={id}
             pageId={pageId}
             survey={this.props.survey}

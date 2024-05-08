@@ -7,6 +7,7 @@ import {
   radioBtn,
   ratingStar,
   textDocument,
+  thumbnailView,
 } from "../IProps/IIconProps";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { IButtonAddQuestionProps } from "./IButtonAddQuestionProps";
@@ -87,6 +88,15 @@ export class ButtonAddQuestion extends React.Component<
         iconProps: dropdown,
         onClick: () => {
           this.addQuest("Dropdown");
+        },
+      },
+      {
+        id: "Ranging",
+        key: "rangingQuestion",
+        text: "Ranging",
+        iconProps: thumbnailView,
+        onClick: () => {
+          this.addQuest("Ranging");
         },
       },
     ],
