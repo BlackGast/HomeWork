@@ -27,44 +27,49 @@ export class RangingQuestionPreview extends React.Component<IRangingQuestionPrev
   }
   //   private answerPool: string[] = [];
   private outputAnswers(): React.ReactNode {
-    // const item = document.getElementById(".item");
-    // const placeholders = document.querySelectorAll(".placeholder");
+    // let item = (event: any) => {
+    //   console.log(event.target);
+    //   return event.target
+    // }
+    const item = document.querySelector(".ranging-question_item hovered")
 
-    // if (item) {
-    //   item.addEventListener("dragstart", dragstart);
-    //   item.addEventListener("dragend", dragend);
-    // }
+    const placeholders = document.querySelectorAll(".ranging-question_item");
 
-    // for (const placeholder of placeholders) {
-    //   placeholder.addEventListener("dragover", dragover);
-    //   placeholder.addEventListener("dragenter", dragenter);
-    //   placeholder.addEventListener("dragleave", dragleave);
-    //   placeholder.addEventListener("drop", dragdrop);
-    // }
+    if (item) {
+      item.addEventListener("dragstart", dragStart);
+      item.addEventListener("dragend", dragEnd);
+    }
 
-    // function dragstart(event: any) {
-    //   event.target.classList.add("hold");
-    //   setTimeout(() => {
-    //     event.target.classList.add("hide"), 0;
-    //   });
-    // }
+    for (const placeholder of placeholders) {
+      placeholder.addEventListener("dragover", dragOver);
+      placeholder.addEventListener("dragenter", dragEnter);
+      placeholder.addEventListener("dragleave", dragLeave);
+      placeholder.addEventListener("drop", dragDrop);
+    }
 
-    // function dragend(event: any) {
-    //   event.target.classList.remove("hold", "hide");
-    // }
-    // function dragover(event: any) {
-    //   event.preventDefault();
-    // }
-    // function dragenter(event: any) {
-    //   event.target.classList.add("hovered");
-    // }
-    // function dragleave(event: any) {
-    //   event.target.classList.remove("hovered");
-    // }
-    // function dragdrop(event: any) {
-    //   event.target.classList.remove("hovered");
-    //   event.target.append(item);
-    // }
+    function dragStart(event: any) {
+      event.target.classList.add("hold");
+      setTimeout(() => {
+        event.target.classList.add("hide"), 0;
+      });
+    }
+
+    function dragEnd(event: any) {
+      event.target.classList.remove("hold", "hide");
+    }
+    function dragOver(event: any) {
+      event.preventDefault();
+    }
+    function dragEnter(event: any) {
+      event.target.classList.add("hovered");
+    }
+    function dragLeave(event: any) {
+      event.target.classList.remove("hovered");
+    }
+    function dragDrop(event: any) {
+      event.target.classList.remove("hovered");
+      // event.target.append(item);
+    }
 
     const elementsPool: ISelectAnswer[] =
       this.questions.getValue() as ISelectAnswer[];

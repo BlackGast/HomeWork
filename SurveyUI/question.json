@@ -1,0 +1,46 @@
+{
+    "description": "Описание опроса",
+    "title": "Название опроса",
+    "pages": [
+      {
+        "order": "0",
+        "id": "3a81a422-75f9-45a6-9807-cc63d6fc4090",
+        "title": "Страница",
+        "description": "Описание страницы",
+        "panels": [
+          {
+            "order": "1",
+            "id": "6e79f353-0af9-4842-b647-677a5dea4cdf",
+            "title": "",
+            "description": "",
+            "questions": [
+              {
+                "order": "0",
+                "id": "f8bae8e2-fcd4-4c83-9293-a76307a9d34f",
+                "type": "Text",
+                "title": "Название вопроса",
+                "answer": "",
+                "required": false,
+                "subType": "Text",
+                "asDescription": false,
+                "isMultiline": false
+              },
+              {
+                "order": "1",
+                "id": "2147213d-7eaf-4540-bbea-83e5be45a52b",
+                "type": "Text",
+                "title": "Название вопроса",
+                "answer": "",
+                "required": false,
+                "subType": "Text",
+                "asDescription": false,
+                "isMultiline": false
+              }
+            ],
+            "columns": 1
+          }
+        ]
+      }
+    ]
+  }
+  

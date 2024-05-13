@@ -292,7 +292,6 @@ export class App extends React.Component<{}, IAppState> {
     this.surveyModel.pages[pageId ?? 0].panels[0].questions[
       questionId ?? 0
     ].setPropertyByName("subType", subType);
-    // this.saveModel();
   };
 
   private setItemSurvey = (

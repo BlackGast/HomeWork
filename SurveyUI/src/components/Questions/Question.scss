@@ -127,3 +127,15 @@ hr {
     cursor: grabbing;
   }
 }
+
+.hold {
+  border: 3px solid rgb(194, 255, 219);
+}
+
+.hide {
+  display: none;
+}
+
+.hovered {
+  border-top: 2px solid #b0fdcc;
+}

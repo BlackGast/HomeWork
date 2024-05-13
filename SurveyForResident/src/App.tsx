@@ -314,19 +314,27 @@ export class App extends React.Component<{}, IAppState> {
    * Функция для парсинга JSON из строки в объект
    * @param strSurvey JSON строка
    */
-  // private parseStrToSurvey = (strSurvey?: string): void => {
-  //   this.newModel.createModel(strSurvey);
-  //   this.surveyModel = this.newModel.getModel();
-  //   this.saveModel();
-  // };
+  private parseStrToSurvey = (strSurvey?: string): void => {
+    this.newModel.createModel(strSurvey);
+    this.surveyModel = this.newModel.getModel();
+    this.saveModel();
+  };
 
   public render(): React.ReactNode {
+    const tmp = fetch("/QUESTION.JSON");
+    tmp
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        this.parseStrToSurvey(data);
+      });
     return (
       <ThemeProvider theme={appTheme} style={{ height: "100%" }}>
         <Layout>
           {
             <div className="bodyPage">
-              <PagePreviewSurvey survey={this.state.surveyModel}/>
+              <PagePreviewSurvey survey={this.state.surveyModel} />
             </div>
           }
         </Layout>
