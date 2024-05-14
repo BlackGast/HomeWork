@@ -55,9 +55,11 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private createAnswerObj(): void {
+    console.log(this.props.survey);
     this.easyNewModel.createModel(this.props.survey);
     this.easyNewModel.setTitle(this.props.survey.title);
     this.easyModel = this.easyNewModel.getModel();
+    console.log(this.easyModel);
   }
 
   private checkRequired(): void {

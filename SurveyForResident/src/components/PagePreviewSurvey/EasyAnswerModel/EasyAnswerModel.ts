@@ -10,7 +10,7 @@ class EasyAnswerModel {
             answer: []
         }
     }
-    public createModel(data?: ISurveyModel) {
+    public createModel(data: ISurveyModel) {
         if (data) {
             const answers: EasyQuestion[] = [];
             data.pages.map((_page, pageIndex) => {
