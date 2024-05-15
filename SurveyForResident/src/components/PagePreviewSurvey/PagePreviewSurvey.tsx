@@ -13,7 +13,7 @@ import {
   getTheme,
   mergeStyleSets,
 } from "@fluentui/react";
-import { back, forward } from "../IProps/IIconProps";
+// import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
@@ -23,6 +23,9 @@ import EasyAnswerModel from "./EasyAnswerModel/EasyAnswerModel";
 import { IEasyModel } from "./EasyAnswerModel/model/IEasyModel";
 import { DropdownQuestionPreview } from "../Questions/DropdownQuestionPreview/DropdownQuestionPreview";
 import { RangingQuestionPreview } from "../Questions/RangingQuestionPreview/RangingQuestionPreview";
+import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
+import { DataManager } from "../../../../SurveyCore/src/DataManager/DataManager";
+import Survey from "../../../../SurveyCore/src/Survey/Survey";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -40,6 +43,8 @@ export class PagePreviewSurvey extends React.Component<
       errorState: false,
     };
   }
+  private dataManager: DataManager = new DataManager();
+  private newModel: Survey = new Survey(this.dataManager);
 
   private requiredPool: IQuestion[] = [];
   private errorPool: boolean = false;
@@ -54,17 +59,32 @@ export class PagePreviewSurvey extends React.Component<
     this.saveAnswerModel();
   }
 
+  private surveyModel: ISurveyModel = {
+    title: "",
+    description: "",
+    pages: [],
+  };
+
   private createAnswerObj(): void {
-    console.log(this.props.survey);
-    this.easyNewModel.createModel(this.props.survey);
-    this.easyNewModel.setTitle(this.props.survey.title);
+    fetch("/QUESTION.JSON")
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        this.setModel(data);
+        this.easyNewModel.createModel(this.surveyModel);
+        this.easyNewModel.setTitle(this.surveyModel.title);
+      });
     this.easyModel = this.easyNewModel.getModel();
-    console.log(this.easyModel);
+  }
+
+  private setModel(model: string): void {
+    this.surveyModel = this.newModel.createModel(model);
   }
 
   private checkRequired(): void {
     this.errorPool = false;
-    this.props.survey.pages[this.state.currentPage].panels[0].questions.map(
+    this.surveyModel.pages[this.state.currentPage].panels[0].questions.map(
       (element) => {
         if (element.required === true) {
           this.requiredPool.push(element);
@@ -145,7 +165,7 @@ export class PagePreviewSurvey extends React.Component<
           <TextQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -157,7 +177,7 @@ export class PagePreviewSurvey extends React.Component<
           <CheckboxQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -170,7 +190,7 @@ export class PagePreviewSurvey extends React.Component<
           <RadioButtonQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -182,7 +202,7 @@ export class PagePreviewSurvey extends React.Component<
           <DateQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -194,7 +214,7 @@ export class PagePreviewSurvey extends React.Component<
           <RatingScaleQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -206,7 +226,7 @@ export class PagePreviewSurvey extends React.Component<
           <DropdownQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -218,7 +238,7 @@ export class PagePreviewSurvey extends React.Component<
           <RangingQuestionPreview
             id={id}
             pageId={pageId}
-            survey={this.props.survey}
+            survey={this.surveyModel}
             setAnswer={this.setAnswer}
             answerModel={this.state.easyAnswerModel}
             easyModel={this.easyModel}
@@ -231,7 +251,7 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private renderPage(pageId: number): React.ReactNode {
-    if (this.props.survey.pages.length === this.state.currentPage) {
+    if (this.surveyModel.pages.length === this.state.currentPage) {
       return (
         <div className="preview-container_page ms-depth-4">
           <ListTabsAnswer easyAnswerModel={this.easyModel} />
@@ -239,9 +259,9 @@ export class PagePreviewSurvey extends React.Component<
         </div>
       );
     }
-    if (this.props.survey.pages.length !== this.state.currentPage) {
-      const page = this.props.survey.pages[pageId];
-      const panel = this.props.survey.pages[pageId].panels[0];
+    if (this.surveyModel.pages.length !== this.state.currentPage) {
+      const page = this.surveyModel.pages[pageId];
+      const panel = this.surveyModel.pages[pageId].panels[0];
 
       return (
         <div className="preview-container_page ms-depth-4">
@@ -282,11 +302,11 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   private renderNavButton(): React.ReactNode {
-    const page = this.props.survey.pages;
+    const page = this.surveyModel.pages;
     if (this.state.currentPage === 0) {
       return (
         <DefaultButton
-          iconProps={forward}
+          text="Вперед"
           style={{ marginBottom: "10px" }}
           onClick={() => {
             this.checkRequired();
@@ -306,24 +326,76 @@ export class PagePreviewSurvey extends React.Component<
 
     if (this.state.currentPage === page.length) {
       return (
-        <DefaultButton
-          iconProps={back}
-          style={{ marginBottom: "10px" }}
-          onClick={() => {
-            this.setState((prevState) => ({
-              currentPage: prevState.currentPage - 1,
-            }));
-            this.saveAnswerModel();
-            this.delChoices(this.state.currentPage - 1);
-          }}
-        />
+        <>
+          <DefaultButton
+            text="Пройти заново"
+            style={{ marginBottom: "10px", marginRight: "5px" }}
+            onClick={() => {
+              this.setState({
+                currentPage: 0,
+              });
+              this.saveAnswerModel();
+              this.delChoices(this.state.currentPage - 1);
+            }}
+          />
+          <DefaultButton
+            text="Сохранить ответы"
+            style={{ marginBottom: "10px", marginLeft: "5px" }}
+            onClick={() => {
+              const dataUri =
+                "data:text/json;charset=utf-8," +
+                encodeURIComponent(JSON.stringify(this.easyModel));
+              const anchorElement = document.createElement("a");
+              anchorElement.href = dataUri;
+              anchorElement.download = `answers.json`;
+              document.body.appendChild(anchorElement);
+              anchorElement.click();
+              document.body.removeChild(anchorElement);
+            }}
+          />
+        </>
+      );
+    }
+
+    if (this.state.currentPage === page.length - 1) {
+      return (
+        <>
+          <DefaultButton
+            text="Назад"
+            style={{ marginBottom: "10px", marginRight: "5px" }}
+            onClick={() => {
+              this.setState((prevState) => ({
+                currentPage: prevState.currentPage - 1,
+              }));
+              this.saveAnswerModel();
+              this.delChoices(this.state.currentPage - 1);
+            }}
+          />
+          <DefaultButton
+            text="Закончить"
+            style={{ marginBottom: "10px", marginLeft: "5px" }}
+            onClick={() => {
+              this.checkRequired();
+              if (this.errorPool === true) {
+                return;
+              }
+              if (this.errorPool === false) {
+                this.errorPool = false;
+                this.setState((prevState) => ({
+                  currentPage: prevState.currentPage + 1,
+                }));
+                this.saveAnswerModel();
+              }
+            }}
+          />
+        </>
       );
     }
 
     return (
       <>
         <DefaultButton
-          iconProps={back}
+          text="Назад"
           style={{ marginBottom: "10px", marginRight: "5px" }}
           onClick={() => {
             this.setState((prevState) => ({
@@ -334,7 +406,7 @@ export class PagePreviewSurvey extends React.Component<
           }}
         />
         <DefaultButton
-          iconProps={forward}
+          text="Вперед"
           style={{ marginBottom: "10px", marginLeft: "5px" }}
           onClick={() => {
             this.checkRequired();
@@ -370,7 +442,7 @@ export class PagePreviewSurvey extends React.Component<
     });
   }
   private delChoices(pageId?: number): void {
-    this.props.survey.pages[pageId ?? 0].panels[0].questions.map((element) => {
+    this.surveyModel.pages[pageId ?? 0].panels[0].questions.map((element) => {
       this.easyModel.answer.map((item) => {
         if (element.id === item.id) {
           item.answer = "Нет ответа";
@@ -386,8 +458,10 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   public render(): React.ReactNode {
-    const survey = this.props.survey;
-    const page = this.props.survey.pages;
+    // this.createAnswerObj();
+    // this.saveAnswerModel();
+    const survey = this.surveyModel;
+    const page = this.surveyModel.pages;
     if (page.length === 0) {
       return (
         <div className="preview-container">

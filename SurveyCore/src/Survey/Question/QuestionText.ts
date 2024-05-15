@@ -11,7 +11,7 @@ export class QuestionText extends QuestionBase {
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Text';
-        this.subType = 'Text';
+        this.subType = data.subType || 'Text';
         this.title = data.title || '';
         this.asDescription = false;
         this.required = data.required || false;

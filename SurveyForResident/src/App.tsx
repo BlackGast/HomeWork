@@ -29,7 +29,7 @@ export class App extends React.Component<{}, IAppState> {
 
   componentDidMount(): void {
     this.getModelFromJSON();
-    console.log(this.state.surveyModel);
+    // console.log(this.state.surveyModel);
 
     // this.saveModel();
   }
@@ -54,18 +54,18 @@ export class App extends React.Component<{}, IAppState> {
   private saveToModel = (model: string): void => {
     const dataManager: DataManager = new DataManager();
     const newModel: Survey = new Survey(dataManager);
-    let surveyModel: ISurveyModel = {
+    let survey: ISurveyModel = {
       description: "",
       pages: [],
       title: "",
     };
-    surveyModel = newModel.createModel(model);
-    // console.log(surveyModel);
-    this.surveyModel = surveyModel;
+    survey = newModel.createModel(model);
+    // console.log(survey);
+    this.surveyModel = survey;
     this.setState({
-      surveyModel: surveyModel,
+      surveyModel: survey,
     });
-    // console.log(model);
+    // console.log(this.state.surveyModel);
 
     // this.saveModel();
   };
@@ -88,6 +88,7 @@ export class App extends React.Component<{}, IAppState> {
             <div className="bodyPage">
               <PagePreviewSurvey
                 survey={this.surveyModel}
+                getModelJSON={this.getModelFromJSON}
                 // surveyModel={this.surveyModel}
               />
             </div>

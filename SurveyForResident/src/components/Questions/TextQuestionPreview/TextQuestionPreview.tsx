@@ -8,6 +8,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (
@@ -23,6 +24,16 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
         </Label>
       );
     }
+  }
+
+  private fillAnswer():string {
+    let answer: string = '';
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        //дописать реализацию заполнения ответов для уже отвеченного варианта
+      }
+    })
+    return answer;
   }
 
   public render(): React.ReactNode {
