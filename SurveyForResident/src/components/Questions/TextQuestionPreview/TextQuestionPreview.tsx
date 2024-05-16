@@ -28,9 +28,13 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
 
   private fillAnswer():string {
     let answer: string = '';
+
     this.props.answerModel.answer.map((item) => {
       if (item.id === this.props.idStr) {
         //дописать реализацию заполнения ответов для уже отвеченного варианта
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
       }
     })
     return answer;
@@ -50,12 +54,14 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               onChange={(e) => {
                 this.props.setAnswer(
                   e.currentTarget.value,
                   this.props.survey.pages[this.props.pageId].panels[0]
-                    .questions[this.props.id].id
+                  .questions[this.props.id].id
                 );
+                console.log(this.fillAnswer());
                 const element = document.getElementById(
                   `answer-${this.props.pageId}-${this.props.id}`
                 );
@@ -95,6 +101,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              // value={this.fillAnswer()}
               type="number"
               onChange={(e) => {
                 this.props.setAnswer(
@@ -140,6 +147,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <MaskedTextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               mask="+7 (999) 999 - 9999"
               onChange={(e) => {
                 this.props.setAnswer(
@@ -186,6 +194,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               type="email"
               onChange={(e) => {
                 this.props.setAnswer(

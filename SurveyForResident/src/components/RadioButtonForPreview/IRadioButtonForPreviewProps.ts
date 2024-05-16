@@ -7,4 +7,5 @@ export interface IRadioButtonForPreviewProps {
     idStr: string;
     setAnswer: (answer: string, id: string) => void;
     easyModel: IEasyModel;
+    // fillAnswer: () => string;
 }

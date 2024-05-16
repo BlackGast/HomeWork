@@ -18,6 +18,19 @@ export class RatingScaleQuestionPreview extends React.Component<
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
+  private fillAnswer(): string {
+    let answer: string = "";
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
+      }
+    });
+    return answer;
+  }
+
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPool: React.ReactNode[] = [];
@@ -50,6 +63,7 @@ export class RatingScaleQuestionPreview extends React.Component<
     }
     return <>{itemPool}</>;
   }
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (

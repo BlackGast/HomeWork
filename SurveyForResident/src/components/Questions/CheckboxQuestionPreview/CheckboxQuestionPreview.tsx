@@ -8,7 +8,18 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
   private answerPool: string[] = [];
+
+  private fillAnswer(): void {
+    // let answer: IChoice[] = [];
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
+        console.log(item.answer);
+      }
+    });
+  }
+
   private outputSelects(): React.ReactNode {
     const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
     const stackTokens = { childrenGap: 10 };
@@ -53,11 +64,9 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
                 this.props.idStr
               );
               if (this.answerPool.length < 1) {
-                this.props.setAnswer(
-                  "Нет ответа",
-                  this.props.idStr
-                );
+                this.props.setAnswer("Нет ответа", this.props.idStr);
               }
+              this.fillAnswer();
             }}
           />
         ))}

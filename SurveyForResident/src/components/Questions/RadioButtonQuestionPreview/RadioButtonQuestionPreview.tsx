@@ -9,6 +9,7 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (
@@ -26,6 +27,18 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
     }
   }
 
+  private fillAnswer(): string {
+    let answer: string = "";
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
+      }
+    });
+    return answer;
+  }
+
   public render(): React.ReactNode {
     return (
       <div className="container_page_question">
@@ -37,6 +50,7 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
           </div>
         </div>
         <RadioButtonForPreview
+          // fillAnswer={this.fillAnswer}
           survey={this.props.survey}
           items={this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.id

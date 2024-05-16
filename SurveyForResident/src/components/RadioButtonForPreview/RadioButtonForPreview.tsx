@@ -9,6 +9,7 @@ export class RadioButtonForPreview extends React.Component<IRadioButtonForPrevie
       <div>
         <ChoiceGroup
           className="defaultChoiceGroup"
+          // defaultValue={this.props.fillAnswer()}
           options={this.props.items.map((elements: any, index: number) => ({
             key: `${index}`,
             text: elements.title,
@@ -16,7 +17,7 @@ export class RadioButtonForPreview extends React.Component<IRadioButtonForPrevie
           onChange={(e) => {
             this.props.setAnswer(
               e?.currentTarget.nextElementSibling?.textContent ?? "",
-              this.props.idStr,
+              this.props.idStr
             );
           }}
         />

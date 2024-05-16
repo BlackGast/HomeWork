@@ -335,7 +335,8 @@ export class PagePreviewSurvey extends React.Component<
                 currentPage: 0,
               });
               this.saveAnswerModel();
-              this.delChoices(this.state.currentPage - 1);
+              this.createAnswerObj()
+              // this.delChoices(this.state.currentPage - 1);
             }}
           />
           <DefaultButton
@@ -368,7 +369,7 @@ export class PagePreviewSurvey extends React.Component<
                 currentPage: prevState.currentPage - 1,
               }));
               this.saveAnswerModel();
-              this.delChoices(this.state.currentPage - 1);
+              // this.delChoices(this.state.currentPage - 1);
             }}
           />
           <DefaultButton
@@ -402,7 +403,7 @@ export class PagePreviewSurvey extends React.Component<
               currentPage: prevState.currentPage - 1,
             }));
             this.saveAnswerModel();
-            this.delChoices(this.state.currentPage - 1);
+            // this.delChoices(this.state.currentPage - 1);
           }}
         />
         <DefaultButton
@@ -441,15 +442,15 @@ export class PagePreviewSurvey extends React.Component<
       }
     });
   }
-  private delChoices(pageId?: number): void {
-    this.surveyModel.pages[pageId ?? 0].panels[0].questions.map((element) => {
-      this.easyModel.answer.map((item) => {
-        if (element.id === item.id) {
-          item.answer = "Нет ответа";
-        }
-      });
-    });
-  }
+  // private delChoices(pageId?: number): void {
+  //   this.surveyModel.pages[pageId ?? 0].panels[0].questions.map((element) => {
+  //     this.easyModel.answer.map((item) => {
+  //       if (element.id === item.id) {
+  //         item.answer = "Нет ответа";
+  //       }
+  //     });
+  //   });
+  // }
 
   private saveAnswerModel(): void {
     this.setState({

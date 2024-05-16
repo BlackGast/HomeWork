@@ -31,6 +31,18 @@ export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPr
     }
   }
 
+  private fillAnswer(): string {
+    let answer: string = "";
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
+      }
+    });
+    return answer;
+  }
+
   private dropdownStyles: Partial<IDropdownStyles> = {
     dropdown: {
       width: 300,
@@ -56,14 +68,15 @@ export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPr
   private renderDropdown(): React.ReactNode {
     return (
       <Dropdown
-        placeholder="Select an option"
+        placeholder={this.fillAnswer() || "Select an option"}
         options={this.options}
         styles={this.dropdownStyles}
+        defaultValue={this.fillAnswer()}
         onChange={(e) => {
-            this.props.setAnswer(
-                e.currentTarget.childNodes[0].textContent || undefined,
-                this.props.idStr
-            )            
+          this.props.setAnswer(
+            e.currentTarget.childNodes[0].textContent || undefined,
+            this.props.idStr
+          );
         }}
       />
     );

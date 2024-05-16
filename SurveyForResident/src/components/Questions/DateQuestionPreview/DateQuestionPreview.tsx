@@ -25,6 +25,19 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
     }
   }
 
+  private fillAnswer():string {
+    let answer: string = '';
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        //дописать реализацию заполнения ответов для уже отвеченного варианта
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
+      }
+    })
+    return answer;
+  }
+
   public render(): React.ReactNode {
     return (
       <div className="container_page_question">
@@ -37,8 +50,9 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
         </div>
         <div className="question-textfield">
           <DatePicker
-            placeholder="Выберите дату..."
+            placeholder={this.fillAnswer() || "Выберите дату..."}
             ariaLabel="Select a date"
+            defaultValue={this.fillAnswer()}
             strings={defaultDatePickerStrings}
             id={`answer-${this.props.pageId}-${this.props.id}`}
             onSelectDate={(date) => {
