@@ -19,12 +19,12 @@ export class RatingScaleQuestionPreview extends React.Component<
       this.props.id
     ];
 
-  private fillAnswer(): string {
-    let answer: string = "";
+  private fillAnswer(): number {
+    let answer: number = 0;
     this.props.answerModel.answer.map((item) => {
       if (item.id === this.props.idStr) {
         if (item.answer !== "Нет ответа") {
-          answer = item.answer;
+          answer = Number(item.answer);
         }
       }
     });
@@ -34,6 +34,12 @@ export class RatingScaleQuestionPreview extends React.Component<
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPool: React.ReactNode[] = [];
+    if (this.fillAnswer() !== 0) {
+      this.setState({
+        selectedNum: this.fillAnswer()
+      })
+      
+    }
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
       const buttonClassName =
@@ -55,6 +61,7 @@ export class RatingScaleQuestionPreview extends React.Component<
                 this.props.id
               ].id
             );
+            console.log(this.fillAnswer());
           }}
         >
           {element}
