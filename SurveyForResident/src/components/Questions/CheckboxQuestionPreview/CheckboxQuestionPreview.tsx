@@ -6,7 +6,7 @@ import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoic
 export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
 
   private answerPool: string[] = [];

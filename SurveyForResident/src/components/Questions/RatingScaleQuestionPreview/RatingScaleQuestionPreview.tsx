@@ -16,7 +16,7 @@ export class RatingScaleQuestionPreview extends React.Component<
   }
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
 
   private fillAnswer(): number {
@@ -38,7 +38,7 @@ export class RatingScaleQuestionPreview extends React.Component<
       this.setState({
         selectedNum: this.fillAnswer()
       })
-      
+
     }
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;

@@ -7,7 +7,7 @@ import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/
 export class RangingQuestionPreview extends React.Component<IRangingQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {

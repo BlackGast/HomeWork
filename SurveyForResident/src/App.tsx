@@ -29,27 +29,13 @@ export class App extends React.Component<{}, IAppState> {
 
   componentDidMount(): void {
     this.getModelFromJSON();
-    // console.log(this.state.surveyModel);
-
-    // this.saveModel();
   }
 
-  // private dataManager: DataManager = new DataManager();
-  // private newModel: Survey = new Survey(this.dataManager);
   private surveyModel: ISurveyModel = {
     description: "",
     pages: [],
     title: "",
   };
-
-  // /**
-  //  * Функция сохранения модели в состояние
-  //  */
-  // private saveModel = (): void => {
-  //   this.setState({
-  //     surveyModel: this.surveyModel,
-  //   });
-  // };
 
   private saveToModel = (model: string): void => {
     const dataManager: DataManager = new DataManager();
@@ -60,14 +46,10 @@ export class App extends React.Component<{}, IAppState> {
       title: "",
     };
     survey = newModel.createModel(model);
-    // console.log(survey);
     this.surveyModel = survey;
     this.setState({
       surveyModel: survey,
     });
-    // console.log(this.state.surveyModel);
-
-    // this.saveModel();
   };
 
   private getModelFromJSON = (): void => {

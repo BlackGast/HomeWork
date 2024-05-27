@@ -11,7 +11,7 @@ import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/
 export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
   private answerPool = this.questions.getValue() as ISelectAnswer[];
   private requiredSymbol(): React.ReactNode {

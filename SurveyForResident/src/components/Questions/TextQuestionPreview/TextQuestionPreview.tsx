@@ -6,7 +6,7 @@ import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
 
   private requiredSymbol(): React.ReactNode {
@@ -26,7 +26,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
     }
   }
 
-  private fillAnswer():string {
+  private fillAnswer(): string {
     let answer: string = '';
 
     this.props.answerModel.answer.map((item) => {
@@ -59,7 +59,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                 this.props.setAnswer(
                   e.currentTarget.value,
                   this.props.survey.pages[this.props.pageId].panels[0]
-                  .questions[this.props.id].id
+                    .questions[this.props.id].id
                 );
                 console.log(this.fillAnswer());
                 const element = document.getElementById(

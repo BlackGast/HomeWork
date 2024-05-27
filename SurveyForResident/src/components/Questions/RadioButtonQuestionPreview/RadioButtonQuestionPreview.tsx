@@ -7,7 +7,7 @@ import { Label } from "@fluentui/react";
 export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
 
   private requiredSymbol(): React.ReactNode {
@@ -27,17 +27,17 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
     }
   }
 
-  private fillAnswer(): string {
-    let answer: string = "";
-    this.props.answerModel.answer.map((item) => {
-      if (item.id === this.props.idStr) {
-        if (item.answer !== "Нет ответа") {
-          answer = item.answer;
-        }
-      }
-    });
-    return answer;
-  }
+  // private fillAnswer(): string {
+  //   let answer: string = "";
+  //   this.props.answerModel.answer.map((item) => {
+  //     if (item.id === this.props.idStr) {
+  //       if (item.answer !== "Нет ответа") {
+  //         answer = item.answer;
+  //       }
+  //     }
+  //   });
+  //   return answer;
+  // }
 
   public render(): React.ReactNode {
     return (

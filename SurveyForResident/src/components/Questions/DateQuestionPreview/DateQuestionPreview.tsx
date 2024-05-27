@@ -6,7 +6,7 @@ import { DatePicker, Label, defaultDatePickerStrings } from "@fluentui/react";
 export class DateQuestionPreview extends React.Component<IDateQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
@@ -25,7 +25,7 @@ export class DateQuestionPreview extends React.Component<IDateQuestionPreviewPro
     }
   }
 
-  private fillAnswer():string {
+  private fillAnswer(): string {
     let answer: string = '';
     this.props.answerModel.answer.map((item) => {
       if (item.id === this.props.idStr) {
