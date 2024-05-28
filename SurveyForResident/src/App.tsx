@@ -40,12 +40,7 @@ export class App extends React.Component<{}, IAppState> {
   private saveToModel = (model: string): void => {
     const dataManager: DataManager = new DataManager();
     const newModel: Survey = new Survey(dataManager);
-    let survey: ISurveyModel = {
-      description: "",
-      pages: [],
-      title: "",
-    };
-    survey = newModel.createModel(model);
+    const survey: ISurveyModel = newModel.createModel(model);
     this.surveyModel = survey;
     this.setState({
       surveyModel: survey,

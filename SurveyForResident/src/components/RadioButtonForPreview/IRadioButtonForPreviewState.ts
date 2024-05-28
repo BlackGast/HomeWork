@@ -1,3 +1,3 @@
 export interface IRadioButtonForPreviewState {
-    defaultChecked: boolean;
+    defaultChecked: string;
 }

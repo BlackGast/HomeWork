@@ -12,7 +12,6 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
   private answerPool: string[] = [];
 
   private fillAnswer(): void {
-    // let answer: IChoice[] = [];
     this.props.answerModel.answer.map((item) => {
       if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
         console.log(item.answer);

@@ -5,10 +5,11 @@ import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
 import { PagePreviewSurvey } from "../PagePreviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
+import { IListTabsState } from "./IListTabsState";
 
 export class ListTabs extends React.Component<
   IListTabsProps,
-  { selectedKey: string }
+  IListTabsState
 > {
   constructor(props: IListTabsProps) {
     super(props);

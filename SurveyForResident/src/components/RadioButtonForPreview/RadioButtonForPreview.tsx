@@ -8,51 +8,72 @@ export class RadioButtonForPreview extends React.Component<IRadioButtonForPrevie
   constructor(props: IRadioButtonForPreviewProps) {
     super(props);
     this.state = {
-      defaultChecked: false,
+      defaultChecked: '',
     };
   }
 
-  private setAnswer(): boolean {
-    let Answer: boolean = false;
-    // let Answer: string = "Нет ответа";
-    this.props.easyModel.answer.forEach((element, index) => {
-      if (element.id === this.props.idStr && element.answer !== "Нет ответа") {
-        // Answer = element.answer;
-        this.setState({
-          defaultChecked: true,
-        })
-        Answer = true;
-      }
-    })
-    return (Answer);
-  }
+  // private setAnswer(): void {
+  //   // let Answer: string = "Нет ответа";
+  //   this.props.easyModel.answer.forEach((element, index) => {
+  //     if (element.id === this.props.idStr && element.answer !== "Нет ответа") {
+  //       // Answer = element.answer;
+  //       this.setState({
+  //         defaultChecked: element.answer,
+  //       });
+  //       console.log(element.answer);
 
-  componentDidMount(): void {
-    console.log(this.setAnswer());
+  //     }
+  //   })
+  // }
+
+  componentDidUpdate(): void {
+    console.log(this.state.defaultChecked);
   }
 
   public render() {
-    // console.log(this.props.items);
-    // console.log(this.props.easyModel);
-    // console.log(this.props.idStr);
+    let answer: number = -1;
+
+    this.props.items.forEach((item, indexItem) => {
+      this.props.easyModel.answer.forEach((element, indexElement) => {
+        // console.log(this.props.easyModel);
+        // console.log(this.props.survey);
+        // console.log("item.id: ", item.id);
+        // console.log("this.props.idStr: ", this.props.idStr);
+        // console.log("element.answer: ", element.answer);
+        // console.log(" ");
+        
+        // if (item.id === this.props.idStr && element.answer !== "Нет ответа") {
+        if (item.id === this.props.idStr) {
+          console.log(item);
+          answer = indexItem;
+        }
+      });
+    });
+    // this.props.easyModel.answer.forEach((element, index) => {
+    //   if (element.id === this.props.idStr && element.answer !== "Нет ответа") {
+    //     answer = index;
+    //     // console.log(answer);
+    //     console.log(this.props.items);
+    //     // this.props.survey.pages[this.props.pageId].panels[0].questions[this.props.questionId].getPropertyByName
+    //   }
+    // })
 
     return (
-      <div>
-        <ChoiceGroup
-          className="defaultChoiceGroup"
-          defaultChecked={this.state.defaultChecked}
-          options={this.props.items.map((elements: any, index: number) => ({
-            key: `${index}`,
-            text: elements.title,
-          }))}
-          onChange={(e) => {
-            this.props.setAnswer(
-              e?.currentTarget.nextElementSibling?.textContent ?? "",
-              this.props.idStr
-            );
-          }}
-        />
-      </div>
+      <ChoiceGroup
+        className="defaultChoiceGroup"
+        defaultSelectedKey={`${answer}`}
+        options={this.props.items.map((elements: any, index: number) => ({
+          key: `${index}`,
+          text: elements.title,
+        }))}
+        onChange={(e) => {
+          // console.log(this.props.items)
+          this.props.setAnswer(
+            e?.currentTarget.nextElementSibling?.textContent ?? "",
+            this.props.idStr
+          );
+        }}
+      />
     );
   }
 }

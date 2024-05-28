@@ -34,12 +34,11 @@ export class RatingScaleQuestionPreview extends React.Component<
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPool: React.ReactNode[] = [];
-    if (this.fillAnswer() !== 0) {
-      this.setState({
-        selectedNum: this.fillAnswer()
-      })
-
-    }
+    // if (this.fillAnswer() !== 0) {
+    //   this.setState({
+    //     selectedNum: this.fillAnswer()
+    //   })
+    // }
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
       const buttonClassName =

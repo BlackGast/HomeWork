@@ -13,7 +13,6 @@ import {
   getTheme,
   mergeStyleSets,
 } from "@fluentui/react";
-// import { back, forward } from "../IProps/IIconProps";
 import { RadioButtonQuestionPreview } from "../Questions/RadioButtonQuestionPreview/RadioButtonQuestionPreview";
 import { RatingScaleQuestionPreview } from "../Questions/RatingScaleQuestionPreview/RatingScaleQuestionPreview";
 import { DateQuestionPreview } from "../Questions/DateQuestionPreview/DateQuestionPreview";
@@ -336,7 +335,6 @@ export class PagePreviewSurvey extends React.Component<
               });
               this.saveAnswerModel();
               this.createAnswerObj()
-              // this.delChoices(this.state.currentPage - 1);
             }}
           />
           <DefaultButton
@@ -369,7 +367,6 @@ export class PagePreviewSurvey extends React.Component<
                 currentPage: prevState.currentPage - 1,
               }));
               this.saveAnswerModel();
-              // this.delChoices(this.state.currentPage - 1);
             }}
           />
           <DefaultButton
@@ -403,7 +400,6 @@ export class PagePreviewSurvey extends React.Component<
               currentPage: prevState.currentPage - 1,
             }));
             this.saveAnswerModel();
-            // this.delChoices(this.state.currentPage - 1);
           }}
         />
         <DefaultButton
@@ -442,15 +438,6 @@ export class PagePreviewSurvey extends React.Component<
       }
     });
   }
-  // private delChoices(pageId?: number): void {
-  //   this.surveyModel.pages[pageId ?? 0].panels[0].questions.map((element) => {
-  //     this.easyModel.answer.map((item) => {
-  //       if (element.id === item.id) {
-  //         item.answer = "Нет ответа";
-  //       }
-  //     });
-  //   });
-  // }
 
   private saveAnswerModel(): void {
     this.setState({
@@ -459,8 +446,6 @@ export class PagePreviewSurvey extends React.Component<
   }
 
   public render(): React.ReactNode {
-    // this.createAnswerObj();
-    // this.saveAnswerModel();
     const survey = this.surveyModel;
     const page = this.surveyModel.pages;
     if (page.length === 0) {
