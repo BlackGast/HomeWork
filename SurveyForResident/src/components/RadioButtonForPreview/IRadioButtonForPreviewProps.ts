@@ -1,14 +1,13 @@
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
-import { IChoice } from "../../../../SurveyCore/src/model/formElements/IChoice";
+import { ISelectAnswer } from "../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 import { IEasyModel } from "../PagePreviewSurvey/EasyAnswerModel/model/IEasyModel";
 
 export interface IRadioButtonForPreviewProps {
     survey: ISurveyModel;
-    items: IChoice[];
+    items: ISelectAnswer[];
     idStr: string;
     setAnswer: (answer: string, id: string) => void;
     easyModel: IEasyModel;
     pageId: number;
     questionId: number;
-    // fillAnswer: () => string;
 }

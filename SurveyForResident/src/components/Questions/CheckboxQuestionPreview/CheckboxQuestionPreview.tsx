@@ -9,25 +9,71 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.props.id
     ];
 
+  private items: IChoice[] = this.questions.getValue() as IChoice[];
+
   private answerPool: string[] = [];
 
-  private fillAnswer(): void {
-    this.props.answerModel.answer.map((item) => {
-      if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
-        console.log(item.answer);
-      }
-    });
-  }
+  // private fillAnswer(): void {
+  //   this.props.answerModel.answer.map((item, index) => {
+  //     if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
+  //       // console.log(this.items);
+
+  //     }
+  //   });
+  // }
 
   private outputSelects(): React.ReactNode {
     const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
+    let answer: number[] = [];
+    let str: string[] = [];
+    this.items.forEach((item, indexItem) => {
+      this.props.easyModel.answer.forEach((element, indexElement) => {
+        // console.log(item);
+        str = element.answer.split(',');
+        if (element.id === this.props.idStr && element.answer !== "Нет ответа") {
+          if (item.title === element.answer) {
+            answer.push(indexItem);
+            // console.log(item);
+            // console.log(indexItem);
+          } 
+          if (item.title === str[indexItem]) {
+            console.log(item);
+            // console.log(element.answer);
+            // if (item) {
+
+            // }
+          }
+        }
+      })
+    })
+    // console.log(str);
+    // console.log(answer);
+    
+    const setAnswer = (index: number): boolean => {
+      let answer: boolean = false;
+      str.forEach((Item, indexItem) => {
+        this.props.easyModel.answer.forEach((element, indexElement) => {
+          if (Item === element.answer) {
+            // console.log(Item);
+          }
+          // if (Item === ) {
+
+          // }
+        })
+      })
+      return answer;
+    }
+
+    // console.log(elementsPool);
+
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
-        {elementsPool.map((element: IChoice) => (
+        {elementsPool.map((element: IChoice, index) => (
           <Checkbox
             key={element.id}
             label={element.title}
+            defaultChecked={setAnswer(index)}
             onChange={() => {
               let redactor: boolean = false;
               this.props.answerModel.answer.map((item) => {
@@ -65,7 +111,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
               if (this.answerPool.length < 1) {
                 this.props.setAnswer("Нет ответа", this.props.idStr);
               }
-              this.fillAnswer();
+              // this.fillAnswer();
             }}
           />
         ))}

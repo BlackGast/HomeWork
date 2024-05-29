@@ -3,7 +3,7 @@ import "../Question.scss";
 import { IRadioButtonQuestionPreviewProps } from "./IRadioButtonQuestionPreviewProps";
 import { RadioButtonForPreview } from "../../RadioButtonForPreview/RadioButtonForPreview";
 import { Label } from "@fluentui/react";
-import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
+import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
 export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQuestionPreviewProps> {
   private questions =
@@ -28,18 +28,6 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
     }
   }
 
-  // private fillAnswer(): string {
-  //   let answer: string = "";
-  //   this.props.answerModel.answer.map((item) => {
-  //     if (item.id === this.props.idStr) {
-  //       if (item.answer !== "Нет ответа") {
-  //         answer = item.answer;
-  //       }
-  //     }
-  //   });
-  //   return answer;
-  // }
-
   public render(): React.ReactNode {
     return (
       <div className="container_page_question">
@@ -51,11 +39,10 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
           </div>
         </div>
         <RadioButtonForPreview
-          // fillAnswer={this.fillAnswer}
           survey={this.props.survey}
           items={this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.id
-          ].getValue() as IChoice[]}
+          ].getValue() as ISelectAnswer[]}
           setAnswer={this.props.setAnswer}
           idStr={this.props.idStr}
           easyModel={this.props.easyModel}

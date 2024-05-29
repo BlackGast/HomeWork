@@ -22,10 +22,8 @@ export class RatingScaleQuestionPreview extends React.Component<
   private fillAnswer(): number {
     let answer: number = 0;
     this.props.answerModel.answer.map((item) => {
-      if (item.id === this.props.idStr) {
-        if (item.answer !== "Нет ответа") {
-          answer = Number(item.answer);
-        }
+      if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
+        answer = Number(item.answer);
       }
     });
     return answer;
