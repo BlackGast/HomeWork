@@ -61,7 +61,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                   this.props.survey.pages[this.props.pageId].panels[0]
                     .questions[this.props.id].id
                 );
-                console.log(this.fillAnswer());
+                // console.log(this.fillAnswer());
                 const element = document.getElementById(
                   `answer-${this.props.pageId}-${this.props.id}`
                 );
@@ -148,7 +148,8 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
             <MaskedTextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
               defaultValue={this.fillAnswer()}
-              mask="+7 (999) 999 - 9999"
+              mask="+7(999)999-9999"
+              maskChar="_"
               onChange={(e) => {
                 this.props.setAnswer(
                   e.currentTarget.value,
@@ -163,6 +164,8 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                 }
               }}
               onBlur={(e) => {
+                console.log(e.currentTarget.value);
+                
                 if (
                   e.currentTarget.value === "" &&
                   this.questions.required === true

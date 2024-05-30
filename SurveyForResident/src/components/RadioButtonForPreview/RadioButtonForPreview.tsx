@@ -26,9 +26,6 @@ export class RadioButtonForPreview extends React.Component<IRadioButtonForPrevie
             this.answer = indexItem;
           }
         }
-        // if (this.props.idStr === element.id && element.answer === "Нет ответа") {
-        //   this.answer = -1;
-        // }
       });
     });
 

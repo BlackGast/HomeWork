@@ -2,69 +2,40 @@ import React from "react";
 import { ICheckboxQuestionPreviewProps } from "./ICheckboxQuestionPreviewProps";
 import { Checkbox, Label, Stack } from "@fluentui/react";
 import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
+import { QuestionChoice } from "../../../../../SurveyCore/src/Survey/Question/QuestionChoice";
 
 export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
     this.props.id
-    ];
+    ] as QuestionChoice;
 
-  private items: IChoice[] = this.questions.getValue() as IChoice[];
+  private items: IChoice[] = this.questions.getValue();
 
   private answerPool: string[] = [];
 
-  // private fillAnswer(): void {
-  //   this.props.answerModel.answer.map((item, index) => {
-  //     if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
-  //       // console.log(this.items);
-
-  //     }
-  //   });
-  // }
-
   private outputSelects(): React.ReactNode {
-    const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
-    let answer: number[] = [];
+    const elementsPool: IChoice[] = this.questions.getValue();
+    let answer: boolean[] = [];
     let str: string[] = [];
-    this.items.forEach((item, indexItem) => {
-      this.props.easyModel.answer.forEach((element, indexElement) => {
-        // console.log(item);
-        str = element.answer.split(',');
-        if (element.id === this.props.idStr && element.answer !== "Нет ответа") {
-          if (item.title === element.answer) {
-            answer.push(indexItem);
-            // console.log(item);
-            // console.log(indexItem);
-          } 
-          if (item.title === str[indexItem]) {
-            console.log(item);
-            // console.log(element.answer);
-            // if (item) {
+    this.props.easyModel.answer.forEach((item) => {
+      if (this.props.idStr === item.id) {
+        str = item.answer.split(',');
+      }
+    });
 
-            // }
-          }
-        }
-      })
-    })
-    // console.log(str);
-    // console.log(answer);
-    
-    const setAnswer = (index: number): boolean => {
-      let answer: boolean = false;
-      str.forEach((Item, indexItem) => {
-        this.props.easyModel.answer.forEach((element, indexElement) => {
-          if (Item === element.answer) {
-            // console.log(Item);
-          }
-          // if (Item === ) {
-
-          // }
-        })
-      })
-      return answer;
+    for (const _element of this.items) {
+      answer.push(false);
     }
-
-    // console.log(elementsPool);
+    this.items.forEach((element, indexElement) => {
+      str.forEach((item,) => {
+        if (item === element.title) {
+          // console.log(indexElement);
+          answer[indexElement] = true;
+        };
+      })
+    });
+    // console.log(answer);
 
     const stackTokens = { childrenGap: 10 };
     return (
@@ -73,7 +44,7 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
           <Checkbox
             key={element.id}
             label={element.title}
-            defaultChecked={setAnswer(index)}
+            defaultChecked={answer[index]}
             onChange={() => {
               let redactor: boolean = false;
               this.props.answerModel.answer.map((item) => {
@@ -111,7 +82,6 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
               if (this.answerPool.length < 1) {
                 this.props.setAnswer("Нет ответа", this.props.idStr);
               }
-              // this.fillAnswer();
             }}
           />
         ))}
