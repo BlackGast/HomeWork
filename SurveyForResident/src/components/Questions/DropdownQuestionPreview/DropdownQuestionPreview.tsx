@@ -74,7 +74,7 @@ export class DropdownQuestionPreview extends React.Component<IDropdownQuestionPr
         defaultValue={this.fillAnswer()}
         onChange={(e) => {
           this.props.setAnswer(
-            e.currentTarget.childNodes[0].textContent || undefined,
+            e.currentTarget.childNodes[0].textContent ?? undefined,
             this.props.idStr
           );
         }}

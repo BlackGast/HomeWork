@@ -2,12 +2,21 @@ import * as React from "react";
 import "../Question.scss";
 import { Label, MaskedTextField, TextField } from "@fluentui/react";
 import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
+import { ITextQuestionPreviewState } from "./ITextQuestionPreviewState";
 
-export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps> {
+export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps, ITextQuestionPreviewState> {
+  constructor (props: ITextQuestionPreviewProps) {
+    super(props);
+    this.state = {
+      phoneNumber: '',
+    }
+  }
+
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (
@@ -25,6 +34,20 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
     }
   }
 
+  private fillAnswer(): string {
+    let answer: string = '';
+
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr) {
+        //дописать реализацию заполнения ответов для уже отвеченного варианта
+        if (item.answer !== "Нет ответа") {
+          answer = item.answer;
+        }
+      }
+    })
+    return answer;
+  }
+
   public render(): React.ReactNode {
     if (this.questions.getPropertyByName("subType") === "Text") {
       return (
@@ -39,6 +62,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               onChange={(e) => {
                 this.props.setAnswer(
                   e.currentTarget.value,
@@ -84,6 +108,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               type="number"
               onChange={(e) => {
                 this.props.setAnswer(
@@ -129,8 +154,11 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <MaskedTextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
-              mask="+7 (999) 999 - 9999"
-              onChange={(e) => {
+              mask="9 (999) 999 - 9999"
+              onChange={(e, newValue?: string) => {
+                this.setState({
+                  phoneNumber: newValue ?? ''
+                })
                 this.props.setAnswer(
                   e.currentTarget.value,
                   this.props.survey.pages[this.props.pageId].panels[0]
@@ -175,6 +203,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
           <div className="question-textfield">
             <TextField
               id={`answer-${this.props.pageId}-${this.props.id}`}
+              defaultValue={this.fillAnswer()}
               type="email"
               onChange={(e) => {
                 this.props.setAnswer(

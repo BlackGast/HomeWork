@@ -30,12 +30,10 @@ export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPr
     this.items.forEach((element, indexElement) => {
       str.forEach((item,) => {
         if (item === element.title) {
-          // console.log(indexElement);
           answer[indexElement] = true;
         };
       })
     });
-    // console.log(answer);
 
     const stackTokens = { childrenGap: 10 };
     return (

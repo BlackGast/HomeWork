@@ -3,6 +3,7 @@ import "../Question.scss";
 import { IRadioButtonQuestionPreviewProps } from "./IRadioButtonQuestionPreviewProps";
 import { RadioButtonForPreview } from "../../RadioButtonForPreview/RadioButtonForPreview";
 import { Label } from "@fluentui/react";
+import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
 
 export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQuestionPreviewProps> {
   private questions =
@@ -40,10 +41,12 @@ export class RadioButtonQuestionPreview extends React.Component<IRadioButtonQues
           survey={this.props.survey}
           items={this.props.survey.pages[this.props.pageId].panels[0].questions[
             this.props.id
-          ].getValue()}
+          ].getValue() as ISelectAnswer[]}
           setAnswer={this.props.setAnswer}
           idStr={this.props.idStr}
           easyModel={this.props.easyModel}
+          pageId={this.props.pageId}
+          questionId={this.props.id}
         />
       </div>
     );

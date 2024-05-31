@@ -18,9 +18,22 @@ export class RatingScaleQuestionPreview extends React.Component<
     this.props.survey.pages[this.props.pageId].panels[0].questions[
       this.props.id
     ];
+
+  private fillAnswer(): number {
+    let answer: number = 0;
+    this.props.answerModel.answer.map((item) => {
+      if (item.id === this.props.idStr && item.answer !== "Нет ответа") {
+        answer = Number(item.answer);
+      }
+    });
+    return answer;
+  }
+  
   private ratingNum(): React.ReactNode {
     const maxValue: number = this.questions.getPropertyByName("maxNum");
     const itemPool: React.ReactNode[] = [];
+    const answerValue = this.fillAnswer();
+
     for (let i = 0; i < maxValue; i++) {
       const element: React.ReactNode = <>{i + 1}</>;
       const buttonClassName =
