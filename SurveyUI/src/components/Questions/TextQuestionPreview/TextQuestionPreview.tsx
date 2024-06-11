@@ -5,7 +5,7 @@ import { ITextQuestionPreviewProps } from "./ITextQuestionPreview";
 import { ITextQuestionPreviewState } from "./ITextQuestionPreviewState";
 
 export class TextQuestionPreview extends React.Component<ITextQuestionPreviewProps, ITextQuestionPreviewState> {
-  constructor (props: ITextQuestionPreviewProps) {
+  constructor(props: ITextQuestionPreviewProps) {
     super(props);
     this.state = {
       phoneNumber: '',
@@ -14,7 +14,7 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
 
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
 
   private requiredSymbol(): React.ReactNode {
@@ -240,10 +240,8 @@ export class TextQuestionPreview extends React.Component<ITextQuestionPreviewPro
                   if (element) {
                     element.style.border = "1px solid red";
                   }
-                } else {
-                  if (element) {
-                    element.style.border = "none";
-                  }
+                } else if (element) {
+                  element.style.border = "none";
                 }
               }}
             />

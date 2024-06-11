@@ -17,4 +17,10 @@ export interface IQuestionBaseProps {
     questionId?: number
   ) => void;
   currentItem?: ICurrentItem;
+  swapQuestion: (
+    questionId?: number,
+    pageId?: number,
+    direction?: string,
+    // key?: QuestionType,
+  ) => void;
 }

@@ -3,12 +3,21 @@ import "../Question.scss";
 import { Label } from "@fluentui/react";
 import { IRangingQuestionPreviewProps } from "./IRangingQuestionPreviewProps";
 import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
+import { IRangingQuestionPreviewState } from "./IRangingQuestionPreviewState";
 
-export class RangingQuestionPreview extends React.Component<IRangingQuestionPreviewProps> {
+export class RangingQuestionPreview extends React.Component<IRangingQuestionPreviewProps, IRangingQuestionPreviewState> {
+  constructor(props: IRangingQuestionPreviewProps) {
+    super(props);
+    this.state = {
+      dragOver: false,
+    }
+  }
+
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
+
   private requiredSymbol(): React.ReactNode {
     if (this.questions.required === false) {
       return (
@@ -25,57 +34,95 @@ export class RangingQuestionPreview extends React.Component<IRangingQuestionPrev
       );
     }
   }
-  //   private answerPool: string[] = [];
+
   private outputAnswers(): React.ReactNode {
-    // let item = (event: any) => {
-    //   console.log(event.target);
-    //   return event.target
-    // }
-    const item = document.querySelector(".ranging-question_item hovered")
-
-    const placeholders = document.querySelectorAll(".ranging-question_item");
-
-    if (item) {
-      item.addEventListener("dragstart", dragStart);
-      item.addEventListener("dragend", dragEnd);
+    const listElements = document.querySelector(".ranging-question_list");
+    if (listElements) {
+      console.log(listElements);
     }
 
-    for (const placeholder of placeholders) {
-      placeholder.addEventListener("dragover", dragOver);
-      placeholder.addEventListener("dragenter", dragEnter);
-      placeholder.addEventListener("dragleave", dragLeave);
-      placeholder.addEventListener("drop", dragDrop);
-    }
+    if (listElements) {
+      listElements.addEventListener(`dragstart`, (event: any) => {
+        event.target.className = "ranging-question_item hovered";
+      })
+      listElements.addEventListener(`dragend`, (event: any) => {
+        event.target.className = "ranging-question_item";
+      })
+      listElements.addEventListener(`dragover`, (event: any) => {
+        event.preventDefault();
+        const activeElement = listElements.querySelector('.hovered');
+        const currentElement = event.target;
+        const isMoveable = activeElement !== currentElement && currentElement.classList.contains(`ranging-question_item`)
 
-    function dragStart(event: any) {
-      event.target.classList.add("hold");
-      setTimeout(() => {
-        event.target.classList.add("hide"), 0;
-      });
-    }
+        if (!isMoveable) {
+          return;
+        }
 
-    function dragEnd(event: any) {
-      event.target.classList.remove("hold", "hide");
-    }
-    function dragOver(event: any) {
-      event.preventDefault();
-    }
-    function dragEnter(event: any) {
-      event.target.classList.add("hovered");
-    }
-    function dragLeave(event: any) {
-      event.target.classList.remove("hovered");
-    }
-    function dragDrop(event: any) {
-      event.target.classList.remove("hovered");
-      // event.target.append(item);
+        if (activeElement) {
+          const nextElement = (currentElement === activeElement?.nextElementSibling) ?
+            currentElement.nextElementSibling :
+            currentElement;
+          listElements.insertBefore(activeElement, nextElement);
+        }
+      })
+
+      const getNextElement = (cursorPosition: any, currentElement: any) => {
+        const currentElementCoord = currentElement.getBoundingClientRect();
+        const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+        const nextElement = (cursorPosition < currentElementCenter) ?
+          currentElement :
+          currentElement.nextElementSibling;
+        return nextElement;
+      };
+
+      listElements.addEventListener(`dragover`, (event: any) => {
+        event.preventDefault();
+
+        const activeElement = listElements.querySelector('.hovered');
+        const currentElement = event.target;
+        const isMoveable = activeElement !== currentElement && currentElement.classList.contains("ranging-question_item");
+
+        if (!isMoveable) {
+          return;
+        }
+
+        const nextElement = getNextElement(event.clientY, currentElement);
+
+        if (
+          nextElement &&
+          activeElement === nextElement.previousElementSibling ||
+          activeElement === nextElement
+        ) {
+          return;
+        }
+
+        if (activeElement) {
+          listElements.insertBefore(activeElement, nextElement);
+        }
+
+        let answer: string = ''
+
+        listElements.childNodes.forEach((item, indexItem) => {
+          if (indexItem === 0) {
+            answer = answer + item.textContent;
+          }
+          if (indexItem > 0) {
+            answer = answer + ", " + item.textContent;
+          }
+        });
+        this.props.setAnswer(
+          answer,
+          this.props.survey.pages[this.props.pageId].panels[0].questions[
+            this.props.id
+          ].id
+        );
+      })
     }
 
     const elementsPool: ISelectAnswer[] =
       this.questions.getValue() as ISelectAnswer[];
-
     return (
-      <div>
+      <div className=" ranging-question_list">
         {elementsPool.map((item: ISelectAnswer, index: number) => (
           <div
             key={item.id}

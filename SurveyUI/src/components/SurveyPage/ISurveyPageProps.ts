@@ -11,4 +11,5 @@ export interface ISurveyPageProps {
   editCurrentItem: (item?: string, pageId?: number, questionId?: number) => void;
   editCurrentPropertyItem: (title?: string, description?: string, required?: boolean) => void;
   currentItem?: ICurrentItem;
+  swapQuestion: () => void;
 }

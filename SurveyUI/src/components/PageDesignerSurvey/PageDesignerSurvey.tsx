@@ -24,6 +24,7 @@ export class PageDesignerSurvey extends React.Component<
             addPage={this.props.addPage}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            swapQuestion={this.props.swapQuestion}
           />
         </div>
       );
@@ -40,6 +41,7 @@ export class PageDesignerSurvey extends React.Component<
               editCurrentItem={this.props.editCurrentItem}
               editCurrentPropertyItem={this.props.editCurrentPropertyItem}
               currentItem={this.props.currentItem}
+              swapQuestion={this.props.swapQuestion}
             />
           </div>
           <div className="vertical-line" />

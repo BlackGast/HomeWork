@@ -61,7 +61,6 @@ export class CommandBarProperties extends React.Component<
       if (this.props.addPage) {
         this.props.addPage(this.props.survey.pages.length)
       }
-      //this.props.addPage(this.props.survey.pages.length);
     };
 
     if (this.props.item === "page") {
@@ -85,6 +84,16 @@ export class CommandBarProperties extends React.Component<
                     const prevItem = document.getElementsByClassName(
                       "container_page_question active-item ms-depth-8"
                     );
+                    const buttonElement = document.getElementsByClassName(
+                      "question_move-button-container visible"
+                    );
+                    const itemPage = document.getElementById(
+                      `page-${this.props.pageId ?? 0}`
+                    );
+
+                    if (buttonElement.length !== 0) {
+                      buttonElement[0].classList.value = "question_move-button-container hide";
+                    }
                     if (prevItem.length !== 0) {
                       prevItem[0].classList.value =
                         "container_page_question ms-depth-4";
@@ -93,9 +102,6 @@ export class CommandBarProperties extends React.Component<
                       prevItemPage[0].classList.value =
                         "container_page ms-depth-4";
                     }
-                    const itemPage = document.getElementById(
-                      `page-${this.props.pageId ?? 0}`
-                    );
                     if (itemPage) {
                       itemPage.className =
                         "container_page active-page ms-depth-8";
@@ -138,22 +144,29 @@ export class CommandBarProperties extends React.Component<
                     const prevItemPage = document.getElementsByClassName(
                       "container_page active-page ms-depth-8"
                     );
+                    const buttonContainer = document.getElementById(`idButtonContainer-${this.props.pageId}-${this.props.questionId}`);
+                    const prevButtonContainer = document.getElementsByClassName("question_move-button-container visible");
+                    const item = document.getElementById(
+                      `question-${this.props.pageId ?? 0}-${this.props.questionId ?? 0
+                      }`
+                    );
+
                     if (prevItemPage.length !== 0) {
-                      prevItemPage[0].classList.value =
-                        "container_page ms-depth-4";
+                      prevItemPage[0].classList.value = "container_page ms-depth-4";
                     }
                     if (prevItem.length !== 0) {
                       prevItem[0].classList.value =
                         "container_page_question ms-depth-4";
+                        if (prevButtonContainer.length !== 0) {
+                          prevButtonContainer[0].classList.value = "question_move-button-container hide";
+                        }
                     }
-                    const item = document.getElementById(
-                      `question-${this.props.pageId ?? 0}-${
-                        this.props.questionId ?? 0
-                      }`
-                    );
                     if (item) {
                       item.className =
                         "container_page_question active-item ms-depth-8";
+                    }
+                    if (buttonContainer) {
+                      buttonContainer.className = "question_move-button-container visible";
                     }
                   },
                 },
@@ -193,6 +206,12 @@ export class CommandBarProperties extends React.Component<
                     const prevItem = document.getElementsByClassName(
                       "container_page_question active-item ms-depth-8"
                     );
+                    const buttonElement = document.getElementsByClassName(
+                      "question_move-button-container visible"
+                    );
+                    if (buttonElement.length !== 0) {
+                      buttonElement[0].classList.value = "question_move-button-container hide";
+                    }
                     if (prevItem.length !== 0) {
                       prevItem[0].classList.value =
                         "container_page_question ms-depth-4";

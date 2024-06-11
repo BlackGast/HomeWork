@@ -19,4 +19,5 @@ export interface IListTabsProps {
   parseStrToSurvey: () => void;
   selectDefaultDesignPage:() => void;
   setSubType:() => void;
+  swapQuestion:() => void;
 }

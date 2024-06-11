@@ -33,6 +33,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Select":
@@ -45,6 +46,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Choice":
@@ -57,6 +59,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Date":
@@ -69,6 +72,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Number":
@@ -81,6 +85,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Dropdown":
@@ -93,6 +98,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Ranging":
@@ -105,6 +111,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       default:

@@ -17,4 +17,5 @@ export interface IPageDesignerSurveyProps {
   setItemSurvey: () => void;
   selectDefaultDesignPage: () => void;
   setSubType: () => void;
+  swapQuestion:() => void;
 }

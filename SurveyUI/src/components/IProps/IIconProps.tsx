@@ -57,3 +57,11 @@ export const dropdown: IIconProps = {
 export const thumbnailView: IIconProps = {
   iconName: "ThumbnailView",
 };
+
+export const down: IIconProps = {
+iconName: "ChevronDownSmall",
+};
+
+export const up: IIconProps = {
+iconName: "ChevronUpSmall",
+};

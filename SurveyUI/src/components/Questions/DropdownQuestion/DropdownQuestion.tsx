@@ -1,15 +1,17 @@
 import React from "react";
 import { IDropdownQuestionProps } from "./IDropdownQuestionProps";
 import {
+  IconButton,
   Label,
 } from "@fluentui/react";
 import { CommandBarProperties } from "../../CommandBarProperties/CommandBarProperties";
 import { ISelectAnswer } from "../../../../../SurveyCore/src/model/formElements/ISelectAnswer";
+import { down, up } from "../../IProps/IIconProps";
 
 export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
+    this.props.id
     ];
   private delete = () => {
     this.props.deleteQuestion(this.props.id, this.props.pageId);
@@ -45,6 +47,68 @@ export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
     }
   }
 
+  private renderNavButton(): React.ReactNode {
+    if (this.props.currentItem) {
+      if (
+        this.props.currentItem.questionId === 0
+        &&
+        this.props.survey.pages[this.props.pageId].panels[0].questions.length !== 1) {
+        return <div
+          id={`idButtonContainer-${this.props.pageId}-${this.props.id}`}
+          className="question_move-button-container hide">
+          <IconButton
+            iconProps={down}
+            onClick={() => {
+              this.props.swapQuestion(this.props.id, this.props.pageId, "down")
+            }}
+          />
+        </div>
+      }
+      if (
+        this.props.currentItem.questionId > 0
+        &&
+        this.props.currentItem.questionId < (this.props.survey.pages[
+          this.props.pageId
+        ].panels[0].questions.length - 1)) {
+        return <div
+          id={`idButtonContainer-${this.props.pageId}-${this.props.id}`}
+          className="question_move-button-container hide">
+          <IconButton
+            iconProps={up}
+            onClick={() => {
+              this.props.swapQuestion(this.props.id, this.props.pageId, "up")
+            }}
+          />
+          <IconButton
+            iconProps={down}
+            onClick={() => {
+              this.props.swapQuestion(this.props.id, this.props.pageId, "down")
+            }}
+          />
+        </div>
+      }
+      if (
+        this.props.currentItem.questionId === (this.props.survey.pages[
+          this.props.pageId
+        ].panels[0].questions.length - 1)
+        &&
+        this.props.survey.pages[
+          this.props.pageId
+        ].panels[0].questions.length !== 1) {
+        return <div
+          id={`idButtonContainer-${this.props.pageId}-${this.props.id}`}
+          className="question_move-button-container hide">
+          <IconButton
+            iconProps={up}
+            onClick={() => {
+              this.props.swapQuestion(this.props.id, this.props.pageId, "up")
+            }}
+          />
+        </div>
+      }
+    }
+  }
+
   public render(): React.ReactNode {
     return (
       <div
@@ -61,6 +125,7 @@ export class DropdownQuestion extends React.Component<IDropdownQuestionProps> {
         </div>
         {this.outputSelects()}
         <div className="question_settings">
+          {this.renderNavButton()}
           <CommandBarProperties
             item="question"
             itemQuestion="Dropdown"

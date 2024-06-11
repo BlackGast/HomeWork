@@ -18,11 +18,6 @@ export class DropdownForQSubtype extends React.Component<
     };
   }
 
-  componentDidMount(): void {
-      // console.log(this.state.subType);
-      
-  }
-
   private dropdownStyles: Partial<IDropdownStyles> = {
     dropdown: {
       width: 300,
@@ -65,7 +60,7 @@ export class DropdownForQSubtype extends React.Component<
           this.props.setSubType(
             this.props.pageId,
             this.props.questionId,
-            e.currentTarget.childNodes[0].textContent || undefined
+            e.currentTarget.childNodes[0].textContent ?? undefined
           );
         }}
       />
