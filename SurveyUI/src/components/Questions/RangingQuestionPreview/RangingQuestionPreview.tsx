@@ -37,9 +37,13 @@ export class RangingQuestionPreview extends React.Component<IRangingQuestionPrev
 
   private outputAnswers(): React.ReactNode {
     const listElements = document.querySelector(".ranging-question_list");
-    if (listElements) {
-      console.log(listElements);
-    }
+    // if (listElements) {
+    //   console.log(listElements.children);
+    // } 
+
+    // if (!listElements) [
+    //   console.log(document.getElementById(`ranging-${this.props.id}-${this.props.pageId}`))
+    // ]
 
     if (listElements) {
       listElements.addEventListener(`dragstart`, (event: any) => {
@@ -118,7 +122,14 @@ export class RangingQuestionPreview extends React.Component<IRangingQuestionPrev
         );
       })
     }
-
+    // this.props.easyModel.answer.forEach((item, indexItem) => {
+    //   console.log(item.answer);
+      
+    // })
+    // if (this. === "Нет ответа") {
+    //   console.log("click");
+      
+    // }
     const elementsPool: ISelectAnswer[] =
       this.questions.getValue() as ISelectAnswer[];
     return (
@@ -128,6 +139,7 @@ export class RangingQuestionPreview extends React.Component<IRangingQuestionPrev
             key={item.id}
             draggable
             className="ranging-question_item"
+            // id={`ranging-${this.props.id}-${this.props.pageId}`}
             id={index.toString()}
           >
             {item.title}
