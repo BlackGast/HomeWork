@@ -1,3 +1,4 @@
+import { QuestionSubType } from "./QuestionSubType";
 import { QuestionType } from "./QuestionType";
 import { IChoice } from "./formElements/IChoice";
 import { ISelectAnswer } from "./formElements/ISelectAnswer";
@@ -11,4 +12,5 @@ export interface IQuestionData {
     required?: boolean;
     choices?: IChoice[];
     selects?: ISelectAnswer[];
+    subType?: QuestionSubType;
 }

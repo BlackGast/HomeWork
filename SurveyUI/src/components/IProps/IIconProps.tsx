@@ -49,3 +49,19 @@ export const more: IIconProps = {
 export const addPageIcon: IIconProps = {
   iconName: "Page",
 };
+
+export const dropdown: IIconProps = {
+  iconName: "Dropdown",
+};
+
+export const thumbnailView: IIconProps = {
+  iconName: "ThumbnailView",
+};
+
+export const down: IIconProps = {
+iconName: "ChevronDownSmall",
+};
+
+export const up: IIconProps = {
+iconName: "ChevronUpSmall",
+};

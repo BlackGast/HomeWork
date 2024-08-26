@@ -21,6 +21,8 @@ import { IQuestion } from "./EasyAnswerModel/model/IQuestion";
 import { ListTabsAnswer } from "./ListTabsAnswer/ListTabsAnswer";
 import EasyAnswerModel from "./EasyAnswerModel/EasyAnswerModel";
 import { IEasyModel } from "./EasyAnswerModel/model/IEasyModel";
+import { DropdownQuestionPreview } from "../Questions/DropdownQuestionPreview/DropdownQuestionPreview";
+import { RangingQuestionPreview } from "../Questions/RangingQuestionPreview/RangingQuestionPreview";
 
 export class PagePreviewSurvey extends React.Component<
   IPagePreviewSurveyProps,
@@ -188,6 +190,30 @@ export class PagePreviewSurvey extends React.Component<
       case "Number":
         return (
           <RatingScaleQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            setAnswer={this.setAnswer}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
+          />
+        );
+      case "Dropdown":
+        return (
+          <DropdownQuestionPreview
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            setAnswer={this.setAnswer}
+            answerModel={this.state.easyAnswerModel}
+            easyModel={this.easyModel}
+            idStr={idStr}
+          />
+        );
+      case "Ranging":
+        return (
+          <RangingQuestionPreview
             id={id}
             pageId={pageId}
             survey={this.props.survey}

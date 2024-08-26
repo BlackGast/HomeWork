@@ -13,6 +13,13 @@ import { DataManager } from "../../SurveyCore/src/DataManager/DataManager";
 import { Page } from "../../SurveyCore/src/Survey/Page/Page";
 import { ListTabs } from "./components/ListTabs/ListTabs";
 import { IAppState } from "./IAppState";
+import { QuestionText } from "../../SurveyCore/src/Survey/Question/QuestionText";
+import { QuestionChoice } from "../../SurveyCore/src/Survey/Question/QuestionChoice";
+import { QuestionDate } from "../../SurveyCore/src/Survey/Question/QuestionDate";
+import { QuestionNumber } from "../../SurveyCore/src/Survey/Question/QuestionNumber";
+import { QuestionSelect } from "../../SurveyCore/src/Survey/Question/QuestionSelect";
+import { QuestionDropdown } from "../../SurveyCore/src/Survey/Question/QuestionDropdown";
+import { QuestionRanging } from "../../SurveyCore/src/Survey/Question/QuestionRanging";
 initializeIcons();
 
 const appTheme: PartialTheme = {
@@ -51,6 +58,76 @@ export class App extends React.Component<{}, IAppState> {
     pages: [],
     title: "",
   };
+
+  private selectDefaultDesignPage = (): void => {
+    this.setState({
+      currentItem: {
+        pageId: 0,
+        questionId: 0,
+        item: "survey",
+      },
+      currentPropertyItem: {
+        choices: [],
+        description: this.surveyModel.description,
+        title: this.surveyModel.title,
+        required: false,
+      },
+    });
+  };
+
+  private swapQuestionDown = (
+    questionId?: number,
+    pageId?: number,
+  ): void => {
+    let question = this.surveyModel.pages[pageId ?? 0].panels[0].questions;
+    let newEmptyQuestion: QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown | QuestionRanging;
+    this.setState({
+      currentItem: {
+        pageId: pageId ?? 0,
+        questionId: (questionId ?? 0) + 1,
+        item: "question"
+      }
+    })
+    newEmptyQuestion = question[questionId ?? 0];
+    question[questionId ?? 0] = question[(questionId ?? 0) + 1];
+    question[(questionId ?? 0) + 1] = newEmptyQuestion;
+    this.saveModel()
+  }
+
+  private swapQuestionUp = (
+    questionId?: number,
+    pageId?: number,
+  ): void => {
+    let question = this.surveyModel.pages[pageId ?? 0].panels[0].questions;
+    let newEmptyQuestion: QuestionChoice | QuestionDate | QuestionNumber | QuestionSelect | QuestionText | QuestionDropdown | QuestionRanging;
+    this.setState({
+      currentItem: {
+        pageId: pageId ?? 0,
+        questionId: (questionId ?? 0) - 1,
+        item: "question"
+      }
+    })
+    newEmptyQuestion = question[questionId ?? 0];
+    question[questionId ?? 0] = question[(questionId ?? 0) - 1];
+    question[(questionId ?? 0) - 1] = newEmptyQuestion;
+    this.saveModel()
+  }
+
+  private swapQuestion = (
+    questionId?: number,
+    pageId?: number,
+    direction?: string,
+  ): void => {
+
+    if (direction === 'down' && this.state.currentItem.item === "question") {
+      this.swapQuestionDown(questionId, pageId)
+    }
+
+    if (direction === 'up' && this.state.currentItem.item === "question") {
+      this.swapQuestionUp(questionId, pageId)
+    }
+  }
+
   /**
    *
    * Функция добавления вопроса
@@ -253,7 +330,11 @@ export class App extends React.Component<{}, IAppState> {
     typeQuestion?: QuestionType
   ): string[] => {
     const choices: string[] = [];
-    if (typeQuestion === "Select" || typeQuestion === "Choice") {
+    if (
+      typeQuestion === "Select" ||
+      typeQuestion === "Choice" ||
+      typeQuestion === "Dropdown"
+    ) {
       const elementsPool: any =
         this.surveyModel.pages[pageId ?? 0].panels[0].questions[
           questionId ?? 0
@@ -261,6 +342,16 @@ export class App extends React.Component<{}, IAppState> {
       elementsPool.map((element: any) => choices.push(element.title));
     }
     return choices;
+  };
+
+  private setSubType = (
+    pageId?: number,
+    questionId?: number,
+    subType?: string
+  ): void => {
+    this.surveyModel.pages[pageId ?? 0].panels[0].questions[
+      questionId ?? 0
+    ].setPropertyByName("subType", subType);
   };
 
   private setItemSurvey = (
@@ -308,6 +399,9 @@ export class App extends React.Component<{}, IAppState> {
                 editCurrentRequiredItem={this.editCurrentRequiredItem}
                 setItemSurvey={this.setItemSurvey}
                 parseStrToSurvey={this.parseStrToSurvey}
+                selectDefaultDesignPage={this.selectDefaultDesignPage}
+                setSubType={this.setSubType}
+                swapQuestion={this.swapQuestion}
               />
             </div>
           }

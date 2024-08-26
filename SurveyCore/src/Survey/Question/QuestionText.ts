@@ -1,14 +1,17 @@
 import { IQuestionData } from "../../model/IQuestionData";
+import { QuestionSubType } from "../../model/QuestionSubType";
 import { QuestionBase } from "./QuestionBase";
 
 export class QuestionText extends QuestionBase {
     public asDescription: boolean;
     public isMultiline: boolean;
     public placeholder: string;
+    public subType: QuestionSubType;
 
     constructor(data: IQuestionData) {
         super(data);
         this.type = 'Text';
+        this.subType = data.subType || 'Text';
         this.title = data.title || '';
         this.asDescription = false;
         this.required = data.required || false;

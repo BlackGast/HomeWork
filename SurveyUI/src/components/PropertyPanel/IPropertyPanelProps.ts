@@ -15,7 +15,20 @@ export interface IPropertyPanelProps {
     typeQuestion?: string,
     pageId?: number,
     questionId?: number) => void;
-  editCurrentRequiredItem: (required?: boolean, pageId?: number, questionId?: number) => void;
-  setItemSurvey: (title?: string, description?: string, pageId?: number) => void;
-  editCurrentItem: (item?: string, pageId?: number, questionId?: number) => void;
+  editCurrentRequiredItem: (
+    required?: boolean,
+    pageId?: number,
+    questionId?: number
+  ) => void;
+  setItemSurvey: (
+    title?: string,
+    description?: string,
+    pageId?: number
+  ) => void;
+  editCurrentItem: (
+    item?: string,
+    pageId?: number,
+    questionId?: number
+  ) => void;
+  setSubType: () => void;
 }

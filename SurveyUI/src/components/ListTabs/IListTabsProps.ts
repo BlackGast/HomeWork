@@ -17,4 +17,7 @@ export interface IListTabsProps {
   editCurrentRequiredItem: () => void;
   setItemSurvey: () => void;
   parseStrToSurvey: () => void;
+  selectDefaultDesignPage:() => void;
+  setSubType:() => void;
+  swapQuestion:() => void;
 }

@@ -3,9 +3,11 @@ import { DefaultButton, IContextualMenuProps } from "@fluentui/react";
 import {
   calendar,
   checkBox,
+  dropdown,
   radioBtn,
   ratingStar,
   textDocument,
+  thumbnailView,
 } from "../IProps/IIconProps";
 import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { IButtonAddQuestionProps } from "./IButtonAddQuestionProps";
@@ -77,6 +79,24 @@ export class ButtonAddQuestion extends React.Component<
         iconProps: ratingStar,
         onClick: () => {
           this.addQuest("Number");
+        },
+      },
+      {
+        id: "Dropdown",
+        key: "dropdownQuestion",
+        text: "Dropdown",
+        iconProps: dropdown,
+        onClick: () => {
+          this.addQuest("Dropdown");
+        },
+      },
+      {
+        id: "Ranging",
+        key: "rangingQuestion",
+        text: "Ranging",
+        iconProps: thumbnailView,
+        onClick: () => {
+          this.addQuest("Ranging");
         },
       },
     ],

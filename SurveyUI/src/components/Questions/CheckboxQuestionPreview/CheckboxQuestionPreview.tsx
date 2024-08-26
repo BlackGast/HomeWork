@@ -2,22 +2,43 @@ import React from "react";
 import { ICheckboxQuestionPreviewProps } from "./ICheckboxQuestionPreviewProps";
 import { Checkbox, Label, Stack } from "@fluentui/react";
 import { IChoice } from "../../../../../SurveyCore/src/model/formElements/IChoice";
+import { QuestionChoice } from "../../../../../SurveyCore/src/Survey/Question/QuestionChoice";
 
 export class CheckboxQuestionPreview extends React.Component<ICheckboxQuestionPreviewProps> {
   private questions =
     this.props.survey.pages[this.props.pageId].panels[0].questions[
-      this.props.id
-    ];
+    this.props.id
+    ] as QuestionChoice;
+  private items: IChoice[] = this.questions.getValue();
   private answerPool: string[] = [];
   private outputSelects(): React.ReactNode {
-    const elementsPool: IChoice[] = this.questions.getValue() as IChoice[];
+    const elementsPool: IChoice[] = this.questions.getValue();
+    let answer: boolean[] = [];
+    let str: string[] = [];
+    this.props.easyModel.answer.forEach((item) => {
+      if (this.props.idStr === item.id) {
+        str = item.answer.split(',');
+      }
+    });
+
+    for (const _element of this.items) {
+      answer.push(false);
+    }
+    this.items.forEach((element, indexElement) => {
+      str.forEach((item,) => {
+        if (item === element.title) {
+          answer[indexElement] = true;
+        };
+      })
+    });
     const stackTokens = { childrenGap: 10 };
     return (
       <Stack tokens={stackTokens} style={{ paddingLeft: "10px" }}>
-        {elementsPool.map((element: IChoice) => (
+        {elementsPool.map((element: IChoice, index) => (
           <Checkbox
             key={element.id}
             label={element.title}
+            defaultChecked={answer[index]}
             onChange={() => {
               let redactor: boolean = false;
               this.props.answerModel.answer.map((item) => {

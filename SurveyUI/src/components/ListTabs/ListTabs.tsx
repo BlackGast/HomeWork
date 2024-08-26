@@ -5,10 +5,11 @@ import { PageEditorJson } from "../PageEditorJson/PageEditorJson";
 import { PagePreviewSurvey } from "../PagePreviewSurvey/PagePreviewSurvey";
 import { IListTabsProps } from "./IListTabsProps";
 import { ISurveyModel } from "../../../../SurveyCore/src/model/ISurveyModel";
+import { IListTabsState } from "./IListTabsState";
 
 export class ListTabs extends React.Component<
   IListTabsProps,
-  { selectedKey: string }
+  IListTabsState
 > {
   constructor(props: IListTabsProps) {
     super(props);
@@ -18,6 +19,12 @@ export class ListTabs extends React.Component<
     };
   }
   private downloadJSON(obj: ISurveyModel, name: string): void {
+    // const fs = require('fs');
+    // let rawData = fs.readFileSync('../question.json');
+    // let parsedData= JSON.parse(rawData);
+    // parsedData.push(obj);
+    // let data = JSON.stringify(parsedData);
+    // fs.writeFileSync(`${name}.json`, data);
     const dataUri =
       "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
     const anchorElement = document.createElement("a");
@@ -106,6 +113,9 @@ export class ListTabs extends React.Component<
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             editCurrentRequiredItem={this.props.editCurrentRequiredItem}
             setItemSurvey={this.props.setItemSurvey}
+            selectDefaultDesignPage={this.props.selectDefaultDesignPage}
+            setSubType={this.props.setSubType}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "previewPage":

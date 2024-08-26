@@ -8,6 +8,10 @@ export class PageDesignerSurvey extends React.Component<
   IPageDesignerSurveyProps,
   IPageDesignerSurveyState
 > {
+  componentDidMount(): void {
+    this.props.selectDefaultDesignPage();
+  }
+
   public render(): React.ReactNode {
     if (this.props.survey.pages.length === 0) {
       return (
@@ -20,6 +24,7 @@ export class PageDesignerSurvey extends React.Component<
             addPage={this.props.addPage}
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            swapQuestion={this.props.swapQuestion}
           />
         </div>
       );
@@ -36,6 +41,7 @@ export class PageDesignerSurvey extends React.Component<
               editCurrentItem={this.props.editCurrentItem}
               editCurrentPropertyItem={this.props.editCurrentPropertyItem}
               currentItem={this.props.currentItem}
+              swapQuestion={this.props.swapQuestion}
             />
           </div>
           <div className="vertical-line" />
@@ -51,6 +57,7 @@ export class PageDesignerSurvey extends React.Component<
               editCurrentRequiredItem={this.props.editCurrentRequiredItem}
               setItemSurvey={this.props.setItemSurvey}
               editCurrentItem={this.props.editCurrentItem}
+              setSubType={this.props.setSubType}
             />
           </div>
         </div>

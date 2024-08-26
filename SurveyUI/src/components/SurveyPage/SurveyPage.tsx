@@ -4,12 +4,14 @@ import { QuestionType } from "../../../../SurveyCore/src/model/QuestionType";
 import { TextQuestion } from "../Questions/TextQuestion/TextQuestion";
 import { CheckboxQuestion } from "../Questions/CheckboxQuestion/CheckboxQuestion";
 import { RadioButtonQuestion } from "../Questions/RadioButtonQuestion/RadioButtonQuestion";
-import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
 import { RatingScaleQuestion } from "../Questions/RatingScaleQuestion/RatingScaleQuestion";
+import { DateQuestion } from "../Questions/DateQuestion/DateQuestion";
+import { DropdownQuestion } from "../Questions/DropdownQuestion/DropdownQuestion";
 import { ButtonAddQuestion } from "../ButtonAddQuestion/ButtonAddQuestion";
 import { ISurveyPageState } from "./ISurveyPageState";
 import { ISurveyPageProps } from "./ISurveyPageProps";
 import { CommandBarProperties } from "../CommandBarProperties/CommandBarProperties";
+import { RangingQuestion } from "../Questions/RangingQuestion/RangingQuestion";
 
 export class SurveyPage extends React.Component<
   ISurveyPageProps,
@@ -31,6 +33,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Select":
@@ -43,6 +46,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Choice":
@@ -55,6 +59,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Date":
@@ -67,6 +72,7 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       case "Number":
@@ -79,12 +85,109 @@ export class SurveyPage extends React.Component<
             editCurrentItem={this.props.editCurrentItem}
             editCurrentPropertyItem={this.props.editCurrentPropertyItem}
             currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
+          />
+        );
+      case "Dropdown":
+        return (
+          <DropdownQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
+          />
+        );
+      case "Ranging":
+        return (
+          <RangingQuestion
+            id={id}
+            pageId={pageId}
+            survey={this.props.survey}
+            deleteQuestion={this.props.deleteQuestion}
+            editCurrentItem={this.props.editCurrentItem}
+            editCurrentPropertyItem={this.props.editCurrentPropertyItem}
+            currentItem={this.props.currentItem}
+            swapQuestion={this.props.swapQuestion}
           />
         );
       default:
         break;
     }
   }
+
+
+  // ============== //
+  private QuestionList(): React.ReactNode {
+    const listElements = document.querySelector(".container_page");
+
+    if (listElements) {
+      listElements.addEventListener(`dragstart`, (event: any) => {
+        event.target.className = "question-item hovered";
+      })
+      listElements.addEventListener(`dragend`, (event: any) => {
+        event.target.className = "question-item";
+      })
+      listElements.addEventListener(`dragover`, (event: any) => {
+        event.preventDefault();
+        const activeElement = listElements.querySelector('.hovered');
+        const currentElement = event.target;
+        const isMoveable = activeElement !== currentElement && currentElement.classList.contains(`question-item`)
+
+        if (!isMoveable) {
+          return;
+        }
+
+        if (activeElement) {
+          const nextElement = (currentElement === activeElement.nextElementSibling) ?
+            currentElement.nextElementSibling :
+            currentElement;
+          listElements.insertBefore(activeElement, nextElement);
+        }
+      })
+
+      const getNextElement = (cursorPosition: any, currentElement: any) => {
+        const currentElementCoord = currentElement.getBoundingClientRect();
+        const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+        const nextElement = (cursorPosition < currentElementCenter) ?
+          currentElement :
+          currentElement.nextElementSibling;
+        return nextElement;
+      };
+
+      listElements.addEventListener(`dragover`, (event: any) => {
+        event.preventDefault();
+
+        const activeElement = listElements.querySelector('.hovered');
+        const currentElement = event.target;
+        const isMoveable = activeElement !== currentElement && currentElement.classList.contains("question-item");
+
+        if (!isMoveable) {
+          return;
+        }
+
+        const nextElement = getNextElement(event.clientX, currentElement);
+
+        if (
+          nextElement &&
+          activeElement === nextElement.previousElementSibling ||
+          activeElement === nextElement
+        ) {
+          return;
+        }
+
+        if (activeElement) {
+          listElements.insertBefore(activeElement, nextElement);
+        }
+      })
+    }
+    return<></>
+  }
+
+  // ============== //
 
   public render(): React.ReactNode {
     const page = this.props.survey.pages;
@@ -102,6 +205,7 @@ export class SurveyPage extends React.Component<
         </div>
       );
     }
+
     if (page.length !== 0) {
       return (
         <div className="container">
@@ -173,17 +277,19 @@ export class SurveyPage extends React.Component<
                     />
                   </div>
                   {page[indexPage].panels[0].questions.map(
-                    (elements, indexQuestion) => (
+                    (item, indexQuestion) => (
                       <div
-                        className="question-item"
-                        key={elements.id}
-                        id={`${indexQuestion}`}
+                      className="question-item"
+                      key={item.id}
+                      draggable
+                      id={`${indexQuestion}`}
                       >
                         {this.renderQuestion(
-                          elements.type,
+                          item.type,
                           indexQuestion,
                           indexPage
-                        )}
+                          )}
+                        {this.QuestionList()}
                       </div>
                     )
                   )}
